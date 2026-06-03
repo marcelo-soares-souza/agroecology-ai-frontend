@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { api } from "@/services/api";
@@ -8,12 +8,12 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { useAppMutation } from "@/hooks/use-app-mutation";
 
 export function DocumentEditPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const { data: doc, isLoading } = useQuery({
     queryKey: ["document", id],
@@ -33,15 +33,14 @@ export function DocumentEditPage() {
     setInitialized(true);
   }
 
-  const updateMutation = useMutation({
+  const updateMutation = useAppMutation({
     mutationFn: (data: {
       title: string | null;
       authors: string | null;
       url: string | null;
     }) => api.updateDocument(id!, data),
+    invalidateKeys: [["document", id], ["documents"]],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["document", id] });
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
       navigate(`/documents/${id}`);
     },
   });

@@ -2,6 +2,7 @@ interface AuthSession {
   userId: string;
   email: string;
   fullName: string;
+  slug: string;
   roles: string[];
   accessToken: string;
   refreshToken: string;
@@ -68,12 +69,30 @@ function createAuthStore() {
       userId: payload.sub,
       email: email,
       fullName: payload.full_name || email,
+      slug: payload.sub,
       roles: payload.roles || [],
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
       expiresAt: payload.exp * 1000,
     };
+    fetchProfile();
     notify();
+  }
+
+  async function fetchProfile() {
+    if (!session?.accessToken) return;
+    try {
+      const resp = await fetch(`${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/me`, {
+        headers: { Authorization: `Bearer ${session.accessToken}` },
+      });
+      if (resp.ok) {
+        const profile = await resp.json();
+        if (session) {
+          session.slug = profile.slug || session.userId;
+          notify();
+        }
+      }
+    } catch {}
   }
 
   async function register(data: {
@@ -145,6 +164,7 @@ function createAuthStore() {
             userId: payload.sub,
             email: payload.email || "",
             fullName: payload.full_name || "",
+            slug: payload.sub,
             roles: payload.roles || [],
             accessToken: storedToken,
             refreshToken: localStorage.getItem(REFRESH_KEY) || "",
@@ -167,6 +187,7 @@ function createAuthStore() {
                 userId: newPayload.sub,
                 email: newPayload.email || "",
                 fullName: newPayload.full_name || "",
+                slug: newPayload.sub,
                 roles: newPayload.roles || [],
                 accessToken: data.access_token,
                 refreshToken: data.refresh_token,
@@ -185,6 +206,7 @@ function createAuthStore() {
     hasRestoredSession = true;
     isLoading = false;
     notify();
+    fetchProfile();
   }
 
   function isAuthenticated(): boolean {

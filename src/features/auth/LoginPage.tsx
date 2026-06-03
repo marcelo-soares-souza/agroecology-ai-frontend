@@ -64,10 +64,16 @@ export function LoginPage() {
         </form>
         <p className="text-sm text-text-secondary mt-4 text-center">
           Don't have an account?{" "}
-          <Link to="/register" className="text-primary hover:underline">
-            Register
-          </Link>
+          <Link to="/register" className="text-primary hover:underline">Register</Link>
         </p>
+        <div className="flex justify-between mt-2 text-sm">
+          <Link to="/forgot-password" className="text-text-secondary hover:text-primary">
+            Forgot password?
+          </Link>
+          <Link to="/resend-confirmation" className="text-text-secondary hover:text-primary">
+            Resend confirmation
+          </Link>
+        </div>
       </Card>
     </div>
   );

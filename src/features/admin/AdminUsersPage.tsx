@@ -49,8 +49,8 @@ export function AdminUsersPage() {
         <h1 className="text-2xl font-bold text-text-primary">Users</h1>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="lg:col-span-1">
           <QueryResult
             query={query}
             empty={
@@ -139,12 +139,12 @@ export function AdminUsersPage() {
         </div>
 
         {selectedUser && (
-          <Card>
+          <Card padding="lg">
             <h2 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Eye className="h-4 w-4" />
               User Detail
             </h2>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-4 text-base">
               <div>
                 <span className="text-text-secondary block">Name</span>
                 <span className="text-text-primary font-medium">

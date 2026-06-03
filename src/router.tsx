@@ -58,6 +58,22 @@ const AdminUsersPage = lazyPage(
   () => import("./features/admin/AdminUsersPage"),
   "AdminUsersPage",
 );
+const ForgotPasswordPage = lazyPage(
+  () => import("./features/auth/ForgotPasswordPage"),
+  "ForgotPasswordPage",
+);
+const ResetPasswordPage = lazyPage(
+  () => import("./features/auth/ResetPasswordPage"),
+  "ResetPasswordPage",
+);
+const ResendConfirmationPage = lazyPage(
+  () => import("./features/auth/ResendConfirmationPage"),
+  "ResendConfirmationPage",
+);
+const ProfilePage = lazyPage(
+  () => import("./features/auth/ProfilePage"),
+  "ProfilePage",
+);
 
 export const router = createBrowserRouter([
   {
@@ -65,11 +81,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <AuthGuard>
-            <HomePage />
-          </AuthGuard>
-        ),
+        element: <HomePage />,
       },
       {
         path: "/status",
@@ -131,6 +143,10 @@ export const router = createBrowserRouter([
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
       { path: "/confirm-email", element: <ConfirmEmailPage /> },
+      { path: "/forgot-password", element: <ForgotPasswordPage /> },
+      { path: "/reset-password", element: <ResetPasswordPage /> },
+      { path: "/resend-confirmation", element: <ResendConfirmationPage /> },
+      { path: "/profile/:slug", element: <ProfilePage /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },

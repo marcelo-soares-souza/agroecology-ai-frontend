@@ -30,7 +30,7 @@ export function RegisterPage() {
       .getHumanChallenge(locale)
       .then(setChallenge)
       .catch(() => setError("Failed to load challenge"));
-  }, []);
+  }, [locale]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

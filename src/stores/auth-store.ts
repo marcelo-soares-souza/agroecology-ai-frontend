@@ -82,9 +82,12 @@ function createAuthStore() {
   async function fetchProfile() {
     if (!session?.accessToken) return;
     try {
-      const resp = await fetch(`${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/me`, {
-        headers: { Authorization: `Bearer ${session.accessToken}` },
-      });
+      const resp = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/me`,
+        {
+          headers: { Authorization: `Bearer ${session.accessToken}` },
+        },
+      );
       if (resp.ok) {
         const profile = await resp.json();
         if (session) {
@@ -92,7 +95,9 @@ function createAuthStore() {
           notify();
         }
       }
-    } catch {}
+    } catch {
+      // Profile fetch is best-effort, ignore failures
+    }
   }
 
   async function register(data: {

@@ -12,7 +12,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { api } from "@/services/api";
-import { getDownloadUrl } from "@/config/api";
+import { getDownloadUrl, getViewUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -187,7 +187,7 @@ export function DocumentDetailPage() {
       {doc.file_type === "pdf" && (
         <Card padding="none" className="overflow-hidden">
           <iframe
-            src={getDownloadUrl(doc.id)}
+            src={getViewUrl(doc.id)}
             title={doc.filename}
             className="w-full h-[80vh] border-0"
           />

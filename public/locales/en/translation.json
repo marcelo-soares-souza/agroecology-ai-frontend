@@ -35,6 +35,8 @@
   "home": {
     "title": "Agroecology Map AI Chat",
     "placeholder": "Ask a question about agroecology...",
+    "knowledgeBase": "This chat uses the knowledge base documents to answer your questions.",
+    "viewDocuments": "View documents",
     "send": "Send",
     "thinking": "Thinking...",
     "sources": "Sources",

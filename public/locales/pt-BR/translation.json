@@ -35,6 +35,8 @@
   "home": {
     "title": "Chat Agroecológico",
     "placeholder": "Digite sua pergunta sobre agroecologia...",
+    "knowledgeBase": "Este chat utiliza os documentos da base de conhecimento para responder suas perguntas.",
+    "viewDocuments": "Ver documentos",
     "send": "Enviar",
     "thinking": "Pensando...",
     "sources": "Fontes consultadas",

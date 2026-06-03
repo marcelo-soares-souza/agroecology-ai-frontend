@@ -119,6 +119,11 @@ export const api = {
     return resp.json() as Promise<import("./types").HumanChallenge>;
   },
 
+  extractAllMetadata: () =>
+    request<{ message: string }>("/api/v1/documents/extract-all-metadata", {
+      method: "POST",
+    }),
+
   updateDocument: (id: string, data: DocumentUpdateRequest) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`, {
       method: "PUT",

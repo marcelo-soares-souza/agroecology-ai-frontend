@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
@@ -10,6 +11,7 @@ import {
   Plus,
   Loader2,
   Download,
+  Sparkles,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
@@ -45,6 +47,10 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
 export function DocumentListPage() {
   const { t } = useTranslation();
   const { isAdmin } = useAuth();
+  const [extractMsg, setExtractMsg] = useState<{
+    text: string;
+    type: "success" | "info";
+  } | null>(null);
 
   const query = useQuery({
     queryKey: ["documents"],
@@ -56,6 +62,19 @@ export function DocumentListPage() {
     invalidateKeys: [["documents"]],
   });
 
+  const extractAllMutation = useAppMutation({
+    mutationFn: api.extractAllMetadata,
+    invalidateKeys: [["documents"]],
+    onSuccess: (data) => {
+      const msg = (data as { message: string }).message || "";
+      if (msg.startsWith("0 ")) {
+        setExtractMsg({ text: msg, type: "info" });
+      } else {
+        setExtractMsg({ text: msg, type: "success" });
+      }
+    },
+  });
+
   return (
     <div className="space-y-6">
       <div>
@@ -64,17 +83,38 @@ export function DocumentListPage() {
             {t("documents.title")}
           </h1>
           {isAdmin && (
-            <Link to="/upload">
-              <Button>
-                <Plus className="h-4 w-4" />
-                {t("nav.upload")}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="secondary"
+                onClick={() => extractAllMutation.mutate(undefined)}
+                disabled={extractAllMutation.isPending}
+              >
+                {extractAllMutation.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4" />
+                )}
+                Extract All
               </Button>
-            </Link>
+              <Link to="/upload">
+                <Button>
+                  <Plus className="h-4 w-4" />
+                  {t("nav.upload")}
+                </Button>
+              </Link>
+            </div>
           )}
         </div>
         <p className="text-sm text-text-secondary">
           {t("documents.listDescription")}
         </p>
+        {extractMsg && (
+          <p
+            className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-text-secondary"}`}
+          >
+            {extractMsg.text}
+          </p>
+        )}
       </div>
 
       <QueryResult

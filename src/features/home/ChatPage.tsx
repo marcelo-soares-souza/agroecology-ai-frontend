@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Eraser } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eraser, FileText } from "lucide-react";
 import { useChat } from "@/hooks/use-chat";
 import { ChatBox } from "@/components/chat/ChatBox";
 import { ChatMessage } from "@/components/chat/ChatMessage";
@@ -19,7 +20,7 @@ export function ChatPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-2">
         <h1 className="text-2xl font-bold text-text-primary">
           {t("home.title")}
         </h1>
@@ -30,6 +31,16 @@ export function ChatPage() {
           </Button>
         )}
       </div>
+      <p className="text-sm text-text-secondary mb-4 flex items-center gap-1">
+        <FileText className="h-3.5 w-3.5" />
+        {t("home.knowledgeBase")}{" "}
+        <Link
+          to="/documents"
+          className="text-primary hover:underline font-medium"
+        >
+          {t("home.viewDocuments")}
+        </Link>
+      </p>
 
       <div
         ref={scrollRef}

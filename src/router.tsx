@@ -1,6 +1,7 @@
 import { type ComponentType, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppShell } from "./components/layout/AppShell";
+import { AuthGuard } from "./components/AuthGuard";
 
 function lazyPage<T extends Record<string, ComponentType<object>>>(
   loader: () => Promise<T>,
@@ -41,19 +42,95 @@ const AboutPage = lazyPage(
   () => import("./features/about/AboutPage"),
   "AboutPage",
 );
+const LoginPage = lazyPage(
+  () => import("./features/auth/LoginPage"),
+  "LoginPage",
+);
+const RegisterPage = lazyPage(
+  () => import("./features/auth/RegisterPage"),
+  "RegisterPage",
+);
+const ConfirmEmailPage = lazyPage(
+  () => import("./features/auth/ConfirmEmailPage"),
+  "ConfirmEmailPage",
+);
+const AdminUsersPage = lazyPage(
+  () => import("./features/admin/AdminUsersPage"),
+  "AdminUsersPage",
+);
 
 export const router = createBrowserRouter([
   {
     element: <AppShell />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/status", element: <StatusPage /> },
-      { path: "/documents", element: <DocumentListPage /> },
-      { path: "/documents/:id", element: <DocumentDetailPage /> },
-      { path: "/documents/:id/edit", element: <DocumentEditPage /> },
-      { path: "/upload", element: <DocumentUploadPage /> },
-      { path: "/ingestion", element: <IngestionPage /> },
+      {
+        path: "/",
+        element: (
+          <AuthGuard>
+            <HomePage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/status",
+        element: (
+          <AuthGuard>
+            <StatusPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/documents",
+        element: (
+          <AuthGuard>
+            <DocumentListPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/documents/:id",
+        element: (
+          <AuthGuard>
+            <DocumentDetailPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/documents/:id/edit",
+        element: (
+          <AuthGuard roles={["admin"]}>
+            <DocumentEditPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/upload",
+        element: (
+          <AuthGuard roles={["admin"]}>
+            <DocumentUploadPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/ingestion",
+        element: (
+          <AuthGuard roles={["admin"]}>
+            <IngestionPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "/admin/users",
+        element: (
+          <AuthGuard roles={["admin"]}>
+            <AdminUsersPage />
+          </AuthGuard>
+        ),
+      },
       { path: "/about", element: <AboutPage /> },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
+      { path: "/confirm-email", element: <ConfirmEmailPage /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },

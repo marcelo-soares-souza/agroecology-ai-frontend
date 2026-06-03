@@ -22,14 +22,20 @@ class ApiError extends Error {
 }
 
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
+  const token = localStorage.getItem("agroecology_access_token");
+  const headers: Record<string, string> = {
+    ...(options?.body instanceof FormData
+      ? {}
+      : { "Content-Type": "application/json" }),
+    ...((options?.headers as Record<string, string>) || {}),
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${API_BASE_URL}${url}`, {
-    headers: {
-      ...(options?.body instanceof FormData
-        ? {}
-        : { "Content-Type": "application/json" }),
-      ...options?.headers,
-    },
     ...options,
+    headers,
   });
 
   if (!response.ok) {
@@ -90,6 +96,28 @@ export const api = {
     request<DocumentRecord>(`/api/v1/documents/${id}/extract-metadata`, {
       method: "POST",
     }),
+
+  listUsers: () =>
+    request<import("./types").UserRecord[]>("/api/v1/admin/users"),
+  getUser: (id: string) =>
+    request<import("./types").UserRecord>(`/api/v1/admin/users/${id}`),
+  updateUser: (id: string, data: Record<string, string | null>) =>
+    request<import("./types").UserRecord>(`/api/v1/admin/users/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+  deleteUser: (id: string) =>
+    request<{ message: string }>(`/api/v1/admin/users/${id}`, {
+      method: "DELETE",
+    }),
+
+  getHumanChallenge: async (locale = "pt-BR") => {
+    const resp = await fetch(
+      `${API_BASE_URL}/api/v1/auth/human-challenge?locale=${locale}`,
+    );
+    if (!resp.ok) throw new ApiError("Failed to get challenge", resp.status);
+    return resp.json() as Promise<import("./types").HumanChallenge>;
+  },
 
   updateDocument: (id: string, data: DocumentUpdateRequest) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`, {

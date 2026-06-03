@@ -8,8 +8,13 @@ import {
   RefreshCw,
   Info,
   X,
+  LogIn,
+  LogOut,
+  UserPlus,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useAuth } from "@/hooks/use-auth";
 
 interface SidebarProps {
   open: boolean;
@@ -19,6 +24,7 @@ interface SidebarProps {
 export function Sidebar({ open, onClose }: SidebarProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isAuthenticated, isAdmin, hasRestoredSession, logout } = useAuth();
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
@@ -34,6 +40,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     </div>
   );
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+    onClose();
+  };
+
   return (
     <>
       {open && (
@@ -45,7 +57,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed top-0 left-0 z-50 h-full w-72 bg-sidebar flex flex-col transition-transform duration-250 ease-in-out",
+          "fixed top-0 left-0 z-50 h-full w-72 bg-sidebar flex flex-col transition-transform duration-200 ease-in-out",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -71,34 +83,68 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-0.5">
-          <NavLink to="/" end className={linkClass} onClick={onClose}>
-            <Home className="h-4 w-4" />
-            {t("nav.home")}
-          </NavLink>
+          {hasRestoredSession && !isAuthenticated ? (
+            <>
+              <NavLink to="/login" className={linkClass} onClick={onClose}>
+                <LogIn className="h-4 w-4" />
+                Login
+              </NavLink>
+              <NavLink to="/register" className={linkClass} onClick={onClose}>
+                <UserPlus className="h-4 w-4" />
+                Register
+              </NavLink>
+            </>
+          ) : isAuthenticated ? (
+            <>
+              <NavLink to="/" end className={linkClass} onClick={onClose}>
+                <Home className="h-4 w-4" />
+                {t("nav.home")}
+              </NavLink>
 
-          <NavLink to="/status" className={linkClass} onClick={onClose}>
-            <Activity className="h-4 w-4" />
-            {t("nav.status")}
-          </NavLink>
+              <NavLink to="/status" className={linkClass} onClick={onClose}>
+                <Activity className="h-4 w-4" />
+                {t("nav.status")}
+              </NavLink>
 
-          {sectionLabel(t("nav.documents"))}
+              {sectionLabel(t("nav.documents"))}
 
-          <NavLink to="/documents" className={linkClass} onClick={onClose}>
-            <FileText className="h-4 w-4" />
-            {t("nav.documents")}
-          </NavLink>
+              <NavLink to="/documents" className={linkClass} onClick={onClose}>
+                <FileText className="h-4 w-4" />
+                {t("nav.documents")}
+              </NavLink>
 
-          <NavLink to="/upload" className={linkClass} onClick={onClose}>
-            <Upload className="h-4 w-4" />
-            {t("nav.upload")}
-          </NavLink>
+              {isAdmin && (
+                <>
+                  <NavLink to="/upload" className={linkClass} onClick={onClose}>
+                    <Upload className="h-4 w-4" />
+                    {t("nav.upload")}
+                  </NavLink>
 
-          {sectionLabel(t("nav.ingestion"))}
+                  {sectionLabel(t("nav.ingestion"))}
 
-          <NavLink to="/ingestion" className={linkClass} onClick={onClose}>
-            <RefreshCw className="h-4 w-4" />
-            {t("nav.ingestion")}
-          </NavLink>
+                  <NavLink
+                    to="/ingestion"
+                    className={linkClass}
+                    onClick={onClose}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                    {t("nav.ingestion")}
+                  </NavLink>
+
+                  {sectionLabel("Admin")}
+
+                  <NavLink
+                    to="/admin/users"
+                    className={linkClass}
+                    onClick={onClose}
+                  >
+                    <Users className="h-4 w-4" />
+                    Users
+                  </NavLink>
+                </>
+              )}
+            </>
+          ) : null}
 
           <div className="flex-1" />
 
@@ -107,6 +153,18 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             {t("nav.about")}
           </NavLink>
         </nav>
+
+        {isAuthenticated && (
+          <div className="border-t border-primary-100 p-3">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base w-full text-red-500 hover:bg-red-50 transition-colors"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </button>
+          </div>
+        )}
       </aside>
     </>
   );

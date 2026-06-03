@@ -102,3 +102,22 @@ export interface ChatMessage {
   status: "sending" | "thinking" | "done" | "error";
   error?: string;
 }
+
+export interface UserRecord {
+  id: string;
+  email: string;
+  full_name: string;
+  status: string;
+  slug: string;
+  locale: string;
+  roles: string[];
+  email_confirmed_at: string | null;
+  last_login_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface HumanChallenge {
+  challenge_id: string;
+  question: string;
+}

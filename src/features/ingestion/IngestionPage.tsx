@@ -29,8 +29,13 @@ export function IngestionPage() {
   const { t } = useTranslation();
 
   const triggerMutation = useAppMutation({
-    mutationFn: api.triggerIngestion,
-    invalidateKeys: [["ingestion-status"], ["ingestion-runs"]],
+    mutationFn: () => api.triggerIngestion(false),
+    invalidateKeys: [["ingestion-status"], ["ingestion-runs"], ["server-status"]],
+  });
+
+  const forceMutation = useAppMutation({
+    mutationFn: () => api.triggerIngestion(true),
+    invalidateKeys: [["ingestion-status"], ["ingestion-runs"], ["server-status"]],
   });
 
   const { data: ingestStatus, isLoading: statusLoading } = useQuery({
@@ -43,8 +48,17 @@ export function IngestionPage() {
     },
   });
 
+  const { data: serverStatus } = useQuery({
+    queryKey: ["server-status"],
+    queryFn: api.getStatus,
+    refetchInterval: 5000,
+    staleTime: 0,
+  });
+
+  const pendingDocs = serverStatus?.pending_docs ?? 0;
+
   const isProcessing =
-    ingestStatus?.status === "processing" || triggerMutation.isPending;
+    ingestStatus?.status === "processing" || triggerMutation.isPending || forceMutation.isPending;
 
   return (
     <div className="space-y-6">
@@ -68,20 +82,41 @@ export function IngestionPage() {
               {t("ingestion.trigger")}
             </p>
 
-            <Button
-              size="lg"
-              onClick={() => triggerMutation.mutate()}
-              disabled={isProcessing}
-            >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  {t("ingestion.processing")}
-                </>
-              ) : (
-                t("ingestion.trigger")
-              )}
-            </Button>
+            <div className="flex gap-3">
+              <Button
+                size="lg"
+                onClick={() => triggerMutation.mutate(undefined)}
+                disabled={isProcessing}
+              >
+                {isProcessing ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    {t("ingestion.processing")}
+                  </>
+                ) : (
+                  t("ingestion.trigger")
+                )}
+              </Button>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={() => forceMutation.mutate(undefined)}
+                disabled={isProcessing}
+              >
+                Force Rebuild
+              </Button>
+            </div>
+
+            {!isProcessing && pendingDocs === 0 && !statusLoading && (
+              <p className="text-success text-sm mt-2">
+                All documents have already been processed.
+              </p>
+            )}
+            {!isProcessing && pendingDocs > 0 && (
+              <p className="text-text-secondary text-sm mt-2">
+                {pendingDocs} pending document{pendingDocs !== 1 ? "s" : ""}.
+              </p>
+            )}
           </div>
 
           {ingestStatus && ingestStatus.status !== "idle" && !statusLoading && (

@@ -101,6 +101,9 @@ export function DocumentListPage() {
                       >
                         {doc.file_type.toUpperCase()}
                       </Badge>
+                      <Badge variant={doc.ingested ? "success" : "warning"}>
+                        {doc.ingested ? "Indexed" : "Pending"}
+                      </Badge>
                       <span>{formatFileSize(doc.file_size)}</span>
                       <span>{formatDate(doc.created_at)}</span>
                     </div>

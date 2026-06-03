@@ -52,10 +52,11 @@ export const api = {
 
   getStatus: () => request<ServerStatus>("/api/v1/status"),
 
-  triggerIngestion: () =>
-    request<IngestTriggerResponse>("/api/v1/ingest", {
-      method: "POST",
-    }),
+  triggerIngestion: (force = false) =>
+    request<IngestTriggerResponse>(
+      `/api/v1/ingest${force ? "?force=true" : ""}`,
+      { method: "POST" },
+    ),
 
   getIngestionStatus: () =>
     request<IngestStatusResponse>("/api/v1/ingest/status"),

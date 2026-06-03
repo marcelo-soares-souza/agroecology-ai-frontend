@@ -34,6 +34,7 @@ export interface ServerStatus {
   active_tasks: number;
   cache_enabled: boolean;
   cache_hits: number;
+  pending_docs: number;
   last_ingestion: IngestionRun | null;
 }
 
@@ -65,6 +66,7 @@ export interface DocumentRecord {
   file_type: string;
   file_size: number;
   directory: string;
+  ingested: boolean;
   created_at: string;
   updated_at: string;
 }

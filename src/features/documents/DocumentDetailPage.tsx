@@ -113,6 +113,9 @@ export function DocumentDetailPage() {
           <div className="flex flex-wrap gap-3">
             <Badge variant="default">{doc.file_type.toUpperCase()}</Badge>
             <Badge variant="info">{formatFileSize(doc.file_size)}</Badge>
+            <Badge variant={doc.ingested ? "success" : "warning"}>
+              {doc.ingested ? "Indexed" : "Pending"}
+            </Badge>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 mt-4">
@@ -148,7 +151,7 @@ export function DocumentDetailPage() {
             </div>
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Clock className="h-4 w-4" />
-              {formatDate(doc.updated_at)}
+              {t("documents.updatedAt")}: {formatDate(doc.updated_at)}
             </div>
           </div>
         </div>

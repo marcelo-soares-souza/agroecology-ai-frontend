@@ -1,6 +1,6 @@
 import { useState, useRef, type DragEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Upload,
   X,
@@ -42,15 +42,6 @@ export function DocumentUploadPage() {
     skipped: SkippedFile[];
   } | null>(null);
 
-  const { data: existingDocs } = useQuery({
-    queryKey: ["documents"],
-    queryFn: api.listDocuments,
-  });
-
-  const existingFilenames = new Set(
-    (existingDocs || []).map((d) => d.filename.toLowerCase()),
-  );
-
   const uploadMutation = useMutation({
     mutationFn: (data: {
       files: File[];
@@ -64,6 +55,7 @@ export function DocumentUploadPage() {
       setAuthors("");
       setUrl("");
       queryClient.invalidateQueries({ queryKey: ["documents"] });
+      queryClient.invalidateQueries({ queryKey: ["server-status"] });
     },
   });
 
@@ -80,14 +72,6 @@ export function DocumentUploadPage() {
         rejected.push({
           name: f.name,
           reason: t("documents.rejectedDuplicate"),
-        });
-        continue;
-      }
-
-      if (existingFilenames.has(nameLower)) {
-        rejected.push({
-          name: f.name,
-          reason: t("documents.rejectedAlreadyUploaded"),
         });
         continue;
       }

@@ -15,6 +15,7 @@ export interface SourceChunk {
     source: string;
     chunk_index: number;
     search_type: string;
+    title?: string;
   };
 }
 

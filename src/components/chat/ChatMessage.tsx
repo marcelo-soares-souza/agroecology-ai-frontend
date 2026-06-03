@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { User, Bot, Loader2, AlertCircle } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/cn";
 import type { ChatMessage as ChatMessageType } from "@/services/types";
 import { SourceCard } from "./SourceCard";
@@ -41,9 +43,17 @@ export function ChatMessage({ message }: ChatMessageProps) {
           </div>
         ) : (
           <>
-            <p className="text-text-primary whitespace-pre-wrap text-base leading-relaxed">
-              {message.content}
-            </p>
+            {isUser ? (
+              <p className="text-text-primary whitespace-pre-wrap text-base leading-relaxed">
+                {message.content}
+              </p>
+            ) : (
+              <div className="markdown-body text-text-primary">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {message.content}
+                </ReactMarkdown>
+              </div>
+            )}
             {message.sources && message.sources.length > 0 && (
               <div className="mt-3">
                 <p className="text-sm font-medium text-text-secondary mb-2">

@@ -5,6 +5,7 @@ interface SourceCardProps {
 }
 
 export function SourceCard({ source }: SourceCardProps) {
+  const displayName = source.metadata.title || source.metadata.source;
   const badgeColor =
     source.metadata.search_type === "vector"
       ? "bg-blue-100 text-blue-700"
@@ -14,7 +15,7 @@ export function SourceCard({ source }: SourceCardProps) {
     <div className="rounded-[var(--radius-input)] border border-primary-200 bg-primary-50/50 px-3 py-2 text-sm max-w-xs">
       <p className="text-text-primary line-clamp-3 mb-1">{source.text}</p>
       <div className="flex items-center gap-2 text-xs text-text-secondary">
-        <span className="truncate">{source.metadata.source}</span>
+        <span className="truncate">{displayName}</span>
         <span
           className={`rounded-full px-1.5 py-0.5 font-medium ${badgeColor}`}
         >

@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "title": "Agroecology Chat",
+    "title": "Agroecology Map AI Chat",
     "placeholder": "Ask a question about agroecology...",
     "send": "Send",
     "thinking": "Thinking...",
@@ -110,7 +110,7 @@
   },
   "about": {
     "title": "About",
-    "description": "Agroecology AI is a question-answering platform based on artificial intelligence for the agroecology domain. Upload documents, ingest knowledge, and ask questions about agroecological practices, sustainable management, biodiversity, and more.",
+    "description": "Agroecology Map AI is a question-answering platform based on artificial intelligence for the agroecology domain. Upload documents, ingest knowledge, and ask questions about agroecological practices, sustainable management, biodiversity, and more.",
     "techStack": "Technologies",
     "frontend": "Frontend: React 19 + TypeScript + Tailwind CSS + Vite",
     "backend": "Backend: FastAPI + PostgreSQL + LanceDB + DeepSeek",

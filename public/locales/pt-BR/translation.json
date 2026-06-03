@@ -110,7 +110,7 @@
   },
   "about": {
     "title": "Sobre",
-    "description": "Agroecology AI é uma plataforma de perguntas e respostas baseada em inteligência artificial para o domínio da agroecologia. Envie documentos, faça a ingestão do conhecimento e faça perguntas sobre práticas agroecológicas, manejo sustentável, biodiversidade e muito mais.",
+    "description": "Agroecology Map AI é uma plataforma de perguntas e respostas baseada em inteligência artificial para o domínio da agroecologia. Envie documentos, faça a ingestão do conhecimento e faça perguntas sobre práticas agroecológicas, manejo sustentável, biodiversidade e muito mais.",
     "techStack": "Tecnologias",
     "frontend": "Frontend: React 19 + TypeScript + Tailwind CSS + Vite",
     "backend": "Backend: FastAPI + PostgreSQL + LanceDB + DeepSeek",

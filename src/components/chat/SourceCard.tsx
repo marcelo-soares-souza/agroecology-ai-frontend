@@ -5,7 +5,9 @@ interface SourceCardProps {
 }
 
 export function SourceCard({ source }: SourceCardProps) {
-  const displayName = source.metadata.title || source.metadata.source;
+  const displayName = source.metadata.title
+    ? `Source: ${source.metadata.title}`
+    : source.metadata.source;
   const badgeColor =
     source.metadata.search_type === "vector"
       ? "bg-blue-100 text-blue-700"

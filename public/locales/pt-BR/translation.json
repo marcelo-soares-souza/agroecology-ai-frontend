@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Agroecology AI",
+    "name": "Agroecology Map AI",
     "tagline": "Inteligência Artificial para Agroecologia"
   },
   "nav": {
@@ -8,7 +8,7 @@
     "status": "Status do Servidor",
     "documents": "Documentos",
     "upload": "Enviar Arquivos",
-    "ingestion": "Indexação",
+    "ingestion": "Ingestão",
     "about": "Sobre"
   },
   "common": {
@@ -26,6 +26,7 @@
     "close": "Fechar",
     "search": "Buscar",
     "noResults": "Nenhum resultado encontrado",
+    "download": "Download",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English"
@@ -45,6 +46,7 @@
     "uploadTitle": "Enviar Documentos",
     "dragDrop": "Arraste e solte arquivos aqui ou clique para selecionar",
     "supportedFormats": "Formatos aceitos: PDF, Markdown (até 50 MB)",
+    "extensionsNote": "Extensões aceitas: .pdf, .md (até 50 MB)",
     "uploading": "Enviando...",
     "upload": "Enviar",
     "uploadSuccess": "Arquivos enviados com sucesso",
@@ -59,25 +61,46 @@
     "titleField": "Título",
     "authorsField": "Autores",
     "urlField": "URL",
+    "titlePlaceholder": "Título do documento",
+    "authorsPlaceholder": "Autores",
     "updateSuccess": "Metadados atualizados com sucesso",
     "skipped": "Arquivos ignorados",
-    "empty": "Nenhum documento enviado ainda."
+    "empty": "Nenhum documento enviado ainda.",
+    "metadataOptional": "Metadados (opcional)",
+    "selected_one": "{{count}} arquivo selecionado",
+    "selected_other": "{{count}} arquivos selecionados",
+    "rejectedTitle_one": "{{count}} arquivo rejeitado",
+    "rejectedTitle_other": "{{count}} arquivos rejeitados",
+    "rejectedDuplicate": "já adicionado",
+    "rejectedAlreadyUploaded": "arquivo já enviado anteriormente",
+    "rejectedExtension": "extensão \"{{ext}}\" não suportada",
+    "rejectedNoExtension": "arquivo sem extensão",
+    "rejectedEmpty": "arquivo vazio",
+    "rejectedTooLarge": "arquivo excede 50 MB ({{size}} MB)"
   },
   "ingestion": {
-    "title": "Indexação de Documentos",
-    "trigger": "Iniciar Indexação",
-    "processing": "Indexando documentos...",
-    "done": "Indexação concluída",
-    "error": "Erro na indexação",
-    "idle": "Nenhuma indexação em andamento",
-    "alreadyRunning": "Uma indexação já está em andamento",
+    "title": "Ingestão de Documentos",
+    "trigger": "Iniciar Ingestão",
+    "processing": "Ingerindo documentos...",
+    "done": "Ingestão concluída",
+    "error": "Erro na ingestão",
+    "idle": "Nenhuma ingestão em andamento",
+    "alreadyRunning": "Uma ingestão já está em andamento",
     "chunksIndexed": "{{count}} fragmentos indexados",
-    "status": "Status"
+    "status": "Status",
+    "history": "Histórico de Execuções",
+    "emptyHistory": "Nenhuma ingestão registrada ainda.",
+    "completed": "Concluído",
+    "errorLabel": "Erro",
+    "processingLabel": "Processando",
+    "started": "Início",
+    "finished": "Fim",
+    "chunks": "chunks"
   },
   "status": {
     "title": "Status do Servidor",
     "indexReady": "Índice Pronto",
-    "ingestStatus": "Status da Indexação",
+    "ingestStatus": "Status da Ingestão",
     "chunksIndexed": "Fragmentos Indexados",
     "activeTasks": "Tarefas Ativas",
     "cacheEnabled": "Cache Ativo",
@@ -87,7 +110,7 @@
   },
   "about": {
     "title": "Sobre",
-    "description": "Agroecology AI é uma plataforma de perguntas e respostas baseada em inteligência artificial para o domínio da agroecologia. Envie documentos, indexe conhecimento e faça perguntas sobre práticas agroecológicas, manejo sustentável, biodiversidade e muito mais.",
+    "description": "Agroecology AI é uma plataforma de perguntas e respostas baseada em inteligência artificial para o domínio da agroecologia. Envie documentos, faça a ingestão do conhecimento e faça perguntas sobre práticas agroecológicas, manejo sustentável, biodiversidade e muito mais.",
     "techStack": "Tecnologias",
     "frontend": "Frontend: React 19 + TypeScript + Tailwind CSS + Vite",
     "backend": "Backend: FastAPI + PostgreSQL + LanceDB + DeepSeek",

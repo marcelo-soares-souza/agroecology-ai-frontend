@@ -1,6 +1,6 @@
 import { useState, useRef, type DragEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Upload,
   X,
@@ -12,6 +12,7 @@ import {
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
 import type { UploadedFile, SkippedFile } from "@/services/types";
 
@@ -30,6 +31,9 @@ export function DocumentUploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [dragOver, setDragOver] = useState(false);
+  const [title, setTitle] = useState("");
+  const [authors, setAuthors] = useState("");
+  const [url, setUrl] = useState("");
   const [rejectedFiles, setRejectedFiles] = useState<
     { name: string; reason: string }[]
   >([]);
@@ -38,12 +42,25 @@ export function DocumentUploadPage() {
     skipped: SkippedFile[];
   } | null>(null);
 
+  const { data: existingDocs } = useQuery({
+    queryKey: ["documents"],
+    queryFn: api.listDocuments,
+  });
+
+  const existingFilenames = new Set(
+    (existingDocs || []).map((d) => d.filename.toLowerCase()),
+  );
+
   const uploadMutation = useMutation({
-    mutationFn: api.uploadDocuments,
+    mutationFn: (data: { files: File[]; metadata?: { title?: string; authors?: string; url?: string } }) =>
+      api.uploadDocuments(data.files, data.metadata),
     onSuccess: (data) => {
       setResults(data);
       setFiles([]);
       setRejectedFiles([]);
+      setTitle("");
+      setAuthors("");
+      setUrl("");
       queryClient.invalidateQueries({ queryKey: ["documents"] });
     },
   });
@@ -52,33 +69,47 @@ export function DocumentUploadPage() {
     const arr = Array.from(newFiles);
     const valid: File[] = [];
     const rejected: { name: string; reason: string }[] = [];
+    const selectedNames = new Set(files.map((f) => f.name.toLowerCase()));
 
     for (const f of arr) {
+      const nameLower = f.name.toLowerCase();
+
+      if (selectedNames.has(nameLower)) {
+        rejected.push({ name: f.name, reason: t("documents.rejectedDuplicate") });
+        continue;
+      }
+
+      if (existingFilenames.has(nameLower)) {
+        rejected.push({ name: f.name, reason: t("documents.rejectedAlreadyUploaded") });
+        continue;
+      }
+
       const ext = getFileExtension(f.name);
 
       if (!ALLOWED_EXTENSIONS.includes(ext)) {
         rejected.push({
           name: f.name,
           reason: ext
-            ? `extensão "${ext}" não suportada`
-            : "arquivo sem extensão",
+            ? t("documents.rejectedExtension", { ext })
+            : t("documents.rejectedNoExtension"),
         });
         continue;
       }
 
       if (f.size === 0) {
-        rejected.push({ name: f.name, reason: "arquivo vazio" });
+        rejected.push({ name: f.name, reason: t("documents.rejectedEmpty") });
         continue;
       }
 
       if (f.size > MAX_FILE_SIZE) {
         rejected.push({
           name: f.name,
-          reason: `arquivo excede 50 MB (${(f.size / 1024 / 1024).toFixed(1)} MB)`,
+          reason: t("documents.rejectedTooLarge", { size: (f.size / 1024 / 1024).toFixed(1) }),
         });
         continue;
       }
 
+      selectedNames.add(nameLower);
       valid.push(f);
     }
 
@@ -103,7 +134,11 @@ export function DocumentUploadPage() {
 
   const handleSubmit = () => {
     if (files.length === 0) return;
-    uploadMutation.mutate(files);
+    const metadata: { title?: string; authors?: string; url?: string } = {};
+    if (title.trim()) metadata.title = title.trim();
+    if (authors.trim()) metadata.authors = authors.trim();
+    if (url.trim()) metadata.url = url.trim();
+    uploadMutation.mutate({ files, metadata: Object.keys(metadata).length > 0 ? metadata : undefined });
   };
 
   const formatSize = (bytes: number) => {
@@ -139,7 +174,7 @@ export function DocumentUploadPage() {
           {t("documents.supportedFormats")}
         </p>
         <p className="text-text-secondary/60 text-xs mt-1">
-          Extensões aceitas: .pdf, .md (até 50 MB)
+          {t("documents.extensionsNote")}
         </p>
         <input
           ref={fileInputRef}
@@ -156,9 +191,7 @@ export function DocumentUploadPage() {
           <div className="flex items-center gap-2 mb-3">
             <AlertCircle className="h-5 w-5 text-warning" />
             <h2 className="font-semibold text-text-primary">
-              {rejectedFiles.length} arquivo
-              {rejectedFiles.length > 1 ? "s" : ""} rejeitado
-              {rejectedFiles.length > 1 ? "s" : ""}
+              {t("documents.rejectedTitle", { count: rejectedFiles.length })}
             </h2>
           </div>
           <div className="space-y-1">
@@ -186,8 +219,7 @@ export function DocumentUploadPage() {
       {files.length > 0 && (
         <Card>
           <h2 className="font-semibold text-text-primary mb-3">
-            {files.length} arquivo{files.length > 1 ? "s" : ""} selecionado
-            {files.length > 1 ? "s" : ""}
+            {t("documents.selected", { count: files.length })}
           </h2>
           <div className="space-y-2 mb-4">
             {files.map((file) => (
@@ -216,6 +248,44 @@ export function DocumentUploadPage() {
               </div>
             ))}
           </div>
+
+          <div className="space-y-3 mb-4 pt-3 border-t border-primary-100">
+            <p className="text-sm font-medium text-text-secondary">
+              {t("documents.metadataOptional")}
+            </p>
+            <div>
+              <label className="block text-sm text-text-secondary mb-1">
+                {t("documents.titleField")}
+              </label>
+              <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={t("documents.titlePlaceholder")}
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-text-secondary mb-1">
+                {t("documents.authorsField")}
+              </label>
+              <Input
+                value={authors}
+                onChange={(e) => setAuthors(e.target.value)}
+                placeholder={t("documents.authorsPlaceholder")}
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-text-secondary mb-1">
+                {t("documents.urlField")}
+              </label>
+              <Input
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                type="url"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+
           <Button
             onClick={handleSubmit}
             disabled={uploadMutation.isPending}

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Agroecology AI",
+    "name": "Agroecology Map AI",
     "tagline": "Artificial Intelligence for Agroecology"
   },
   "nav": {
@@ -26,6 +26,7 @@
     "close": "Close",
     "search": "Search",
     "noResults": "No results found",
+    "download": "Download",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English"
@@ -45,6 +46,7 @@
     "uploadTitle": "Upload Documents",
     "dragDrop": "Drag and drop files here or click to select",
     "supportedFormats": "Accepted formats: PDF, Markdown (up to 50 MB)",
+    "extensionsNote": "Accepted extensions: .pdf, .md (up to 50 MB)",
     "uploading": "Uploading...",
     "upload": "Upload",
     "uploadSuccess": "Files uploaded successfully",
@@ -59,20 +61,41 @@
     "titleField": "Title",
     "authorsField": "Authors",
     "urlField": "URL",
+    "titlePlaceholder": "Document title",
+    "authorsPlaceholder": "Authors",
     "updateSuccess": "Metadata updated successfully",
     "skipped": "Skipped files",
-    "empty": "No documents uploaded yet."
+    "empty": "No documents uploaded yet.",
+    "metadataOptional": "Metadata (optional)",
+    "selected_one": "{{count}} file selected",
+    "selected_other": "{{count}} files selected",
+    "rejectedTitle_one": "{{count}} file rejected",
+    "rejectedTitle_other": "{{count}} files rejected",
+    "rejectedDuplicate": "already added",
+    "rejectedAlreadyUploaded": "file already uploaded",
+    "rejectedExtension": "unsupported extension \"{{ext}}\"",
+    "rejectedNoExtension": "file has no extension",
+    "rejectedEmpty": "empty file",
+    "rejectedTooLarge": "file exceeds 50 MB ({{size}} MB)"
   },
   "ingestion": {
     "title": "Document Ingestion",
     "trigger": "Start Ingestion",
-    "processing": "Indexing documents...",
+    "processing": "Ingesting documents...",
     "done": "Ingestion completed",
     "error": "Ingestion error",
     "idle": "No ingestion in progress",
     "alreadyRunning": "An ingestion is already running",
     "chunksIndexed": "{{count}} chunks indexed",
-    "status": "Status"
+    "status": "Status",
+    "history": "Run History",
+    "emptyHistory": "No ingestion runs recorded yet.",
+    "completed": "Completed",
+    "errorLabel": "Error",
+    "processingLabel": "Processing",
+    "started": "Started",
+    "finished": "Finished",
+    "chunks": "chunks"
   },
   "status": {
     "title": "Server Status",
@@ -87,7 +110,7 @@
   },
   "about": {
     "title": "About",
-    "description": "Agroecology AI is a question-answering platform based on artificial intelligence for the agroecology domain. Upload documents, index knowledge, and ask questions about agroecological practices, sustainable management, biodiversity, and more.",
+    "description": "Agroecology AI is a question-answering platform based on artificial intelligence for the agroecology domain. Upload documents, ingest knowledge, and ask questions about agroecological practices, sustainable management, biodiversity, and more.",
     "techStack": "Technologies",
     "frontend": "Frontend: React 19 + TypeScript + Tailwind CSS + Vite",
     "backend": "Backend: FastAPI + PostgreSQL + LanceDB + DeepSeek",

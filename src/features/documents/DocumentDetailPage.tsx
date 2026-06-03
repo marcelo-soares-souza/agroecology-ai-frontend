@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
-import { FileText, ArrowLeft, Pencil, Clock, Calendar } from "lucide-react";
+import { FileText, ArrowLeft, Pencil, Clock, Calendar, Download } from "lucide-react";
 import { api } from "@/services/api";
+import { getDownloadUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -78,6 +79,12 @@ export function DocumentDetailPage() {
             {t("common.edit")}
           </Button>
         </Link>
+        <a href={getDownloadUrl(doc.id)} download>
+          <Button variant="secondary">
+            <Download className="h-4 w-4" />
+            {t("common.download")}
+          </Button>
+        </a>
       </div>
 
       <Card>

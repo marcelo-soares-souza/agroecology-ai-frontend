@@ -147,7 +147,7 @@ export function IngestionPage() {
       <div>
         <h2 className="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
           <Clock className="h-5 w-5" />
-          Histórico de Execuções
+          {t("ingestion.history")}
         </h2>
 
         {runsLoading ? (
@@ -159,7 +159,7 @@ export function IngestionPage() {
         ) : !runs || runs.length === 0 ? (
           <Card className="text-center py-8">
             <p className="text-text-secondary">
-              Nenhuma indexação registrada ainda.
+              {t("ingestion.emptyHistory")}
             </p>
           </Card>
         ) : (
@@ -197,21 +197,21 @@ export function IngestionPage() {
                         }
                       >
                         {run.status === "done"
-                          ? "Concluído"
+                          ? t("ingestion.completed")
                           : run.status === "error"
-                            ? "Erro"
-                            : "Processando"}
+                            ? t("ingestion.errorLabel")
+                            : t("ingestion.processingLabel")}
                       </Badge>
                       {run.chunks_indexed > 0 && (
                         <span className="text-sm text-text-secondary">
-                          {run.chunks_indexed} chunks
+                          {run.chunks_indexed} {t("ingestion.chunks")}
                         </span>
                       )}
                     </div>
                     <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
-                      <span>Início: {formatDate(run.started_at)}</span>
+                      <span>{t("ingestion.started")}: {formatDate(run.started_at)}</span>
                       {run.finished_at && (
-                        <span>Fim: {formatDate(run.finished_at)}</span>
+                        <span>{t("ingestion.finished")}: {formatDate(run.finished_at)}</span>
                       )}
                     </div>
                     {run.error && (

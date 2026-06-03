@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { FileText, Trash2, Eye, Pencil, Plus, Loader2 } from "lucide-react";
+import { FileText, Trash2, Eye, Pencil, Plus, Loader2, Download } from "lucide-react";
 import { api } from "@/services/api";
+import { getDownloadUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -130,6 +131,11 @@ export function DocumentListPage() {
                 </div>
 
                 <div className="flex items-center gap-1 shrink-0">
+                  <a href={getDownloadUrl(doc.id)} download>
+                    <Button variant="ghost" size="sm">
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </a>
                   <Link to={`/documents/${doc.id}`}>
                     <Button variant="ghost" size="sm">
                       <Eye className="h-4 w-4" />

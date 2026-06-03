@@ -43,7 +43,7 @@ frontend/src/
 │   └── ui/            Button, Card, Input, Badge, Skeleton
 ├── features/
 │   ├── home/          Chat page (Q&A, Markdown rendering)
-│   ├── documents/     List, Detail, Edit, Upload (drag-and-drop)
+│   ├── documents/     List, Detail, Edit, Upload (SHA256-based dedup)
 │   ├── ingestion/     Trigger + history table
 │   ├── status/        Server health dashboard
 │   └── about/         Project info

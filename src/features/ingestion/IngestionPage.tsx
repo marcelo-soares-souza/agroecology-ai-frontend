@@ -30,12 +30,20 @@ export function IngestionPage() {
 
   const triggerMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(false),
-    invalidateKeys: [["ingestion-status"], ["ingestion-runs"], ["server-status"]],
+    invalidateKeys: [
+      ["ingestion-status"],
+      ["ingestion-runs"],
+      ["server-status"],
+    ],
   });
 
   const forceMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(true),
-    invalidateKeys: [["ingestion-status"], ["ingestion-runs"], ["server-status"]],
+    invalidateKeys: [
+      ["ingestion-status"],
+      ["ingestion-runs"],
+      ["server-status"],
+    ],
   });
 
   const { data: ingestStatus, isLoading: statusLoading } = useQuery({
@@ -58,7 +66,9 @@ export function IngestionPage() {
   const pendingDocs = serverStatus?.pending_docs ?? 0;
 
   const isProcessing =
-    ingestStatus?.status === "processing" || triggerMutation.isPending || forceMutation.isPending;
+    ingestStatus?.status === "processing" ||
+    triggerMutation.isPending ||
+    forceMutation.isPending;
 
   return (
     <div className="space-y-6">

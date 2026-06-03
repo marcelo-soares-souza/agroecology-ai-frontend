@@ -28,7 +28,11 @@ export function DocumentDetailPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
 
-  const { data: doc, isLoading, error } = useQuery({
+  const {
+    data: doc,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["document", id],
     queryFn: () => api.getDocument(id!),
     enabled: !!id,

@@ -33,6 +33,16 @@ export interface ServerStatus {
   active_tasks: number;
   cache_enabled: boolean;
   cache_hits: number;
+  last_ingestion: IngestionRun | null;
+}
+
+export interface IngestionRun {
+  id: string;
+  status: "processing" | "done" | "error";
+  chunks_indexed: number;
+  error: string | null;
+  started_at: string;
+  finished_at: string | null;
 }
 
 export interface IngestStatusResponse {

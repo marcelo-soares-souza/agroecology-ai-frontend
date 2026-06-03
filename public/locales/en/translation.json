@@ -44,7 +44,7 @@
     "title": "Documents",
     "uploadTitle": "Upload Documents",
     "dragDrop": "Drag and drop files here or click to select",
-    "supportedFormats": "Accepted formats: PDF, Markdown, TXT (up to 50 MB)",
+    "supportedFormats": "Accepted formats: PDF, Markdown (up to 50 MB)",
     "uploading": "Uploading...",
     "upload": "Upload",
     "uploadSuccess": "Files uploaded successfully",

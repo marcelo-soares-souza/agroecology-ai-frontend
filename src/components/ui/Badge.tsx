@@ -5,7 +5,11 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: "default" | "success" | "warning" | "error" | "info";
 }
 
-export function Badge({ className, variant = "default", ...props }: BadgeProps) {
+export function Badge({
+  className,
+  variant = "default",
+  ...props
+}: BadgeProps) {
   return (
     <span
       className={cn(
@@ -17,7 +21,7 @@ export function Badge({ className, variant = "default", ...props }: BadgeProps) 
           "bg-red-100 text-red-700": variant === "error",
           "bg-blue-100 text-blue-700": variant === "info",
         },
-        className
+        className,
       )}
       {...props}
     />

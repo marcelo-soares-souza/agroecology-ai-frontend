@@ -9,6 +9,7 @@ import type {
   DocumentRecord,
   DocumentUpdateRequest,
   UploadResponse,
+  IngestionRun,
 } from "./types";
 
 class ApiError extends Error {
@@ -20,10 +21,7 @@ class ApiError extends Error {
   }
 }
 
-async function request<T>(
-  url: string,
-  options?: RequestInit,
-): Promise<T> {
+async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${url}`, {
     headers: {
       ...(options?.body instanceof FormData
@@ -62,6 +60,11 @@ export const api = {
   getIngestionStatus: () =>
     request<IngestStatusResponse>("/api/v1/ingest/status"),
 
+  listIngestionRuns: () => request<IngestionRun[]>("/api/v1/ingestion/runs"),
+
+  getIngestionRun: (runId: string) =>
+    request<IngestionRun>(`/api/v1/ingestion/runs/${runId}`),
+
   uploadDocuments: (files: File[]) => {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
@@ -71,8 +74,7 @@ export const api = {
     });
   },
 
-  listDocuments: () =>
-    request<DocumentRecord[]>("/api/v1/documents"),
+  listDocuments: () => request<DocumentRecord[]>("/api/v1/documents"),
 
   getDocument: (id: string) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`),

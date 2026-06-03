@@ -44,7 +44,7 @@
     "title": "Documentos",
     "uploadTitle": "Enviar Documentos",
     "dragDrop": "Arraste e solte arquivos aqui ou clique para selecionar",
-    "supportedFormats": "Formatos aceitos: PDF, Markdown, TXT (até 50 MB)",
+    "supportedFormats": "Formatos aceitos: PDF, Markdown (até 50 MB)",
     "uploading": "Enviando...",
     "upload": "Enviar",
     "uploadSuccess": "Arquivos enviados com sucesso",

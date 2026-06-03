@@ -57,16 +57,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             }}
             className="flex items-center gap-2"
           >
-            <img
-              src="/logo.png"
-              alt={t("app.name")}
-              className="h-8 w-8"
-            />
+            <img src="/logo.png" alt={t("app.name")} className="h-8 w-8" />
             <span className="font-semibold text-lg text-text-primary">
               {t("app.name")}
             </span>
           </button>
-          <button onClick={onClose} className="text-text-secondary hover:text-text-primary p-1">
+          <button
+            onClick={onClose}
+            className="text-text-secondary hover:text-text-primary p-1"
+          >
             <X className="h-5 w-5" />
           </button>
         </div>

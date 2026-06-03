@@ -13,13 +13,34 @@ function lazyPage<T extends Record<string, ComponentType<object>>>(
 }
 
 const HomePage = lazyPage(() => import("./features/home/HomePage"), "HomePage");
-const StatusPage = lazyPage(() => import("./features/status/StatusPage"), "StatusPage");
-const DocumentListPage = lazyPage(() => import("./features/documents/DocumentListPage"), "DocumentListPage");
-const DocumentDetailPage = lazyPage(() => import("./features/documents/DocumentDetailPage"), "DocumentDetailPage");
-const DocumentEditPage = lazyPage(() => import("./features/documents/DocumentEditPage"), "DocumentEditPage");
-const DocumentUploadPage = lazyPage(() => import("./features/documents/DocumentUploadPage"), "DocumentUploadPage");
-const IngestionPage = lazyPage(() => import("./features/ingestion/IngestionPage"), "IngestionPage");
-const AboutPage = lazyPage(() => import("./features/about/AboutPage"), "AboutPage");
+const StatusPage = lazyPage(
+  () => import("./features/status/StatusPage"),
+  "StatusPage",
+);
+const DocumentListPage = lazyPage(
+  () => import("./features/documents/DocumentListPage"),
+  "DocumentListPage",
+);
+const DocumentDetailPage = lazyPage(
+  () => import("./features/documents/DocumentDetailPage"),
+  "DocumentDetailPage",
+);
+const DocumentEditPage = lazyPage(
+  () => import("./features/documents/DocumentEditPage"),
+  "DocumentEditPage",
+);
+const DocumentUploadPage = lazyPage(
+  () => import("./features/documents/DocumentUploadPage"),
+  "DocumentUploadPage",
+);
+const IngestionPage = lazyPage(
+  () => import("./features/ingestion/IngestionPage"),
+  "IngestionPage",
+);
+const AboutPage = lazyPage(
+  () => import("./features/about/AboutPage"),
+  "AboutPage",
+);
 
 export const router = createBrowserRouter([
   {

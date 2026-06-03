@@ -16,7 +16,7 @@ export function Card({ className, padding = "md", ...props }: CardProps) {
           "p-6": padding === "md",
           "p-8": padding === "lg",
         },
-        className
+        className,
       )}
       {...props}
     />

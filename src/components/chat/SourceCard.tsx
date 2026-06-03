@@ -15,7 +15,9 @@ export function SourceCard({ source }: SourceCardProps) {
       <p className="text-text-primary line-clamp-3 mb-1">{source.text}</p>
       <div className="flex items-center gap-2 text-xs text-text-secondary">
         <span className="truncate">{source.metadata.source}</span>
-        <span className={`rounded-full px-1.5 py-0.5 font-medium ${badgeColor}`}>
+        <span
+          className={`rounded-full px-1.5 py-0.5 font-medium ${badgeColor}`}
+        >
           {source.metadata.search_type}
         </span>
         <span className="text-primary-600 font-medium">

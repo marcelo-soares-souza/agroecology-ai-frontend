@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { api } from "@/services/api";
@@ -13,6 +13,7 @@ export function DocumentEditPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: doc, isLoading } = useQuery({
     queryKey: ["document", id],
@@ -39,6 +40,8 @@ export function DocumentEditPage() {
       url: string | null;
     }) => api.updateDocument(id!, data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["document", id] });
+      queryClient.invalidateQueries({ queryKey: ["documents"] });
       navigate(`/documents/${id}`);
     },
   });

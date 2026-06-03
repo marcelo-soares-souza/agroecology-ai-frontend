@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, mock } from "bun:test";
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { usePolling } from "./use-polling";
 
 describe("usePolling", () => {
@@ -11,8 +11,8 @@ describe("usePolling", () => {
     mock.restore();
   });
 
-  it("returns loading state initially when enabled", async () => {
-    const fetchFn = mock(() => Promise.resolve({ status: "done" }));
+  it("returns loading state initially when enabled", () => {
+    const fetchFn = mock(() => new Promise<{ status: string }>(() => {}));
     const { result } = renderHook(() =>
       usePolling({
         fetchFn,
@@ -31,16 +31,16 @@ describe("usePolling", () => {
       usePolling({
         fetchFn,
         isDone: (d: { status: string }) => d.status === "done",
+        interval: 50,
       }),
     );
 
-    await act(async () => {
-      await new Promise((r) => setTimeout(r, 50));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
     expect(fetchFn).toHaveBeenCalled();
     expect(result.current.data).toEqual({ value: 42, status: "done" });
-    expect(result.current.loading).toBe(false);
   });
 
   it("continues polling when isDone returns false", async () => {
@@ -61,12 +61,11 @@ describe("usePolling", () => {
       }),
     );
 
-    await act(async () => {
-      await new Promise((r) => setTimeout(r, 200));
+    await waitFor(() => {
+      expect(result.current.data?.status).toBe("done");
     });
 
     expect(callCount).toBeGreaterThanOrEqual(2);
-    expect(result.current.data?.status).toBe("done");
   });
 
   it("does not poll when enabled is false", async () => {
@@ -79,9 +78,7 @@ describe("usePolling", () => {
       }),
     );
 
-    await act(async () => {
-      await new Promise((r) => setTimeout(r, 100));
-    });
+    await new Promise((r) => setTimeout(r, 100));
 
     expect(fetchFn).not.toHaveBeenCalled();
   });
@@ -92,14 +89,14 @@ describe("usePolling", () => {
       usePolling({
         fetchFn,
         isDone: (d: { status: string }) => d.status === "done",
+        interval: 50,
       }),
     );
 
-    await act(async () => {
-      await new Promise((r) => setTimeout(r, 50));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
     expect(result.current.error).toBe("network error");
-    expect(result.current.loading).toBe(false);
   });
 });

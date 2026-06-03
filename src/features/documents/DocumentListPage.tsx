@@ -12,7 +12,11 @@ export function DocumentListPage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { data: documents, isLoading, error } = useQuery({
+  const {
+    data: documents,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["documents"],
     queryFn: api.listDocuments,
   });
@@ -40,7 +44,10 @@ export function DocumentListPage() {
     });
   };
 
-  const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> = {
+  const fileTypeColors: Record<
+    string,
+    "default" | "success" | "error" | "info"
+  > = {
     pdf: "error",
     md: "success",
     txt: "info",
@@ -108,7 +115,11 @@ export function DocumentListPage() {
                   <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
                     <Badge
                       variant={
-                        (fileTypeColors[doc.file_type] as "default" | "success" | "error" | "info") || "default"
+                        (fileTypeColors[doc.file_type] as
+                          | "default"
+                          | "success"
+                          | "error"
+                          | "info") || "default"
                       }
                     >
                       {doc.file_type.toUpperCase()}

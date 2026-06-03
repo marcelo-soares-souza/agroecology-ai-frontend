@@ -20,10 +20,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         <Menu className="h-6 w-6" />
       </button>
 
-      <button
-        onClick={() => navigate("/")}
-        className="flex items-center gap-2"
-      >
+      <button onClick={() => navigate("/")} className="flex items-center gap-2">
         <img
           src="/logo.png"
           alt={t("app.name")}

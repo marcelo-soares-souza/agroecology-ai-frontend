@@ -1,12 +1,28 @@
 import { useState, useRef, type DragEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Upload, X, FileText, Loader2, CheckCircle2 } from "lucide-react";
+import {
+  Upload,
+  X,
+  FileText,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import type { UploadedFile, SkippedFile } from "@/services/types";
+
+const ALLOWED_EXTENSIONS = [".pdf", ".md"];
+const MAX_FILE_SIZE = 50 * 1024 * 1024;
+
+function getFileExtension(name: string): string {
+  const idx = name.lastIndexOf(".");
+  if (idx === -1) return "";
+  return name.slice(idx).toLowerCase();
+}
 
 export function DocumentUploadPage() {
   const { t } = useTranslation();
@@ -14,6 +30,9 @@ export function DocumentUploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [dragOver, setDragOver] = useState(false);
+  const [rejectedFiles, setRejectedFiles] = useState<
+    { name: string; reason: string }[]
+  >([]);
   const [results, setResults] = useState<{
     uploaded: UploadedFile[];
     skipped: SkippedFile[];
@@ -24,21 +43,56 @@ export function DocumentUploadPage() {
     onSuccess: (data) => {
       setResults(data);
       setFiles([]);
+      setRejectedFiles([]);
       queryClient.invalidateQueries({ queryKey: ["documents"] });
     },
   });
 
   const handleFiles = (newFiles: FileList | File[]) => {
     const arr = Array.from(newFiles);
-    const valid = arr.filter(
-      (f) => f.size <= 50 * 1024 * 1024 && f.size > 0,
-    );
+    const valid: File[] = [];
+    const rejected: { name: string; reason: string }[] = [];
+
+    for (const f of arr) {
+      const ext = getFileExtension(f.name);
+
+      if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        rejected.push({
+          name: f.name,
+          reason: ext
+            ? `extensão "${ext}" não suportada`
+            : "arquivo sem extensão",
+        });
+        continue;
+      }
+
+      if (f.size === 0) {
+        rejected.push({ name: f.name, reason: "arquivo vazio" });
+        continue;
+      }
+
+      if (f.size > MAX_FILE_SIZE) {
+        rejected.push({
+          name: f.name,
+          reason: `arquivo excede 50 MB (${(f.size / 1024 / 1024).toFixed(1)} MB)`,
+        });
+        continue;
+      }
+
+      valid.push(f);
+    }
+
     setFiles((prev) => [...prev, ...valid]);
+    setRejectedFiles((prev) => [...prev, ...rejected]);
     setResults(null);
   };
 
   const removeFile = (name: string) => {
     setFiles((prev) => prev.filter((f) => f.name !== name));
+  };
+
+  const removeRejected = (name: string) => {
+    setRejectedFiles((prev) => prev.filter((r) => r.name !== name));
   };
 
   const handleDrop = (e: DragEvent) => {
@@ -84,15 +138,50 @@ export function DocumentUploadPage() {
         <p className="text-text-secondary text-sm">
           {t("documents.supportedFormats")}
         </p>
+        <p className="text-text-secondary/60 text-xs mt-1">
+          Extensões aceitas: .pdf, .md (até 50 MB)
+        </p>
         <input
           ref={fileInputRef}
           type="file"
           multiple
-          accept=".pdf,.md,.txt"
+          accept=".pdf,.md"
           className="hidden"
           onChange={(e) => e.target.files && handleFiles(e.target.files)}
         />
       </div>
+
+      {rejectedFiles.length > 0 && (
+        <Card>
+          <div className="flex items-center gap-2 mb-3">
+            <AlertCircle className="h-5 w-5 text-warning" />
+            <h2 className="font-semibold text-text-primary">
+              {rejectedFiles.length} arquivo
+              {rejectedFiles.length > 1 ? "s" : ""} rejeitado
+              {rejectedFiles.length > 1 ? "s" : ""}
+            </h2>
+          </div>
+          <div className="space-y-1">
+            {rejectedFiles.map((f) => (
+              <div
+                key={f.name}
+                className="flex items-center justify-between gap-2 py-1 text-sm"
+              >
+                <span className="text-text-secondary truncate">{f.name}</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-error text-xs">{f.reason}</span>
+                  <button
+                    onClick={() => removeRejected(f.name)}
+                    className="text-text-secondary hover:text-error p-0.5"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
 
       {files.length > 0 && (
         <Card>

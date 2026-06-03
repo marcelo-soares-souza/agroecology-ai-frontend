@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Info } from "lucide-react";
+import { Info, Map, Heart, Globe, Users, User, Cpu } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
 export function AboutPage() {
@@ -12,27 +12,120 @@ export function AboutPage() {
       </h1>
 
       <Card>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
             <Info className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <h2 className="text-xl font-semibold text-text-primary">
+              {t("about.intro")}
+            </h2>
+          </div>
+          <p className="text-text-primary text-base leading-relaxed">
+            {t("about.description")}
+          </p>
+        </div>
+      </Card>
+
+      <Card>
+        <p className="text-text-primary text-base leading-relaxed">
+          {t("about.para1")}
+        </p>
+      </Card>
+
+      <Card>
+        <p className="text-text-primary text-base leading-relaxed">
+          {t("about.para2")}
+        </p>
+      </Card>
+
+      <Card>
+        <p className="text-text-primary text-base leading-relaxed">
+          {t("about.para3")}
+        </p>
+      </Card>
+
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
+        <Map className="h-5 w-5 text-primary" />
+        {t("about.aboutAgroecologyMap")}
+      </h2>
+
+      <Card>
+        <div className="flex items-start gap-3">
+          <Globe className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <p className="text-text-primary text-base leading-relaxed">
+            {t("about.agroecologyMapDescription")}
+          </p>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex items-start gap-3">
+          <Heart className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <div>
+            <h3 className="font-semibold text-text-primary mb-2">
+              {t("about.freeSoftware")}
+            </h3>
             <p className="text-text-primary text-base leading-relaxed">
-              {t("about.description")}
+              {t("about.freeSoftwareDescription")}
             </p>
           </div>
+        </div>
+      </Card>
 
-          <div className="border-t border-primary-100 pt-6">
-            <h2 className="text-lg font-semibold text-text-primary mb-3">
-              {t("about.techStack")}
-            </h2>
-            <div className="space-y-2 text-text-secondary">
-              <p>{t("about.frontend")}</p>
-              <p>{t("about.backend")}</p>
+      <Card>
+        <div className="flex items-start gap-3">
+          <Users className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <div>
+            <h3 className="font-semibold text-text-primary mb-2">
+              {t("about.community")}
+            </h3>
+            <p className="text-text-primary text-base leading-relaxed">
+              {t("about.communityDescription")}
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex items-start gap-3">
+          <User className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <div>
+            <h3 className="font-semibold text-text-primary mb-3">
+              {t("about.creators")}
+            </h3>
+            <div className="space-y-2">
+              <p>
+                <a
+                  href="https://agroecologymap.org/accounts/marcelo-soares-souza"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Marcelo Soares Souza
+                </a>
+              </p>
             </div>
           </div>
+        </div>
+      </Card>
 
-          <div className="border-t border-primary-100 pt-6">
-            <p className="text-sm text-text-secondary">{t("about.version")}</p>
+      <Card>
+        <div className="flex items-start gap-3">
+          <Cpu className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <div>
+            <h3 className="font-semibold text-text-primary mb-3">
+              {t("about.techStack")}
+            </h3>
+            <div className="space-y-1 text-text-secondary text-sm">
+              <p>{t("about.frontend")}</p>
+              <p>{t("about.backend")}</p>
+              <p>{t("about.embedding")}</p>
+              <p>{t("about.vectorStore")}</p>
+              <p>{t("about.llm")}</p>
+            </div>
           </div>
+        </div>
+        <div className="border-t border-primary-100 pt-4 mt-4">
+          <p className="text-sm text-text-secondary">{t("about.version")}</p>
         </div>
       </Card>
     </div>

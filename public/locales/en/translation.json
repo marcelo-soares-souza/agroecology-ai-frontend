@@ -111,10 +111,24 @@
   },
   "about": {
     "title": "About",
-    "description": "Agroecology Map AI is a question-answering platform based on artificial intelligence for the agroecology domain. Upload documents, ingest knowledge, and ask questions about agroecological practices, sustainable management, biodiversity, and more.",
+    "intro": "About Agroecology Map AI",
+    "description": "Agroecology Map AI is a free and open-source question-answering platform that brings specialized artificial intelligence to the agroecology domain. Built on a RAG (Retrieval-Augmented Generation) architecture, it allows users to upload their own documents — research papers, field manuals, technical booklets, theses, and reports — and then ask natural language questions about their content. The answers are grounded exclusively in the provided documents, with full source citations that make every response traceable and verifiable. Unlike generic chatbots, Agroecology Map AI does not invent information: it reads what you give it and answers based on that.",
+    "para1": "The platform was designed to serve the global agroecology community — farmers, researchers, extension workers, students, and activists — who need quick, reliable access to technical knowledge. Whether you are looking for information on agroforestry systems, sustainable soil management, biodiversity conservation, food sovereignty, or traditional knowledge, you can upload relevant materials and query them in your own language. The system understands 102 languages and always responds in the same language as the question, making it accessible across different regions and cultures.",
+    "para2": "Agroecology Map AI is part of the Agroecology Map ecosystem, a citizen science and open data initiative that maps agroecological experiences worldwide. While Agroecology Map focuses on georeferencing practices and connecting people, the AI platform adds a layer of intelligence: it transforms static documents into interactive knowledge bases. The two projects share the same values — free software, open data, community ownership, and the conviction that knowledge about how to grow food in harmony with ecosystems should not be locked behind paywalls or proprietary systems.",
+    "para3": "Our long-term goal is to build a fully local, self-hostable AI infrastructure for agroecology. The platform already supports pluggable backends — you can use cloud APIs like DeepSeek or run everything locally with Ollama. As open-weight models mature, the entire pipeline — from embeddings to inference — will run on your own hardware, with no dependency on Big Tech. We believe that technological sovereignty is as important as food sovereignty, and that the communities who grow our food deserve tools that respect their autonomy.",
+    "aboutAgroecologyMap": "About Agroecology Map",
+    "agroecologyMapDescription": "Agroecology Map is a digital platform for citizen science and open data that enables people to map and share agroecological experiences and practices. Our aim is to connect individuals and strengthen collaboration networks that facilitate the exchange of knowledge in agroecology. By bringing together farmers, researchers, and practitioners, we create a vibrant community dedicated to sustainable agricultural practices.",
+    "freeSoftware": "Free Software",
+    "freeSoftwareDescription": "As free software, Agroecology Map's source code and data are openly available for anyone to use and share. This commitment to open-source principles ensures that knowledge remains accessible to all, fostering innovation and collaborative development. We believe that by sharing resources and experiences openly, we can accelerate the adoption of agroecological practices worldwide. Through this approach, we're building a democratic and transparent platform that serves the global agroecology movement.",
+    "community": "Community",
+    "communityDescription": "The platform was created and is maintained by volunteers who are passionate about agroecology and social technologies. Our community includes farmers, developers, researchers, and activists working together to improve and expand the platform's capabilities. We believe agroecology is the path forward, and through collaboration, we can achieve more together. By documenting and sharing successful practices, we're creating a valuable resource for anyone interested in sustainable agriculture and food sovereignty.",
+    "creators": "Creators & Maintainers",
     "techStack": "Technologies",
     "frontend": "Frontend: React 19 + TypeScript + Tailwind CSS + Vite",
-    "backend": "Backend: FastAPI + PostgreSQL + LanceDB + DeepSeek",
+    "backend": "Backend: FastAPI + psycopg (async PostgreSQL) + LanceDB + Valkey/Redis",
+    "embedding": "Embeddings: BAAI/bge-m3 (1024-dim, 102 languages) with SentenceTransformers",
+    "vectorStore": "Vector Search: LanceDB (cosine) + BM25 keyword search + Reciprocal Rank Fusion",
+    "llm": "LLM: DeepSeek v4 Flash (cloud) or Ollama (local) via OpenAI-compatible API",
     "version": "Version 1.0.0"
   }
 }

@@ -86,6 +86,11 @@ export const api = {
   getDocument: (id: string) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`),
 
+  extractMetadata: (id: string) =>
+    request<DocumentRecord>(`/api/v1/documents/${id}/extract-metadata`, {
+      method: "POST",
+    }),
+
   updateDocument: (id: string, data: DocumentUpdateRequest) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`, {
       method: "PUT",

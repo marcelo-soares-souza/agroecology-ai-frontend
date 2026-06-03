@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import {
   FileText,
@@ -8,6 +8,8 @@ import {
   Clock,
   Calendar,
   Download,
+  Sparkles,
+  Loader2,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
@@ -35,6 +37,7 @@ function formatDate(iso: string) {
 export function DocumentDetailPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
 
   const {
     data: doc,
@@ -44,6 +47,14 @@ export function DocumentDetailPage() {
     queryKey: ["document", id],
     queryFn: () => api.getDocument(id!),
     enabled: !!id,
+  });
+
+  const extractMutation = useMutation({
+    mutationFn: () => api.extractMetadata(id!),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["document", id] });
+      queryClient.invalidateQueries({ queryKey: ["documents"] });
+    },
   });
 
   if (isLoading) {
@@ -80,18 +91,34 @@ export function DocumentDetailPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Link to={`/documents/${doc.id}/edit`}>
-          <Button variant="secondary">
-            <Pencil className="h-4 w-4" />
-            {t("common.edit")}
-          </Button>
-        </Link>
-        <a href={getDownloadUrl(doc.id)} download>
-          <Button variant="secondary">
-            <Download className="h-4 w-4" />
-            {t("common.download")}
-          </Button>
-        </a>
+        <div className="flex items-center gap-2">
+          <Link to={`/documents/${doc.id}/edit`}>
+            <Button variant="secondary">
+              <Pencil className="h-4 w-4" />
+              {t("common.edit")}
+            </Button>
+          </Link>
+          {doc.file_type === "pdf" && (
+            <Button
+              variant="secondary"
+              onClick={() => extractMutation.mutate()}
+              disabled={extractMutation.isPending}
+            >
+              {extractMutation.isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="h-4 w-4" />
+              )}
+              Extract Metadata
+            </Button>
+          )}
+          <a href={getDownloadUrl(doc.id)} download>
+            <Button variant="secondary">
+              <Download className="h-4 w-4" />
+              {t("common.download")}
+            </Button>
+          </a>
+        </div>
       </div>
 
       <Card>
@@ -156,6 +183,16 @@ export function DocumentDetailPage() {
           </div>
         </div>
       </Card>
+
+      {doc.file_type === "pdf" && (
+        <Card padding="none" className="overflow-hidden">
+          <iframe
+            src={getDownloadUrl(doc.id)}
+            title={doc.filename}
+            className="w-full h-[80vh] border-0"
+          />
+        </Card>
+      )}
     </div>
   );
 }

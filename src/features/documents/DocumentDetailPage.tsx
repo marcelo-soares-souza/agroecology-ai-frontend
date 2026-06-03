@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { useAuth } from "@/hooks/use-auth";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -38,6 +39,7 @@ export function DocumentDetailPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
+  const { isAdmin } = useAuth();
 
   const {
     data: doc,
@@ -92,13 +94,15 @@ export function DocumentDetailPage() {
           </Button>
         </Link>
         <div className="flex items-center gap-2">
-          <Link to={`/documents/${doc.id}/edit`}>
-            <Button variant="secondary">
-              <Pencil className="h-4 w-4" />
-              {t("common.edit")}
-            </Button>
-          </Link>
-          {doc.file_type === "pdf" && (
+          {isAdmin && (
+            <Link to={`/documents/${doc.id}/edit`}>
+              <Button variant="secondary">
+                <Pencil className="h-4 w-4" />
+                {t("common.edit")}
+              </Button>
+            </Link>
+          )}
+          {isAdmin && doc.file_type === "pdf" && (
             <Button
               variant="secondary"
               onClick={() => extractMutation.mutate()}

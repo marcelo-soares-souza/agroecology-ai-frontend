@@ -62,6 +62,19 @@ export function Header({ onMenuClick }: HeaderProps) {
             Sign In
           </button>
         ) : null}
+
+        <div className="relative group">
+          <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300 cursor-default select-none">
+            BETA
+          </span>
+          <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+            <p className="font-semibold mb-1">Development Version</p>
+            <p className="text-gray-300">
+              This tool is under active development and currently in a testing period.
+              Features may change and some functionality is restricted.
+            </p>
+          </div>
+        </div>
       </div>
     </header>
   );

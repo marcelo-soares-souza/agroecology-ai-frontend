@@ -46,6 +46,7 @@
     "uploadTitle": "Upload Documents",
     "dragDrop": "Drag and drop files here or click to select",
     "supportedFormats": "Accepted formats: PDF, Markdown (up to 50 MB)",
+    "listDescription": "This is the list of documents, articles, and papers used as the knowledge base for AI training. Documents marked as \"Indexed\" have been processed and are available for querying in the Chat.",
     "extensionsNote": "Accepted extensions: .pdf, .md (up to 50 MB)",
     "uploading": "Uploading...",
     "upload": "Upload",
@@ -100,6 +101,7 @@
   },
   "status": {
     "title": "Server Status",
+    "description": "Monitor server health, document indexing status, and cache statistics. The index must be ready with indexed chunks for the Chat to work properly.",
     "indexReady": "Index Ready",
     "ingestStatus": "Ingestion Status",
     "chunksIndexed": "Chunks Indexed",

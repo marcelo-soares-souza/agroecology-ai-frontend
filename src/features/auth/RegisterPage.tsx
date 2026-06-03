@@ -1,5 +1,6 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -8,10 +9,13 @@ import { api } from "@/services/api";
 
 export function RegisterPage() {
   const { register } = useAuth();
+  const { i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "pt-BR";
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [challenge, setChallenge] = useState<{
     challenge_id: string;
     question: string;
@@ -23,7 +27,7 @@ export function RegisterPage() {
 
   useEffect(() => {
     api
-      .getHumanChallenge()
+      .getHumanChallenge(locale)
       .then(setChallenge)
       .catch(() => setError("Failed to load challenge"));
   }, []);
@@ -31,6 +35,12 @@ export function RegisterPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!challenge) return;
+
+    if (password !== passwordConfirm) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setError("");
     setLoading(true);
     try {
@@ -40,6 +50,7 @@ export function RegisterPage() {
         password,
         challenge_id: challenge.challenge_id,
         challenge_answer: challengeAnswer,
+        locale,
       });
       setSuccess(true);
     } catch (err) {
@@ -104,6 +115,18 @@ export function RegisterPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={8}
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-text-secondary mb-1">
+              Confirm Password
+            </label>
+            <Input
+              type="password"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
               required
               minLength={8}
             />

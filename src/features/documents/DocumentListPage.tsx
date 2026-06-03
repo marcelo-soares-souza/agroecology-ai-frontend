@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
   Trash2,
@@ -43,6 +44,7 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
 
 export function DocumentListPage() {
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
 
   const query = useQuery({
     queryKey: ["documents"],
@@ -56,16 +58,23 @@ export function DocumentListPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("documents.title")}
-        </h1>
-        <Link to="/upload">
-          <Button>
-            <Plus className="h-4 w-4" />
-            {t("nav.upload")}
-          </Button>
-        </Link>
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-bold text-text-primary">
+            {t("documents.title")}
+          </h1>
+          {isAdmin && (
+            <Link to="/upload">
+              <Button>
+                <Plus className="h-4 w-4" />
+                {t("nav.upload")}
+              </Button>
+            </Link>
+          )}
+        </div>
+        <p className="text-sm text-text-secondary">
+          {t("documents.listDescription")}
+        </p>
       </div>
 
       <QueryResult
@@ -120,28 +129,32 @@ export function DocumentListPage() {
                         <Eye className="h-4 w-4" />
                       </Button>
                     </Link>
-                    <Link to={`/documents/${doc.id}/edit`}>
-                      <Button variant="ghost" size="sm">
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        if (confirm(t("documents.deleteConfirm"))) {
-                          deleteMutation.mutate(doc.id);
-                        }
-                      }}
-                      disabled={deleteMutation.isPending}
-                    >
-                      {deleteMutation.isPending &&
-                      deleteMutation.variables === doc.id ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Trash2 className="h-4 w-4 text-red-500" />
-                      )}
-                    </Button>
+                    {isAdmin && (
+                      <>
+                        <Link to={`/documents/${doc.id}/edit`}>
+                          <Button variant="ghost" size="sm">
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            if (confirm(t("documents.deleteConfirm"))) {
+                              deleteMutation.mutate(doc.id);
+                            }
+                          }}
+                          disabled={deleteMutation.isPending}
+                        >
+                          {deleteMutation.isPending &&
+                          deleteMutation.variables === doc.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          )}
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </Card>

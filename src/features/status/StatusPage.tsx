@@ -62,9 +62,14 @@ export function StatusPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-text-primary">
-        {t("status.title")}
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("status.title")}
+        </h1>
+        <p className="text-sm text-text-secondary mt-2">
+          {t("status.description")}
+        </p>
+      </div>
       <QueryResult
         query={query}
         skeleton={

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Trash2, Eye, Shield, User } from "lucide-react";
+import { Trash2, Eye, User } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -19,12 +19,6 @@ export function AdminUsersPage() {
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteUser,
-    invalidateKeys: [["admin-users"]],
-  });
-
-  const toggleRoleMutation = useAppMutation({
-    mutationFn: ({ id, role_key }: { id: string; role_key: string }) =>
-      api.updateUser(id, { role_key }),
     invalidateKeys: [["admin-users"]],
   });
 
@@ -100,22 +94,6 @@ export function AdminUsersPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const newRole = (user.roles || []).includes("admin")
-                              ? "user"
-                              : "admin";
-                            toggleRoleMutation.mutate({
-                              id: user.id,
-                              role_key: newRole,
-                            });
-                          }}
-                        >
-                          <Shield className="h-4 w-4" />
-                        </Button>
                         <Button
                           variant="ghost"
                           size="sm"

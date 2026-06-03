@@ -25,9 +25,18 @@ export function HomePage() {
       {/* Hero */}
       <div className="flex flex-col items-center text-center px-4">
         <img src="/logo.png" alt="Agroecology Map AI" className="h-28 w-28 mb-8" />
-        <h1 className="text-4xl font-bold text-text-primary mb-4">
-          Agroecology Map AI
-        </h1>
+        <div className="flex items-center gap-3 mb-4">
+          <h1 className="text-4xl font-bold text-text-primary">
+            Agroecology Map AI
+          </h1>
+          <span className="px-3 py-1 text-sm font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">
+            BETA
+          </span>
+        </div>
+        <p className="text-lg text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 mb-6 max-w-xl">
+          This tool is under active development and currently in a testing period.
+          Features may change and some functionality is restricted.
+        </p>
         <p className="text-xl text-text-secondary max-w-2xl mb-4">
           Your AI-powered research assistant for agroecological knowledge.
           Upload documents, ask questions, and get answers grounded in real research.

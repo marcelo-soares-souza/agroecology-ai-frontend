@@ -145,9 +145,14 @@ export function DocumentUploadPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-text-primary">
-        {t("documents.uploadTitle")}
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("documents.uploadTitle")}
+        </h1>
+        <p className="text-sm text-text-secondary mt-2">
+          {t("documents.uploadDescription")}
+        </p>
+      </div>
 
       <div
         onDragOver={(e) => {

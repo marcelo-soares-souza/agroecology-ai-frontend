@@ -44,6 +44,7 @@
   "documents": {
     "title": "Documents",
     "uploadTitle": "Upload Documents",
+    "uploadDescription": "Upload articles, papers, manuals, and documents in PDF or Markdown to feed the AI knowledge base. Duplicate files are automatically detected.",
     "dragDrop": "Drag and drop files here or click to select",
     "supportedFormats": "Accepted formats: PDF, Markdown (up to 50 MB)",
     "listDescription": "This is the list of documents, articles, and papers used as the knowledge base for AI training. Documents marked as \"Indexed\" have been processed and are available for querying in the Chat.",
@@ -82,6 +83,7 @@
   },
   "ingestion": {
     "title": "Document Ingestion",
+    "description": "Ingestion transforms uploaded documents into a searchable AI knowledge base. Only unprocessed documents are indexed. Use \"Force Rebuild\" to rebuild the entire index from scratch.",
     "trigger": "Start Ingestion",
     "processing": "Ingesting documents...",
     "done": "Ingestion completed",
@@ -113,6 +115,7 @@
   },
   "about": {
     "title": "About",
+    "betaNotice": "This platform is under active development and currently in a testing phase (BETA). Features may change and some operations are restricted to administrators.",
     "intro": "About Agroecology Map AI",
     "description": "Agroecology Map AI is a free and open-source question-answering platform that brings specialized artificial intelligence to the agroecology domain. Built on a RAG (Retrieval-Augmented Generation) architecture, it allows users to upload their own documents — research papers, field manuals, technical booklets, theses, and reports — and then ask natural language questions about their content. The answers are grounded exclusively in the provided documents, with full source citations that make every response traceable and verifiable. Unlike generic chatbots, Agroecology Map AI does not invent information: it reads what you give it and answers based on that.",
     "para1": "The platform was designed to serve the global agroecology community — farmers, researchers, extension workers, students, and activists — who need quick, reliable access to technical knowledge. Whether you are looking for information on agroforestry systems, sustainable soil management, biodiversity conservation, food sovereignty, or traditional knowledge, you can upload relevant materials and query them in your own language. The system understands 102 languages and always responds in the same language as the question, making it accessible across different regions and cultures.",

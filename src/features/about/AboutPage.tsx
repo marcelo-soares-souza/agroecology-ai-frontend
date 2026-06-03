@@ -7,9 +7,18 @@ export function AboutPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-text-primary">
-        {t("about.title")}
-      </h1>
+      <div className="flex items-center gap-3">
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("about.title")}
+        </h1>
+        <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">
+          BETA
+        </span>
+      </div>
+
+      <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+        {t("about.betaNotice")}
+      </div>
 
       <Card>
         <div className="flex flex-col gap-4">

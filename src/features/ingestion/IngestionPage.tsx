@@ -72,9 +72,14 @@ export function IngestionPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-text-primary">
-        {t("ingestion.title")}
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("ingestion.title")}
+        </h1>
+        <p className="text-sm text-text-secondary mt-2">
+          {t("ingestion.description")}
+        </p>
+      </div>
 
       <Card>
         <div className="flex flex-col gap-6 items-center text-center">

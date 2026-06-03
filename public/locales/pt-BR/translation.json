@@ -44,6 +44,7 @@
   "documents": {
     "title": "Documentos",
     "uploadTitle": "Enviar Documentos",
+    "uploadDescription": "Faça upload de artigos, papers, manuais e documentos em PDF ou Markdown para alimentar a base de conhecimento da IA. Arquivos duplicados são detectados automaticamente.",
     "dragDrop": "Arraste e solte arquivos aqui ou clique para selecionar",
     "supportedFormats": "Formatos aceitos: PDF, Markdown (até 50 MB)",
     "listDescription": "Esta é a lista de documentos, artigos e papers utilizados como base de conhecimento para o treinamento da IA. Os documentos marcados como \"Indexed\" já foram processados e estão disponíveis para consulta no Chat.",
@@ -82,6 +83,7 @@
   },
   "ingestion": {
     "title": "Ingestão de Documentos",
+    "description": "A ingestão transforma os documentos enviados em uma base de conhecimento pesquisável pela IA. Apenas documentos ainda não processados são indexados. Use \"Force Rebuild\" para reconstruir o índice do zero.",
     "trigger": "Iniciar Ingestão",
     "processing": "Ingerindo documentos...",
     "done": "Ingestão concluída",
@@ -113,6 +115,7 @@
   },
   "about": {
     "title": "Sobre",
+    "betaNotice": "Esta plataforma está em desenvolvimento ativo e atualmente em fase de testes (BETA). Funcionalidades podem mudar e algumas operações estão restritas a administradores.",
     "intro": "Sobre o Agroecology Map AI",
     "description": "Agroecology Map AI é uma plataforma de perguntas e respostas gratuita e de código aberto que traz inteligência artificial especializada para o domínio da agroecologia. Construída sobre uma arquitetura RAG (Geração Aumentada por Recuperação), ela permite que você faça upload de seus próprios documentos — artigos científicos, manuais de campo, cartilhas técnicas, teses e relatórios — e depois faça perguntas em linguagem natural sobre o conteúdo. As respostas são fundamentadas exclusivamente nos documentos fornecidos, com citações completas das fontes que tornam cada resposta rastreável e verificável. Diferente de chatbots genéricos, o Agroecology Map AI não inventa informação: ele lê o que você fornece e responde com base nisso.",
     "para1": "A plataforma foi projetada para servir a comunidade agroecológica global — agricultores, pesquisadores, extensionistas, estudantes e ativistas — que precisam de acesso rápido e confiável ao conhecimento técnico. Seja para buscar informações sobre sistemas agroflorestais, manejo sustentável do solo, conservação da biodiversidade, soberania alimentar ou saberes tradicionais, você pode carregar materiais relevantes e consultá-los no seu próprio idioma. O sistema compreende 102 idiomas e sempre responde no mesmo idioma da pergunta, tornando-o acessível em diferentes regiões e culturas.",

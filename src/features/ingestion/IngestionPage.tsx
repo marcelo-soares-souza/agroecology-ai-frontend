@@ -158,9 +158,7 @@ export function IngestionPage() {
           </div>
         ) : !runs || runs.length === 0 ? (
           <Card className="text-center py-8">
-            <p className="text-text-secondary">
-              {t("ingestion.emptyHistory")}
-            </p>
+            <p className="text-text-secondary">{t("ingestion.emptyHistory")}</p>
           </Card>
         ) : (
           <div className="space-y-2">
@@ -209,9 +207,14 @@ export function IngestionPage() {
                       )}
                     </div>
                     <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
-                      <span>{t("ingestion.started")}: {formatDate(run.started_at)}</span>
+                      <span>
+                        {t("ingestion.started")}: {formatDate(run.started_at)}
+                      </span>
                       {run.finished_at && (
-                        <span>{t("ingestion.finished")}: {formatDate(run.finished_at)}</span>
+                        <span>
+                          {t("ingestion.finished")}:{" "}
+                          {formatDate(run.finished_at)}
+                        </span>
                       )}
                     </div>
                     {run.error && (

@@ -52,8 +52,10 @@ export function DocumentUploadPage() {
   );
 
   const uploadMutation = useMutation({
-    mutationFn: (data: { files: File[]; metadata?: { title?: string; authors?: string; url?: string } }) =>
-      api.uploadDocuments(data.files, data.metadata),
+    mutationFn: (data: {
+      files: File[];
+      metadata?: { title?: string; authors?: string; url?: string };
+    }) => api.uploadDocuments(data.files, data.metadata),
     onSuccess: (data) => {
       setResults(data);
       setFiles([]);
@@ -75,12 +77,18 @@ export function DocumentUploadPage() {
       const nameLower = f.name.toLowerCase();
 
       if (selectedNames.has(nameLower)) {
-        rejected.push({ name: f.name, reason: t("documents.rejectedDuplicate") });
+        rejected.push({
+          name: f.name,
+          reason: t("documents.rejectedDuplicate"),
+        });
         continue;
       }
 
       if (existingFilenames.has(nameLower)) {
-        rejected.push({ name: f.name, reason: t("documents.rejectedAlreadyUploaded") });
+        rejected.push({
+          name: f.name,
+          reason: t("documents.rejectedAlreadyUploaded"),
+        });
         continue;
       }
 
@@ -104,7 +112,9 @@ export function DocumentUploadPage() {
       if (f.size > MAX_FILE_SIZE) {
         rejected.push({
           name: f.name,
-          reason: t("documents.rejectedTooLarge", { size: (f.size / 1024 / 1024).toFixed(1) }),
+          reason: t("documents.rejectedTooLarge", {
+            size: (f.size / 1024 / 1024).toFixed(1),
+          }),
         });
         continue;
       }
@@ -138,7 +148,10 @@ export function DocumentUploadPage() {
     if (title.trim()) metadata.title = title.trim();
     if (authors.trim()) metadata.authors = authors.trim();
     if (url.trim()) metadata.url = url.trim();
-    uploadMutation.mutate({ files, metadata: Object.keys(metadata).length > 0 ? metadata : undefined });
+    uploadMutation.mutate({
+      files,
+      metadata: Object.keys(metadata).length > 0 ? metadata : undefined,
+    });
   };
 
   const formatSize = (bytes: number) => {

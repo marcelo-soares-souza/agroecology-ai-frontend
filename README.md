@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# Agroecology Map AI — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Web interface for the Agroecology Map AI platform. RAG-powered chat for agroecological knowledge, document management, and ingestion monitoring.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19.2** + **TypeScript** + **Vite**
+- **Tailwind CSS v4** (CSS-first `@theme` config)
+- **React Router v7** (`createBrowserRouter`)
+- **TanStack Query** (server state + caching)
+- **i18next** (pt-BR + en)
+- **react-markdown** + **remark-gfm** (formatted AI responses)
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+cd frontend
+bun install
+bun run dev        # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The backend API base URL defaults to `http://localhost:8000`. Override with:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+VITE_API_BASE_URL=http://localhost:8000 bun run dev
 ```
+
+## Quality Gates
+
+```bash
+bash ../scripts/check-frontend.sh
+```
+
+Runs: install, audit, outdated, format, lint, typecheck, test, build, bundle secrets scan.
+
+## Structure
+
+```
+frontend/src/
+├── components/
+│   ├── chat/          ChatBox, ChatMessage, SourceCard
+│   ├── layout/        AppShell, Sidebar (drawer), Header
+│   └── ui/            Button, Card, Input, Badge, Skeleton
+├── features/
+│   ├── home/          Chat page (Q&A, Markdown rendering)
+│   ├── documents/     List, Detail, Edit, Upload (drag-and-drop)
+│   ├── ingestion/     Trigger + history table
+│   ├── status/        Server health dashboard
+│   └── about/         Project info
+├── hooks/             usePolling, useChat, useLocale
+├── services/          api.ts (all endpoints), types.ts
+├── lib/               cn.ts (clsx + tailwind-merge), options.ts
+├── config/            api.ts (base URL), i18n.ts
+└── locales/           pt-BR/ and en/ translation files
+```
+
+## Pages
+
+| Route                 | Page                                |
+| --------------------- | ----------------------------------- |
+| `/`                   | Chat                                |
+| `/status`             | Server Status                       |
+| `/documents`          | Document List                       |
+| `/documents/:id`      | Document Detail                     |
+| `/documents/:id/edit` | Edit Metadata                       |
+| `/upload`             | Upload (drag-and-drop + file input) |
+| `/ingestion`          | Ingestion Control                   |
+| `/about`              | About                               |
+
+## License
+
+GPLv3 — Free Software
+
+## Author
+
+Marcelo Soares Souza <marcelo@agroecologymap.org>

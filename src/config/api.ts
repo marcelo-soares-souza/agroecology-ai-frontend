@@ -11,10 +11,7 @@ function getDownloadUrl(docId: string): string {
 }
 
 function getViewUrl(docId: string): string {
-  const token = localStorage.getItem("agroecology_access_token") || "";
-  return buildApiUrl(
-    `/api/v1/documents/${docId}/view?token=${encodeURIComponent(token)}`,
-  );
+  return buildApiUrl(`/api/v1/documents/${docId}/view`);
 }
 
 export { API_BASE_URL, buildApiUrl, getDownloadUrl, getViewUrl };

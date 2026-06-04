@@ -6,7 +6,6 @@ import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
   Trash2,
-  Eye,
   Pencil,
   Plus,
   Loader2,
@@ -149,75 +148,87 @@ export function DocumentListPage() {
         {(docs) => (
           <div className="space-y-3">
             {docs.map((doc) => (
-              <Card key={doc.id} padding="sm">
-                <div className="flex items-center gap-4">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <FileText className="h-4 w-4 text-primary shrink-0" />
-                      <span className="font-medium text-text-primary truncate">
-                        {doc.title || doc.filename}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
-                      <Badge
-                        variant={
-                          (fileTypeColors[doc.file_type] as
-                            | "default"
-                            | "success"
-                            | "error"
-                            | "info") || "default"
-                        }
-                      >
-                        {doc.file_type.toUpperCase()}
-                      </Badge>
-                      <Badge variant={doc.ingested ? "success" : "warning"}>
-                        {doc.ingested ? "Indexed" : "Pending"}
-                      </Badge>
-                      <span>{formatFileSize(doc.file_size)}</span>
-                      <span>{formatDate(doc.created_at)}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 shrink-0">
-                    <a href={getDownloadUrl(doc.id)} download>
-                      <Button variant="ghost" size="sm">
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </a>
-                    <Link to={`/documents/${doc.id}`}>
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                    {isAdmin && (
-                      <>
-                        <Link to={`/documents/${doc.id}/edit`}>
-                          <Button variant="ghost" size="sm">
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                        </Link>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            if (confirm(t("documents.deleteConfirm"))) {
-                              deleteMutation.mutate(doc.id);
-                            }
-                          }}
-                          disabled={deleteMutation.isPending}
+              <Link
+                key={doc.id}
+                to={`/documents/${doc.id}`}
+                className="block group"
+              >
+                <Card
+                  padding="sm"
+                  className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <FileText className="h-4 w-4 text-primary shrink-0" />
+                        <span className="font-medium text-text-primary truncate group-hover:text-primary transition-colors">
+                          {doc.title || doc.filename}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
+                        <Badge
+                          variant={
+                            (fileTypeColors[doc.file_type] as
+                              | "default"
+                              | "success"
+                              | "error"
+                              | "info") || "default"
+                          }
                         >
-                          {deleteMutation.isPending &&
-                          deleteMutation.variables === doc.id ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <Trash2 className="h-4 w-4 text-red-500" />
-                          )}
+                          {doc.file_type.toUpperCase()}
+                        </Badge>
+                        <Badge variant={doc.ingested ? "success" : "warning"}>
+                          {doc.ingested ? "Indexed" : "Pending"}
+                        </Badge>
+                        <span>{formatFileSize(doc.file_size)}</span>
+                        <span>{formatDate(doc.created_at)}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1 shrink-0">
+                      <a
+                        href={getDownloadUrl(doc.id)}
+                        download
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Button variant="ghost" size="sm">
+                          <Download className="h-4 w-4" />
                         </Button>
-                      </>
-                    )}
+                      </a>
+                      {isAdmin && (
+                        <>
+                          <Link
+                            to={`/documents/${doc.id}/edit`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Button variant="ghost" size="sm">
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (confirm(t("documents.deleteConfirm"))) {
+                                deleteMutation.mutate(doc.id);
+                              }
+                            }}
+                            disabled={deleteMutation.isPending}
+                          >
+                            {deleteMutation.isPending &&
+                            deleteMutation.variables === doc.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="h-4 w-4 text-red-500" />
+                            )}
+                          </Button>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
         )}

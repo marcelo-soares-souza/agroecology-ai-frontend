@@ -1,6 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { CheckCircle2, BarChart3, Database, Cpu } from "lucide-react";
+import {
+  CheckCircle2,
+  BarChart3,
+  Database,
+  Cpu,
+  FileText,
+  CheckCircle,
+  Clock,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -77,7 +85,7 @@ export function StatusPage() {
         query={query}
         skeleton={
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {[...Array(5)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <Card key={i}>
                 <div className="flex items-start gap-3">
                   <div className="h-5 w-5 rounded bg-primary-100 animate-pulse mt-0.5" />
@@ -93,6 +101,44 @@ export function StatusPage() {
       >
         {(data) => (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <Card>
+              <div className="flex items-start gap-3">
+                <FileText className="h-5 w-5 text-primary mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm text-text-secondary mb-3">
+                    {t("status.documents")}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-text-secondary flex items-center gap-1.5">
+                        <CheckCircle className="h-3.5 w-3.5 text-green-500" />
+                        {t("status.indexedDocs")}
+                      </span>
+                      <span className="font-semibold text-text-primary">
+                        {data.indexed_docs}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-text-secondary flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5 text-yellow-500" />
+                        {t("status.pendingDocs")}
+                      </span>
+                      <span className="font-semibold text-text-primary">
+                        {data.pending_docs}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm border-t border-primary-100 pt-2 mt-2">
+                      <span className="text-text-secondary">
+                        {t("status.totalDocs")}
+                      </span>
+                      <span className="font-semibold text-text-primary">
+                        {data.total_docs}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
             {statusCards(data).map((card) => (
               <Card key={card.label}>
                 <div className="flex items-start gap-3">

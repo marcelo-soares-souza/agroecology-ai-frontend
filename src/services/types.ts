@@ -37,6 +37,8 @@ export interface ServerStatus {
   cache_enabled: boolean;
   cache_hits: number;
   pending_docs: number;
+  indexed_docs: number;
+  total_docs: number;
   last_ingestion: IngestionRun | null;
 }
 

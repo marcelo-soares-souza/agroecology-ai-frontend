@@ -159,11 +159,18 @@ export function DocumentListPage() {
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <FileText className="h-4 w-4 text-primary shrink-0" />
-                        <span className="font-medium text-text-primary truncate group-hover:text-primary transition-colors">
-                          {doc.title || doc.filename}
-                        </span>
+                      <div className="flex items-start gap-2 mb-1">
+                        <FileText className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <div className="min-w-0">
+                          <span className="font-medium text-text-primary group-hover:text-primary transition-colors">
+                            {doc.title || doc.filename}
+                          </span>
+                          {doc.authors && (
+                            <p className="text-xs text-text-secondary truncate">
+                              {doc.authors}
+                            </p>
+                          )}
+                        </div>
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
                         <Badge

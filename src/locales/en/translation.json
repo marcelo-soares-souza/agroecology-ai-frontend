@@ -117,7 +117,11 @@
     "cacheEnabled": "Cache Enabled",
     "cacheHits": "Cache Hits",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "documents": "Documents",
+    "indexedDocs": "Indexed",
+    "pendingDocs": "Pending",
+    "totalDocs": "Total"
   },
   "about": {
     "title": "About",

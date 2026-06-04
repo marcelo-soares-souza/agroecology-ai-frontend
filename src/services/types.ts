@@ -105,6 +105,7 @@ export interface ChatMessage {
   sources?: SourceChunk[];
   status: "sending" | "thinking" | "done" | "error";
   error?: string;
+  durationMs?: number;
 }
 
 export interface UserRecord {

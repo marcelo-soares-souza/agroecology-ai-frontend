@@ -40,14 +40,12 @@ export function Header({ onMenuClick }: HeaderProps) {
 
         {hasRestoredSession && isAuthenticated && session ? (
           <>
-            <button
+              <button
               onClick={() => navigate(`/profile/${session.userId}`)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-text-secondary hover:text-primary rounded-xl hover:bg-primary-50 transition-colors"
+              title={session.fullName}
             >
               <User className="h-4 w-4" />
-              <span className="hidden sm:inline">
-                {session.fullName || session.email}
-              </span>
             </button>
             <button
               onClick={() => {

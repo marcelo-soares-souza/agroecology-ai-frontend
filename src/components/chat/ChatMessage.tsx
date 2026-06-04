@@ -54,6 +54,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
                 </ReactMarkdown>
               </div>
             )}
+            {!isUser && message.durationMs != null && (
+              <p className="mt-1 text-xs text-text-muted">
+                ({(message.durationMs / 1000).toFixed(2)}s)
+              </p>
+            )}
             {message.sources && message.sources.length > 0 && (
               <div className="mt-3">
                 <p className="text-sm font-medium text-text-secondary mb-2">

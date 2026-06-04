@@ -13,6 +13,8 @@ interface AuthSession {
 
 const TOKEN_KEY = "agroecology_access_token";
 const REFRESH_KEY = "agroecology_refresh_token";
+const EMAIL_KEY = "agroecology_email";
+const FULL_NAME_KEY = "agroecology_full_name";
 
 function decodeJwt(token: string): {
   sub: string;
@@ -62,18 +64,21 @@ function createAuthStore() {
     const data = await resp.json();
     localStorage.setItem(TOKEN_KEY, data.access_token);
     localStorage.setItem(REFRESH_KEY, data.refresh_token);
+    localStorage.setItem(EMAIL_KEY, email);
 
     const payload = decodeJwt(data.access_token);
+    const fullName = payload.full_name || email;
     session = {
       userId: payload.sub,
       email: email,
-      fullName: payload.full_name || email,
+      fullName,
       slug: payload.sub,
       roles: payload.roles || [],
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
       expiresAt: payload.exp * 1000,
     };
+    localStorage.setItem(FULL_NAME_KEY, fullName);
     fetchProfile();
     notify();
   }
@@ -88,6 +93,10 @@ function createAuthStore() {
         const profile = await resp.json();
         if (session) {
           session.slug = profile.slug || session.userId;
+          if (profile.full_name) {
+            session.fullName = profile.full_name;
+            localStorage.setItem(FULL_NAME_KEY, profile.full_name);
+          }
           notify();
         }
       }
@@ -142,6 +151,8 @@ function createAuthStore() {
     session = null;
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_KEY);
+    localStorage.removeItem(EMAIL_KEY);
+    localStorage.removeItem(FULL_NAME_KEY);
     notify();
   }
 
@@ -153,10 +164,12 @@ function createAuthStore() {
       if (storedToken) {
         const payload = decodeJwt(storedToken);
         if (payload.exp * 1000 > Date.now()) {
+          const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
+          const storedFullName = localStorage.getItem(FULL_NAME_KEY) || storedEmail;
           session = {
             userId: payload.sub,
-            email: payload.email || "",
-            fullName: payload.full_name || "",
+            email: payload.email || storedEmail,
+            fullName: payload.full_name || storedFullName,
             slug: payload.sub,
             roles: payload.roles || [],
             accessToken: storedToken,
@@ -176,10 +189,12 @@ function createAuthStore() {
               localStorage.setItem(TOKEN_KEY, data.access_token);
               localStorage.setItem(REFRESH_KEY, data.refresh_token);
               const newPayload = decodeJwt(data.access_token);
+              const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
+              const storedFullName = localStorage.getItem(FULL_NAME_KEY) || storedEmail;
               session = {
                 userId: newPayload.sub,
-                email: newPayload.email || "",
-                fullName: newPayload.full_name || "",
+                email: newPayload.email || storedEmail,
+                fullName: newPayload.full_name || storedFullName,
                 slug: newPayload.sub,
                 roles: newPayload.roles || [],
                 accessToken: data.access_token,

@@ -52,6 +52,7 @@ export function useChat() {
   const pollRetriesRef = useRef(0);
   const requestIdRef = useRef(0);
   const messagesRef = useRef<ChatMessage[]>([]);
+  const startedAtRef = useRef(0);
   const MAX_POLL_RETRIES = 300;
 
   // Keep messagesRef in sync
@@ -88,6 +89,7 @@ export function useChat() {
     pollRetriesRef.current = 0;
 
     if (pollResult.status === "done") {
+      const durationMs = Date.now() - startedAtRef.current;
       setMessages((prev) =>
         prev.map((m) =>
           m.id === pendingAssistantId
@@ -96,6 +98,7 @@ export function useChat() {
                 content: pollResult.answer || "",
                 sources: pollResult.sources || undefined,
                 status: "done",
+                durationMs,
               }
             : m,
         ),
@@ -139,6 +142,7 @@ export function useChat() {
 
   const sendMessage = useCallback(async (question: string) => {
     const currentRequestId = ++requestIdRef.current;
+    startedAtRef.current = Date.now();
 
     setPollingTaskId(null);
     setPendingAssistantId(null);

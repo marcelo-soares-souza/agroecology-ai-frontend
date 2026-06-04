@@ -81,12 +81,9 @@ function createAuthStore() {
   async function fetchProfile() {
     if (!session?.accessToken) return;
     try {
-      const resp = await fetch(
-        buildApiUrl("/api/v1/auth/me"),
-        {
-          headers: { Authorization: `Bearer ${session.accessToken}` },
-        },
-      );
+      const resp = await fetch(buildApiUrl("/api/v1/auth/me"), {
+        headers: { Authorization: `Bearer ${session.accessToken}` },
+      });
       if (resp.ok) {
         const profile = await resp.json();
         if (session) {
@@ -171,9 +168,7 @@ function createAuthStore() {
           const refreshToken = localStorage.getItem(REFRESH_KEY);
           if (refreshToken) {
             const resp = await fetch(
-              buildApiUrl(
-                `/api/v1/auth/refresh?refresh_token=${refreshToken}`,
-              ),
+              buildApiUrl(`/api/v1/auth/refresh?refresh_token=${refreshToken}`),
               { method: "POST" },
             );
             if (resp.ok) {

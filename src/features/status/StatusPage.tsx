@@ -12,6 +12,9 @@ export function StatusPage() {
   const query = useQuery({
     queryKey: ["server-status"],
     queryFn: api.getStatus,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
     refetchInterval: 10000,
   });
 

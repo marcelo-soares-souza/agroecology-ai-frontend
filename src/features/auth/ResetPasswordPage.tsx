@@ -28,11 +28,14 @@ export function ResetPasswordPage() {
     }
     setStatus("loading");
     try {
-      const resp = await fetch(buildApiUrl("/api/v1/auth/password-reset/confirm"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, new_password: password }),
-      });
+      const resp = await fetch(
+        buildApiUrl("/api/v1/auth/password-reset/confirm"),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, new_password: password }),
+        },
+      );
       if (!resp.ok) {
         const data = await resp.json().catch(() => ({}));
         throw new Error((data as { detail?: string }).detail || "Reset failed");

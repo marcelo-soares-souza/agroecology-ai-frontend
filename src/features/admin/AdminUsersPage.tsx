@@ -55,62 +55,72 @@ export function AdminUsersPage() {
           >
             {(users: UserRecord[]) => (
               <div className="space-y-2">
-                {users.map((user) => (
-                  <Card
-                    key={user.id}
-                    padding="sm"
-                    className={`cursor-pointer transition-colors ${
-                      selectedUserId === user.id
-                        ? "border-primary ring-1 ring-primary"
-                        : ""
-                    }`}
-                    onClick={() => setSelectedUserId(user.id)}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <User className="h-4 w-4 text-primary shrink-0" />
-                          <span className="font-medium text-text-primary truncate">
-                            {user.full_name}
-                          </span>
+                {users.map((user) =>
+                  (() => {
+                    const isAdmin = (user.roles || []).includes("admin");
+
+                    return (
+                      <Card
+                        key={user.id}
+                        padding="sm"
+                        className={`cursor-pointer transition-colors ${
+                          selectedUserId === user.id
+                            ? "border-primary ring-1 ring-primary"
+                            : ""
+                        }`}
+                        onClick={() => setSelectedUserId(user.id)}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <User className="h-4 w-4 text-primary shrink-0" />
+                              <span className="font-medium text-text-primary truncate">
+                                {user.full_name}
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
+                              <span>{user.email}</span>
+                              <Badge
+                                variant={
+                                  user.status === "active"
+                                    ? "success"
+                                    : "warning"
+                                }
+                              >
+                                {user.status}
+                              </Badge>
+                              {(user.roles || []).map((r: string) => (
+                                <Badge
+                                  key={r}
+                                  variant={r === "admin" ? "default" : "info"}
+                                >
+                                  {r}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          {!isAdmin && (
+                            <div className="flex items-center gap-1 shrink-0">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (confirm("Delete this user?")) {
+                                    deleteMutation.mutate(user.id);
+                                  }
+                                }}
+                                disabled={deleteMutation.isPending}
+                              >
+                                <Trash2 className="h-4 w-4 text-red-500" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
-                          <span>{user.email}</span>
-                          <Badge
-                            variant={
-                              user.status === "active" ? "success" : "warning"
-                            }
-                          >
-                            {user.status}
-                          </Badge>
-                          {(user.roles || []).map((r: string) => (
-                            <Badge
-                              key={r}
-                              variant={r === "admin" ? "default" : "info"}
-                            >
-                              {r}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 shrink-0">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (confirm("Delete this user?")) {
-                              deleteMutation.mutate(user.id);
-                            }
-                          }}
-                          disabled={deleteMutation.isPending}
-                        >
-                          <Trash2 className="h-4 w-4 text-red-500" />
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
+                      </Card>
+                    );
+                  })(),
+                )}
               </div>
             )}
           </QueryResult>

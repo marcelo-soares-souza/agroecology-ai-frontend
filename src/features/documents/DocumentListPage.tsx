@@ -103,24 +103,24 @@ export function DocumentListPage() {
             </Button>
             {isAdmin && (
               <>
-              <Button
-                variant="secondary"
-                onClick={() => extractAllMutation.mutate(undefined)}
-                disabled={extractAllMutation.isPending}
-              >
-                {extractAllMutation.isPending ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Sparkles className="h-4 w-4" />
-                )}
-                Extract All
-              </Button>
-              <Link to="/upload">
-                <Button>
-                  <Plus className="h-4 w-4" />
-                  {t("nav.upload")}
+                <Button
+                  variant="secondary"
+                  onClick={() => extractAllMutation.mutate(undefined)}
+                  disabled={extractAllMutation.isPending}
+                >
+                  {extractAllMutation.isPending ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="h-4 w-4" />
+                  )}
+                  Extract All
                 </Button>
-              </Link>
+                <Link to="/upload">
+                  <Button>
+                    <Plus className="h-4 w-4" />
+                    {t("nav.upload")}
+                  </Button>
+                </Link>
               </>
             )}
           </div>

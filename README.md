@@ -25,6 +25,13 @@ The backend API base URL defaults to `http://localhost:8000`. Override with:
 VITE_API_BASE_URL=http://localhost:8000 bun run dev
 ```
 
+If the frontend is served behind a reverse proxy under a subpath, set the Vite
+base path at build/runtime config time:
+
+```bash
+VITE_BASE_PATH=/ai/ bun run build
+```
+
 ## Quality Gates
 
 ```bash

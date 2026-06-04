@@ -270,7 +270,8 @@ export function IngestionPage() {
                         </div>
                         <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
                           <span>
-                            {t("ingestion.started")}: {formatDate(run.started_at)}
+                            {t("ingestion.started")}:{" "}
+                            {formatDate(run.started_at)}
                           </span>
                           {run.finished_at && (
                             <>

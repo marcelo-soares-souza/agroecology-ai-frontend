@@ -75,79 +75,84 @@ const ProfilePage = lazyPage(
   "ProfilePage",
 );
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      element: <AppShell />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+        {
+          path: "/status",
+          element: (
+            <AuthGuard>
+              <StatusPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/documents",
+          element: (
+            <AuthGuard>
+              <DocumentListPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/documents/:id",
+          element: (
+            <AuthGuard>
+              <DocumentDetailPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/documents/:id/edit",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <DocumentEditPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/upload",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <DocumentUploadPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/ingestion",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <IngestionPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/admin/users",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <AdminUsersPage />
+            </AuthGuard>
+          ),
+        },
+        { path: "/about", element: <AboutPage /> },
+        { path: "/login", element: <LoginPage /> },
+        { path: "/register", element: <RegisterPage /> },
+        { path: "/confirm-email", element: <ConfirmEmailPage /> },
+        { path: "/forgot-password", element: <ForgotPasswordPage /> },
+        { path: "/reset-password", element: <ResetPasswordPage /> },
+        { path: "/resend-confirmation", element: <ResendConfirmationPage /> },
+        { path: "/profile/:slug", element: <ProfilePage /> },
+        { path: "*", element: <Navigate to="/" replace /> },
+      ],
+    },
+  ],
   {
-    element: <AppShell />,
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "/status",
-        element: (
-          <AuthGuard>
-            <StatusPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/documents",
-        element: (
-          <AuthGuard>
-            <DocumentListPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/documents/:id",
-        element: (
-          <AuthGuard>
-            <DocumentDetailPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/documents/:id/edit",
-        element: (
-          <AuthGuard roles={["admin"]}>
-            <DocumentEditPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/upload",
-        element: (
-          <AuthGuard roles={["admin"]}>
-            <DocumentUploadPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/ingestion",
-        element: (
-          <AuthGuard roles={["admin"]}>
-            <IngestionPage />
-          </AuthGuard>
-        ),
-      },
-      {
-        path: "/admin/users",
-        element: (
-          <AuthGuard roles={["admin"]}>
-            <AdminUsersPage />
-          </AuthGuard>
-        ),
-      },
-      { path: "/about", element: <AboutPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-      { path: "/confirm-email", element: <ConfirmEmailPage /> },
-      { path: "/forgot-password", element: <ForgotPasswordPage /> },
-      { path: "/reset-password", element: <ResetPasswordPage /> },
-      { path: "/resend-confirmation", element: <ResendConfirmationPage /> },
-      { path: "/profile/:slug", element: <ProfilePage /> },
-      { path: "*", element: <Navigate to="/" replace /> },
-    ],
+    basename: import.meta.env.BASE_URL,
   },
-]);
+);

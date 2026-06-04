@@ -3,6 +3,10 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
 
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
 i18n
   .use(HttpBackend)
   .use(LanguageDetector)
@@ -18,7 +22,7 @@ i18n
       lookupLocalStorage: "agroecology_locale",
     },
     backend: {
-      loadPath: "/locales/{{lng}}/translation.json",
+      loadPath: `${baseUrl}locales/{{lng}}/translation.json`,
     },
   });
 

@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Home,
   Activity,
   FileText,
   Upload,
@@ -84,31 +83,27 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-0.5">
-          <NavLink to="/documents" className={linkClass} onClick={onClose}>
-            <FileText className="h-4 w-4" />
-            {t("nav.documents")}
-          </NavLink>
-
-          <button
-            onClick={() => {
-              if (!isAuthenticated) {
-                navigate("/login", { state: { from: "/" } });
-              } else {
-                navigate("/");
-              }
-              onClose();
-            }}
-            className={cn(
-              "flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base transition-colors w-full text-left",
-              "text-text-secondary hover:bg-sidebar-hover hover:text-text-primary",
-            )}
-          >
-            <MessageCircle className="h-4 w-4" />
-            Chat
-          </button>
-
           {hasRestoredSession && !isAuthenticated ? (
             <>
+              <button
+                onClick={() => {
+                  navigate("/login", { state: { from: "/" } });
+                  onClose();
+                }}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base transition-colors w-full text-left",
+                  "text-text-secondary hover:bg-sidebar-hover hover:text-text-primary",
+                )}
+              >
+                <MessageCircle className="h-4 w-4" />
+                {t("nav.home")}
+              </button>
+
+              <NavLink to="/documents" className={linkClass} onClick={onClose}>
+                <FileText className="h-4 w-4" />
+                {t("nav.documents")}
+              </NavLink>
+
               <NavLink to="/login" className={linkClass} onClick={onClose}>
                 <LogIn className="h-4 w-4" />
                 Login
@@ -121,8 +116,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           ) : isAuthenticated ? (
             <>
               <NavLink to="/" end className={linkClass} onClick={onClose}>
-                <Home className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" />
                 {t("nav.home")}
+              </NavLink>
+
+              <NavLink to="/documents" className={linkClass} onClick={onClose}>
+                <FileText className="h-4 w-4" />
+                {t("nav.documents")}
               </NavLink>
 
               <NavLink to="/status" className={linkClass} onClick={onClose}>

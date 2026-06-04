@@ -83,6 +83,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-0.5">
+          <NavLink to="/documents" className={linkClass} onClick={onClose}>
+            <FileText className="h-4 w-4" />
+            {t("nav.documents")}
+          </NavLink>
+
           {hasRestoredSession && !isAuthenticated ? (
             <>
               <NavLink to="/login" className={linkClass} onClick={onClose}>
@@ -106,15 +111,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.status")}
               </NavLink>
 
-              {sectionLabel(t("nav.documents"))}
-
-              <NavLink to="/documents" className={linkClass} onClick={onClose}>
-                <FileText className="h-4 w-4" />
-                {t("nav.documents")}
-              </NavLink>
-
               {isAdmin && (
                 <>
+                  {sectionLabel(t("nav.documents"))}
+
                   <NavLink to="/upload" className={linkClass} onClick={onClose}>
                     <Upload className="h-4 w-4" />
                     {t("nav.upload")}

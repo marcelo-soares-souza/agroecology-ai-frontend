@@ -94,19 +94,11 @@ export const router = createBrowserRouter(
         },
         {
           path: "/documents",
-          element: (
-            <AuthGuard>
-              <DocumentListPage />
-            </AuthGuard>
-          ),
+          element: <DocumentListPage />,
         },
         {
           path: "/documents/:id",
-          element: (
-            <AuthGuard>
-              <DocumentDetailPage />
-            </AuthGuard>
-          ),
+          element: <DocumentDetailPage />,
         },
         {
           path: "/documents/:id/edit",

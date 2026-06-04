@@ -72,15 +72,9 @@ export const api = {
   getIngestionRun: (runId: string) =>
     request<IngestionRun>(`/api/v1/ingestion/runs/${runId}`),
 
-  uploadDocuments: (
-    files: File[],
-    metadata?: { title?: string; authors?: string; url?: string },
-  ) => {
+  uploadDocuments: (files: File[]) => {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
-    if (metadata?.title) formData.append("title", metadata.title);
-    if (metadata?.authors) formData.append("authors", metadata.authors);
-    if (metadata?.url) formData.append("url", metadata.url);
     return request<UploadResponse>("/api/v1/documents", {
       method: "POST",
       body: formData,

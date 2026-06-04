@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   RefreshCw,
   FileText,
@@ -43,6 +44,7 @@ export function IngestionPage() {
   const triggerMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(false),
     invalidateKeys: [
+      ["documents"],
       ["ingestion-status"],
       ["ingestion-runs"],
       ["server-status"],
@@ -52,6 +54,7 @@ export function IngestionPage() {
   const forceMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(true),
     invalidateKeys: [
+      ["documents"],
       ["ingestion-status"],
       ["ingestion-runs"],
       ["server-status"],
@@ -76,6 +79,14 @@ export function IngestionPage() {
   });
 
   const pendingDocs = serverStatus?.pending_docs ?? 0;
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (ingestStatus?.status === "done") {
+      queryClient.invalidateQueries({ queryKey: ["documents"] });
+    }
+  }, [ingestStatus?.status, queryClient]);
 
   const isProcessing =
     ingestStatus?.status === "processing" ||

@@ -6,7 +6,7 @@
   "nav": {
     "home": "Chat",
     "status": "Status do Servidor",
-    "documents": "Documentos",
+    "documents": "Base de Conhecimento",
     "upload": "Enviar Arquivos",
     "ingestion": "Ingestão",
     "about": "Sobre"
@@ -44,7 +44,7 @@
     "newChat": "Nova conversa"
   },
   "documents": {
-    "title": "Documentos",
+    "title": "Base de Conhecimento",
     "uploadTitle": "Enviar Documentos",
     "uploadDescription": "Faça upload de artigos, papers, manuais e documentos em PDF ou Markdown para alimentar a base de conhecimento da IA. Arquivos duplicados são detectados automaticamente.",
     "dragDrop": "Arraste e solte arquivos aqui ou clique para selecionar",

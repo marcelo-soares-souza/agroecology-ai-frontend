@@ -6,7 +6,7 @@
   "nav": {
     "home": "Chat",
     "status": "Server Status",
-    "documents": "Documents",
+    "documents": "Knowledge Base",
     "upload": "Upload Files",
     "ingestion": "Ingestion",
     "about": "About"
@@ -44,7 +44,7 @@
     "newChat": "New chat"
   },
   "documents": {
-    "title": "Documents",
+    "title": "Knowledge Base",
     "uploadTitle": "Upload Documents",
     "uploadDescription": "Upload articles, papers, manuals, and documents in PDF or Markdown to feed the AI knowledge base. Duplicate files are automatically detected.",
     "dragDrop": "Drag and drop files here or click to select",

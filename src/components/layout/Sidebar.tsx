@@ -12,6 +12,7 @@ import {
   LogOut,
   UserPlus,
   Users,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
@@ -87,6 +88,24 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <FileText className="h-4 w-4" />
             {t("nav.documents")}
           </NavLink>
+
+          <button
+            onClick={() => {
+              if (!isAuthenticated) {
+                navigate("/login", { state: { from: "/" } });
+              } else {
+                navigate("/");
+              }
+              onClose();
+            }}
+            className={cn(
+              "flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base transition-colors w-full text-left",
+              "text-text-secondary hover:bg-sidebar-hover hover:text-text-primary",
+            )}
+          >
+            <MessageCircle className="h-4 w-4" />
+            Chat
+          </button>
 
           {hasRestoredSession && !isAuthenticated ? (
             <>

@@ -101,6 +101,19 @@ export function StatusPage() {
       >
         {(data) => (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {statusCards(data).map((card) => (
+              <Card key={card.label}>
+                <div className="flex items-start gap-3">
+                  <div className="text-primary mt-0.5">{card.icon}</div>
+                  <div>
+                    <p className="text-sm text-text-secondary mb-1">
+                      {card.label}
+                    </p>
+                    <Badge variant={card.variant}>{card.value}</Badge>
+                  </div>
+                </div>
+              </Card>
+            ))}
             <Card>
               <div className="flex items-start gap-3">
                 <FileText className="h-5 w-5 text-primary mt-0.5" />
@@ -139,19 +152,6 @@ export function StatusPage() {
                 </div>
               </div>
             </Card>
-            {statusCards(data).map((card) => (
-              <Card key={card.label}>
-                <div className="flex items-start gap-3">
-                  <div className="text-primary mt-0.5">{card.icon}</div>
-                  <div>
-                    <p className="text-sm text-text-secondary mb-1">
-                      {card.label}
-                    </p>
-                    <Badge variant={card.variant}>{card.value}</Badge>
-                  </div>
-                </div>
-              </Card>
-            ))}
           </div>
         )}
       </QueryResult>

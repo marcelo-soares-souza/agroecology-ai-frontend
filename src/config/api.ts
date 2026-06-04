@@ -1,13 +1,20 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim() ?? "";
+
+const API_BASE_URL = rawApiBaseUrl.replace(/\/+$/, "");
+
+function buildApiUrl(path: string): string {
+  return `${API_BASE_URL}${path}`;
+}
 
 function getDownloadUrl(docId: string): string {
-  return `${API_BASE_URL}/api/v1/documents/${docId}/download`;
+  return buildApiUrl(`/api/v1/documents/${docId}/download`);
 }
 
 function getViewUrl(docId: string): string {
   const token = localStorage.getItem("agroecology_access_token") || "";
-  return `${API_BASE_URL}/api/v1/documents/${docId}/view?token=${encodeURIComponent(token)}`;
+  return buildApiUrl(
+    `/api/v1/documents/${docId}/view?token=${encodeURIComponent(token)}`,
+  );
 }
 
-export { API_BASE_URL, getDownloadUrl, getViewUrl };
+export { API_BASE_URL, buildApiUrl, getDownloadUrl, getViewUrl };

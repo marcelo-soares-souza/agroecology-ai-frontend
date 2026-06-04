@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { Button } from "@/components/ui/Button";
+import { buildApiUrl } from "@/config/api";
 
 function formatDate(iso: string | null) {
   if (!iso) return "—";
@@ -23,9 +24,7 @@ export function ProfilePage() {
   const query = useQuery({
     queryKey: ["user-profile", slug],
     queryFn: () =>
-      fetch(
-        `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/users/by-slug/${slug}`,
-      ).then((r) => {
+      fetch(buildApiUrl(`/api/v1/auth/users/by-slug/${slug}`)).then((r) => {
         if (!r.ok) {
           if (r.status === 404) throw new Error("User not found");
           throw new Error("Failed to load profile");

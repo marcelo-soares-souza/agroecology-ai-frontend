@@ -1,3 +1,5 @@
+import { buildApiUrl } from "@/config/api";
+
 interface AuthSession {
   userId: string;
   email: string;
@@ -48,14 +50,11 @@ function createAuthStore() {
   }
 
   async function login(email: string, password: string) {
-    const resp = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      },
-    );
+    const resp = await fetch(buildApiUrl("/api/v1/auth/login"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({ detail: "Login failed" }));
       throw new Error(err.detail || "Login failed");
@@ -83,7 +82,7 @@ function createAuthStore() {
     if (!session?.accessToken) return;
     try {
       const resp = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/me`,
+        buildApiUrl("/api/v1/auth/me"),
         {
           headers: { Authorization: `Bearer ${session.accessToken}` },
         },
@@ -108,14 +107,11 @@ function createAuthStore() {
     challenge_answer: string;
     locale?: string;
   }) {
-    const resp = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/register`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      },
-    );
+    const resp = await fetch(buildApiUrl("/api/v1/auth/register"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
     if (!resp.ok) {
       const err = await resp
         .json()
@@ -125,14 +121,11 @@ function createAuthStore() {
   }
 
   async function confirmEmail(token: string) {
-    const resp = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/confirm-email`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      },
-    );
+    const resp = await fetch(buildApiUrl("/api/v1/auth/confirm-email"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
     if (!resp.ok) {
       const err = await resp
         .json()
@@ -144,13 +137,10 @@ function createAuthStore() {
   function logout() {
     const token = getToken();
     if (token) {
-      fetch(
-        `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/logout`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      ).catch(() => {});
+      fetch(buildApiUrl("/api/v1/auth/logout"), {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      }).catch(() => {});
     }
     session = null;
     localStorage.removeItem(TOKEN_KEY);
@@ -181,7 +171,9 @@ function createAuthStore() {
           const refreshToken = localStorage.getItem(REFRESH_KEY);
           if (refreshToken) {
             const resp = await fetch(
-              `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/refresh?refresh_token=${refreshToken}`,
+              buildApiUrl(
+                `/api/v1/auth/refresh?refresh_token=${refreshToken}`,
+              ),
               { method: "POST" },
             );
             if (resp.ok) {

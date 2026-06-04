@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { buildApiUrl } from "@/config/api";
 
 export function ResendConfirmationPage() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,9 @@ export function ResendConfirmationPage() {
     setLoading(true);
     try {
       const resp = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000"}/api/v1/auth/confirm-email/resend?email=${encodeURIComponent(email)}`,
+        buildApiUrl(
+          `/api/v1/auth/confirm-email/resend?email=${encodeURIComponent(email)}`,
+        ),
         { method: "POST" },
       );
       if (!resp.ok) {

@@ -19,10 +19,20 @@ bun install
 bun run dev        # http://localhost:5173
 ```
 
-The backend API base URL defaults to `http://localhost:8000`. Override with:
+By default, frontend requests use the same origin that served the app. This is
+the correct setup for reverse proxy deployments such as `ai.agroecologymap.org`.
+
+For local development without a reverse proxy, either use the Vite `/api` proxy
+(default target: `http://localhost:8000`) or override the API base URL:
 
 ```bash
 VITE_API_BASE_URL=http://localhost:8000 bun run dev
+```
+
+If you need to point the Vite dev proxy at a different backend origin:
+
+```bash
+VITE_DEV_API_PROXY_TARGET=http://localhost:8000 bun run dev
 ```
 
 If the frontend is served behind a reverse proxy under a subpath, set the Vite

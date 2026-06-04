@@ -64,11 +64,13 @@ export function useChat() {
 
   useEffect(() => {
     if (!pollResult || !pendingAssistantId) return;
+    if (pollingTaskId && pollResult.task_id !== pollingTaskId) return;
 
     if (pollResult.status === "processing") {
       pollRetriesRef.current += 1;
       if (pollRetriesRef.current >= MAX_POLL_RETRIES) {
         setPollingTaskId(null);
+        setPendingAssistantId(null);
         setMessages((prev) =>
           prev.map((m) =>
             m.id === pendingAssistantId
@@ -82,6 +84,7 @@ export function useChat() {
     }
 
     setPollingTaskId(null);
+    setPendingAssistantId(null);
     pollRetriesRef.current = 0;
 
     if (pollResult.status === "done") {
@@ -111,11 +114,12 @@ export function useChat() {
       );
     }
     setIsSending(false);
-  }, [pollResult, pendingAssistantId]);
+  }, [pollResult, pendingAssistantId, pollingTaskId]);
 
   useEffect(() => {
     if (!pollError || !pendingAssistantId) return;
     setPollingTaskId(null);
+    setPendingAssistantId(null);
     setMessages((prev) =>
       prev.map((m) =>
         m.id === pendingAssistantId
@@ -129,6 +133,7 @@ export function useChat() {
   const clearChat = useCallback(() => {
     setMessages([]);
     setPollingTaskId(null);
+    setPendingAssistantId(null);
     setIsSending(false);
   }, []);
 
@@ -136,6 +141,7 @@ export function useChat() {
     const currentRequestId = ++requestIdRef.current;
 
     setPollingTaskId(null);
+    setPendingAssistantId(null);
     setIsSending(true);
     pollRetriesRef.current = 0;
 

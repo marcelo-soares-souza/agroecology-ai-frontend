@@ -1,6 +1,7 @@
 export interface AskRequest {
   question: string;
   top_k?: number;
+  history?: { role: string; content: string }[];
 }
 
 export interface AskResponse {

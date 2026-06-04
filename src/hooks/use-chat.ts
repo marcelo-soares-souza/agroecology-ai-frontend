@@ -50,7 +50,12 @@ export function useChat() {
     null,
   );
   const pollRetriesRef = useRef(0);
+  const requestIdRef = useRef(0);
+  const messagesRef = useRef<ChatMessage[]>([]);
   const MAX_POLL_RETRIES = 300;
+
+  // Keep messagesRef in sync
+  messagesRef.current = messages;
 
   const { result: pollResult, error: pollError } = useTaskPolling(
     pollingTaskId,
@@ -59,6 +64,7 @@ export function useChat() {
 
   useEffect(() => {
     if (!pollResult || !pendingAssistantId) return;
+
     if (pollResult.status === "processing") {
       pollRetriesRef.current += 1;
       if (pollRetriesRef.current >= MAX_POLL_RETRIES) {
@@ -127,6 +133,9 @@ export function useChat() {
   }, []);
 
   const sendMessage = useCallback(async (question: string) => {
+    const currentRequestId = ++requestIdRef.current;
+
+    setPollingTaskId(null);
     setIsSending(true);
     pollRetriesRef.current = 0;
 
@@ -146,12 +155,25 @@ export function useChat() {
     };
 
     setMessages((prev) => [...prev, userMsg, assistantMsg]);
-    setPendingAssistantId(assistantId);
 
     try {
-      const { task_id } = await api.ask({ question });
+      const recentMessages = messagesRef.current
+        .filter((m) => m.status === "done" && m.content)
+        .slice(-6)
+        .map((m) => ({ role: m.role, content: m.content }));
+
+      const { task_id } = await api.ask({
+        question,
+        history: recentMessages,
+      });
+
+      if (currentRequestId !== requestIdRef.current) return;
+
+      setPendingAssistantId(assistantId);
       setPollingTaskId(task_id);
     } catch (err) {
+      if (currentRequestId !== requestIdRef.current) return;
+
       setMessages((prev) =>
         prev.map((m) =>
           m.id === assistantId

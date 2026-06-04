@@ -71,6 +71,7 @@
     "updateSuccess": "Metadados atualizados com sucesso",
     "skipped": "Arquivos ignorados",
     "empty": "Nenhum documento enviado ainda.",
+    "refresh": "Atualizar lista",
     "total_one": "{{count}} documento",
     "total_other": "{{count}} documentos",
     "metadataOptional": "Metadados (opcional)",

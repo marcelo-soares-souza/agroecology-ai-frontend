@@ -12,6 +12,7 @@ import {
   Loader2,
   Download,
   Sparkles,
+  RefreshCw,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
@@ -89,8 +90,19 @@ export function DocumentListPage() {
               </p>
             )}
           </div>
-          {isAdmin && (
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Button
+              variant="secondary"
+              onClick={() => void query.refetch()}
+              disabled={query.isFetching}
+            >
+              <RefreshCw
+                className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`}
+              />
+              {t("documents.refresh")}
+            </Button>
+            {isAdmin && (
+              <>
               <Button
                 variant="secondary"
                 onClick={() => extractAllMutation.mutate(undefined)}
@@ -109,8 +121,9 @@ export function DocumentListPage() {
                   {t("nav.upload")}
                 </Button>
               </Link>
-            </div>
-          )}
+              </>
+            )}
+          </div>
         </div>
         <p className="text-sm text-text-secondary">
           {t("documents.listDescription")}

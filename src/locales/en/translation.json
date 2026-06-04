@@ -71,6 +71,7 @@
     "updateSuccess": "Metadata updated successfully",
     "skipped": "Skipped files",
     "empty": "No documents uploaded yet.",
+    "refresh": "Refresh list",
     "total_one": "{{count}} document",
     "total_other": "{{count}} documents",
     "metadataOptional": "Metadata (optional)",

@@ -79,9 +79,16 @@ export function DocumentListPage() {
     <div className="space-y-6">
       <div>
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-2xl font-bold text-text-primary">
-            {t("documents.title")}
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold text-text-primary">
+              {t("documents.title")}
+            </h1>
+            {query.data && (
+              <p className="text-sm text-text-secondary mt-1">
+                {t("documents.total", { count: query.data.length })}
+              </p>
+            )}
+          </div>
           {isAdmin && (
             <div className="flex items-center gap-2">
               <Button

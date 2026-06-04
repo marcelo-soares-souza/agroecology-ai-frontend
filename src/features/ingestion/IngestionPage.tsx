@@ -25,6 +25,18 @@ function formatDate(iso: string) {
   });
 }
 
+function formatElapsedMinutes(startedAt: string, finishedAt: string) {
+  const start = new Date(startedAt).getTime();
+  const end = new Date(finishedAt).getTime();
+
+  if (Number.isNaN(start) || Number.isNaN(end) || end < start) {
+    return null;
+  }
+
+  const elapsedMinutes = (end - start) / (1000 * 60);
+  return elapsedMinutes.toFixed(1);
+}
+
 export function IngestionPage() {
   const { t } = useTranslation();
 
@@ -207,70 +219,86 @@ export function IngestionPage() {
         >
           {(runs) => (
             <div className="space-y-2">
-              {runs.map((run) => (
-                <Card key={run.id} padding="sm">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
-                        run.status === "done"
-                          ? "bg-green-100 text-green-700"
-                          : run.status === "error"
-                            ? "bg-red-100 text-red-700"
-                            : "bg-amber-100 text-amber-700"
-                      }`}
-                    >
-                      {run.status === "done" ? (
-                        <CheckCircle2 className="h-4 w-4" />
-                      ) : run.status === "error" ? (
-                        <XCircle className="h-4 w-4" />
-                      ) : (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      )}
-                    </div>
+              {runs.map((run) => {
+                const elapsedMinutes = run.finished_at
+                  ? formatElapsedMinutes(run.started_at, run.finished_at)
+                  : null;
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant={
-                            run.status === "done"
-                              ? "success"
-                              : run.status === "error"
-                                ? "error"
-                                : "warning"
-                          }
-                        >
-                          {run.status === "done"
-                            ? t("ingestion.completed")
+                return (
+                  <Card key={run.id} padding="sm">
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                          run.status === "done"
+                            ? "bg-green-100 text-green-700"
                             : run.status === "error"
-                              ? t("ingestion.errorLabel")
-                              : t("ingestion.processingLabel")}
-                        </Badge>
-                        {run.chunks_indexed > 0 && (
-                          <span className="text-sm text-text-secondary">
-                            {run.chunks_indexed} {t("ingestion.chunks")}
-                          </span>
+                              ? "bg-red-100 text-red-700"
+                              : "bg-amber-100 text-amber-700"
+                        }`}
+                      >
+                        {run.status === "done" ? (
+                          <CheckCircle2 className="h-4 w-4" />
+                        ) : run.status === "error" ? (
+                          <XCircle className="h-4 w-4" />
+                        ) : (
+                          <Loader2 className="h-4 w-4 animate-spin" />
                         )}
                       </div>
-                      <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
-                        <span>
-                          {t("ingestion.started")}: {formatDate(run.started_at)}
-                        </span>
-                        {run.finished_at && (
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <Badge
+                            variant={
+                              run.status === "done"
+                                ? "success"
+                                : run.status === "error"
+                                  ? "error"
+                                  : "warning"
+                            }
+                          >
+                            {run.status === "done"
+                              ? t("ingestion.completed")
+                              : run.status === "error"
+                                ? t("ingestion.errorLabel")
+                                : t("ingestion.processingLabel")}
+                          </Badge>
+                          {run.chunks_indexed > 0 && (
+                            <span className="text-sm text-text-secondary">
+                              {run.chunks_indexed} {t("ingestion.chunks")}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
                           <span>
-                            {t("ingestion.finished")}:{" "}
-                            {formatDate(run.finished_at)}
+                            {t("ingestion.started")}: {formatDate(run.started_at)}
                           </span>
+                          {run.finished_at && (
+                            <>
+                              <span>
+                                {t("ingestion.finished")}:{" "}
+                                {formatDate(run.finished_at)}
+                              </span>
+                              {elapsedMinutes && (
+                                <span>
+                                  {t("ingestion.elapsedMinutes", {
+                                    count: Number(elapsedMinutes),
+                                    value: elapsedMinutes,
+                                  })}
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </div>
+                        {run.error && (
+                          <p className="text-error text-xs mt-1 truncate">
+                            {run.error}
+                          </p>
                         )}
                       </div>
-                      {run.error && (
-                        <p className="text-error text-xs mt-1 truncate">
-                          {run.error}
-                        </p>
-                      )}
                     </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           )}
         </QueryResult>

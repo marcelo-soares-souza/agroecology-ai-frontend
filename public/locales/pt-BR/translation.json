@@ -71,6 +71,8 @@
     "updateSuccess": "Metadados atualizados com sucesso",
     "skipped": "Arquivos ignorados",
     "empty": "Nenhum documento enviado ainda.",
+    "total_one": "{{count}} documento",
+    "total_other": "{{count}} documentos",
     "metadataOptional": "Metadados (opcional)",
     "selected_one": "{{count}} arquivo selecionado",
     "selected_other": "{{count}} arquivos selecionados",
@@ -101,6 +103,7 @@
     "processingLabel": "Processando",
     "started": "Início",
     "finished": "Fim",
+    "elapsedMinutes": "Tempo decorrido: {{value}} min",
     "chunks": "chunks"
   },
   "status": {

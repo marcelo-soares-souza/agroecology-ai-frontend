@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import type { SourceChunk } from "@/services/types";
 
 interface SourceCardProps {
@@ -29,8 +28,15 @@ export function SourceCard({ source }: SourceCardProps) {
 
   const documentId = extractDocumentId(source);
 
-  const content = (
-    <div className="rounded-[var(--radius-input)] border border-primary-200 bg-primary-50/50 px-3 py-2 text-sm max-w-xs">
+  const baseClasses =
+    "rounded-[var(--radius-input)] border border-primary-200 bg-primary-50/50 px-3 py-2 text-sm max-w-xs";
+
+  const linkClasses = documentId
+    ? "block hover:border-primary-300 hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-100/80 transition-all duration-200 cursor-pointer"
+    : "";
+
+  const inner = (
+    <>
       <p className="text-text-primary line-clamp-3 mb-1">{source.text}</p>
       <div className="flex items-center gap-2 text-xs text-text-secondary">
         <span className="truncate">{displayName}</span>
@@ -43,19 +49,24 @@ export function SourceCard({ source }: SourceCardProps) {
           {(source.score * 100).toFixed(0)}%
         </span>
       </div>
-    </div>
+    </>
   );
 
-  if (!documentId) {
-    return content;
+  if (documentId) {
+    return (
+      <a
+        href={`${import.meta.env.BASE_URL}documents/${documentId}`.replace(
+          /\/+/g,
+          "/",
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${baseClasses} ${linkClasses}`}
+      >
+        {inner}
+      </a>
+    );
   }
 
-  return (
-    <Link
-      to={`/documents/${documentId}`}
-      className="block hover:ring-2 hover:ring-primary-300 rounded-[var(--radius-input)] transition-shadow"
-    >
-      {content}
-    </Link>
-  );
+  return <div className={baseClasses}>{inner}</div>;
 }

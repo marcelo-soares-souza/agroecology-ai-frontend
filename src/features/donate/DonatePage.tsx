@@ -8,6 +8,7 @@ import {
   Server,
   Heart,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
@@ -173,6 +174,35 @@ export function DonatePage() {
         <p className="text-text-secondary text-sm mt-4">
           {t("donate.howToHelp.other")}
         </p>
+      </Card>
+
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
+        <HeartHandshake className="h-5 w-5 text-primary" />
+        {t("donate.supporters.title")}
+      </h2>
+
+      <Card>
+        <p className="text-text-primary text-base leading-relaxed mb-4">
+          {t("donate.supporters.description")}
+        </p>
+        <div className="divide-y divide-border rounded-lg border border-border">
+          <a
+            href="https://agroecologymap.org/en/accounts/marcelo-soares-souza"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-surface transition-colors"
+          >
+            <div>
+              <p className="font-semibold text-text-primary">
+                Marcelo Soares Souza
+              </p>
+              <p className="text-sm text-text-secondary">
+                {t("donate.supporters.role")}
+              </p>
+            </div>
+            <ExternalLink className="h-4 w-4 text-primary shrink-0" />
+          </a>
+        </div>
       </Card>
 
       <Card>

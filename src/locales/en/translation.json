@@ -191,6 +191,11 @@
       "koFi": "Support us on Ko-fi ❤️",
       "other": "Other ways to contribute: share the platform with your community, contribute documents to the knowledge base, or join us as a development volunteer. Every form of support strengthens our mission."
     },
+    "supporters": {
+      "title": "Supporters and Donors",
+      "description": "We will also be happy to publicly recognize people who support Agroecology Map AI. If you want, we can include your name and link in this list of supporters and donors.",
+      "role": "Supporter and donor"
+    },
     "gratitude": {
       "title": "Our Gratitude",
       "content": "With every person who uses, shares, or contributes to Agroecology Map, our community grows stronger. We believe that agroecology is the way forward, and that together we can build the tools our communities need to flourish. Thank you so much for being part of this story.",

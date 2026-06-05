@@ -8,9 +8,34 @@ function lazyPage<T extends Record<string, ComponentType<object>>>(
   key: keyof T & string,
 ) {
   return lazy(async () => {
-    const module = await loader();
+    const module = await loadPageModule(loader);
     return { default: module[key] as ComponentType<object> };
   });
+}
+
+async function loadPageModule<T>(loader: () => Promise<T>): Promise<T> {
+  try {
+    const module = await loader();
+    sessionStorage.removeItem("agroecology_dynamic_import_reload");
+    return module;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const isDynamicImportError =
+      message.includes("Failed to fetch dynamically imported module") ||
+      message.includes("Importing a module script failed") ||
+      message.includes("error loading dynamically imported module");
+
+    if (
+      isDynamicImportError &&
+      sessionStorage.getItem("agroecology_dynamic_import_reload") !== "true"
+    ) {
+      sessionStorage.setItem("agroecology_dynamic_import_reload", "true");
+      window.location.reload();
+      return new Promise<T>(() => undefined);
+    }
+
+    throw error;
+  }
 }
 
 const HomePage = lazyPage(() => import("./features/home/HomePage"), "HomePage");

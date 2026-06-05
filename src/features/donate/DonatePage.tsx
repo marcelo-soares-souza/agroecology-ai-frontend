@@ -12,8 +12,24 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
+const koFiUrl = "https://ko-fi.com/agroecologymap";
+const koFiQrUrl =
+  "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=https%3A%2F%2Fko-fi.com%2Fagroecologymap";
+const goalProgress = 0;
+
 export function DonatePage() {
   const { t } = useTranslation();
+
+  const donateButton = (
+    <a
+      href={koFiUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
+    >
+      {t("donate.howToHelp.koFi")}
+    </a>
+  );
 
   return (
     <div className="space-y-6">
@@ -31,9 +47,25 @@ export function DonatePage() {
               {t("donate.intro")}
             </p>
           </div>
-          <p className="text-text-primary text-base leading-relaxed">
-            {t("donate.subtitle")}
-          </p>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {donateButton}
+            <div className="min-w-0 sm:min-w-64">
+              <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+                <span className="font-semibold text-text-primary">
+                  {t("donate.goal.label")}
+                </span>
+                <span className="text-text-secondary">
+                  {t("donate.goal.amount")}
+                </span>
+              </div>
+              <div className="h-3 overflow-hidden rounded-full bg-primary-100">
+                <div
+                  className="h-full rounded-full bg-primary transition-all"
+                  style={{ width: `${goalProgress}%` }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </Card>
 
@@ -57,15 +89,10 @@ export function DonatePage() {
       </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.history.content")}
-        </p>
-      </Card>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.history.body")}
-        </p>
+        <div className="space-y-4 text-text-primary text-base leading-relaxed">
+          <p>{t("donate.history.content")}</p>
+          <p>{t("donate.history.body")}</p>
+        </div>
       </Card>
 
       <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
@@ -74,15 +101,10 @@ export function DonatePage() {
       </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.importance.content")}
-        </p>
-      </Card>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.importance.body")}
-        </p>
+        <div className="space-y-4 text-text-primary text-base leading-relaxed">
+          <p>{t("donate.importance.content")}</p>
+          <p>{t("donate.importance.body")}</p>
+        </div>
       </Card>
 
       <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
@@ -91,15 +113,10 @@ export function DonatePage() {
       </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.voluntary.content")}
-        </p>
-      </Card>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.voluntary.body")}
-        </p>
+        <div className="space-y-4 text-text-primary text-base leading-relaxed">
+          <p>{t("donate.voluntary.content")}</p>
+          <p>{t("donate.voluntary.body")}</p>
+        </div>
       </Card>
 
       <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
@@ -108,15 +125,10 @@ export function DonatePage() {
       </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.aiNeeds.content")}
-        </p>
-      </Card>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("donate.aiNeeds.body")}
-        </p>
+        <div className="space-y-4 text-text-primary text-base leading-relaxed">
+          <p>{t("donate.aiNeeds.content")}</p>
+          <p>{t("donate.aiNeeds.body")}</p>
+        </div>
       </Card>
 
       <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
@@ -161,15 +173,19 @@ export function DonatePage() {
         <p className="text-text-primary text-base leading-relaxed mb-4">
           {t("donate.howToHelp.description")}
         </p>
-        <div className="flex justify-center">
-          <a
-            href="https://ko-fi.com/agroecologymap"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-lg"
-          >
-            {t("donate.howToHelp.koFi")}
-          </a>
+        <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
+          {donateButton}
+          <div className="flex flex-col items-center gap-2">
+            <img
+              src={koFiQrUrl}
+              alt={t("donate.howToHelp.qrAlt")}
+              className="h-36 w-36 rounded-lg border border-border bg-white p-2"
+              loading="lazy"
+            />
+            <p className="text-xs text-text-secondary">
+              {t("donate.howToHelp.qrLabel")}
+            </p>
+          </div>
         </div>
         <p className="text-text-secondary text-sm mt-4">
           {t("donate.howToHelp.other")}

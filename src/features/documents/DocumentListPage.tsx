@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -47,6 +47,7 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
 export function DocumentListPage() {
   const { t } = useTranslation();
   const { isAdmin } = useAuth();
+  const navigate = useNavigate();
   const [extractMsg, setExtractMsg] = useState<{
     text: string;
     type: "success" | "info";
@@ -148,10 +149,22 @@ export function DocumentListPage() {
         {(docs) => (
           <div className="space-y-3">
             {docs.map((doc) => (
-              <Link
+              <div
                 key={doc.id}
-                to={`/documents/${doc.id}`}
                 className="block group"
+                onClick={(e) => {
+                  const target = e.target as HTMLElement;
+                  if (target.closest("button, a")) return;
+                  navigate(`/documents/${doc.id}`);
+                }}
+                role="link"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    navigate(`/documents/${doc.id}`);
+                  }
+                }}
               >
                 <Card
                   padding="sm"
@@ -193,21 +206,14 @@ export function DocumentListPage() {
                     </div>
 
                     <div className="flex items-center gap-1 shrink-0">
-                      <a
-                        href={getDownloadUrl(doc.id)}
-                        download
-                        onClick={(e) => e.stopPropagation()}
-                      >
+                      <a href={getDownloadUrl(doc.id)} download>
                         <Button variant="ghost" size="sm">
                           <Download className="h-4 w-4" />
                         </Button>
                       </a>
                       {isAdmin && (
                         <>
-                          <Link
-                            to={`/documents/${doc.id}/edit`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
+                          <Link to={`/documents/${doc.id}/edit`}>
                             <Button variant="ghost" size="sm">
                               <Pencil className="h-4 w-4" />
                             </Button>
@@ -215,8 +221,7 @@ export function DocumentListPage() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
+                            onClick={() => {
                               if (confirm(t("documents.deleteConfirm"))) {
                                 deleteMutation.mutate(doc.id);
                               }
@@ -235,7 +240,7 @@ export function DocumentListPage() {
                     </div>
                   </div>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         )}

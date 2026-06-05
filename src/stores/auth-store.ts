@@ -165,7 +165,8 @@ function createAuthStore() {
         const payload = decodeJwt(storedToken);
         if (payload.exp * 1000 > Date.now()) {
           const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
-          const storedFullName = localStorage.getItem(FULL_NAME_KEY) || storedEmail;
+          const storedFullName =
+            localStorage.getItem(FULL_NAME_KEY) || storedEmail;
           session = {
             userId: payload.sub,
             email: payload.email || storedEmail,
@@ -190,7 +191,8 @@ function createAuthStore() {
               localStorage.setItem(REFRESH_KEY, data.refresh_token);
               const newPayload = decodeJwt(data.access_token);
               const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
-              const storedFullName = localStorage.getItem(FULL_NAME_KEY) || storedEmail;
+              const storedFullName =
+                localStorage.getItem(FULL_NAME_KEY) || storedEmail;
               session = {
                 userId: newPayload.sub,
                 email: newPayload.email || storedEmail,

@@ -153,6 +153,7 @@ function createAuthStore() {
     localStorage.removeItem(REFRESH_KEY);
     localStorage.removeItem(EMAIL_KEY);
     localStorage.removeItem(FULL_NAME_KEY);
+    localStorage.removeItem("agroecology_chat_messages");
     notify();
   }
 

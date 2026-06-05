@@ -9,7 +9,8 @@
     "documents": "Knowledge Base",
     "upload": "Upload Files",
     "ingestion": "Ingestion",
-    "about": "About"
+    "about": "About",
+    "donate": "Donate"
   },
   "common": {
     "back": "Back",
@@ -145,5 +146,53 @@
     "vectorStore": "Vector Search: LanceDB (cosine) + BM25 keyword search + Reciprocal Rank Fusion",
     "llm": "LLM: DeepSeek v4 Flash (cloud) or Ollama (local) via OpenAI-compatible API",
     "version": "Version 1.0.0"
+  },
+  "donate": {
+    "title": "Support Agroecology Map AI",
+    "subtitle": "Help us fund the infrastructure that keeps this AI free, open, and serving agroecology.",
+    "whatIsTitle": "What Is Agroecology Map AI",
+    "whatIs": "Agroecology Map AI is an artificial intelligence platform specialized in agroecology. It transforms scientific papers, field manuals, technical booklets, theses, and reports into a searchable knowledge base, allowing people to ask questions in natural language and receive answers with source citations. Unlike generic chatbots, the platform answers based on the provided documents — without inventing facts or hiding where information came from. Our goal is to democratize access to agroecological knowledge for farmers, researchers, extension workers, educators, and communities through a reliable, free software tool designed to run on local infrastructure.",
+    "intro": "Eight years ago, Agroecology Map began as a free and open platform to map, connect, and share agroecological experiences around the world. Since then, every line of code, every server, and every feature has been built and maintained voluntarily, guided by the belief that agroecological knowledge should be free, accessible, and controlled by communities. Agroecology Map AI is the next step in that story: bringing the same mission into artificial intelligence. To do that, we need your help to acquire dedicated equipment for the project.",
+    "history": {
+      "title": "8 Years of History",
+      "content": "Since 2016, Agroecology Map has been a citizen science and open data platform that enables people worldwide to map and share agroecological practices. Born in Brasília, Brazil, the project grew organically: from a local initiative into a global network, with thousands of mapped experiences and a community of farmers, researchers, extension workers, educators, and activists.",
+      "body": "This history was built without investors or corporate control. The work happened during nights, weekends, and holidays because we believe that every mapped agroecological experience is a seed of knowledge that can inspire others, strengthen networks, and accelerate fairer and more sustainable farming practices."
+    },
+    "importance": {
+      "title": "Why This Project Matters",
+      "content": "The climate crisis, biodiversity loss, and food insecurity demand concrete responses. Agroecology shows that it is possible to produce food while regenerating ecosystems, strengthening communities, and preserving traditional knowledge. But this knowledge is still scattered across papers, booklets, reports, and local experiences, often difficult to find, translate, and apply.",
+      "body": "Agroecology Map AI helps make this knowledge more accessible. It connects trustworthy documents to real questions, always keeping sources traceable. Unlike commercial platforms, we do not sell data, charge subscriptions, or put knowledge behind paywalls. All software is free under the GPLv3 license, so the community can use, study, modify, and share it."
+    },
+    "voluntary": {
+      "title": "100% Volunteer Effort",
+      "content": "Agroecology Map is maintained by a small team of volunteers — developers, researchers, and activists — who dedicate their free time to building and improving the platform. We have no investors, corporate sponsors, or significant external funding. We do this because we deeply believe in agroecology, free software, and the transformative power of shared knowledge.",
+      "body": "But there are limits to what volunteer work can sustain on its own. As Agroecology Map AI grows, processing, storage, and development costs increase. The donation we are asking for is specific: acquiring dedicated local equipment to accelerate development and reduce dependence on cloud services."
+    },
+    "aiNeeds": {
+      "title": "The Need for AI Processing Power",
+      "content": "To turn documents into a searchable knowledge base, Agroecology Map AI needs to process large volumes of text, generate embeddings, index files, and query language models. This requires much more processing power than a regular web server.",
+      "body": "Today this work runs on limited personal hardware, which slows down indexing, restricts experiments with open models, and makes it harder to serve more people. A workstation with a dedicated GPU will allow us to process documents faster, test local models through Ollama, advance fine-tuning work, and keep the project more independent from major cloud providers."
+    },
+    "costs": {
+      "title": "Local Development Equipment",
+      "equipment": {
+        "title": "Goal: USD 2,500",
+        "gpu": "NVIDIA GeForce RTX 5060 TI 16GB — USD 1,100",
+        "memory": "64GB DDR4 3200 — USD 1,000",
+        "storage": "SSD NVME 2TB — USD 400",
+        "description": "This equipment will be dedicated to Agroecology Map AI for data processing, document indexing, tests with local models, fine-tuning open models, and ongoing platform improvements. It also brings us closer to a self-hostable infrastructure, with less cloud dependency and more technological sovereignty for the community."
+      }
+    },
+    "howToHelp": {
+      "title": "How You Can Help",
+      "description": "Your contribution, of any amount, brings us closer to the USD 2,500 goal to acquire local development equipment. With your help, we will be able to accelerate AI processing, test open models, reduce external dependencies, and keep the platform free and open. Every contribution turns into more reliable agroecological knowledge available to the people who need it.",
+      "koFi": "Support us on Ko-fi ❤️",
+      "other": "Other ways to contribute: share the platform with your community, contribute documents to the knowledge base, or join us as a development volunteer. Every form of support strengthens our mission."
+    },
+    "gratitude": {
+      "title": "Our Gratitude",
+      "content": "With every person who uses, shares, or contributes to Agroecology Map, our community grows stronger. We believe that agroecology is the way forward, and that together we can build the tools our communities need to flourish. Thank you so much for being part of this story.",
+      "closing": "With love, the Agroecology Map volunteer team."
+    }
   }
 }

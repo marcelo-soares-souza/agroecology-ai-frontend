@@ -6,6 +6,7 @@ import {
   Upload,
   RefreshCw,
   Info,
+  Heart,
   X,
   LogIn,
   LogOut,
@@ -166,6 +167,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           ) : null}
 
           <div className="flex-1" />
+
+          <NavLink to="/donate" className={linkClass} onClick={onClose}>
+            <Heart className="h-4 w-4" />
+            {t("nav.donate")}
+          </NavLink>
 
           <NavLink to="/about" className={linkClass} onClick={onClose}>
             <Info className="h-4 w-4" />

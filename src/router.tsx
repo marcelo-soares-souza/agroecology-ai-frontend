@@ -42,6 +42,10 @@ const AboutPage = lazyPage(
   () => import("./features/about/AboutPage"),
   "AboutPage",
 );
+const DonatePage = lazyPage(
+  () => import("./features/donate/DonatePage"),
+  "DonatePage",
+);
 const LoginPage = lazyPage(
   () => import("./features/auth/LoginPage"),
   "LoginPage",
@@ -133,6 +137,7 @@ export const router = createBrowserRouter(
           ),
         },
         { path: "/about", element: <AboutPage /> },
+        { path: "/donate", element: <DonatePage /> },
         { path: "/login", element: <LoginPage /> },
         { path: "/register", element: <RegisterPage /> },
         { path: "/confirm-email", element: <ConfirmEmailPage /> },

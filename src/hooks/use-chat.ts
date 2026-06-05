@@ -1,6 +1,11 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { api } from "@/services/api";
 import type { ChatMessage, AnswerResponse } from "@/services/types";
+import {
+  saveChatMessages,
+  loadChatMessages,
+  clearChatMessages,
+} from "@/lib/chat-storage";
 
 function useTaskPolling(taskId: string | null, enabled: boolean) {
   const [result, setResult] = useState<AnswerResponse | null>(null);
@@ -43,7 +48,9 @@ function useTaskPolling(taskId: string | null, enabled: boolean) {
 }
 
 export function useChat() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() =>
+    loadChatMessages(),
+  );
   const [isSending, setIsSending] = useState(false);
   const [pollingTaskId, setPollingTaskId] = useState<string | null>(null);
   const [pendingAssistantId, setPendingAssistantId] = useState<string | null>(
@@ -133,11 +140,17 @@ export function useChat() {
     setIsSending(false);
   }, [pollError, pendingAssistantId]);
 
+  // Persist messages to localStorage on every change
+  useEffect(() => {
+    saveChatMessages(messages);
+  }, [messages]);
+
   const clearChat = useCallback(() => {
     setMessages([]);
     setPollingTaskId(null);
     setPendingAssistantId(null);
     setIsSending(false);
+    clearChatMessages();
   }, []);
 
   const sendMessage = useCallback(async (question: string) => {

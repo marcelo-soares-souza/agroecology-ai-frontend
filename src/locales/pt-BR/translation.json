@@ -143,19 +143,21 @@
     "title": "Sobre",
     "betaNotice": "Esta plataforma está em desenvolvimento ativo e atualmente em fase BETA. Funcionalidades podem mudar, respostas devem ser verificadas nas fontes citadas e algumas operações ainda estão restritas a administradores.",
     "intro": "Sobre o Agroecology Map AI",
-    "description": "O Agroecology Map AI é um Software Livre sob licença GPLv3 criado para consultar conhecimento agroecológico a partir de artigos científicos, textos técnicos, cartilhas, manuais, teses e relatórios. Ele não é uma IA genérica: é uma ferramenta especializada, baseada em fontes, que busca responder com rastreabilidade e citações para que cada informação possa ser conferida.",
+    "description": "O Agroecology Map AI é uma ferramenta de software livre criada para tornar o conhecimento agroecológico mais fácil de encontrar, compreender e compartilhar. A plataforma permite consultar artigos científicos, textos técnicos, cartilhas, manuais, teses e relatórios por meio de perguntas em linguagem natural, tornando materiais muitas vezes longos ou dispersos mais acessíveis para as pessoas que precisam deles no dia a dia.",
     "highlights": {
       "freeSoftware": "Software Livre GPLv3",
       "sourceBased": "Baseado em fontes científicas e técnicas",
       "beta": "BETA em desenvolvimento ativo"
     },
     "ragTitle": "Uma IA RAG, Não uma IA Genérica",
-    "ragDescription": "RAG significa Retrieval-Augmented Generation, ou Geração Aumentada por Recuperação. Em vez de apenas gerar uma resposta a partir do conhecimento geral de um modelo, o sistema primeiro recupera trechos relevantes dos documentos indexados e só então usa a IA para sintetizar uma resposta. Isso torna a resposta mais verificável, reduz invenções e mantém o foco no material fornecido.",
-    "para1": "A plataforma foi pensada para a comunidade agroecológica global — agricultores, pesquisadores, extensionistas, estudantes, educadores e ativistas — que precisa consultar conhecimento técnico de forma rápida e confiável. No estágio beta, o chat está disponível para usuários registrados, enquanto upload e ingestão de documentos seguem restritos a administradores. O objetivo é ampliar o acesso gradualmente sem perder qualidade, segurança e rastreabilidade.",
-    "para2": "O Agroecology Map AI faz parte do ecossistema Agroecology Map, um projeto de ciência cidadã, dados abertos e software livre que há 8 anos mapeia experiências agroecológicas e conecta pessoas em diferentes regiões. Enquanto o Agroecology Map registra práticas no território, a plataforma de IA transforma textos e documentos em bases de conhecimento interativas.",
+    "ragDescription": "Diferente de um chatbot genérico, o Agroecology Map AI responde a partir dos documentos disponíveis na base de conhecimento. Quando alguém faz uma pergunta, o sistema procura os trechos mais relevantes, organiza essas informações e constrói uma resposta com indicação das fontes usadas. Isso ajuda a evitar respostas fabricadas e permite que cada pessoa confira de onde veio a informação.",
+    "para1": "A proposta é apoiar agricultores, pesquisadores, extensionistas, estudantes, educadores, comunidades e movimentos sociais que lidam com agroecologia, produção de alimentos, cuidado com o solo, biodiversidade e saberes tradicionais. A ferramenta não substitui a leitura crítica nem o trabalho de campo, mas ajuda a abrir caminhos: encontrar conceitos, comparar materiais, localizar referências e transformar documentos complexos em conversas mais acessíveis.",
+    "para2": "A plataforma ainda está em fase beta. O chat está disponível para usuários registrados, enquanto o envio e a organização de novos documentos seguem restritos a administradores. Esse cuidado permite ampliar o acesso gradualmente, preservando qualidade, segurança e rastreabilidade das respostas.",
     "para3": "Nosso objetivo de longo prazo é construir uma infraestrutura de IA local e auto-hospedável para a agroecologia. A plataforma já suporta backends plugáveis, como DeepSeek em nuvem ou modelos locais via Ollama. À medida que modelos abertos amadurecem, queremos reduzir dependências externas e fortalecer a soberania tecnológica das comunidades.",
     "aboutAgroecologyMap": "Sobre o Agroecology Map",
-    "agroecologyMapDescription": "Os dois projetos compartilham os mesmos valores: conhecimento livre, dados abertos, colaboração comunitária e a convicção de que tecnologias para produzir alimentos em harmonia com os ecossistemas não devem ficar presas a paywalls ou sistemas proprietários.",
+    "agroecologyMapDescription": "O projeto nasce dentro do ecossistema Agroecology Map, uma iniciativa de ciência cidadã, dados abertos e software livre que há 8 anos mapeia experiências agroecológicas e conecta pessoas em diferentes regiões. Enquanto o Agroecology Map registra práticas e territórios, o Agroecology Map AI transforma textos e documentos em uma base de conhecimento interativa, mantendo os mesmos valores de colaboração, conhecimento livre e tecnologia a serviço das comunidades.",
+    "knowledgeBaseTitle": "Base de Conhecimento Usada pela IA RAG",
+    "knowledgeBaseDescription": "A página de documentos mostra a base de conhecimento usada pelo sistema RAG do Agroecology Map AI. Essas fontes indexadas são o que a IA consulta antes de escrever uma resposta, mantendo cada resposta conectada a documentos que podem ser verificados.",
     "principles": "Princípios",
     "freeSoftware": "Software Livre",
     "freeSoftwareDescription": "O Agroecology Map AI é publicado como Software Livre sob licença GPLv3. Isso significa que a comunidade pode usar, estudar, modificar e compartilhar o código, mantendo a ferramenta auditável e alinhada ao interesse público.",
@@ -176,7 +178,8 @@
     "ctaTitle": "Explore, teste e apoie",
     "ctaDescription": "Use o chat, confira as fontes das respostas e ajude a fortalecer uma IA livre para a agroecologia.",
     "ctaChat": "Usar o chat",
-    "ctaDonate": "Apoiar o projeto"
+    "ctaDonate": "Apoiar o projeto",
+    "ctaDocuments": "Ver base de conhecimento"
   },
   "donate": {
     "title": "Apoie o Agroecology Map AI",
@@ -185,7 +188,7 @@
     "intro": "O Agroecology Map AI é o próximo passo de 8 anos de trabalho voluntário no Agroecology Map: uma IA livre para tornar o conhecimento agroecológico mais acessível, rastreável e útil para comunidades, pesquisadores e agricultores.",
     "goal": {
       "label": "Meta da campanha",
-      "amount": "USD 0 / USD 2.500"
+      "amount": "USD 0 / USD 3.000"
     },
     "history": {
       "title": "8 Anos de História",
@@ -210,16 +213,16 @@
     "costs": {
       "title": "Equipamento de Desenvolvimento Local",
       "equipment": {
-        "title": "Meta: USD 2.500",
-        "gpu": "NVIDIA GeForce RTX 5060 Ti 16GB — USD 1.100",
-        "memory": "64GB DDR4 3200 — USD 1.000",
-        "storage": "SSD NVMe 2TB — USD 400",
+        "title": "Meta: USD 3.000",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB — USD 1.500",
+        "memory": "64GB DDR4 3200 — USD 900",
+        "storage": "SSD NVMe 2TB — USD 600",
         "description": "Este equipamento será dedicado ao Agroecology Map AI para processamento de dados, indexação de documentos, testes com modelos locais, fine-tuning de modelos abertos e melhorias contínuas na plataforma. Ele também nos aproxima de uma infraestrutura auto-hospedável, com menos dependência de nuvem e mais soberania tecnológica para a comunidade."
       }
     },
     "howToHelp": {
       "title": "Como Você Pode Ajudar",
-      "description": "Sua contribuição, de qualquer valor, nos aproxima da meta de USD 2.500 para adquirir o equipamento de desenvolvimento local. Com sua ajuda, poderemos acelerar o processamento de IA, testar modelos abertos, reduzir dependências externas e manter a plataforma livre e gratuita. Cada contribuição se transforma em mais conhecimento agroecológico confiável disponível para quem precisa dele.",
+      "description": "Sua contribuição, de qualquer valor, nos aproxima da meta de USD 3.000 para adquirir o equipamento de desenvolvimento local. Com sua ajuda, poderemos acelerar o processamento de IA, testar modelos abertos, reduzir dependências externas e manter a plataforma livre e gratuita. Cada contribuição se transforma em mais conhecimento agroecológico confiável disponível para quem precisa dele.",
       "koFi": "Apoiar via Ko-fi ❤️",
       "qrAlt": "QR code para apoiar o Agroecology Map AI no Ko-fi",
       "qrLabel": "Escaneie para doar pelo Ko-fi",

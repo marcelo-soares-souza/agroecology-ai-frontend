@@ -8,6 +8,7 @@ import type {
   IngestTriggerResponse,
   DocumentRecord,
   DocumentUpdateRequest,
+  MetadataExtractionStatus,
   UploadResponse,
   IngestionRun,
 } from "./types";
@@ -82,6 +83,9 @@ export const api = {
   },
 
   listDocuments: () => request<DocumentRecord[]>("/api/v1/documents"),
+
+  getMetadataExtractionStatus: () =>
+    request<MetadataExtractionStatus>("/api/v1/documents/metadata-status"),
 
   getDocument: (id: string) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`),

@@ -81,6 +81,12 @@ export interface DocumentUpdateRequest {
   url?: string | null;
 }
 
+export interface MetadataExtractionStatus {
+  pending: number;
+  running: number;
+  active: number;
+}
+
 export interface UploadedFile {
   id: string;
   filename: string;

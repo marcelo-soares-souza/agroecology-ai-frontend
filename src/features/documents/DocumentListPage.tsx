@@ -57,6 +57,37 @@ export function DocumentListPage() {
     queryKey: ["documents"],
     queryFn: api.listDocuments,
   });
+  const metadataStatusQuery = useQuery({
+    queryKey: ["documents", "metadata-status"],
+    queryFn: api.getMetadataExtractionStatus,
+    enabled: isAdmin,
+  });
+  const metadataStats = query.data?.reduce(
+    (acc, doc) => {
+      if (doc.file_type !== "pdf") return acc;
+      acc.total += 1;
+      if (doc.title?.trim() && doc.authors?.trim()) {
+        acc.extracted += 1;
+      }
+      return acc;
+    },
+    { extracted: 0, total: 0 },
+  );
+  const metadataPending = metadataStats
+    ? metadataStats.total - metadataStats.extracted
+    : 0;
+  const metadataActive = metadataStatusQuery.data?.active ?? 0;
+  const indexStats = query.data?.reduce(
+    (acc, doc) => {
+      acc.total += 1;
+      if (doc.ingested) {
+        acc.indexed += 1;
+      }
+      return acc;
+    },
+    { indexed: 0, total: 0 },
+  );
+  const indexPending = indexStats ? indexStats.total - indexStats.indexed : 0;
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteDocument,
@@ -65,7 +96,7 @@ export function DocumentListPage() {
 
   const extractAllMutation = useAppMutation({
     mutationFn: api.extractAllMetadata,
-    invalidateKeys: [["documents"]],
+    invalidateKeys: [["documents"], ["documents", "metadata-status"]],
     onSuccess: (data) => {
       const msg = (data as { message: string }).message || "";
       if (msg.startsWith("0 ")) {
@@ -93,11 +124,14 @@ export function DocumentListPage() {
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
-              onClick={() => void query.refetch()}
-              disabled={query.isFetching}
+              onClick={() => {
+                void query.refetch();
+                if (isAdmin) void metadataStatusQuery.refetch();
+              }}
+              disabled={query.isFetching || metadataStatusQuery.isFetching}
             >
               <RefreshCw
-                className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`}
+                className={`h-4 w-4 ${query.isFetching || metadataStatusQuery.isFetching ? "animate-spin" : ""}`}
               />
               {t("documents.refresh")}
             </Button>
@@ -106,14 +140,18 @@ export function DocumentListPage() {
                 <Button
                   variant="secondary"
                   onClick={() => extractAllMutation.mutate(undefined)}
-                  disabled={extractAllMutation.isPending}
+                  disabled={
+                    extractAllMutation.isPending ||
+                    metadataPending === 0 ||
+                    metadataActive > 0
+                  }
                 >
                   {extractAllMutation.isPending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     <Sparkles className="h-4 w-4" />
                   )}
-                  Extract All Metadata
+                  {t("documents.extractAllMetadata")}
                 </Button>
                 <Link to="/upload">
                   <Button>
@@ -128,6 +166,73 @@ export function DocumentListPage() {
         <p className="text-sm text-text-secondary">
           {t("documents.listDescription")}
         </p>
+        {indexStats && indexStats.total > 0 && (
+          <Card padding="sm" className="mt-4">
+            <div className="space-y-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-semibold text-text-primary">
+                    {t("documents.indexProgress", {
+                      indexed: indexStats.indexed,
+                      total: indexStats.total,
+                    })}
+                  </p>
+                  <p className="text-sm text-text-secondary">
+                    {indexPending === 0
+                      ? t("documents.indexComplete")
+                      : t("documents.indexPending", {
+                          count: indexPending,
+                        })}
+                  </p>
+                </div>
+                <div className="h-3 overflow-hidden rounded-full bg-primary-100 sm:w-56">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all"
+                    style={{
+                      width: `${Math.round(
+                        (indexStats.indexed / indexStats.total) * 100,
+                      )}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {metadataStats && metadataStats.total > 0 && (
+                <div className="flex flex-col gap-3 border-t border-primary-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-text-primary">
+                      {t("documents.metadataProgress", {
+                        extracted: metadataStats.extracted,
+                        total: metadataStats.total,
+                      })}
+                    </p>
+                    <p className="text-sm text-text-secondary">
+                      {metadataActive > 0
+                        ? t("documents.metadataInProgress", {
+                            count: metadataActive,
+                          })
+                        : metadataPending === 0
+                          ? t("documents.metadataComplete")
+                          : t("documents.metadataPending", {
+                              count: metadataPending,
+                            })}
+                    </p>
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full bg-primary-100 sm:w-56">
+                    <div
+                      className="h-full rounded-full bg-primary transition-all"
+                      style={{
+                        width: `${Math.round(
+                          (metadataStats.extracted / metadataStats.total) * 100,
+                        )}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
+        )}
         {extractMsg && (
           <p
             className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-text-secondary"}`}
@@ -200,6 +305,19 @@ export function DocumentListPage() {
                         <Badge variant={doc.ingested ? "success" : "warning"}>
                           {doc.ingested ? "Indexed" : "Pending"}
                         </Badge>
+                        {doc.file_type === "pdf" && (
+                          <Badge
+                            variant={
+                              doc.title?.trim() && doc.authors?.trim()
+                                ? "success"
+                                : "warning"
+                            }
+                          >
+                            {doc.title?.trim() && doc.authors?.trim()
+                              ? t("documents.metadataExtracted")
+                              : t("documents.metadataQueued")}
+                          </Badge>
+                        )}
                         <span>{formatFileSize(doc.file_size)}</span>
                         <span>{formatDate(doc.created_at)}</span>
                       </div>

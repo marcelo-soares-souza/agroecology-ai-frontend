@@ -2,6 +2,7 @@ import { type ComponentType, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppShell } from "./components/layout/AppShell";
 import { AuthGuard } from "./components/AuthGuard";
+import { HomePage } from "./features/home/HomePage";
 
 function lazyPage<T extends Record<string, ComponentType<object>>>(
   loader: () => Promise<T>,
@@ -38,7 +39,6 @@ async function loadPageModule<T>(loader: () => Promise<T>): Promise<T> {
   }
 }
 
-const HomePage = lazyPage(() => import("./features/home/HomePage"), "HomePage");
 const StatusPage = lazyPage(
   () => import("./features/status/StatusPage"),
   "StatusPage",

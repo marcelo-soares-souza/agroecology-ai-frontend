@@ -1,5 +1,17 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Info, Map, Heart, Globe, Users, User, Cpu } from "lucide-react";
+import {
+  Info,
+  Map,
+  Heart,
+  Globe,
+  Users,
+  User,
+  Cpu,
+  BookOpen,
+  ShieldCheck,
+  Search,
+} from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
 export function AboutPage() {
@@ -21,35 +33,49 @@ export function AboutPage() {
       </div>
 
       <Card>
-        <div className="flex flex-col gap-4">
+        <div className="space-y-5">
           <div className="flex items-start gap-3">
             <Info className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-            <h2 className="text-xl font-semibold text-text-primary">
-              {t("about.intro")}
-            </h2>
+            <div>
+              <h2 className="text-xl font-semibold text-text-primary">
+                {t("about.intro")}
+              </h2>
+              <p className="mt-2 text-text-primary text-base leading-relaxed">
+                {t("about.description")}
+              </p>
+            </div>
           </div>
-          <p className="text-text-primary text-base leading-relaxed">
-            {t("about.description")}
-          </p>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-lg border border-primary-100 bg-primary-50 px-4 py-3">
+              <p className="text-sm font-semibold text-primary-700">
+                {t("about.highlights.freeSoftware")}
+              </p>
+            </div>
+            <div className="rounded-lg border border-primary-100 bg-primary-50 px-4 py-3">
+              <p className="text-sm font-semibold text-primary-700">
+                {t("about.highlights.sourceBased")}
+              </p>
+            </div>
+            <div className="rounded-lg border border-primary-100 bg-primary-50 px-4 py-3">
+              <p className="text-sm font-semibold text-primary-700">
+                {t("about.highlights.beta")}
+              </p>
+            </div>
+          </div>
         </div>
       </Card>
 
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("about.para1")}
-        </p>
-      </Card>
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
+        <Search className="h-5 w-5 text-primary" />
+        {t("about.ragTitle")}
+      </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("about.para2")}
-        </p>
-      </Card>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed">
-          {t("about.para3")}
-        </p>
+        <div className="space-y-4 text-text-primary text-base leading-relaxed">
+          <p>{t("about.ragDescription")}</p>
+          <p>{t("about.para1")}</p>
+        </div>
       </Card>
 
       <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
@@ -60,36 +86,63 @@ export function AboutPage() {
       <Card>
         <div className="flex items-start gap-3">
           <Globe className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-          <p className="text-text-primary text-base leading-relaxed">
-            {t("about.agroecologyMapDescription")}
-          </p>
-        </div>
-      </Card>
-
-      <Card>
-        <div className="flex items-start gap-3">
-          <Heart className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-          <div>
-            <h3 className="font-semibold text-text-primary mb-2">
-              {t("about.freeSoftware")}
-            </h3>
-            <p className="text-text-primary text-base leading-relaxed">
-              {t("about.freeSoftwareDescription")}
-            </p>
+          <div className="space-y-4 text-text-primary text-base leading-relaxed">
+            <p>{t("about.para2")}</p>
+            <p>{t("about.agroecologyMapDescription")}</p>
           </div>
         </div>
       </Card>
 
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
+        <ShieldCheck className="h-5 w-5 text-primary" />
+        {t("about.principles")}
+      </h2>
+
       <Card>
-        <div className="flex items-start gap-3">
-          <Users className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-          <div>
-            <h3 className="font-semibold text-text-primary mb-2">
-              {t("about.community")}
-            </h3>
-            <p className="text-text-primary text-base leading-relaxed">
-              {t("about.communityDescription")}
-            </p>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex items-start gap-3">
+            <Heart className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <div>
+              <h3 className="font-semibold text-text-primary mb-2">
+                {t("about.freeSoftware")}
+              </h3>
+              <p className="text-text-primary text-base leading-relaxed">
+                {t("about.freeSoftwareDescription")}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <BookOpen className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <div>
+              <h3 className="font-semibold text-text-primary mb-2">
+                {t("about.sourceKnowledge")}
+              </h3>
+              <p className="text-text-primary text-base leading-relaxed">
+                {t("about.sourceKnowledgeDescription")}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Users className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <div>
+              <h3 className="font-semibold text-text-primary mb-2">
+                {t("about.community")}
+              </h3>
+              <p className="text-text-primary text-base leading-relaxed">
+                {t("about.communityDescription")}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Cpu className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <div>
+              <h3 className="font-semibold text-text-primary mb-2">
+                {t("about.localFirst")}
+              </h3>
+              <p className="text-text-primary text-base leading-relaxed">
+                {t("about.para3")}
+              </p>
+            </div>
           </div>
         </div>
       </Card>
@@ -98,20 +151,21 @@ export function AboutPage() {
         <div className="flex items-start gap-3">
           <User className="h-6 w-6 text-primary mt-0.5 shrink-0" />
           <div>
-            <h3 className="font-semibold text-text-primary mb-3">
+            <h3 className="font-semibold text-text-primary mb-2">
               {t("about.creators")}
             </h3>
-            <div className="space-y-2">
-              <p>
-                <a
-                  href="https://agroecologymap.org/accounts/marcelo-soares-souza"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-primary hover:underline font-medium"
-                >
-                  Marcelo Soares Souza
-                </a>
-              </p>
+            <p className="text-text-primary text-base leading-relaxed">
+              {t("about.creatorsDescription")}
+            </p>
+            <div className="mt-3">
+              <a
+                href="https://agroecologymap.org/en/accounts/marcelo-soares-souza"
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                Marcelo Soares Souza
+              </a>
             </div>
           </div>
         </div>
@@ -135,6 +189,33 @@ export function AboutPage() {
         </div>
         <div className="border-t border-primary-100 pt-4 mt-4">
           <p className="text-sm text-text-secondary">{t("about.version")}</p>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <div>
+            <h3 className="text-lg font-semibold text-text-primary">
+              {t("about.ctaTitle")}
+            </h3>
+            <p className="mt-1 text-sm text-text-secondary">
+              {t("about.ctaDescription")}
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center rounded-button bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+            >
+              {t("about.ctaChat")}
+            </Link>
+            <Link
+              to="/donate"
+              className="inline-flex items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
+            >
+              {t("about.ctaDonate")}
+            </Link>
+          </div>
         </div>
       </Card>
     </div>

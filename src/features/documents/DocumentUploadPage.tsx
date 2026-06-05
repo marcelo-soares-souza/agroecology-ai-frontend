@@ -1,6 +1,6 @@
 import { useState, useRef, type DragEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Upload,
   X,
@@ -17,6 +17,7 @@ import type { UploadedFile, SkippedFile } from "@/services/types";
 
 const ALLOWED_EXTENSIONS = [".pdf", ".md"];
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
+const BATCH_SIZE = 15;
 
 function getFileExtension(name: string): string {
   const idx = name.lastIndexOf(".");
@@ -37,17 +38,14 @@ export function DocumentUploadPage() {
     uploaded: UploadedFile[];
     skipped: SkippedFile[];
   } | null>(null);
-
-  const uploadMutation = useMutation({
-    mutationFn: (data: { files: File[] }) => api.uploadDocuments(data.files),
-    onSuccess: (data) => {
-      setResults(data);
-      setFiles([]);
-      setRejectedFiles([]);
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
-      queryClient.invalidateQueries({ queryKey: ["server-status"] });
-    },
-  });
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{
+    sent: number;
+    total: number;
+    batch: number;
+    totalBatches: number;
+  } | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleFiles = (newFiles: FileList | File[]) => {
     const arr = Array.from(newFiles);
@@ -116,9 +114,52 @@ export function DocumentUploadPage() {
     if (e.dataTransfer.files) handleFiles(e.dataTransfer.files);
   };
 
-  const handleSubmit = () => {
-    if (files.length === 0) return;
-    uploadMutation.mutate({ files });
+  const handleSubmit = async () => {
+    if (files.length === 0 || isUploading) return;
+
+    const batches: File[][] = [];
+    for (let i = 0; i < files.length; i += BATCH_SIZE) {
+      batches.push(files.slice(i, i + BATCH_SIZE));
+    }
+
+    const accumulated: { uploaded: UploadedFile[]; skipped: SkippedFile[] } = {
+      uploaded: [],
+      skipped: [],
+    };
+
+    setIsUploading(true);
+    setUploadError(null);
+    setResults(null);
+
+    for (let i = 0; i < batches.length; i++) {
+      setUploadProgress({
+        sent: i * BATCH_SIZE,
+        total: files.length,
+        batch: i + 1,
+        totalBatches: batches.length,
+      });
+
+      try {
+        const batchResult = await api.uploadDocuments(batches[i]);
+        accumulated.uploaded.push(...batchResult.uploaded);
+        accumulated.skipped.push(...batchResult.skipped);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        setUploadError(`Batch ${i + 1}/${batches.length} failed: ${message}`);
+        setResults(accumulated);
+        setIsUploading(false);
+        setUploadProgress(null);
+        return;
+      }
+    }
+
+    setUploadProgress(null);
+    setResults(accumulated);
+    setFiles([]);
+    setRejectedFiles([]);
+    setIsUploading(false);
+    queryClient.invalidateQueries({ queryKey: ["documents"] });
+    queryClient.invalidateQueries({ queryKey: ["server-status"] });
   };
 
   const formatSize = (bytes: number) => {
@@ -206,7 +247,54 @@ export function DocumentUploadPage() {
           <h2 className="font-semibold text-text-primary mb-3">
             {t("documents.selected", { count: files.length })}
           </h2>
-          <div className="space-y-2 mb-4">
+
+          <Button
+            onClick={handleSubmit}
+            disabled={isUploading}
+            className="w-full mb-4"
+          >
+            {isUploading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {uploadProgress
+                  ? t("documents.uploadingBatch", {
+                      sent: uploadProgress.sent,
+                      total: uploadProgress.total,
+                      batch: uploadProgress.batch,
+                      totalBatches: uploadProgress.totalBatches,
+                    })
+                  : t("documents.uploading")}
+              </>
+            ) : (
+              <>
+                <Upload className="h-4 w-4" />
+                {t("documents.upload")}
+              </>
+            )}
+          </Button>
+
+          {isUploading && uploadProgress && (
+            <div className="mb-4">
+              <div className="w-full bg-primary-100 rounded-full h-2.5">
+                <div
+                  className="bg-primary h-2.5 rounded-full transition-all duration-300"
+                  style={{
+                    width: `${Math.round(
+                      (uploadProgress.sent / uploadProgress.total) * 100,
+                    )}%`,
+                  }}
+                />
+              </div>
+              <p className="text-xs text-text-secondary mt-1 text-center">
+                {t("documents.uploadProgress", {
+                  sent: uploadProgress.sent,
+                  total: uploadProgress.total,
+                })}
+              </p>
+            </div>
+          )}
+
+          <div className="space-y-2">
             {files.map((file) => (
               <div
                 key={file.name}
@@ -233,24 +321,6 @@ export function DocumentUploadPage() {
               </div>
             ))}
           </div>
-
-          <Button
-            onClick={handleSubmit}
-            disabled={uploadMutation.isPending}
-            className="w-full"
-          >
-            {uploadMutation.isPending ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                {t("documents.uploading")}
-              </>
-            ) : (
-              <>
-                <Upload className="h-4 w-4" />
-                {t("documents.upload")}
-              </>
-            )}
-          </Button>
         </Card>
       )}
 
@@ -285,11 +355,7 @@ export function DocumentUploadPage() {
         </Card>
       )}
 
-      {uploadMutation.isError && (
-        <Card className="text-error">
-          {uploadMutation.error?.message || t("documents.uploadError")}
-        </Card>
-      )}
+      {uploadError && <Card className="text-error">{uploadError}</Card>}
     </div>
   );
 }

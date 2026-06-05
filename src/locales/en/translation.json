@@ -53,6 +53,8 @@
     "listDescription": "This is the list of documents, articles, and papers used as the knowledge base for AI training. Documents marked as \"Indexed\" have been processed and are available for querying in the Chat.",
     "extensionsNote": "Accepted extensions: .pdf, .md (up to 50 MB)",
     "uploading": "Uploading...",
+    "uploadingBatch": "Uploading (batch {{batch}}/{{totalBatches}})…",
+    "uploadProgress": "Sent {{sent}} of {{total}} files",
     "upload": "Upload",
     "uploadSuccess": "Files uploaded successfully",
     "uploadError": "Error uploading files",

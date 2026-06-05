@@ -53,6 +53,8 @@
     "listDescription": "Esta é a lista de documentos, artigos e papers utilizados como base de conhecimento para o treinamento da IA. Os documentos marcados como \"Indexed\" já foram processados e estão disponíveis para consulta no Chat.",
     "extensionsNote": "Extensões aceitas: .pdf, .md (até 50 MB)",
     "uploading": "Enviando...",
+    "uploadingBatch": "Enviando (lote {{batch}}/{{totalBatches}})…",
+    "uploadProgress": "Enviados {{sent}} de {{total}} arquivos",
     "upload": "Enviar",
     "uploadSuccess": "Arquivos enviados com sucesso",
     "uploadError": "Erro ao enviar arquivos",

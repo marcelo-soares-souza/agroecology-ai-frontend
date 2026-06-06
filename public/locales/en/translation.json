@@ -35,7 +35,9 @@
     "unknownError": "Unknown error",
     "locales": {
       "ptBR": "Português (BR)",
-      "en": "English"
+      "en": "English",
+      "es": "Español",
+      "fr": "Français"
     }
   },
   "auth": {

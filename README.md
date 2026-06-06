@@ -8,7 +8,7 @@ Web interface for the Agroecology Map AI platform. RAG-powered chat for agroecol
 - **Tailwind CSS v4** (CSS-first `@theme` config)
 - **React Router v7** (`createBrowserRouter`)
 - **TanStack Query** (server state + caching)
-- **i18next** (pt-BR + en)
+- **i18next** (pt-BR + en + es + fr)
 - **react-markdown** + **remark-gfm** (formatted AI responses)
 
 ## Quick Start

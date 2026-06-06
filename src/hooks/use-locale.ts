@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-export type SupportedLocale = "pt-BR" | "en";
+export type SupportedLocale = "pt-BR" | "en" | "es" | "fr";
 
 export function useLocale() {
   const { i18n } = useTranslation();

@@ -4,6 +4,8 @@ import type { SupportedLocale } from "@/hooks/use-locale";
 const localeLabelKeys: Record<SupportedLocale, string> = {
   "pt-BR": "ptBR",
   en: "en",
+  es: "es",
+  fr: "fr",
 };
 
 export function getLocaleLabel(locale: SupportedLocale, t: TFunction): string {

@@ -11,7 +11,8 @@ import type { UserRecord } from "@/services/types";
 import { useState } from "react";
 
 export function AdminUsersPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   const query = useQuery<UserRecord[]>({
@@ -30,7 +31,7 @@ export function AdminUsersPage() {
 
   const formatDate = (iso: string | null) => {
     if (!iso) return "—";
-    return new Date(iso).toLocaleDateString("pt-BR", {
+    return new Date(iso).toLocaleDateString(locale, {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",

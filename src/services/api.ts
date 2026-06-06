@@ -109,7 +109,7 @@ export const api = {
       method: "DELETE",
     }),
 
-  getHumanChallenge: async (locale = "pt-BR") => {
+  getHumanChallenge: async (locale = "en") => {
     const resp = await fetch(
       `${API_BASE_URL}/api/v1/auth/human-challenge?locale=${locale}`,
     );

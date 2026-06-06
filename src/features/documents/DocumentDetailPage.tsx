@@ -25,8 +25,8 @@ function formatFileSize(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", {
+function formatDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -36,7 +36,8 @@ function formatDate(iso: string) {
 }
 
 export function DocumentDetailPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const { isAdmin } = useAuth();
@@ -178,11 +179,11 @@ export function DocumentDetailPage() {
           <div className="border-t border-primary-100 pt-4 mt-2 flex flex-wrap gap-6">
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Calendar className="h-4 w-4" />
-              {t("documents.createdAt")}: {formatDate(doc.created_at)}
+              {t("documents.createdAt")}: {formatDate(doc.created_at, locale)}
             </div>
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Clock className="h-4 w-4" />
-              {t("documents.updatedAt")}: {formatDate(doc.updated_at)}
+              {t("documents.updatedAt")}: {formatDate(doc.updated_at, locale)}
             </div>
           </div>
         </div>

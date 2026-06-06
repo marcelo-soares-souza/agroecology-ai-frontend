@@ -27,8 +27,8 @@ function formatFileSize(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", {
+function formatDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -45,7 +45,8 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
   };
 
 export function DocumentListPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
   const [extractMsg, setExtractMsg] = useState<{
@@ -321,7 +322,7 @@ export function DocumentListPage() {
                           </Badge>
                         )}
                         <span>{formatFileSize(doc.file_size)}</span>
-                        <span>{formatDate(doc.created_at)}</span>
+                        <span>{formatDate(doc.created_at, locale)}</span>
                       </div>
                     </div>
 

@@ -68,7 +68,7 @@ frontend/src/
 ├── services/          api.ts (all endpoints), types.ts
 ├── lib/               cn.ts (clsx + tailwind-merge), options.ts
 ├── config/            api.ts (base URL), i18n.ts
-└── locales/           pt-BR/ and en/ translation files
+└── locales/           pt-BR/, en/, es/, and fr/ translation files
 ```
 
 ## Pages

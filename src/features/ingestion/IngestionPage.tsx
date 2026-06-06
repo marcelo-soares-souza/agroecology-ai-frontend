@@ -16,8 +16,8 @@ import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", {
+function formatDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -39,7 +39,8 @@ function formatElapsedMinutes(startedAt: string, finishedAt: string) {
 }
 
 export function IngestionPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
 
   const triggerMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(false),
@@ -282,13 +283,13 @@ export function IngestionPage() {
                         <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
                           <span>
                             {t("ingestion.started")}:{" "}
-                            {formatDate(run.started_at)}
+                            {formatDate(run.started_at, locale)}
                           </span>
                           {run.finished_at && (
                             <>
                               <span>
                                 {t("ingestion.finished")}:{" "}
-                                {formatDate(run.finished_at)}
+                                {formatDate(run.finished_at, locale)}
                               </span>
                               {elapsedMinutes && (
                                 <span>

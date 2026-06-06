@@ -10,7 +10,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "pt-BR",
+    fallbackLng: "en",
     supportedLngs: ["pt-BR", "en", "es", "fr"],
     defaultNS: "translation",
     resources: {

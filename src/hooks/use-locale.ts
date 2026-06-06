@@ -6,9 +6,7 @@ export function useLocale() {
   const { i18n } = useTranslation();
 
   return {
-    locale: (i18n.resolvedLanguage ||
-      i18n.language ||
-      "pt-BR") as SupportedLocale,
+    locale: (i18n.resolvedLanguage || i18n.language || "en") as SupportedLocale,
     setLocale: (locale: SupportedLocale) => i18n.changeLanguage(locale),
   };
 }

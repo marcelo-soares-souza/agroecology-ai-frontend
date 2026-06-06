@@ -10,7 +10,7 @@ import { api } from "@/services/api";
 export function RegisterPage() {
   const { register } = useAuth();
   const { t, i18n } = useTranslation();
-  const locale = i18n.resolvedLanguage || i18n.language || "pt-BR";
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");

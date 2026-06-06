@@ -8,9 +8,9 @@ import { QueryResult } from "@/components/ui/QueryResult";
 import { Button } from "@/components/ui/Button";
 import { buildApiUrl } from "@/config/api";
 
-function formatDate(iso: string | null) {
+function formatDate(iso: string | null, locale: string) {
   if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("pt-BR", {
+  return new Date(iso).toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -20,7 +20,8 @@ function formatDate(iso: string | null) {
 }
 
 export function ProfilePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
 
   const query = useQuery({
@@ -118,6 +119,7 @@ export function ProfilePage() {
                   <span className="text-text-primary">
                     {formatDate(
                       (profile as { created_at?: string }).created_at || null,
+                      locale,
                     )}
                   </span>
                 </div>
@@ -130,6 +132,7 @@ export function ProfilePage() {
                     {formatDate(
                       (profile as { last_login_at?: string }).last_login_at ||
                         null,
+                      locale,
                     )}
                   </span>
                 </div>

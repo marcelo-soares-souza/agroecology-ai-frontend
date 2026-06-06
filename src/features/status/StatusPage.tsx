@@ -8,6 +8,7 @@ import {
   FileText,
   CheckCircle,
   Clock,
+  SlidersHorizontal,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
@@ -68,6 +69,42 @@ export function StatusPage() {
         label: t("status.cacheHits"),
         value: String(data!.cache_hits),
         variant: "info" as const,
+      },
+    ] as const;
+
+  const ragRows = (data: NonNullable<typeof query.data>) =>
+    [
+      {
+        label: t("status.embeddingModel"),
+        value: data.embedding_model,
+      },
+      {
+        label: t("status.embeddingDevice"),
+        value: data.embedding_device,
+      },
+      {
+        label: t("status.similarityTopK"),
+        value: String(data.similarity_top_k),
+      },
+      {
+        label: t("status.bm25TopK"),
+        value: String(data.bm25_top_k),
+      },
+      {
+        label: t("status.hybridTopK"),
+        value: String(data.hybrid_top_k),
+      },
+      {
+        label: t("status.rerankTopK"),
+        value: String(data.rerank_top_k),
+      },
+      {
+        label: t("status.rerankerModel"),
+        value: data.reranker_model ?? t("status.disabled"),
+      },
+      {
+        label: t("status.rerankerDevice"),
+        value: data.reranker_device ?? t("status.disabled"),
       },
     ] as const;
 
@@ -148,6 +185,44 @@ export function StatusPage() {
                         {data.total_docs}
                       </span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+            <Card className="md:col-span-2 lg:col-span-3">
+              <div className="flex items-start gap-3">
+                <SlidersHorizontal className="h-5 w-5 text-primary mt-0.5" />
+                <div className="min-w-0 flex-1">
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-sm text-text-secondary">
+                      {t("status.ragConfig")}
+                    </p>
+                    <Badge
+                      variant={
+                        data.reranker_enabled
+                          ? ("success" as const)
+                          : ("warning" as const)
+                      }
+                    >
+                      {data.reranker_enabled
+                        ? t("status.rerankerEnabled")
+                        : t("status.rerankerDisabled")}
+                    </Badge>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+                    {ragRows(data).map((row) => (
+                      <div
+                        key={row.label}
+                        className="min-w-0 rounded-md border border-primary-100 bg-surface px-3 py-2"
+                      >
+                        <p className="mb-1 text-xs font-medium text-text-secondary">
+                          {row.label}
+                        </p>
+                        <p className="break-words text-sm font-semibold text-text-primary">
+                          {row.value}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

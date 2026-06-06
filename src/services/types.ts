@@ -31,6 +31,8 @@ export interface AnswerResponse {
 
 export interface ServerStatus {
   index_ready: boolean;
+  schema_mismatch?: boolean;
+  index_version?: string;
   ingest_status: string;
   chunks_indexed: number;
   active_tasks: number;
@@ -39,6 +41,15 @@ export interface ServerStatus {
   pending_docs: number;
   indexed_docs: number;
   total_docs: number;
+  embedding_model: string;
+  embedding_device: string;
+  similarity_top_k: number;
+  bm25_top_k: number;
+  hybrid_top_k: number;
+  reranker_enabled: boolean;
+  reranker_model: string | null;
+  reranker_device: string | null;
+  rerank_top_k: number;
   last_ingestion: IngestionRun | null;
 }
 

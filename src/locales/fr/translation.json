@@ -253,7 +253,19 @@
     "documents": "Documents",
     "indexedDocs": "Indexés",
     "pendingDocs": "En attente",
-    "totalDocs": "Total"
+    "totalDocs": "Total",
+    "ragConfig": "Configuration RAG",
+    "embeddingModel": "Modèle d'embedding",
+    "embeddingDevice": "Périphérique d'embedding",
+    "similarityTopK": "Vector Top K",
+    "bm25TopK": "BM25 Top K",
+    "hybridTopK": "Hybrid Top K",
+    "rerankTopK": "Rerank Top K",
+    "rerankerModel": "Modèle du reranker",
+    "rerankerDevice": "Périphérique du reranker",
+    "rerankerEnabled": "Reranker actif",
+    "rerankerDisabled": "Reranker désactivé",
+    "disabled": "Désactivé"
   },
   "about": {
     "title": "À propos",

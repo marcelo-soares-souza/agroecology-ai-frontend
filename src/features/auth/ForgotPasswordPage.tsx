@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -6,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { buildApiUrl } from "@/config/api";
 
 export function ForgotPasswordPage() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -22,10 +24,10 @@ export function ForgotPasswordPage() {
         ),
         { method: "POST" },
       );
-      if (!resp.ok) throw new Error("Failed");
+      if (!resp.ok) throw new Error(t("common.error"));
       setSent(true);
     } catch {
-      setError("Failed to send reset email");
+      setError(t("auth.resetEmailFailed"));
     }
     setLoading(false);
   };
@@ -35,16 +37,14 @@ export function ForgotPasswordPage() {
       <div className="max-w-md mx-auto">
         <Card className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
-            Check your email
+            {t("auth.checkEmail")}
           </h1>
-          <p className="text-text-secondary">
-            If the email exists, a password reset link has been sent.
-          </p>
+          <p className="text-text-secondary">{t("auth.resetEmailSent")}</p>
           <Link
             to="/login"
             className="text-primary hover:underline mt-4 inline-block"
           >
-            Back to Login
+            {t("auth.backToLogin")}
           </Link>
         </Card>
       </div>
@@ -55,12 +55,12 @@ export function ForgotPasswordPage() {
     <div className="max-w-md mx-auto">
       <Card>
         <h1 className="text-2xl font-bold text-text-primary mb-6">
-          Forgot Password
+          {t("auth.forgotPasswordTitle")}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Email
+              {t("auth.email")}
             </label>
             <Input
               type="email"
@@ -71,12 +71,12 @@ export function ForgotPasswordPage() {
           </div>
           {error && <p className="text-error text-sm">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? t("auth.sending") : t("auth.sendResetLink")}
           </Button>
         </form>
         <p className="text-sm text-text-secondary mt-4 text-center">
           <Link to="/login" className="text-primary hover:underline">
-            Back to Login
+            {t("auth.backToLogin")}
           </Link>
         </p>
       </Card>

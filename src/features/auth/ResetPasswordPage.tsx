@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -6,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { buildApiUrl } from "@/config/api";
 
 export function ResetPasswordPage() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token") || "";
 
@@ -19,11 +21,11 @@ export function ResetPasswordPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (password !== confirm) {
-      setError("Passwords do not match");
+      setError(t("auth.passwordsDoNotMatch"));
       return;
     }
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError(t("auth.passwordMinLength"));
       return;
     }
     setStatus("loading");
@@ -38,12 +40,14 @@ export function ResetPasswordPage() {
       );
       if (!resp.ok) {
         const data = await resp.json().catch(() => ({}));
-        throw new Error((data as { detail?: string }).detail || "Reset failed");
+        throw new Error(
+          (data as { detail?: string }).detail || t("auth.resetFailed"),
+        );
       }
       setStatus("success");
     } catch (err) {
       setStatus("error");
-      setError(err instanceof Error ? err.message : "Reset failed");
+      setError(err instanceof Error ? err.message : t("auth.resetFailed"));
     }
   };
 
@@ -52,14 +56,14 @@ export function ResetPasswordPage() {
       <div className="max-w-md mx-auto">
         <Card className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
-            Invalid Link
+            {t("auth.invalidLink")}
           </h1>
-          <p className="text-text-secondary">No reset token provided.</p>
+          <p className="text-text-secondary">{t("auth.noResetToken")}</p>
           <Link
             to="/login"
             className="text-primary hover:underline mt-4 inline-block"
           >
-            Back to Login
+            {t("auth.backToLogin")}
           </Link>
         </Card>
       </div>
@@ -71,13 +75,13 @@ export function ResetPasswordPage() {
       <div className="max-w-md mx-auto">
         <Card className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
-            Password Reset!
+            {t("auth.passwordResetSuccessTitle")}
           </h1>
           <p className="text-text-secondary mb-4">
-            Your password has been changed.
+            {t("auth.passwordChanged")}
           </p>
           <Link to="/login">
-            <Button>Go to Login</Button>
+            <Button>{t("auth.goToLogin")}</Button>
           </Link>
         </Card>
       </div>
@@ -88,12 +92,12 @@ export function ResetPasswordPage() {
     <div className="max-w-md mx-auto">
       <Card>
         <h1 className="text-2xl font-bold text-text-primary mb-6">
-          Reset Password
+          {t("auth.resetPassword")}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              New Password
+              {t("auth.newPassword")}
             </label>
             <Input
               type="password"
@@ -105,7 +109,7 @@ export function ResetPasswordPage() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Confirm Password
+              {t("auth.confirmPassword")}
             </label>
             <Input
               type="password"
@@ -120,7 +124,9 @@ export function ResetPasswordPage() {
             disabled={status === "loading"}
             className="w-full"
           >
-            {status === "loading" ? "Resetting..." : "Reset Password"}
+            {status === "loading"
+              ? t("auth.resetting")
+              : t("auth.resetPassword")}
           </Button>
         </form>
       </Card>

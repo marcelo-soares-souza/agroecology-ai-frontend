@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { UseQueryResult } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card } from "./Card";
 import { Skeleton } from "./Skeleton";
 
@@ -20,6 +21,7 @@ export function QueryResult<TData>({
   children,
   isEmpty,
 }: QueryResultProps<TData>) {
+  const { t } = useTranslation();
   if (query.isLoading) {
     return (
       skeleton ?? (
@@ -36,7 +38,7 @@ export function QueryResult<TData>({
     return (
       error ?? (
         <Card className="text-error">
-          {query.error?.message ?? "An error occurred"}
+          {query.error?.message ?? t("common.errorOccurred")}
         </Card>
       )
     );

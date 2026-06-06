@@ -1,7 +1,9 @@
 {
   "app": {
     "name": "Agroecology Map AI",
-    "tagline": "Inteligência Artificial para Agroecologia"
+    "tagline": "Inteligência Artificial para Agroecologia",
+    "betaTitle": "Versão em Desenvolvimento",
+    "betaDescription": "Esta ferramenta está em desenvolvimento ativo e atualmente em período de testes. Funcionalidades podem mudar e algumas funções estão restritas."
   },
   "nav": {
     "home": "Chat",
@@ -28,10 +30,81 @@
     "search": "Buscar",
     "noResults": "Nenhum resultado encontrado",
     "download": "Download",
+    "notFound": "Não encontrado",
+    "errorOccurred": "Ocorreu um erro",
+    "unknownError": "Erro desconhecido",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English"
     }
+  },
+  "auth": {
+    "login": "Entrar",
+    "logout": "Sair",
+    "signIn": "Entrar",
+    "register": "Cadastrar",
+    "email": "Email",
+    "password": "Senha",
+    "newPassword": "Nova Senha",
+    "confirmPassword": "Confirmar Senha",
+    "fullName": "Nome Completo",
+    "loggingIn": "Entrando...",
+    "registering": "Cadastrando...",
+    "sending": "Enviando...",
+    "resetting": "Redefinindo...",
+    "loginFailed": "Falha no login",
+    "registrationFailed": "Falha no cadastro",
+    "confirmationFailed": "Falha na confirmação",
+    "confirmationFailedTitle": "Falha na Confirmação",
+    "resetFailed": "Falha ao redefinir senha",
+    "resendFailed": "Falha ao reenviar",
+    "resetEmailFailed": "Falha ao enviar email de redefinição",
+    "challengeLoadFailed": "Falha ao carregar desafio",
+    "profileLoadFailed": "Falha ao carregar perfil",
+    "passwordsDoNotMatch": "As senhas não coincidem",
+    "passwordMinLength": "A senha deve ter pelo menos 8 caracteres",
+    "noAccount": "Ainda não tem uma conta?",
+    "hasAccount": "Já tem uma conta?",
+    "forgotPassword": "Esqueceu a senha?",
+    "forgotPasswordTitle": "Esqueci a Senha",
+    "resendConfirmation": "Reenviar confirmação",
+    "resendConfirmationTitle": "Reenviar Confirmação",
+    "sendResetLink": "Enviar Link de Redefinição",
+    "backToLogin": "Voltar para Login",
+    "goToLogin": "Ir para Login",
+    "checkEmail": "Verifique seu email",
+    "resetEmailSent": "Se o email existir, um link de redefinição de senha foi enviado.",
+    "confirmationEmailSent": "Um link de confirmação foi enviado para seu email. Verifique sua caixa de entrada.",
+    "confirmationResent": "Verifique sua caixa de entrada para acessar o link de confirmação.",
+    "tryAnotherQuestion": "Tentar outra pergunta",
+    "invalidLink": "Link Inválido",
+    "noResetToken": "Nenhum token de redefinição informado.",
+    "passwordResetSuccessTitle": "Senha Redefinida!",
+    "passwordChanged": "Sua senha foi alterada.",
+    "resetPassword": "Redefinir Senha",
+    "noConfirmationToken": "Nenhum token de confirmação informado.",
+    "confirmingEmail": "Confirmando seu email...",
+    "emailConfirmed": "Email Confirmado!",
+    "accountActive": "Sua conta está ativa.",
+    "emailSent": "Email Enviado!"
+  },
+  "admin": {
+    "section": "Admin",
+    "users": "Usuários",
+    "noUsersFound": "Nenhum usuário encontrado.",
+    "deleteUserConfirm": "Excluir este usuário?",
+    "userDetail": "Detalhes do Usuário",
+    "userNotFound": "Usuário não encontrado",
+    "name": "Nome",
+    "slug": "Slug",
+    "status": "Status",
+    "roles": "Papéis",
+    "locale": "Idioma",
+    "joined": "Cadastro",
+    "lastLogin": "Último Login",
+    "created": "Criado",
+    "emailConfirmed": "Email Confirmado",
+    "statusActive": "Ativo"
   },
   "home": {
     "title": "Chat Agroecológico",
@@ -41,8 +114,42 @@
     "send": "Enviar",
     "thinking": "Pensando...",
     "sources": "Fontes consultadas",
+    "sourceLabel": "Fonte: {{title}}",
+    "pollingTimeout": "Tempo de espera excedido",
     "empty": "Faça uma pergunta sobre agroecologia para começar.",
     "newChat": "Nova conversa"
+  },
+  "landing": {
+    "heroDescription": "Seu assistente de pesquisa com IA para conhecimento agroecológico. Envie documentos, faça perguntas e receba respostas baseadas em pesquisas reais.",
+    "accessNotice": "O chat está aberto a todos os usuários cadastrados. Envio de documentos e ingestão estão restritos a administradores enquanto a plataforma está em desenvolvimento ativo.",
+    "getStarted": "Começar",
+    "allUsers": "Todos",
+    "features": {
+      "upload": {
+        "title": "Enviar Documentos",
+        "description": "Adicione PDFs, artigos científicos, manuais de campo e arquivos Markdown. Atualmente restrito a administradores durante o desenvolvimento."
+      },
+      "ask": {
+        "title": "Fazer Perguntas",
+        "description": "Disponível para todos! Faça perguntas no seu idioma e receba respostas baseadas em documentos existentes, com citações completas das fontes."
+      },
+      "ingest": {
+        "title": "Ingerir Conhecimento",
+        "description": "Indexe documentos no mecanismo de busca híbrida. Atualmente restrito a administradores durante o desenvolvimento."
+      }
+    },
+    "techTitle": "Aberto e Local-First",
+    "tech": {
+      "data": {
+        "title": "Seus Dados, Seu Controle",
+        "description": "Tudo roda na sua infraestrutura. Nenhum dado sai dos seus servidores. Use APIs em nuvem ou rode totalmente local com Ollama."
+      },
+      "backends": {
+        "title": "Backends de IA Plugáveis",
+        "description": "DeepSeek, Ollama ou qualquer API compatível com OpenAI. Troque modelos sem mudar seu fluxo de trabalho."
+      }
+    },
+    "footerPrefix": "Software Livre (GPLv3) — Mantido por"
   },
   "documents": {
     "title": "Base de Conhecimento",
@@ -76,6 +183,9 @@
     "empty": "Nenhum documento enviado ainda.",
     "refresh": "Atualizar lista",
     "extractAllMetadata": "Extrair metadados",
+    "extractMetadata": "Extrair Metadados",
+    "indexed": "Indexado",
+    "pending": "Pendente",
     "indexProgress": "{{indexed}} de {{total}} arquivos indexados",
     "indexComplete": "Todos os arquivos da lista já foram indexados.",
     "indexPending_one": "{{count}} arquivo ainda aguardando indexação.",
@@ -111,6 +221,10 @@
     "error": "Erro na ingestão",
     "idle": "Nenhuma ingestão em andamento",
     "alreadyRunning": "Uma ingestão já está em andamento",
+    "forceRebuild": "Forçar Reconstrução",
+    "allProcessed": "Todos os documentos já foram processados.",
+    "pendingDocuments_one": "{{count}} documento pendente.",
+    "pendingDocuments_other": "{{count}} documentos pendentes.",
     "chunksIndexed": "{{count}} fragmentos indexados",
     "status": "Status",
     "history": "Histórico de Execuções",

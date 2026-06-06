@@ -303,7 +303,9 @@ export function DocumentListPage() {
                           {doc.file_type.toUpperCase()}
                         </Badge>
                         <Badge variant={doc.ingested ? "success" : "warning"}>
-                          {doc.ingested ? "Indexed" : "Pending"}
+                          {doc.ingested
+                            ? t("documents.indexed")
+                            : t("documents.pending")}
                         </Badge>
                         {doc.file_type === "pdf" && (
                           <Badge

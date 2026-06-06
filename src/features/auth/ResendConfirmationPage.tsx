@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -6,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { buildApiUrl } from "@/config/api";
 
 export function ResendConfirmationPage() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -24,11 +26,13 @@ export function ResendConfirmationPage() {
       );
       if (!resp.ok) {
         const data = await resp.json().catch(() => ({}));
-        throw new Error((data as { detail?: string }).detail || "Failed");
+        throw new Error(
+          (data as { detail?: string }).detail || t("common.error"),
+        );
       }
       setSent(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to resend");
+      setError(err instanceof Error ? err.message : t("auth.resendFailed"));
     }
     setLoading(false);
   };
@@ -38,16 +42,14 @@ export function ResendConfirmationPage() {
       <div className="max-w-md mx-auto">
         <Card className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
-            Email Sent!
+            {t("auth.emailSent")}
           </h1>
-          <p className="text-text-secondary">
-            Check your inbox for the confirmation link.
-          </p>
+          <p className="text-text-secondary">{t("auth.confirmationResent")}</p>
           <Link
             to="/login"
             className="text-primary hover:underline mt-4 inline-block"
           >
-            Back to Login
+            {t("auth.backToLogin")}
           </Link>
         </Card>
       </div>
@@ -58,12 +60,12 @@ export function ResendConfirmationPage() {
     <div className="max-w-md mx-auto">
       <Card>
         <h1 className="text-2xl font-bold text-text-primary mb-6">
-          Resend Confirmation
+          {t("auth.resendConfirmationTitle")}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Email
+              {t("auth.email")}
             </label>
             <Input
               type="email"
@@ -74,12 +76,12 @@ export function ResendConfirmationPage() {
           </div>
           {error && <p className="text-error text-sm">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Sending..." : "Resend Confirmation"}
+            {loading ? t("auth.sending") : t("auth.resendConfirmation")}
           </Button>
         </form>
         <p className="text-sm text-text-secondary mt-4 text-center">
           <Link to="/login" className="text-primary hover:underline">
-            Back to Login
+            {t("auth.backToLogin")}
           </Link>
         </p>
       </Card>

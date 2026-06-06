@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
@@ -24,7 +26,7 @@ export function LoginPage() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      setError(err instanceof Error ? err.message : t("auth.loginFailed"));
     }
     setLoading(false);
   };
@@ -32,11 +34,13 @@ export function LoginPage() {
   return (
     <div className="max-w-md mx-auto">
       <Card>
-        <h1 className="text-2xl font-bold text-text-primary mb-6">Login</h1>
+        <h1 className="text-2xl font-bold text-text-primary mb-6">
+          {t("auth.login")}
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Email
+              {t("auth.email")}
             </label>
             <Input
               type="email"
@@ -48,7 +52,7 @@ export function LoginPage() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Password
+              {t("auth.password")}
             </label>
             <Input
               type="password"
@@ -59,13 +63,13 @@ export function LoginPage() {
           </div>
           {error && <p className="text-error text-sm">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Logging in..." : "Login"}
+            {loading ? t("auth.loggingIn") : t("auth.login")}
           </Button>
         </form>
         <p className="text-sm text-text-secondary mt-4 text-center">
-          Don't have an account?{" "}
+          {t("auth.noAccount")}{" "}
           <Link to="/register" className="text-primary hover:underline">
-            Register
+            {t("auth.register")}
           </Link>
         </p>
         <div className="flex justify-between mt-2 text-sm">
@@ -73,13 +77,13 @@ export function LoginPage() {
             to="/forgot-password"
             className="text-text-secondary hover:text-primary"
           >
-            Forgot password?
+            {t("auth.forgotPassword")}
           </Link>
           <Link
             to="/resend-confirmation"
             className="text-text-secondary hover:text-primary"
           >
-            Resend confirmation
+            {t("auth.resendConfirmation")}
           </Link>
         </div>
       </Card>

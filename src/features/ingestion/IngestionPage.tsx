@@ -141,18 +141,18 @@ export function IngestionPage() {
                 onClick={() => forceMutation.mutate(undefined)}
                 disabled={isProcessing}
               >
-                Force Rebuild
+                {t("ingestion.forceRebuild")}
               </Button>
             </div>
 
             {!isProcessing && pendingDocs === 0 && !statusLoading && (
               <p className="text-success text-sm mt-2">
-                All documents have already been processed.
+                {t("ingestion.allProcessed")}
               </p>
             )}
             {!isProcessing && pendingDocs > 0 && (
               <p className="text-text-secondary text-sm mt-2">
-                {pendingDocs} pending document{pendingDocs !== 1 ? "s" : ""}.
+                {t("ingestion.pendingDocuments", { count: pendingDocs })}
               </p>
             )}
           </div>

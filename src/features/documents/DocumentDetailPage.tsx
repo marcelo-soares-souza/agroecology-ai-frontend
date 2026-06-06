@@ -113,7 +113,7 @@ export function DocumentDetailPage() {
               ) : (
                 <Sparkles className="h-4 w-4" />
               )}
-              Extract Metadata
+              {t("documents.extractMetadata")}
             </Button>
           )}
           <a href={getDownloadUrl(doc.id)} download>
@@ -145,7 +145,7 @@ export function DocumentDetailPage() {
             <Badge variant="default">{doc.file_type.toUpperCase()}</Badge>
             <Badge variant="info">{formatFileSize(doc.file_size)}</Badge>
             <Badge variant={doc.ingested ? "success" : "warning"}>
-              {doc.ingested ? "Indexed" : "Pending"}
+              {doc.ingested ? t("documents.indexed") : t("documents.pending")}
             </Badge>
           </div>
 

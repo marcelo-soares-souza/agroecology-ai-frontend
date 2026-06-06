@@ -1,7 +1,9 @@
 {
   "app": {
     "name": "Agroecology Map AI",
-    "tagline": "Artificial Intelligence for Agroecology"
+    "tagline": "Artificial Intelligence for Agroecology",
+    "betaTitle": "Development Version",
+    "betaDescription": "This tool is under active development and currently in a testing period. Features may change and some functionality is restricted."
   },
   "nav": {
     "home": "Chat",
@@ -28,10 +30,81 @@
     "search": "Search",
     "noResults": "No results found",
     "download": "Download",
+    "notFound": "Not found",
+    "errorOccurred": "An error occurred",
+    "unknownError": "Unknown error",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English"
     }
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signIn": "Sign In",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "loggingIn": "Logging in...",
+    "registering": "Registering...",
+    "sending": "Sending...",
+    "resetting": "Resetting...",
+    "loginFailed": "Login failed",
+    "registrationFailed": "Registration failed",
+    "confirmationFailed": "Confirmation failed",
+    "confirmationFailedTitle": "Confirmation Failed",
+    "resetFailed": "Reset failed",
+    "resendFailed": "Failed to resend",
+    "resetEmailFailed": "Failed to send reset email",
+    "challengeLoadFailed": "Failed to load challenge",
+    "profileLoadFailed": "Failed to load profile",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot Password",
+    "resendConfirmation": "Resend confirmation",
+    "resendConfirmationTitle": "Resend Confirmation",
+    "sendResetLink": "Send Reset Link",
+    "backToLogin": "Back to Login",
+    "goToLogin": "Go to Login",
+    "checkEmail": "Check your email",
+    "resetEmailSent": "If the email exists, a password reset link has been sent.",
+    "confirmationEmailSent": "A confirmation link has been sent to your email. Please check your inbox.",
+    "confirmationResent": "Check your inbox for the confirmation link.",
+    "tryAnotherQuestion": "Try another question",
+    "invalidLink": "Invalid Link",
+    "noResetToken": "No reset token provided.",
+    "passwordResetSuccessTitle": "Password Reset!",
+    "passwordChanged": "Your password has been changed.",
+    "resetPassword": "Reset Password",
+    "noConfirmationToken": "No confirmation token provided.",
+    "confirmingEmail": "Confirming your email...",
+    "emailConfirmed": "Email Confirmed!",
+    "accountActive": "Your account is now active.",
+    "emailSent": "Email Sent!"
+  },
+  "admin": {
+    "section": "Admin",
+    "users": "Users",
+    "noUsersFound": "No users found.",
+    "deleteUserConfirm": "Delete this user?",
+    "userDetail": "User Detail",
+    "userNotFound": "User not found",
+    "name": "Name",
+    "slug": "Slug",
+    "status": "Status",
+    "roles": "Roles",
+    "locale": "Locale",
+    "joined": "Joined",
+    "lastLogin": "Last Login",
+    "created": "Created",
+    "emailConfirmed": "Email Confirmed",
+    "statusActive": "Active"
   },
   "home": {
     "title": "Agroecology Map AI Chat",
@@ -41,8 +114,42 @@
     "send": "Send",
     "thinking": "Thinking...",
     "sources": "Sources",
+    "sourceLabel": "Source: {{title}}",
+    "pollingTimeout": "Polling timeout",
     "empty": "Ask a question about agroecology to get started.",
     "newChat": "New chat"
+  },
+  "landing": {
+    "heroDescription": "Your AI-powered research assistant for agroecological knowledge. Upload documents, ask questions, and get answers grounded in real research.",
+    "accessNotice": "Chat is open to all registered users. Document upload and ingestion are currently restricted to administrators while the platform is in active development.",
+    "getStarted": "Get Started",
+    "allUsers": "All Users",
+    "features": {
+      "upload": {
+        "title": "Upload Documents",
+        "description": "Add your PDFs, research papers, field manuals, and Markdown files. Currently restricted to administrators while in development."
+      },
+      "ask": {
+        "title": "Ask Questions",
+        "description": "Available to everyone! Ask questions in your own language and get answers grounded in existing documents with full source citations."
+      },
+      "ingest": {
+        "title": "Ingest Knowledge",
+        "description": "Index documents into the hybrid search engine. Currently restricted to administrators while in development."
+      }
+    },
+    "techTitle": "Open & Local-First",
+    "tech": {
+      "data": {
+        "title": "Your Data, Your Control",
+        "description": "Everything runs on your infrastructure. No data leaves your servers. Use cloud APIs or run fully local with Ollama."
+      },
+      "backends": {
+        "title": "Pluggable AI Backends",
+        "description": "DeepSeek, Ollama, or any OpenAI-compatible API. Swap models without changing your workflow."
+      }
+    },
+    "footerPrefix": "Free Software (GPLv3) — Maintained by"
   },
   "documents": {
     "title": "Knowledge Base",
@@ -76,6 +183,9 @@
     "empty": "No documents uploaded yet.",
     "refresh": "Refresh list",
     "extractAllMetadata": "Extract metadata",
+    "extractMetadata": "Extract Metadata",
+    "indexed": "Indexed",
+    "pending": "Pending",
     "indexProgress": "{{indexed}} of {{total}} files are indexed",
     "indexComplete": "All files in the list have been indexed.",
     "indexPending_one": "{{count}} file is still waiting for indexing.",
@@ -111,6 +221,10 @@
     "error": "Ingestion error",
     "idle": "No ingestion in progress",
     "alreadyRunning": "An ingestion is already running",
+    "forceRebuild": "Force Rebuild",
+    "allProcessed": "All documents have already been processed.",
+    "pendingDocuments_one": "{{count}} pending document.",
+    "pendingDocuments_other": "{{count}} pending documents.",
     "chunksIndexed": "{{count}} chunks indexed",
     "status": "Status",
     "history": "Run History",

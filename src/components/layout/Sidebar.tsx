@@ -107,11 +107,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
               <NavLink to="/login" className={linkClass} onClick={onClose}>
                 <LogIn className="h-4 w-4" />
-                Login
+                {t("auth.login")}
               </NavLink>
               <NavLink to="/register" className={linkClass} onClick={onClose}>
                 <UserPlus className="h-4 w-4" />
-                Register
+                {t("auth.register")}
               </NavLink>
             </>
           ) : isAuthenticated ? (
@@ -151,7 +151,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     {t("nav.ingestion")}
                   </NavLink>
 
-                  {sectionLabel("Admin")}
+                  {sectionLabel(t("admin.section"))}
 
                   <NavLink
                     to="/admin/users"
@@ -159,7 +159,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     onClick={onClose}
                   >
                     <Users className="h-4 w-4" />
-                    Users
+                    {t("admin.users")}
                   </NavLink>
                 </>
               )}
@@ -186,7 +186,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               className="flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base w-full text-red-500 hover:bg-red-50 transition-colors"
             >
               <LogOut className="h-4 w-4" />
-              Logout
+              {t("auth.logout")}
             </button>
           </div>
         )}

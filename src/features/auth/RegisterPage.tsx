@@ -9,7 +9,7 @@ import { api } from "@/services/api";
 
 export function RegisterPage() {
   const { register } = useAuth();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "pt-BR";
 
   const [fullName, setFullName] = useState("");
@@ -33,9 +33,9 @@ export function RegisterPage() {
     api
       .getHumanChallenge(locale)
       .then(setChallenge)
-      .catch(() => setError("Failed to load challenge"))
+      .catch(() => setError(t("auth.challengeLoadFailed")))
       .finally(() => setChallengeLoading(false));
-  }, [locale]);
+  }, [locale, t]);
 
   useEffect(() => {
     fetchChallenge();
@@ -46,7 +46,7 @@ export function RegisterPage() {
     if (!challenge) return;
 
     if (password !== passwordConfirm) {
-      setError("Passwords do not match");
+      setError(t("auth.passwordsDoNotMatch"));
       return;
     }
 
@@ -63,7 +63,9 @@ export function RegisterPage() {
       });
       setSuccess(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed");
+      setError(
+        err instanceof Error ? err.message : t("auth.registrationFailed"),
+      );
     }
     setLoading(false);
   };
@@ -73,17 +75,16 @@ export function RegisterPage() {
       <div className="max-w-md mx-auto">
         <Card className="text-center">
           <h1 className="text-2xl font-bold text-text-primary mb-4">
-            Check your email
+            {t("auth.checkEmail")}
           </h1>
           <p className="text-text-secondary">
-            A confirmation link has been sent to your email. Please check your
-            inbox.
+            {t("auth.confirmationEmailSent")}
           </p>
           <Link
             to="/login"
             className="text-primary hover:underline mt-4 inline-block"
           >
-            Go to Login
+            {t("auth.goToLogin")}
           </Link>
         </Card>
       </div>
@@ -93,11 +94,13 @@ export function RegisterPage() {
   return (
     <div className="max-w-md mx-auto">
       <Card>
-        <h1 className="text-2xl font-bold text-text-primary mb-6">Register</h1>
+        <h1 className="text-2xl font-bold text-text-primary mb-6">
+          {t("auth.register")}
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Full Name
+              {t("auth.fullName")}
             </label>
             <Input
               value={fullName}
@@ -107,7 +110,7 @@ export function RegisterPage() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Email
+              {t("auth.email")}
             </label>
             <Input
               type="email"
@@ -118,7 +121,7 @@ export function RegisterPage() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Password
+              {t("auth.password")}
             </label>
             <Input
               type="password"
@@ -130,7 +133,7 @@ export function RegisterPage() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary mb-1">
-              Confirm Password
+              {t("auth.confirmPassword")}
             </label>
             <Input
               type="password"
@@ -153,7 +156,9 @@ export function RegisterPage() {
                   onClick={fetchChallenge}
                   disabled={challengeLoading}
                 >
-                  {challengeLoading ? "Loading..." : "Try another question"}
+                  {challengeLoading
+                    ? t("common.loading")
+                    : t("auth.tryAnotherQuestion")}
                 </Button>
               </div>
               <Input
@@ -169,13 +174,13 @@ export function RegisterPage() {
             disabled={loading || !challenge}
             className="w-full"
           >
-            {loading ? "Registering..." : "Register"}
+            {loading ? t("auth.registering") : t("auth.register")}
           </Button>
         </form>
         <p className="text-sm text-text-secondary mt-4 text-center">
-          Already have an account?{" "}
+          {t("auth.hasAccount")}{" "}
           <Link to="/login" className="text-primary hover:underline">
-            Login
+            {t("auth.login")}
           </Link>
         </p>
       </Card>

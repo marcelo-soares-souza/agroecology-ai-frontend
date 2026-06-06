@@ -55,7 +55,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-error hover:bg-red-50 rounded-xl transition-colors"
             >
               <LogOut className="h-4 w-4" />
-              <span className="hidden sm:inline">Logout</span>
+              <span className="hidden sm:inline">{t("auth.logout")}</span>
             </button>
           </>
         ) : hasRestoredSession ? (
@@ -63,7 +63,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             onClick={() => navigate("/login")}
             className="px-4 py-1.5 text-sm bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors"
           >
-            Sign In
+            {t("auth.signIn")}
           </button>
         ) : null}
 
@@ -72,11 +72,8 @@ export function Header({ onMenuClick }: HeaderProps) {
             BETA
           </span>
           <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-            <p className="font-semibold mb-1">Development Version</p>
-            <p className="text-gray-300">
-              This tool is under active development and currently in a testing
-              period. Features may change and some functionality is restricted.
-            </p>
+            <p className="font-semibold mb-1">{t("app.betaTitle")}</p>
+            <p className="text-gray-300">{t("app.betaDescription")}</p>
           </div>
         </div>
       </div>

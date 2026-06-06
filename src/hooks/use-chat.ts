@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { api } from "@/services/api";
 import type { ChatMessage, AnswerResponse } from "@/services/types";
 import {
@@ -7,7 +8,11 @@ import {
   clearChatMessages,
 } from "@/lib/chat-storage";
 
-function useTaskPolling(taskId: string | null, enabled: boolean) {
+function useTaskPolling(
+  taskId: string | null,
+  enabled: boolean,
+  unknownError: string,
+) {
   const [result, setResult] = useState<AnswerResponse | null>(null);
   const [pollError, setPollError] = useState<string | null>(null);
 
@@ -31,7 +36,7 @@ function useTaskPolling(taskId: string | null, enabled: boolean) {
         }
       } catch (err) {
         if (!cancelled) {
-          setPollError(err instanceof Error ? err.message : "Unknown error");
+          setPollError(err instanceof Error ? err.message : unknownError);
         }
       }
     };
@@ -42,12 +47,13 @@ function useTaskPolling(taskId: string | null, enabled: boolean) {
       cancelled = true;
       if (timer!) clearTimeout(timer);
     };
-  }, [taskId, enabled]);
+  }, [taskId, enabled, unknownError]);
 
   return { result, error: pollError };
 }
 
 export function useChat() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChatMessages(),
   );
@@ -68,6 +74,7 @@ export function useChat() {
   const { result: pollResult, error: pollError } = useTaskPolling(
     pollingTaskId,
     isSending && pollingTaskId !== null,
+    t("common.unknownError"),
   );
 
   useEffect(() => {
@@ -82,7 +89,7 @@ export function useChat() {
         setMessages((prev) =>
           prev.map((m) =>
             m.id === pendingAssistantId
-              ? { ...m, status: "error", error: "Polling timeout" }
+              ? { ...m, status: "error", error: t("home.pollingTimeout") }
               : m,
           ),
         );
@@ -117,14 +124,14 @@ export function useChat() {
             ? {
                 ...m,
                 status: "error",
-                error: pollResult.error || "Unknown error",
+                error: pollResult.error || t("common.unknownError"),
               }
             : m,
         ),
       );
     }
     setIsSending(false);
-  }, [pollResult, pendingAssistantId, pollingTaskId]);
+  }, [pollResult, pendingAssistantId, pollingTaskId, t]);
 
   useEffect(() => {
     if (!pollError || !pendingAssistantId) return;
@@ -153,64 +160,70 @@ export function useChat() {
     clearChatMessages();
   }, []);
 
-  const sendMessage = useCallback(async (question: string) => {
-    const currentRequestId = ++requestIdRef.current;
-    startedAtRef.current = Date.now();
+  const sendMessage = useCallback(
+    async (question: string) => {
+      const currentRequestId = ++requestIdRef.current;
+      startedAtRef.current = Date.now();
 
-    setPollingTaskId(null);
-    setPendingAssistantId(null);
-    setIsSending(true);
-    pollRetriesRef.current = 0;
+      setPollingTaskId(null);
+      setPendingAssistantId(null);
+      setIsSending(true);
+      pollRetriesRef.current = 0;
 
-    const userMsg: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: "user",
-      content: question,
-      status: "done",
-    };
+      const userMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "user",
+        content: question,
+        status: "done",
+      };
 
-    const assistantId = crypto.randomUUID();
-    const assistantMsg: ChatMessage = {
-      id: assistantId,
-      role: "assistant",
-      content: "",
-      status: "thinking",
-    };
+      const assistantId = crypto.randomUUID();
+      const assistantMsg: ChatMessage = {
+        id: assistantId,
+        role: "assistant",
+        content: "",
+        status: "thinking",
+      };
 
-    setMessages((prev) => [...prev, userMsg, assistantMsg]);
+      setMessages((prev) => [...prev, userMsg, assistantMsg]);
 
-    try {
-      const recentMessages = messagesRef.current
-        .filter((m) => m.status === "done" && m.content)
-        .slice(-6)
-        .map((m) => ({ role: m.role, content: m.content }));
+      try {
+        const recentMessages = messagesRef.current
+          .filter((m) => m.status === "done" && m.content)
+          .slice(-6)
+          .map((m) => ({ role: m.role, content: m.content }));
 
-      const { task_id } = await api.ask({
-        question,
-        history: recentMessages,
-      });
+        const { task_id } = await api.ask({
+          question,
+          history: recentMessages,
+        });
 
-      if (currentRequestId !== requestIdRef.current) return;
+        if (currentRequestId !== requestIdRef.current) return;
 
-      setPendingAssistantId(assistantId);
-      setPollingTaskId(task_id);
-    } catch (err) {
-      if (currentRequestId !== requestIdRef.current) return;
+        setPendingAssistantId(assistantId);
+        setPollingTaskId(task_id);
+      } catch (err) {
+        if (currentRequestId !== requestIdRef.current) return;
 
-      setMessages((prev) =>
-        prev.map((m) =>
-          m.id === assistantId
-            ? {
-                ...m,
-                status: "error",
-                error: err instanceof Error ? err.message : "Unknown error",
-              }
-            : m,
-        ),
-      );
-      setIsSending(false);
-    }
-  }, []);
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantId
+              ? {
+                  ...m,
+                  status: "error",
+                  error:
+                    err instanceof Error
+                      ? err.message
+                      : t("common.unknownError"),
+                }
+              : m,
+          ),
+        );
+        setIsSending(false);
+      }
+    },
+    [t],
+  );
 
   return { messages, isSending, sendMessage, clearChat };
 }

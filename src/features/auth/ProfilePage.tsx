@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { useParams, Link } from "react-router-dom";
 import { User, Mail, Calendar, Clock, Globe } from "lucide-react";
 import { Card } from "@/components/ui/Card";
@@ -19,6 +20,7 @@ function formatDate(iso: string | null) {
 }
 
 export function ProfilePage() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
   const query = useQuery({
@@ -26,8 +28,8 @@ export function ProfilePage() {
     queryFn: () =>
       fetch(buildApiUrl(`/api/v1/auth/users/by-slug/${slug}`)).then((r) => {
         if (!r.ok) {
-          if (r.status === 404) throw new Error("User not found");
-          throw new Error("Failed to load profile");
+          if (r.status === 404) throw new Error(t("admin.userNotFound"));
+          throw new Error(t("auth.profileLoadFailed"));
         }
         return r.json();
       }),
@@ -37,7 +39,7 @@ export function ProfilePage() {
   return (
     <div className="space-y-6">
       <Link to="/">
-        <Button variant="ghost">← Back</Button>
+        <Button variant="ghost">{t("common.back")}</Button>
       </Link>
 
       <QueryResult
@@ -74,7 +76,7 @@ export function ProfilePage() {
 
               <div className="flex flex-wrap gap-2">
                 {(profile as { status?: string }).status === "active" ? (
-                  <Badge variant="success">Active</Badge>
+                  <Badge variant="success">{t("admin.statusActive")}</Badge>
                 ) : (
                   <Badge variant="warning">
                     {(profile as { status?: string }).status}
@@ -92,21 +94,27 @@ export function ProfilePage() {
               <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">Email:</span>
+                  <span className="text-text-secondary">
+                    {t("auth.email")}:
+                  </span>
                   <span className="text-text-primary">
                     {(profile as { email?: string }).email}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Globe className="h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">Locale:</span>
+                  <span className="text-text-secondary">
+                    {t("admin.locale")}:
+                  </span>
                   <span className="text-text-primary">
                     {(profile as { locale?: string }).locale}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">Joined:</span>
+                  <span className="text-text-secondary">
+                    {t("admin.joined")}:
+                  </span>
                   <span className="text-text-primary">
                     {formatDate(
                       (profile as { created_at?: string }).created_at || null,
@@ -115,7 +123,9 @@ export function ProfilePage() {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Clock className="h-4 w-4 text-text-secondary" />
-                  <span className="text-text-secondary">Last login:</span>
+                  <span className="text-text-secondary">
+                    {t("admin.lastLogin")}:
+                  </span>
                   <span className="text-text-primary">
                     {formatDate(
                       (profile as { last_login_at?: string }).last_login_at ||

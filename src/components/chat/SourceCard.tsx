@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { SourceChunk } from "@/services/types";
 
 interface SourceCardProps {
@@ -18,8 +19,9 @@ function extractDocumentId(source: SourceChunk): string | null {
 }
 
 export function SourceCard({ source }: SourceCardProps) {
+  const { t } = useTranslation();
   const displayName = source.metadata.title
-    ? `Source: ${source.metadata.title}`
+    ? t("home.sourceLabel", { title: source.metadata.title })
     : source.metadata.source;
   const badgeColor =
     source.metadata.search_type === "vector"

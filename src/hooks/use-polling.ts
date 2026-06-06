@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import i18n from "i18next";
 
 interface PollingOptions<T> {
   fetchFn: () => Promise<T>;
@@ -64,7 +65,9 @@ export function usePolling<T>({
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Unknown error");
+          setError(
+            err instanceof Error ? err.message : i18n.t("common.unknownError"),
+          );
         }
       }
     };

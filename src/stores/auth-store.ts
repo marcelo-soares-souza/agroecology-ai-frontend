@@ -1,4 +1,5 @@
 import { buildApiUrl } from "@/config/api";
+import i18n from "@/config/i18n";
 
 interface AuthSession {
   userId: string;
@@ -58,8 +59,10 @@ function createAuthStore() {
       body: JSON.stringify({ email, password }),
     });
     if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ detail: "Login failed" }));
-      throw new Error(err.detail || "Login failed");
+      const err = await resp
+        .json()
+        .catch(() => ({ detail: i18n.t("auth.loginFailed") }));
+      throw new Error(err.detail || i18n.t("auth.loginFailed"));
     }
     const data = await resp.json();
     localStorage.setItem(TOKEN_KEY, data.access_token);
@@ -121,8 +124,8 @@ function createAuthStore() {
     if (!resp.ok) {
       const err = await resp
         .json()
-        .catch(() => ({ detail: "Registration failed" }));
-      throw new Error(err.detail || "Registration failed");
+        .catch(() => ({ detail: i18n.t("auth.registrationFailed") }));
+      throw new Error(err.detail || i18n.t("auth.registrationFailed"));
     }
   }
 
@@ -135,8 +138,8 @@ function createAuthStore() {
     if (!resp.ok) {
       const err = await resp
         .json()
-        .catch(() => ({ detail: "Confirmation failed" }));
-      throw new Error(err.detail || "Confirmation failed");
+        .catch(() => ({ detail: i18n.t("auth.confirmationFailed") }));
+      throw new Error(err.detail || i18n.t("auth.confirmationFailed"));
     }
   }
 

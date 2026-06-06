@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Trash2, Eye, User } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
@@ -10,6 +11,7 @@ import type { UserRecord } from "@/services/types";
 import { useState } from "react";
 
 export function AdminUsersPage() {
+  const { t } = useTranslation();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   const query = useQuery<UserRecord[]>({
@@ -40,7 +42,9 @@ export function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text-primary">Users</h1>
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("admin.users")}
+        </h1>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -49,7 +53,7 @@ export function AdminUsersPage() {
             query={query}
             empty={
               <Card className="text-center py-8">
-                <p className="text-text-secondary">No users found.</p>
+                <p className="text-text-secondary">{t("admin.noUsersFound")}</p>
               </Card>
             }
           >
@@ -106,7 +110,7 @@ export function AdminUsersPage() {
                                 size="sm"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  if (confirm("Delete this user?")) {
+                                  if (confirm(t("admin.deleteUserConfirm"))) {
                                     deleteMutation.mutate(user.id);
                                   }
                                 }}
@@ -130,25 +134,33 @@ export function AdminUsersPage() {
           <Card padding="lg">
             <h2 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Eye className="h-4 w-4" />
-              User Detail
+              {t("admin.userDetail")}
             </h2>
             <div className="space-y-4 text-base">
               <div>
-                <span className="text-text-secondary block">Name</span>
+                <span className="text-text-secondary block">
+                  {t("admin.name")}
+                </span>
                 <span className="text-text-primary font-medium">
                   {selectedUser.full_name}
                 </span>
               </div>
               <div>
-                <span className="text-text-secondary block">Email</span>
+                <span className="text-text-secondary block">
+                  {t("auth.email")}
+                </span>
                 <span className="text-text-primary">{selectedUser.email}</span>
               </div>
               <div>
-                <span className="text-text-secondary block">Slug</span>
+                <span className="text-text-secondary block">
+                  {t("admin.slug")}
+                </span>
                 <span className="text-text-primary">{selectedUser.slug}</span>
               </div>
               <div>
-                <span className="text-text-secondary block">Status</span>
+                <span className="text-text-secondary block">
+                  {t("admin.status")}
+                </span>
                 <Badge
                   variant={
                     selectedUser.status === "active" ? "success" : "warning"
@@ -158,7 +170,9 @@ export function AdminUsersPage() {
                 </Badge>
               </div>
               <div>
-                <span className="text-text-secondary block">Roles</span>
+                <span className="text-text-secondary block">
+                  {t("admin.roles")}
+                </span>
                 <div className="flex gap-1 mt-1">
                   {(selectedUser.roles || []).map((r: string) => (
                     <Badge key={r} variant={r === "admin" ? "default" : "info"}>
@@ -168,25 +182,31 @@ export function AdminUsersPage() {
                 </div>
               </div>
               <div>
-                <span className="text-text-secondary block">Locale</span>
+                <span className="text-text-secondary block">
+                  {t("admin.locale")}
+                </span>
                 <span className="text-text-primary">{selectedUser.locale}</span>
               </div>
               <div>
                 <span className="text-text-secondary block">
-                  Email Confirmed
+                  {t("admin.emailConfirmed")}
                 </span>
                 <span className="text-text-primary">
                   {formatDate(selectedUser.email_confirmed_at)}
                 </span>
               </div>
               <div>
-                <span className="text-text-secondary block">Last Login</span>
+                <span className="text-text-secondary block">
+                  {t("admin.lastLogin")}
+                </span>
                 <span className="text-text-primary">
                   {formatDate(selectedUser.last_login_at)}
                 </span>
               </div>
               <div>
-                <span className="text-text-secondary block">Created</span>
+                <span className="text-text-secondary block">
+                  {t("admin.created")}
+                </span>
                 <span className="text-text-primary">
                   {formatDate(selectedUser.created_at)}
                 </span>

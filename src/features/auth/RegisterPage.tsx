@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useCallback, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
@@ -24,13 +24,22 @@ export function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [challengeLoading, setChallengeLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchChallenge = useCallback(() => {
+    setChallengeLoading(true);
+    setChallengeAnswer("");
+    setError("");
     api
       .getHumanChallenge(locale)
       .then(setChallenge)
-      .catch(() => setError("Failed to load challenge"));
+      .catch(() => setError("Failed to load challenge"))
+      .finally(() => setChallengeLoading(false));
   }, [locale]);
+
+  useEffect(() => {
+    fetchChallenge();
+  }, [fetchChallenge]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -133,9 +142,20 @@ export function RegisterPage() {
           </div>
           {challenge && (
             <div>
-              <label className="block text-sm text-text-secondary mb-1">
-                {challenge.question}
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-sm text-text-secondary">
+                  {challenge.question}
+                </label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={fetchChallenge}
+                  disabled={challengeLoading}
+                >
+                  {challengeLoading ? "Loading..." : "Try another question"}
+                </Button>
+              </div>
               <Input
                 value={challengeAnswer}
                 onChange={(e) => setChallengeAnswer(e.target.value)}

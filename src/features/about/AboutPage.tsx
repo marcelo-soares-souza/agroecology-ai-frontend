@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Heart, Users, User, Cpu, BookOpen, ShieldCheck } from "lucide-react";
+import {
+  Heart,
+  Users,
+  User,
+  Cpu,
+  BookOpen,
+  ShieldCheck,
+  Code2,
+  ExternalLink,
+} from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
 export function AboutPage() {
@@ -152,6 +161,38 @@ export function AboutPage() {
         </div>
         <div className="border-t border-primary-100 pt-4 mt-4">
           <p className="text-sm text-text-secondary">{t("about.version")}</p>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex items-start gap-3">
+          <Code2 className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <div>
+            <h3 className="font-semibold text-text-primary mb-3">
+              Repositories
+            </h3>
+            <div className="space-y-2">
+              <a
+                href="https://codeberg.org/marcelo-soares-souza/agroecology-map-AI-frontend"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Frontend
+              </a>
+              <br />
+              <a
+                href="https://codeberg.org/marcelo-soares-souza/agroecology-map-AI-backend"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Backend
+              </a>
+            </div>
+          </div>
         </div>
       </Card>
 

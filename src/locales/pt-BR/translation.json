@@ -151,7 +151,7 @@
         "description": "DeepSeek, Ollama ou qualquer API compatível com OpenAI. Troque modelos sem mudar seu fluxo de trabalho."
       }
     },
-    "footerPrefix": "Software Livre (GPLv3) — Mantido por"
+    "footerPrefix": "Software Livre (GPLv3) - Mantido por"
   },
   "documents": {
     "title": "Base de Conhecimento",
@@ -312,7 +312,7 @@
   "donate": {
     "title": "Apoie o Agroecology Map AI",
     "whatIsTitle": "O Que É o Agroecology Map AI",
-    "whatIs": "O Agroecology Map AI é uma plataforma de inteligência artificial especializada em agroecologia. Ela transforma artigos científicos, manuais de campo, cartilhas técnicas, teses e relatórios em uma base de conhecimento pesquisável, permitindo fazer perguntas em linguagem natural e receber respostas com citações das fontes usadas. Diferente de chatbots genéricos, a plataforma responde com base nos documentos fornecidos — sem inventar fatos e sem esconder de onde a informação veio. Nosso objetivo é democratizar o acesso ao conhecimento agroecológico para agricultores, pesquisadores, extensionistas, educadores e comunidades, com uma ferramenta confiável, livre e preparada para rodar em infraestrutura local.",
+    "whatIs": "O Agroecology Map AI é uma plataforma de inteligência artificial especializada em agroecologia. Ela transforma artigos científicos, manuais de campo, cartilhas técnicas, teses e relatórios em uma base de conhecimento pesquisável, permitindo fazer perguntas em linguagem natural e receber respostas com citações das fontes usadas. Diferente de chatbots genéricos, a plataforma responde com base nos documentos fornecidos - sem inventar fatos e sem esconder de onde a informação veio. Nosso objetivo é democratizar o acesso ao conhecimento agroecológico para agricultores, pesquisadores, extensionistas, educadores e comunidades, com uma ferramenta confiável, livre e preparada para rodar em infraestrutura local.",
     "intro": "O Agroecology Map AI é o próximo passo de 8 anos de trabalho voluntário no Agroecology Map: uma IA livre para tornar o conhecimento agroecológico mais acessível, rastreável e útil para comunidades, pesquisadores e agricultores.",
     "goal": {
       "label": "Meta da campanha",
@@ -330,7 +330,7 @@
     },
     "voluntary": {
       "title": "Esforço 100% Voluntário",
-      "content": "O Agroecology Map é mantido por uma pequena equipe de voluntários — desenvolvedores, pesquisadores e ativistas — que dedicam seu tempo livre para construir e melhorar a plataforma. Não temos investidores, patrocinadores corporativos ou financiamento externo significativo. Fazemos isso porque acreditamos profundamente na agroecologia, no software livre e no poder transformador do conhecimento compartilhado.",
+      "content": "O Agroecology Map é mantido por uma pequena equipe de voluntários - desenvolvedores, pesquisadores e ativistas - que dedicam seu tempo livre para construir e melhorar a plataforma. Não temos investidores, patrocinadores corporativos ou financiamento externo significativo. Fazemos isso porque acreditamos profundamente na agroecologia, no software livre e no poder transformador do conhecimento compartilhado.",
       "body": "Mas há limites para o que o trabalho voluntário consegue sustentar sozinho. À medida que o Agroecology Map AI cresce, os custos de processamento, armazenamento e desenvolvimento aumentam. A doação que estamos pedindo é específica: adquirir equipamento local dedicado para acelerar o desenvolvimento e reduzir a dependência de serviços de nuvem."
     },
     "aiNeeds": {
@@ -342,9 +342,9 @@
       "title": "Equipamento de Desenvolvimento Local",
       "equipment": {
         "title": "Meta: USD 3.000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB — USD 1.500",
-        "memory": "64GB DDR4 3200 — USD 900",
-        "storage": "SSD NVMe 2TB — USD 600",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1.500",
+        "memory": "64GB DDR4 3200 - USD 900",
+        "storage": "SSD NVMe 2TB - USD 600",
         "description": "Este equipamento será dedicado ao Agroecology Map AI para processamento de dados, indexação de documentos, testes com modelos locais, fine-tuning de modelos abertos e melhorias contínuas na plataforma. Ele também nos aproxima de uma infraestrutura auto-hospedável, com menos dependência de nuvem e mais soberania tecnológica para a comunidade."
       }
     },

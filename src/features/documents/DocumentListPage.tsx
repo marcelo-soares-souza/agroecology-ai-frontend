@@ -186,8 +186,8 @@ export function DocumentListPage() {
         </p>
         {indexStats && indexStats.total > 0 && (
           <Card padding="sm" className="mt-4">
-            <div className="space-y-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
                 <div>
                   <p className="font-semibold text-text-primary">
                     {t("documents.indexProgress", {
@@ -203,20 +203,20 @@ export function DocumentListPage() {
                         })}
                   </p>
                 </div>
-                <div className="h-3 overflow-hidden rounded-full bg-primary-100 sm:w-56">
-                  <div
-                    className="h-full rounded-full bg-primary transition-all"
-                    style={{
-                      width: `${Math.round(
-                        (indexStats.indexed / indexStats.total) * 100,
-                      )}%`,
-                    }}
-                  />
+                  <div className="h-3 overflow-hidden rounded-full bg-primary-100">
+                    <div
+                      className="h-full rounded-full bg-info transition-all"
+                      style={{
+                        width: `${Math.round(
+                          (indexStats.indexed / indexStats.total) * 100,
+                        )}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
 
               {metadataStats && metadataStats.total > 0 && (
-                <div className="flex flex-col gap-3 border-t border-primary-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-3">
                   <div>
                     <p className="font-semibold text-text-primary">
                       {t("documents.metadataProgress", {
@@ -236,9 +236,9 @@ export function DocumentListPage() {
                             })}
                     </p>
                   </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-primary-100 sm:w-56">
+                  <div className="h-3 overflow-hidden rounded-full bg-primary-100">
                     <div
-                      className="h-full rounded-full bg-primary transition-all"
+                      className="h-full rounded-full bg-success transition-all"
                       style={{
                         width: `${Math.round(
                           (metadataStats.extracted / metadataStats.total) * 100,

@@ -350,7 +350,11 @@
     "updateSuccess": "Sugerencia actualizada exitosamente",
     "deleteSuccess": "Sugerencia eliminada",
     "replaceFile": "Reemplazar PDF",
-    "uploadPdf": "Subir un archivo PDF"
+    "uploadPdf": "Subir un archivo PDF",
+    "errors": {
+      "duplicateFile": "Ya existe una sugerencia con este mismo archivo.",
+      "duplicateDocument": "Este archivo ya ha sido subido como documento."
+    }
   },
   "donate": {
     "title": "Apoya Agroecology Map AI",

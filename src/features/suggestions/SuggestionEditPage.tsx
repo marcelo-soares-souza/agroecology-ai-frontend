@@ -9,14 +9,16 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { useAuth } from "@/hooks/use-auth";
 
 export function SuggestionEditPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { session } = useAuth();
 
   const { data: suggestion, isLoading } = useQuery({
-    queryKey: ["suggestion", id],
+    queryKey: ["suggestion", session?.userId, id],
     queryFn: () => api.getSuggestion(id!),
     enabled: !!id,
   });
@@ -42,7 +44,7 @@ export function SuggestionEditPage() {
       url?: string | null;
       user_comment?: string | null;
     }) => api.updateSuggestion(id!, data),
-    invalidateKeys: [["suggestion", id], ["my-suggestions"]],
+    invalidateKeys: [["suggestion"], ["my-suggestions"]],
     onSuccess: () => {
       navigate(`/suggestions/${id}`);
     },

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { useAuth } from "@/hooks/use-auth";
 import type { DocumentSuggestion } from "@/services/types";
 
 function formatDate(iso: string, locale: string) {
@@ -35,11 +36,12 @@ export function SuggestionListPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const navigate = useNavigate();
+  const { session } = useAuth();
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const query = useQuery({
-    queryKey: ["my-suggestions", filterStatus],
+    queryKey: ["my-suggestions", session?.userId, filterStatus],
     queryFn: () => api.listMySuggestions(filterStatus ?? undefined),
   });
 

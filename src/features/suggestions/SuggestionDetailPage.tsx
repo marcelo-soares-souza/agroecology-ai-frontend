@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { useAuth } from "@/hooks/use-auth";
+import { getSuggestionViewUrl } from "@/config/api";
 
 function formatDate(iso: string, locale: string) {
   return new Date(iso).toLocaleDateString(locale, {
@@ -41,20 +43,21 @@ export function SuggestionDetailPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { session } = useAuth();
 
   const {
     data: suggestion,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["suggestion", id],
+    queryKey: ["suggestion", session?.userId, id],
     queryFn: () => api.getSuggestion(id!),
     enabled: !!id,
   });
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteSuggestion,
-    invalidateKeys: [["my-suggestions"], ["suggestion", id]],
+    invalidateKeys: [["my-suggestions"], ["suggestion"]],
     onSuccess: () => {
       navigate("/suggestions");
     },
@@ -194,6 +197,16 @@ export function SuggestionDetailPage() {
                 {suggestion.admin_comment}
               </p>
             </div>
+          )}
+
+          {suggestion.original_filename && suggestion.file_type === "pdf" && (
+            <Card padding="none" className="overflow-hidden">
+              <iframe
+                src={getSuggestionViewUrl(suggestion.id)}
+                title={suggestion.original_filename}
+                className="w-full h-[80vh] border-0"
+              />
+            </Card>
           )}
 
           {suggestion.document_id && (

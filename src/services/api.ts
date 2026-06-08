@@ -43,7 +43,16 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 
   if (!response.ok) {
     const text = await response.text();
-    throw new ApiError(text || response.statusText, response.status);
+    let message = text || response.statusText;
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed.detail) {
+        message = parsed.detail;
+      }
+    } catch {
+      // not JSON, use raw text
+    }
+    throw new ApiError(message, response.status);
   }
 
   return response.json();

@@ -14,4 +14,9 @@ function getViewUrl(docId: string): string {
   return buildApiUrl(`/api/v1/documents/${docId}/view`);
 }
 
-export { API_BASE_URL, buildApiUrl, getDownloadUrl, getViewUrl };
+function getSuggestionViewUrl(suggestionId: string): string {
+  const token = localStorage.getItem("agroecology_access_token");
+  return buildApiUrl(`/api/v1/suggestions/${suggestionId}/view${token ? `?token=${token}` : ""}`);
+}
+
+export { API_BASE_URL, buildApiUrl, getDownloadUrl, getViewUrl, getSuggestionViewUrl };

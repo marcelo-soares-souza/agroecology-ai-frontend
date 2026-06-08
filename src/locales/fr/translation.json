@@ -350,7 +350,11 @@
     "updateSuccess": "Suggestion mise à jour avec succès",
     "deleteSuccess": "Suggestion supprimée",
     "replaceFile": "Remplacer le PDF",
-    "uploadPdf": "Importer un fichier PDF"
+    "uploadPdf": "Importer un fichier PDF",
+    "errors": {
+      "duplicateFile": "Une suggestion avec ce fichier existe déjà.",
+      "duplicateDocument": "Ce fichier a déjà été téléchargé comme document."
+    }
   },
   "donate": {
     "title": "Soutenir Agroecology Map AI",

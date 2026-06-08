@@ -15,12 +15,17 @@ export function SuggestionCreatePage() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [title, setTitle] = useState("");
-  const [authors, setAuthors] = useState("");
   const [url, setUrl] = useState("");
   const [userComment, setUserComment] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [clientError, setClientError] = useState<string | null>(null);
+
+  const errorKeyMap: Record<string, string> = {
+    "A suggestion with this file content already exists":
+      "suggestions.errors.duplicateFile",
+    "This file has already been uploaded as a document":
+      "suggestions.errors.duplicateDocument",
+  };
 
   const createMutation = useAppMutation({
     mutationFn: (formData: FormData) => api.createSuggestion(formData),
@@ -70,8 +75,6 @@ export function SuggestionCreatePage() {
 
     const formData = new FormData();
     formData.append("user_comment", userComment.trim());
-    if (title.trim()) formData.append("title", title.trim());
-    if (authors.trim()) formData.append("authors", authors.trim());
     if (url.trim()) formData.append("url", url.trim());
     if (file) formData.append("file", file);
 
@@ -96,40 +99,6 @@ export function SuggestionCreatePage() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("documents.titleField")}
-            </label>
-            <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder={t("documents.titlePlaceholder")}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("documents.authorsField")}
-            </label>
-            <Input
-              value={authors}
-              onChange={(e) => setAuthors(e.target.value)}
-              placeholder={t("documents.authorsPlaceholder")}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.url")}
-            </label>
-            <Input
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              type="url"
-              placeholder="https://..."
-            />
-          </div>
-
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">
               {t("suggestions.pdf")}
@@ -173,6 +142,18 @@ export function SuggestionCreatePage() {
 
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">
+              {t("suggestions.url")}
+            </label>
+            <Input
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              type="url"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
               {t("suggestions.comment")} *
             </label>
             <textarea
@@ -205,7 +186,9 @@ export function SuggestionCreatePage() {
           {clientError && <p className="text-error text-sm">{clientError}</p>}
           {createMutation.isError && (
             <p className="text-error text-sm">
-              {createMutation.error?.message || t("common.error")}
+              {t(errorKeyMap[createMutation.error?.message ?? ""]) ||
+                createMutation.error?.message ||
+                t("common.error")}
             </p>
           )}
         </form>

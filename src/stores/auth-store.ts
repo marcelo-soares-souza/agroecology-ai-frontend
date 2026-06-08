@@ -1,5 +1,6 @@
 import { buildApiUrl } from "@/config/api";
 import i18n from "@/config/i18n";
+import { queryClient } from "@/services/query-client";
 
 interface AuthSession {
   userId: string;
@@ -157,6 +158,7 @@ function createAuthStore() {
     localStorage.removeItem(EMAIL_KEY);
     localStorage.removeItem(FULL_NAME_KEY);
     localStorage.removeItem("agroecology_chat_messages");
+    queryClient.clear();
     notify();
   }
 

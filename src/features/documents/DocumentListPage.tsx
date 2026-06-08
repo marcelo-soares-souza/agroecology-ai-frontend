@@ -129,17 +129,21 @@ export function DocumentListPage() {
     <div className="space-y-6">
       <div>
         <div className="flex items-center justify-between mb-2">
-          <div>
-            <h1 className="text-2xl font-bold text-text-primary">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+              <FileText className="h-6 w-6 text-primary shrink-0" />
               {t("documents.title")}
             </h1>
+            <p className="text-sm text-text-secondary mt-1 truncate">
+              {t("documents.listDescription")}
+            </p>
             {query.data && (
               <p className="text-sm text-text-secondary mt-1">
                 {t("documents.total", { count: query.data.length })}
               </p>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="secondary"
               onClick={() => {
@@ -181,9 +185,6 @@ export function DocumentListPage() {
             )}
           </div>
         </div>
-        <p className="text-sm text-text-secondary">
-          {t("documents.listDescription")}
-        </p>
         {indexStats && indexStats.total > 0 && (
           <Card padding="sm" className="mt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

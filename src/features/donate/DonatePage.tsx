@@ -33,11 +33,10 @@ export function DonatePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("donate.title")}
-        </h1>
-      </div>
+      <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+        <Heart className="h-6 w-6 text-primary" />
+        {t("donate.title")}
+      </h1>
 
       <Card>
         <div className="flex flex-col gap-4">

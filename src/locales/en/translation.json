@@ -48,9 +48,11 @@
   },
   "auth": {
     "login": "Login",
+    "loginDescription": "Enter your credentials to access your account.",
     "logout": "Logout",
     "signIn": "Sign In",
     "register": "Register",
+    "registerDescription": "Create an account to suggest documents and participate in the community.",
     "email": "Email",
     "password": "Password",
     "newPassword": "New Password",
@@ -100,7 +102,9 @@
   "admin": {
     "section": "Admin",
     "users": "Users",
+    "usersDescription": "Manage registered users, roles, and account status.",
     "suggestions": "Suggestions",
+    "suggestionsDescription": "Review and moderate document suggestions from the community.",
     "approve": "Approve",
     "reject": "Reject",
     "approveConfirm": "Approve this suggestion? This will create a document.",
@@ -125,6 +129,7 @@
   },
   "home": {
     "title": "Agroecology Map AI Chat",
+    "description": "Ask questions about agroecology, permaculture, and sustainable agriculture.",
     "placeholder": "Ask a question about agroecology...",
     "knowledgeBase": "This chat uses the knowledge base documents to answer your questions.",
     "viewDocuments": "View documents",
@@ -338,6 +343,7 @@
     "avatarTooLarge": "Image must not exceed 5MB."
   },
   "community": {
+    "description": "Explore community members and their contributions.",
     "empty": "No community members yet.",
     "memberSince": "Member since {{date}}",
     "approvedSuggestions": "Suggested documents",
@@ -345,6 +351,7 @@
   },
   "suggestions": {
     "title": "My Suggestions",
+    "description": "Track your submitted document suggestions and their approval status.",
     "new": "New Suggestion",
     "createTitle": "New Suggestion",
     "createDescription": "Suggest a scientific article, paper, or document to add to the knowledge base.",

@@ -2,7 +2,13 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FileText, Search, ExternalLink, RefreshCw } from "lucide-react";
+import {
+  FileText,
+  Lightbulb,
+  Search,
+  ExternalLink,
+  RefreshCw,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -60,10 +66,14 @@ export function AdminSuggestionsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-primary" />
             {t("admin.suggestions")}
           </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            {t("admin.suggestionsDescription")}
+          </p>
           {query.data && (
             <p className="text-sm text-text-secondary mt-1">
               {query.data.length} total

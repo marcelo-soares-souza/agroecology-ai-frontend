@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
+  Info,
   Heart,
   Users,
   User,
@@ -18,7 +19,8 @@ export function AboutPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-text-primary">
+        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+          <Info className="h-6 w-6 text-primary" />
           {t("about.title")}
         </h1>
         <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">

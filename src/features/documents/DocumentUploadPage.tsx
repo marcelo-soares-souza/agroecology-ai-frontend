@@ -170,10 +170,11 @@ export function DocumentUploadPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">
+        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+          <Upload className="h-6 w-6 text-primary" />
           {t("documents.uploadTitle")}
         </h1>
-        <p className="text-sm text-text-secondary mt-2">
+        <p className="text-sm text-text-secondary mt-1">
           {t("documents.uploadDescription")}
         </p>
       </div>

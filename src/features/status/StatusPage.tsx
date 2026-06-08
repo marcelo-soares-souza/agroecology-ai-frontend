@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import {
+  Activity,
   CheckCircle2,
   BarChart3,
   Database,
@@ -111,10 +112,11 @@ export function StatusPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">
+        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+          <Activity className="h-6 w-6 text-primary" />
           {t("status.title")}
         </h1>
-        <p className="text-sm text-text-secondary mt-2">
+        <p className="text-sm text-text-secondary mt-1">
           {t("status.description")}
         </p>
       </div>
@@ -142,7 +144,7 @@ export function StatusPage() {
               <Card key={card.label}>
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-0.5">{card.icon}</div>
-                  <div>
+                  <div className="flex items-start gap-3">
                     <p className="text-sm text-text-secondary mb-1">
                       {card.label}
                     </p>

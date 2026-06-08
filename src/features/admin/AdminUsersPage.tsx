@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Trash2, Eye, User } from "lucide-react";
+import { Trash2, Eye, User, Users } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -43,9 +43,15 @@ export function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("admin.users")}
-        </h1>
+        <div>
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <Users className="h-6 w-6 text-primary" />
+            {t("admin.users")}
+          </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            {t("admin.usersDescription")}
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

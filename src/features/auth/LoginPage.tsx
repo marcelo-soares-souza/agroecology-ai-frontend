@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { LogIn } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -34,9 +35,15 @@ export function LoginPage() {
   return (
     <div className="max-w-md mx-auto">
       <Card>
-        <h1 className="text-2xl font-bold text-text-primary mb-6">
-          {t("auth.login")}
-        </h1>
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <LogIn className="h-6 w-6 text-primary" />
+            {t("auth.login")}
+          </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            {t("auth.loginDescription")}
+          </p>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-text-secondary mb-1">

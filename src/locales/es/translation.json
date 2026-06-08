@@ -48,9 +48,11 @@
   },
   "auth": {
     "login": "Entrar",
+    "loginDescription": "Ingresa tus credenciales para acceder a tu cuenta.",
     "logout": "Salir",
     "signIn": "Entrar",
     "register": "Registrarse",
+    "registerDescription": "Crea una cuenta para sugerir documentos y participar en la comunidad.",
     "email": "Email",
     "password": "Contraseña",
     "newPassword": "Nueva Contraseña",
@@ -100,7 +102,9 @@
   "admin": {
     "section": "Admin",
     "users": "Usuarios",
+    "usersDescription": "Gestiona usuarios registrados, roles y estado de cuenta.",
     "suggestions": "Sugerencias",
+    "suggestionsDescription": "Revisa y modera las sugerencias de documentos de la comunidad.",
     "approve": "Aprobar",
     "reject": "Rechazar",
     "approveConfirm": "¿Aprobar esta sugerencia? Se creará un documento.",
@@ -125,6 +129,7 @@
   },
   "home": {
     "title": "Chat Agroecológico",
+    "description": "Haz preguntas sobre agroecología, permacultura y agricultura sostenible.",
     "placeholder": "Escribe tu pregunta sobre agroecología...",
     "knowledgeBase": "Este chat utiliza los documentos de la base de conocimiento para responder tus preguntas.",
     "viewDocuments": "Ver documentos",
@@ -338,6 +343,7 @@
     "avatarTooLarge": "La imagen no debe exceder 5MB."
   },
   "community": {
+    "description": "Explora los miembros de la comunidad y sus contribuciones.",
     "empty": "Aún no hay miembros en la comunidad.",
     "memberSince": "Miembro desde {{date}}",
     "approvedSuggestions": "Documentos sugeridos",
@@ -345,6 +351,7 @@
   },
   "suggestions": {
     "title": "Mis Sugerencias",
+    "description": "Sigue tus sugerencias de documentos enviadas y su estado de aprobación.",
     "new": "Nueva Sugerencia",
     "createTitle": "Nueva Sugerencia",
     "createDescription": "Sugiere un artículo científico, paper o documento para agregar a la base de conocimiento.",

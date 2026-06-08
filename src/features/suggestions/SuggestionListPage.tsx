@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import {
+  Lightbulb,
   Plus,
   FileText,
   Trash2,
@@ -80,10 +81,14 @@ export function SuggestionListPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-primary" />
             {t("suggestions.title")}
           </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            {t("suggestions.description")}
+          </p>
           {query.data && (
             <p className="text-sm text-text-secondary mt-1">
               {query.data.length} total

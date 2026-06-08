@@ -162,7 +162,7 @@ export function ProfileEditPage() {
             )}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-text-primary">
+            <h1 className="text-2xl font-bold text-text-primary">
               {t("profile.editTitle")}
             </h1>
             <p className="text-sm text-text-secondary">

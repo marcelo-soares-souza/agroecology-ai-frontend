@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Eraser, FileText } from "lucide-react";
+import { Eraser, FileText, MessageCircle } from "lucide-react";
 import { useChat } from "@/hooks/use-chat";
 import { ChatBox } from "@/components/chat/ChatBox";
 import { ChatMessage } from "@/components/chat/ChatMessage";
@@ -21,9 +21,15 @@ export function ChatPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("home.title")}
-        </h1>
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <MessageCircle className="h-6 w-6 text-primary" />
+            {t("home.title")}
+          </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            {t("home.description")}
+          </p>
+        </div>
         {messages.length > 0 && (
           <Button variant="ghost" size="sm" onClick={clearChat}>
             <Eraser className="h-4 w-4" />

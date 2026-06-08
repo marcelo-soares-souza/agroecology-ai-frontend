@@ -28,7 +28,8 @@ export function HomePage() {
       <div className="flex flex-col items-center text-center px-4">
         <img src="/logo.png" alt={t("app.name")} className="h-28 w-28 mb-8" />
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-text-primary">
+          <h1 className="text-4xl font-bold text-text-primary flex items-center gap-3">
+            <MessageCircle className="h-8 w-8 text-primary" />
             {t("app.name")}
           </h1>
           <span className="px-3 py-1 text-sm font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">

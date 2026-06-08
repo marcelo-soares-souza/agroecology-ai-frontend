@@ -72,6 +72,8 @@ export function CommunityUserDetailPage() {
     email: string;
     created_at: string;
     last_login_at: string | null;
+    about: string | null;
+    link: string | null;
   };
 
   return (

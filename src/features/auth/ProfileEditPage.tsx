@@ -73,7 +73,9 @@ export function ProfileEditPage() {
               maxLength={4096}
               className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-white px-3 py-2 text-base text-text-primary placeholder:text-text-secondary/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-vertical"
             />
-            <p className="text-xs text-text-secondary mt-1">{about.length}/4096</p>
+            <p className="text-xs text-text-secondary mt-1">
+              {about.length}/4096
+            </p>
           </div>
 
           <div>

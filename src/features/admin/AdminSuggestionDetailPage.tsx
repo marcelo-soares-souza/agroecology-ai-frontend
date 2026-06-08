@@ -81,11 +81,11 @@ export function AdminSuggestionDetailPage() {
   }
 
   const invalidateAll = () => {
-    queryClient.invalidateQueries({ queryKey: ["admin-suggestions"] });
-    queryClient.invalidateQueries({ queryKey: ["admin-suggestion", id] });
-    queryClient.invalidateQueries({ queryKey: ["my-suggestions"] });
-    queryClient.invalidateQueries({ queryKey: ["suggestion"] });
-    queryClient.invalidateQueries({ queryKey: ["documents"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-suggestions"], refetchType: "all" });
+    queryClient.invalidateQueries({ queryKey: ["admin-suggestion", id], refetchType: "all" });
+    queryClient.invalidateQueries({ queryKey: ["my-suggestions"], refetchType: "all" });
+    queryClient.invalidateQueries({ queryKey: ["suggestion"], refetchType: "all" });
+    queryClient.invalidateQueries({ queryKey: ["documents"], refetchType: "all" });
   };
 
   const handleUpdate = async (e: FormEvent) => {

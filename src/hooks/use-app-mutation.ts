@@ -17,7 +17,7 @@ export function useAppMutation<TData = unknown, TVariables = void>(
     onSuccess(...args) {
       if (invalidateKeys) {
         for (const key of invalidateKeys) {
-          queryClient.invalidateQueries({ queryKey: key });
+          queryClient.invalidateQueries({ queryKey: key, refetchType: "all" });
         }
       }
       if (onSuccess) {

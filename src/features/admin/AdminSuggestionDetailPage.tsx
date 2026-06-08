@@ -397,6 +397,7 @@ export function AdminSuggestionDetailPage() {
           <div className="space-y-4">
             <div className="flex flex-wrap gap-3">
               <Button
+                variant="success"
                 onClick={handleApprove}
                 disabled={!hasPdf}
                 title={

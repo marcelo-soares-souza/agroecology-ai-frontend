@@ -192,6 +192,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.status")}
               </NavLink>
 
+              {sectionLabel(t("nav.user"))}
+
               <NavLink
                 to="/suggestions"
                 className={linkClass}

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Users, FileText, ExternalLink, Calendar, Clock } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
@@ -24,6 +24,7 @@ export function CommunityUserDetailPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
 
   const userQuery = useQuery({
     queryKey: ["community-user", slug],
@@ -123,7 +124,12 @@ export function CommunityUserDetailPage() {
           </h2>
           <div className="space-y-2">
             {suggestionsQuery.data.map((s: DocumentSuggestion) => (
-              <Card key={s.id} padding="sm">
+              <Card
+                key={s.id}
+                padding="sm"
+                className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                onClick={() => s.document_id && navigate(`/documents/${s.document_id}`)}
+              >
                 <div className="flex items-center gap-3">
                   <FileText className="h-4 w-4 text-primary shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -135,16 +141,7 @@ export function CommunityUserDetailPage() {
                     </p>
                   </div>
                   {s.document_id && (
-                    <a
-                      href={`/documents/${s.document_id}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Button variant="ghost" size="sm">
-                        <ExternalLink className="h-4 w-4" />
-                      </Button>
-                    </a>
+                    <ExternalLink className="h-4 w-4 text-text-secondary shrink-0" />
                   )}
                 </div>
               </Card>

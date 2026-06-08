@@ -128,21 +128,11 @@ export function DocumentListPage() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-2">
-          <div className="min-w-0">
-            <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-              <FileText className="h-6 w-6 text-primary shrink-0" />
-              {t("documents.title")}
-            </h1>
-            <p className="text-sm text-text-secondary mt-1 truncate">
-              {t("documents.listDescription")}
-            </p>
-            {query.data && (
-              <p className="text-sm text-text-secondary mt-1">
-                {t("documents.total", { count: query.data.length })}
-              </p>
-            )}
-          </div>
+        <div className="flex items-center justify-between mb-1">
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            <FileText className="h-6 w-6 text-primary shrink-0" />
+            {t("documents.title")}
+          </h1>
           <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="secondary"
@@ -185,81 +175,89 @@ export function DocumentListPage() {
             )}
           </div>
         </div>
-        {indexStats && indexStats.total > 0 && (
-          <Card padding="sm" className="mt-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <p className="text-sm text-text-secondary">
+          {t("documents.listDescription")}
+        </p>
+        {query.data && (
+          <p className="text-sm text-text-secondary mt-1">
+            {t("documents.total", { count: query.data.length })}
+          </p>
+        )}
+      </div>
+      {indexStats && indexStats.total > 0 && (
+        <Card padding="sm" className="mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-3">
+              <div>
+                <p className="font-semibold text-text-primary">
+                  {t("documents.indexProgress", {
+                    indexed: indexStats.indexed,
+                    total: indexStats.total,
+                  })}
+                </p>
+                <p className="text-sm text-text-secondary">
+                  {indexPending === 0
+                    ? t("documents.indexComplete")
+                    : t("documents.indexPending", {
+                        count: indexPending,
+                      })}
+                </p>
+              </div>
+              <div className="h-3 overflow-hidden rounded-full bg-primary-100">
+                <div
+                  className="h-full rounded-full bg-info transition-all"
+                  style={{
+                    width: `${Math.round(
+                      (indexStats.indexed / indexStats.total) * 100,
+                    )}%`,
+                  }}
+                />
+              </div>
+            </div>
+
+            {metadataStats && metadataStats.total > 0 && (
               <div className="flex flex-col gap-3">
                 <div>
                   <p className="font-semibold text-text-primary">
-                    {t("documents.indexProgress", {
-                      indexed: indexStats.indexed,
-                      total: indexStats.total,
+                    {t("documents.metadataProgress", {
+                      extracted: metadataStats.extracted,
+                      total: metadataStats.total,
                     })}
                   </p>
                   <p className="text-sm text-text-secondary">
-                    {indexPending === 0
-                      ? t("documents.indexComplete")
-                      : t("documents.indexPending", {
-                          count: indexPending,
-                        })}
+                    {metadataActive > 0
+                      ? t("documents.metadataInProgress", {
+                          count: metadataActive,
+                        })
+                      : metadataPending === 0
+                        ? t("documents.metadataComplete")
+                        : t("documents.metadataPending", {
+                            count: metadataPending,
+                          })}
                   </p>
                 </div>
                 <div className="h-3 overflow-hidden rounded-full bg-primary-100">
                   <div
-                    className="h-full rounded-full bg-info transition-all"
+                    className="h-full rounded-full bg-success transition-all"
                     style={{
                       width: `${Math.round(
-                        (indexStats.indexed / indexStats.total) * 100,
+                        (metadataStats.extracted / metadataStats.total) * 100,
                       )}%`,
                     }}
                   />
                 </div>
               </div>
-
-              {metadataStats && metadataStats.total > 0 && (
-                <div className="flex flex-col gap-3">
-                  <div>
-                    <p className="font-semibold text-text-primary">
-                      {t("documents.metadataProgress", {
-                        extracted: metadataStats.extracted,
-                        total: metadataStats.total,
-                      })}
-                    </p>
-                    <p className="text-sm text-text-secondary">
-                      {metadataActive > 0
-                        ? t("documents.metadataInProgress", {
-                            count: metadataActive,
-                          })
-                        : metadataPending === 0
-                          ? t("documents.metadataComplete")
-                          : t("documents.metadataPending", {
-                              count: metadataPending,
-                            })}
-                    </p>
-                  </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-primary-100">
-                    <div
-                      className="h-full rounded-full bg-success transition-all"
-                      style={{
-                        width: `${Math.round(
-                          (metadataStats.extracted / metadataStats.total) * 100,
-                        )}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          </Card>
-        )}
-        {extractMsg && (
-          <p
-            className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-text-secondary"}`}
-          >
-            {extractMsg.text}
-          </p>
-        )}
-      </div>
+            )}
+          </div>
+        </Card>
+      )}
+      {extractMsg && (
+        <p
+          className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-text-secondary"}`}
+        >
+          {extractMsg.text}
+        </p>
+      )}
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />

@@ -107,6 +107,8 @@ export function ProfileEditPage() {
       });
       setSuccess(true);
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      queryClient.invalidateQueries({ queryKey: ["community-users"] });
+      queryClient.invalidateQueries({ queryKey: ["community-user"] });
       setTimeout(() => navigate(`/profile/${session?.slug}`), 1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("common.error"));

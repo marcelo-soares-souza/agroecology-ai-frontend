@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Users, FileText, ExternalLink } from "lucide-react";
+import { ArrowLeft, Users, FileText, ExternalLink, Pencil } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { useAuth } from "@/hooks/use-auth";
 import type { DocumentSuggestion } from "@/services/types";
 
 function formatDate(iso: string, locale: string) {
@@ -23,6 +24,7 @@ export function CommunityUserDetailPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { session } = useAuth();
 
   const userQuery = useQuery({
     queryKey: ["community-user", slug],
@@ -124,6 +126,17 @@ export function CommunityUserDetailPage() {
           )}
         </div>
       </Card>
+
+      {session?.slug === slug && (
+        <div className="flex justify-end">
+          <Link to="/profile/edit">
+            <Button variant="secondary">
+              <Pencil className="h-4 w-4" />
+              {t("common.edit")}
+            </Button>
+          </Link>
+        </div>
+      )}
 
       {suggestionsQuery.data && suggestionsQuery.data.length > 0 && (
         <div>

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
@@ -12,12 +12,14 @@ import {
   Download,
   Sparkles,
   RefreshCw,
+  Search,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 
@@ -53,6 +55,7 @@ export function DocumentListPage() {
     text: string;
     type: "success" | "info";
   } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const query = useQuery({
     queryKey: ["documents"],
@@ -89,6 +92,20 @@ export function DocumentListPage() {
     { indexed: 0, total: 0 },
   );
   const indexPending = indexStats ? indexStats.total - indexStats.indexed : 0;
+
+  const filteredDocs = useMemo(
+    () =>
+      query.data?.filter((doc) => {
+        if (!searchQuery.trim()) return true;
+        const q = searchQuery.toLowerCase();
+        return (
+          doc.title?.toLowerCase().includes(q) ||
+          doc.filename?.toLowerCase().includes(q) ||
+          doc.authors?.toLowerCase().includes(q)
+        );
+      }),
+    [query.data, searchQuery],
+  );
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteDocument,
@@ -243,6 +260,16 @@ export function DocumentListPage() {
         )}
       </div>
 
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
+        <Input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={t("common.search")}
+          className="pl-9"
+        />
+      </div>
+
       <QueryResult
         query={query}
         empty={
@@ -252,8 +279,20 @@ export function DocumentListPage() {
           </Card>
         }
       >
-        {(docs) => (
-          <div className="space-y-3">
+        {() => {
+          const docs = filteredDocs ?? [];
+          if (docs.length === 0 && (query.data?.length ?? 0) > 0) {
+            return (
+              <Card className="text-center py-12">
+                <Search className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
+                <p className="text-text-secondary">
+                  {t("common.noResults")}
+                </p>
+              </Card>
+            );
+          }
+          return (
+            <div className="space-y-3">
             {docs.map((doc) => (
               <div
                 key={doc.id}
@@ -364,7 +403,8 @@ export function DocumentListPage() {
               </div>
             ))}
           </div>
-        )}
+        );
+      }}
       </QueryResult>
     </div>
   );

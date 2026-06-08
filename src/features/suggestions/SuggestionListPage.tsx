@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Plus, FileText, Trash2, Pencil, ExternalLink } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Plus, FileText, Trash2, Pencil, ExternalLink, Search } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { DocumentSuggestion } from "@/services/types";
@@ -35,11 +36,26 @@ export function SuggestionListPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const navigate = useNavigate();
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const query = useQuery({
     queryKey: ["my-suggestions", filterStatus],
     queryFn: () => api.listMySuggestions(filterStatus ?? undefined),
   });
+
+  const filteredSuggestions = useMemo(
+    () =>
+      query.data?.filter((s) => {
+        if (!searchQuery.trim()) return true;
+        const q = searchQuery.toLowerCase();
+        return (
+          (s.title ?? "").toLowerCase().includes(q) ||
+          (s.url ?? "").toLowerCase().includes(q) ||
+          (s.original_filename ?? "").toLowerCase().includes(q)
+        );
+      }),
+    [query.data, searchQuery],
+  );
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteSuggestion,
@@ -85,6 +101,16 @@ export function SuggestionListPage() {
         ))}
       </div>
 
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
+        <Input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={t("common.search")}
+          className="pl-9"
+        />
+      </div>
+
       <QueryResult
         query={query}
         empty={
@@ -94,7 +120,19 @@ export function SuggestionListPage() {
           </Card>
         }
       >
-        {(suggestions: DocumentSuggestion[]) => (
+        {() => {
+          const suggestions = filteredSuggestions ?? [];
+          if (suggestions.length === 0 && (query.data?.length ?? 0) > 0) {
+            return (
+              <Card className="text-center py-12">
+                <Search className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
+                <p className="text-text-secondary">
+                  {t("common.noResults")}
+                </p>
+              </Card>
+            );
+          }
+          return (
           <div className="space-y-3">
             {suggestions.map((s) => (
               <div
@@ -186,7 +224,8 @@ export function SuggestionListPage() {
               </div>
             ))}
           </div>
-        )}
+        );
+      }}
       </QueryResult>
     </div>
   );

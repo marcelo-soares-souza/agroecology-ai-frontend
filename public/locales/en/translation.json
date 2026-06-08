@@ -12,7 +12,9 @@
     "upload": "Upload Files",
     "ingestion": "Ingestion",
     "about": "About",
-    "donate": "Donate"
+    "donate": "Donate",
+    "suggestions": "My Suggestions",
+    "social": "Social"
   },
   "common": {
     "back": "Back",
@@ -93,6 +95,14 @@
   "admin": {
     "section": "Admin",
     "users": "Users",
+    "suggestions": "Suggestions",
+    "approve": "Approve",
+    "reject": "Reject",
+    "approveConfirm": "Approve this suggestion? This will create a document.",
+    "approveSuccess": "Suggestion approved and document created.",
+    "rejectConfirm": "Reject this suggestion?",
+    "rejectSuccess": "Suggestion rejected.",
+    "deleteSuggestionConfirm": "Delete this suggestion permanently?",
     "noUsersFound": "No users found.",
     "deleteUserConfirm": "Delete this user?",
     "userDetail": "User Detail",
@@ -151,7 +161,7 @@
         "description": "DeepSeek, Ollama, or any OpenAI-compatible API. Swap models without changing your workflow."
       }
     },
-    "footerPrefix": "Free Software (GPLv3) — Maintained by"
+    "footerPrefix": "Free Software (GPLv3) - Maintained by"
   },
   "documents": {
     "title": "Knowledge Base",
@@ -309,10 +319,43 @@
     "ctaDonate": "Support the project",
     "ctaDocuments": "View knowledge base"
   },
+  "suggestions": {
+    "title": "My Suggestions",
+    "new": "New Suggestion",
+    "createTitle": "New Suggestion",
+    "createDescription": "Suggest a scientific article, paper, or document to add to the knowledge base.",
+    "editTitle": "Edit Suggestion",
+    "all": "All",
+    "status_pending": "Pending",
+    "status_approved": "Approved",
+    "status_rejected": "Rejected",
+    "empty": "No suggestions yet.",
+    "comment": "Comment",
+    "commentPlaceholder": "Explain why this document is relevant...",
+    "commentRequired": "Comment is required",
+    "fileOrUrlRequired": "Provide a PDF file or a URL",
+    "onlyPdf": "Only PDF files are accepted",
+    "pdf": "PDF File",
+    "url": "URL",
+    "file": "File",
+    "deleteConfirm": "Delete this suggestion?",
+    "notFound": "Suggestion not found",
+    "noAccess": "You don't have access to this suggestion.",
+    "adminComment": "Admin Comment",
+    "documentLink": "View document",
+    "created": "Created",
+    "updated": "Updated",
+    "noAdminComment": "No admin comment yet.",
+    "createSuccess": "Suggestion created successfully",
+    "updateSuccess": "Suggestion updated successfully",
+    "deleteSuccess": "Suggestion deleted",
+    "replaceFile": "Replace PDF",
+    "uploadPdf": "Upload a PDF file"
+  },
   "donate": {
     "title": "Support Agroecology Map AI",
     "whatIsTitle": "What Is Agroecology Map AI",
-    "whatIs": "Agroecology Map AI is an artificial intelligence platform specialized in agroecology. It transforms scientific papers, field manuals, technical booklets, theses, and reports into a searchable knowledge base, allowing people to ask questions in natural language and receive answers with source citations. Unlike generic chatbots, the platform answers based on the provided documents — without inventing facts or hiding where information came from. Our goal is to democratize access to agroecological knowledge for farmers, researchers, extension workers, educators, and communities through a reliable, free software tool designed to run on local infrastructure.",
+    "whatIs": "Agroecology Map AI is an artificial intelligence platform specialized in agroecology. It transforms scientific papers, field manuals, technical booklets, theses, and reports into a searchable knowledge base, allowing people to ask questions in natural language and receive answers with source citations. Unlike generic chatbots, the platform answers based on the provided documents - without inventing facts or hiding where information came from. Our goal is to democratize access to agroecological knowledge for farmers, researchers, extension workers, educators, and communities through a reliable, free software tool designed to run on local infrastructure.",
     "intro": "Agroecology Map AI is the next step in 8 years of volunteer work on Agroecology Map: a free software AI that makes agroecological knowledge more accessible, traceable, and useful for communities, researchers, and farmers.",
     "goal": {
       "label": "Campaign goal",
@@ -330,7 +373,7 @@
     },
     "voluntary": {
       "title": "100% Volunteer Effort",
-      "content": "Agroecology Map is maintained by a small team of volunteers — developers, researchers, and activists — who dedicate their free time to building and improving the platform. We have no investors, corporate sponsors, or significant external funding. We do this because we deeply believe in agroecology, free software, and the transformative power of shared knowledge.",
+      "content": "Agroecology Map is maintained by a small team of volunteers - developers, researchers, and activists - who dedicate their free time to building and improving the platform. We have no investors, corporate sponsors, or significant external funding. We do this because we deeply believe in agroecology, free software, and the transformative power of shared knowledge.",
       "body": "But there are limits to what volunteer work can sustain on its own. As Agroecology Map AI grows, processing, storage, and development costs increase. The donation we are asking for is specific: acquiring dedicated local equipment to accelerate development and reduce dependence on cloud services."
     },
     "aiNeeds": {
@@ -342,9 +385,9 @@
       "title": "Local Development Equipment",
       "equipment": {
         "title": "Goal: USD 3,000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB — USD 1,500",
-        "memory": "64GB DDR4 3200 — USD 900",
-        "storage": "SSD NVMe 2TB — USD 600",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1,500",
+        "memory": "64GB DDR4 3200 - USD 900",
+        "storage": "SSD NVMe 2TB - USD 600",
         "description": "This equipment will be dedicated to Agroecology Map AI for data processing, document indexing, tests with local models, fine-tuning open models, and ongoing platform improvements. It also brings us closer to a self-hostable infrastructure, with less cloud dependency and more technological sovereignty for the community."
       }
     },

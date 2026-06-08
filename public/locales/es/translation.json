@@ -12,7 +12,9 @@
     "upload": "Subir Archivos",
     "ingestion": "Ingesta",
     "about": "Acerca de",
-    "donate": "Apoyar"
+    "donate": "Apoyar",
+    "social": "Redes Sociales",
+    "suggestions": "Mis Sugerencias"
   },
   "common": {
     "back": "Volver",
@@ -93,6 +95,14 @@
   "admin": {
     "section": "Admin",
     "users": "Usuarios",
+    "suggestions": "Sugerencias",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "approveConfirm": "¿Aprobar esta sugerencia? Se creará un documento.",
+    "approveSuccess": "Sugerencia aprobada y documento creado.",
+    "rejectConfirm": "¿Rechazar esta sugerencia?",
+    "rejectSuccess": "Sugerencia rechazada.",
+    "deleteSuggestionConfirm": "¿Eliminar esta sugerencia permanentemente?",
     "noUsersFound": "No se encontraron usuarios.",
     "deleteUserConfirm": "¿Eliminar este usuario?",
     "userDetail": "Detalles del Usuario",
@@ -151,7 +161,7 @@
         "description": "DeepSeek, Ollama o cualquier API compatible con OpenAI. Cambia modelos sin modificar tu flujo de trabajo."
       }
     },
-    "footerPrefix": "Software Libre (GPLv3) — Mantenido por"
+    "footerPrefix": "Software Libre (GPLv3) - Mantenido por"
   },
   "documents": {
     "title": "Base de Conocimiento",
@@ -309,10 +319,43 @@
     "ctaDonate": "Apoyar el proyecto",
     "ctaDocuments": "Ver base de conocimiento"
   },
+  "suggestions": {
+    "title": "Mis Sugerencias",
+    "new": "Nueva Sugerencia",
+    "createTitle": "Nueva Sugerencia",
+    "createDescription": "Sugiere un artículo científico, paper o documento para agregar a la base de conocimiento.",
+    "editTitle": "Editar Sugerencia",
+    "all": "Todas",
+    "status_pending": "Pendiente",
+    "status_approved": "Aprobada",
+    "status_rejected": "Rechazada",
+    "empty": "Aún no hay sugerencias.",
+    "comment": "Comentario",
+    "commentPlaceholder": "Explica por qué este documento es relevante...",
+    "commentRequired": "El comentario es obligatorio",
+    "fileOrUrlRequired": "Proporciona un archivo PDF o una URL",
+    "onlyPdf": "Solo se aceptan archivos PDF",
+    "pdf": "Archivo PDF",
+    "url": "URL",
+    "file": "Archivo",
+    "deleteConfirm": "¿Eliminar esta sugerencia?",
+    "notFound": "Sugerencia no encontrada",
+    "noAccess": "No tienes acceso a esta sugerencia.",
+    "adminComment": "Comentario del Admin",
+    "documentLink": "Ver documento",
+    "created": "Creada",
+    "updated": "Actualizada",
+    "noAdminComment": "Aún no hay comentario del admin.",
+    "createSuccess": "Sugerencia creada exitosamente",
+    "updateSuccess": "Sugerencia actualizada exitosamente",
+    "deleteSuccess": "Sugerencia eliminada",
+    "replaceFile": "Reemplazar PDF",
+    "uploadPdf": "Subir un archivo PDF"
+  },
   "donate": {
     "title": "Apoya Agroecology Map AI",
     "whatIsTitle": "Qué Es Agroecology Map AI",
-    "whatIs": "Agroecology Map AI es una plataforma de inteligencia artificial especializada en agroecología. Transforma artículos científicos, manuales de campo, cartillas técnicas, tesis e informes en una base de conocimiento consultable, permitiendo hacer preguntas en lenguaje natural y recibir respuestas con citas de las fuentes utilizadas. A diferencia de chatbots genéricos, la plataforma responde con base en los documentos proporcionados — sin inventar hechos y sin ocultar de dónde proviene la información. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico para agricultores, investigadores, extensionistas, educadores y comunidades, con una herramienta confiable, libre y preparada para ejecutarse en infraestructura local.",
+    "whatIs": "Agroecology Map AI es una plataforma de inteligencia artificial especializada en agroecología. Transforma artículos científicos, manuales de campo, cartillas técnicas, tesis e informes en una base de conocimiento consultable, permitiendo hacer preguntas en lenguaje natural y recibir respuestas con citas de las fuentes utilizadas. A diferencia de chatbots genéricos, la plataforma responde con base en los documentos proporcionados - sin inventar hechos y sin ocultar de dónde proviene la información. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico para agricultores, investigadores, extensionistas, educadores y comunidades, con una herramienta confiable, libre y preparada para ejecutarse en infraestructura local.",
     "intro": "Agroecology Map AI es el siguiente paso de 8 años de trabajo voluntario en Agroecology Map: una IA libre para hacer que el conocimiento agroecológico sea más accesible, rastreable y útil para comunidades, investigadores y agricultores.",
     "goal": {
       "label": "Meta de la campaña",
@@ -330,7 +373,7 @@
     },
     "voluntary": {
       "title": "Esfuerzo 100% Voluntario",
-      "content": "Agroecology Map es mantenido por un pequeño equipo de voluntarios — desarrolladores, investigadores y activistas — que dedican su tiempo libre a construir y mejorar la plataforma. No tenemos inversores, patrocinadores corporativos ni financiamiento externo significativo. Hacemos esto porque creemos profundamente en la agroecología, el software libre y el poder transformador del conocimiento compartido.",
+      "content": "Agroecology Map es mantenido por un pequeño equipo de voluntarios - desarrolladores, investigadores y activistas - que dedican su tiempo libre a construir y mejorar la plataforma. No tenemos inversores, patrocinadores corporativos ni financiamiento externo significativo. Hacemos esto porque creemos profundamente en la agroecología, el software libre y el poder transformador del conocimiento compartido.",
       "body": "Pero hay límites para lo que el trabajo voluntario puede sostener por sí solo. A medida que Agroecology Map AI crece, los costos de procesamiento, almacenamiento y desarrollo aumentan. La donación que estamos solicitando es específica: adquirir equipo local dedicado para acelerar el desarrollo y reducir la dependencia de servicios en la nube."
     },
     "aiNeeds": {
@@ -342,9 +385,9 @@
       "title": "Equipo de Desarrollo Local",
       "equipment": {
         "title": "Meta: USD 3.000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB — USD 1.500",
-        "memory": "64GB DDR4 3200 — USD 900",
-        "storage": "SSD NVMe 2TB — USD 600",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1.500",
+        "memory": "64GB DDR4 3200 - USD 900",
+        "storage": "SSD NVMe 2TB - USD 600",
         "description": "Este equipo estará dedicado a Agroecology Map AI para procesamiento de datos, indexación de documentos, pruebas con modelos locales, fine-tuning de modelos abiertos y mejoras continuas de la plataforma. También nos acerca a una infraestructura autoalojable, con menos dependencia de la nube y más soberanía tecnológica para la comunidad."
       }
     },

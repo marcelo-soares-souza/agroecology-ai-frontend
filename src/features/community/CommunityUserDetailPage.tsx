@@ -1,13 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Users, FileText, ExternalLink, Calendar, Clock } from "lucide-react";
+import {
+  ArrowLeft,
+  Users,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { QueryResult } from "@/components/ui/QueryResult";
 import type { DocumentSuggestion } from "@/services/types";
 
 function formatDate(iso: string, locale: string) {
@@ -76,13 +79,6 @@ export function CommunityUserDetailPage() {
     last_login_at: string | null;
   };
 
-  const maskEmail = (email: string) => {
-    const [local, domain] = email.split("@");
-    if (!domain) return email;
-    const masked = local.charAt(0) + "***" + local.charAt(local.length - 1);
-    return `${masked}@${domain}`;
-  };
-
   return (
     <div className="space-y-6">
       <Link to="/community">
@@ -111,8 +107,7 @@ export function CommunityUserDetailPage() {
 
         <div className="mt-4 space-y-2 text-sm text-text-secondary">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            @{user.slug}
+            <Users className="h-4 w-4" />@{user.slug}
           </div>
         </div>
       </Card>
@@ -128,13 +123,18 @@ export function CommunityUserDetailPage() {
                 key={s.id}
                 padding="sm"
                 className="hover:bg-primary-50/30 transition-colors cursor-pointer"
-                onClick={() => s.document_id && navigate(`/documents/${s.document_id}`)}
+                onClick={() =>
+                  s.document_id && navigate(`/documents/${s.document_id}`)
+                }
               >
                 <div className="flex items-center gap-3">
                   <FileText className="h-4 w-4 text-primary shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-text-primary truncate text-sm">
-                      {s.title || s.url || s.original_filename || s.id.slice(0, 8)}
+                      {s.title ||
+                        s.url ||
+                        s.original_filename ||
+                        s.id.slice(0, 8)}
                     </p>
                     <p className="text-xs text-text-secondary">
                       {formatDate(s.created_at, locale)}

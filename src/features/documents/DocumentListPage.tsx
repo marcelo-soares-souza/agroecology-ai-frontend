@@ -203,17 +203,17 @@ export function DocumentListPage() {
                         })}
                   </p>
                 </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-primary-100">
-                    <div
-                      className="h-full rounded-full bg-info transition-all"
-                      style={{
-                        width: `${Math.round(
-                          (indexStats.indexed / indexStats.total) * 100,
-                        )}%`,
-                      }}
-                    />
-                  </div>
+                <div className="h-3 overflow-hidden rounded-full bg-primary-100">
+                  <div
+                    className="h-full rounded-full bg-info transition-all"
+                    style={{
+                      width: `${Math.round(
+                        (indexStats.indexed / indexStats.total) * 100,
+                      )}%`,
+                    }}
+                  />
                 </div>
+              </div>
 
               {metadataStats && metadataStats.total > 0 && (
                 <div className="flex flex-col gap-3">
@@ -285,126 +285,124 @@ export function DocumentListPage() {
             return (
               <Card className="text-center py-12">
                 <Search className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
-                <p className="text-text-secondary">
-                  {t("common.noResults")}
-                </p>
+                <p className="text-text-secondary">{t("common.noResults")}</p>
               </Card>
             );
           }
           return (
             <div className="space-y-3">
-            {docs.map((doc) => (
-              <div
-                key={doc.id}
-                className="block group"
-                onClick={(e) => {
-                  const target = e.target as HTMLElement;
-                  if (target.closest("button, a")) return;
-                  navigate(`/documents/${doc.id}`);
-                }}
-                role="link"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
+              {docs.map((doc) => (
+                <div
+                  key={doc.id}
+                  className="block group"
+                  onClick={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest("button, a")) return;
                     navigate(`/documents/${doc.id}`);
-                  }
-                }}
-              >
-                <Card
-                  padding="sm"
-                  className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                  }}
+                  role="link"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      navigate(`/documents/${doc.id}`);
+                    }
+                  }}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start gap-2 mb-1">
-                        <FileText className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                        <div className="min-w-0">
-                          <span className="font-medium text-text-primary group-hover:text-primary transition-colors">
-                            {doc.title || doc.filename}
-                          </span>
-                          {doc.authors && (
-                            <p className="text-xs text-text-secondary truncate">
-                              {doc.authors}
-                            </p>
-                          )}
+                  <Card
+                    padding="sm"
+                    className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start gap-2 mb-1">
+                          <FileText className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          <div className="min-w-0">
+                            <span className="font-medium text-text-primary group-hover:text-primary transition-colors">
+                              {doc.title || doc.filename}
+                            </span>
+                            {doc.authors && (
+                              <p className="text-xs text-text-secondary truncate">
+                                {doc.authors}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
-                        <Badge
-                          variant={
-                            (fileTypeColors[doc.file_type] as
-                              | "default"
-                              | "success"
-                              | "error"
-                              | "info") || "default"
-                          }
-                        >
-                          {doc.file_type.toUpperCase()}
-                        </Badge>
-                        <Badge variant={doc.ingested ? "success" : "warning"}>
-                          {doc.ingested
-                            ? t("documents.indexed")
-                            : t("documents.pending")}
-                        </Badge>
-                        {doc.file_type === "pdf" && (
+                        <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
                           <Badge
                             variant={
-                              doc.title?.trim() && doc.authors?.trim()
-                                ? "success"
-                                : "warning"
+                              (fileTypeColors[doc.file_type] as
+                                | "default"
+                                | "success"
+                                | "error"
+                                | "info") || "default"
                             }
                           >
-                            {doc.title?.trim() && doc.authors?.trim()
-                              ? t("documents.metadataExtracted")
-                              : t("documents.metadataQueued")}
+                            {doc.file_type.toUpperCase()}
                           </Badge>
+                          <Badge variant={doc.ingested ? "success" : "warning"}>
+                            {doc.ingested
+                              ? t("documents.indexed")
+                              : t("documents.pending")}
+                          </Badge>
+                          {doc.file_type === "pdf" && (
+                            <Badge
+                              variant={
+                                doc.title?.trim() && doc.authors?.trim()
+                                  ? "success"
+                                  : "warning"
+                              }
+                            >
+                              {doc.title?.trim() && doc.authors?.trim()
+                                ? t("documents.metadataExtracted")
+                                : t("documents.metadataQueued")}
+                            </Badge>
+                          )}
+                          <span>{formatFileSize(doc.file_size)}</span>
+                          <span>{formatDate(doc.created_at, locale)}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 shrink-0">
+                        <a href={getDownloadUrl(doc.id)} download>
+                          <Button variant="ghost" size="sm">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </a>
+                        {isAdmin && (
+                          <>
+                            <Link to={`/documents/${doc.id}/edit`}>
+                              <Button variant="ghost" size="sm">
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                if (confirm(t("documents.deleteConfirm"))) {
+                                  deleteMutation.mutate(doc.id);
+                                }
+                              }}
+                              disabled={deleteMutation.isPending}
+                            >
+                              {deleteMutation.isPending &&
+                              deleteMutation.variables === doc.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <Trash2 className="h-4 w-4 text-red-500" />
+                              )}
+                            </Button>
+                          </>
                         )}
-                        <span>{formatFileSize(doc.file_size)}</span>
-                        <span>{formatDate(doc.created_at, locale)}</span>
                       </div>
                     </div>
-
-                    <div className="flex items-center gap-1 shrink-0">
-                      <a href={getDownloadUrl(doc.id)} download>
-                        <Button variant="ghost" size="sm">
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      </a>
-                      {isAdmin && (
-                        <>
-                          <Link to={`/documents/${doc.id}/edit`}>
-                            <Button variant="ghost" size="sm">
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                          </Link>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                              if (confirm(t("documents.deleteConfirm"))) {
-                                deleteMutation.mutate(doc.id);
-                              }
-                            }}
-                            disabled={deleteMutation.isPending}
-                          >
-                            {deleteMutation.isPending &&
-                            deleteMutation.variables === doc.id ? (
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <Trash2 className="h-4 w-4 text-red-500" />
-                            )}
-                          </Button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            ))}
-          </div>
-        );
-      }}
+                  </Card>
+                </div>
+              ))}
+            </div>
+          );
+        }}
       </QueryResult>
     </div>
   );

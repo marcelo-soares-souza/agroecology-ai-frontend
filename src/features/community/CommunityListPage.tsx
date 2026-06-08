@@ -29,9 +29,7 @@ export function CommunityListPage() {
         empty={
           <Card className="text-center py-12">
             <Users className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
-            <p className="text-text-secondary">
-              {t("community.empty")}
-            </p>
+            <p className="text-text-secondary">{t("community.empty")}</p>
           </Card>
         }
       >

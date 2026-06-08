@@ -178,11 +178,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.documents")}
               </NavLink>
 
-              <NavLink
-                to="/community"
-                className={linkClass}
-                onClick={onClose}
-              >
+              <NavLink to="/community" className={linkClass} onClick={onClose}>
                 <Globe className="h-4 w-4" />
                 {t("nav.community")}
               </NavLink>

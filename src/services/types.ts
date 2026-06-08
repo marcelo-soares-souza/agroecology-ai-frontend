@@ -139,6 +139,7 @@ export interface UserRecord {
   updated_at: string;
   about: string | null;
   link: string | null;
+  avatar_url: string | null;
 }
 
 export interface HumanChallenge {

@@ -120,11 +120,27 @@ export const api = {
       method: "DELETE",
     }),
 
-  updateMyProfile: (data: { about?: string | null; link?: string | null }) =>
+  updateMyProfile: (data: {
+    full_name?: string | null;
+    about?: string | null;
+    link?: string | null;
+  }) =>
     request<import("./types").UserRecord>("/api/v1/auth/me/profile", {
       method: "PUT",
       body: JSON.stringify(data),
     }),
+
+  uploadAvatar: (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    return request<import("./types").UserRecord>(
+      "/api/v1/auth/me/profile/avatar",
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
+  },
 
   getHumanChallenge: async (locale = "en") => {
     const resp = await fetch(

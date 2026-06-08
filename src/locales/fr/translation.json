@@ -56,6 +56,7 @@
     "newPassword": "Nouveau Mot de Passe",
     "confirmPassword": "Confirmer le Mot de Passe",
     "fullName": "Nom Complet",
+    "fullNameRequired": "Le nom est requis",
     "loggingIn": "Connexion...",
     "registering": "Inscription...",
     "sending": "Envoi...",
@@ -325,12 +326,16 @@
   },
   "profile": {
     "editTitle": "Modifier le Profil",
+    "name": "Nom",
     "about": "À propos",
     "aboutPlaceholder": "Parle de toi (jusqu'à 4096 caractères)...",
     "aboutTooLong": "À propos ne peut pas dépasser 4096 caractères",
     "link": "Lien",
     "invalidLink": "Le lien doit commencer par http:// ou https://",
-    "saved": "Profil enregistré avec succès"
+    "saved": "Profil enregistré avec succès",
+    "changePhoto": "Changer la Photo",
+    "avatarUnsupportedType": "Type d'image non supporté. Utilisez JPEG, PNG ou WebP.",
+    "avatarTooLarge": "L'image ne doit pas dépasser 5 Mo."
   },
   "community": {
     "empty": "Aucun membre dans la communauté pour l'instant.",

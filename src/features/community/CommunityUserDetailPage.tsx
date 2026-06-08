@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Users, FileText, ExternalLink, Pencil } from "lucide-react";
+import { ArrowLeft, Users, FileText, ExternalLink } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { useAuth } from "@/hooks/use-auth";
+import { buildApiUrl } from "@/config/api";
 import type { DocumentSuggestion } from "@/services/types";
 
 function formatDate(iso: string, locale: string) {
@@ -24,8 +24,6 @@ export function CommunityUserDetailPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { session } = useAuth();
-
   const userQuery = useQuery({
     queryKey: ["community-user", slug],
     queryFn: () =>
@@ -76,6 +74,7 @@ export function CommunityUserDetailPage() {
     last_login_at: string | null;
     about: string | null;
     link: string | null;
+    avatar_url: string | null;
   };
 
   return (
@@ -89,8 +88,18 @@ export function CommunityUserDetailPage() {
 
       <Card>
         <div className="flex items-center gap-4">
-          <div className="h-14 w-14 rounded-full bg-primary-100 flex items-center justify-center text-primary font-semibold text-xl shrink-0">
-            {user.full_name.charAt(0).toUpperCase()}
+          <div className="h-14 w-14 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden shrink-0">
+            {user.avatar_url ? (
+              <img
+                src={buildApiUrl(user.avatar_url)}
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-primary text-white font-semibold text-xl">
+                {user.full_name.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
           <div>
             <h1 className="text-xl font-bold text-text-primary">
@@ -126,17 +135,6 @@ export function CommunityUserDetailPage() {
           )}
         </div>
       </Card>
-
-      {session?.slug === slug && (
-        <div className="flex justify-end">
-          <Link to="/profile/edit">
-            <Button variant="secondary">
-              <Pencil className="h-4 w-4" />
-              {t("common.edit")}
-            </Button>
-          </Link>
-        </div>
-      )}
 
       {suggestionsQuery.data && suggestionsQuery.data.length > 0 && (
         <div>

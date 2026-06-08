@@ -216,6 +216,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     <Users className="h-4 w-4" />
                     {t("admin.users")}
                   </NavLink>
+
+                  <NavLink
+                    to="/admin/suggestions"
+                    className={linkClass}
+                    onClick={onClose}
+                  >
+                    <Lightbulb className="h-4 w-4" />
+                    {t("admin.suggestions")}
+                  </NavLink>
                 </>
               )}
             </>

@@ -87,6 +87,14 @@ const AdminUsersPage = lazyPage(
   () => import("./features/admin/AdminUsersPage"),
   "AdminUsersPage",
 );
+const AdminSuggestionsPage = lazyPage(
+  () => import("./features/admin/AdminSuggestionsPage"),
+  "AdminSuggestionsPage",
+);
+const AdminSuggestionDetailPage = lazyPage(
+  () => import("./features/admin/AdminSuggestionDetailPage"),
+  "AdminSuggestionDetailPage",
+);
 const ForgotPasswordPage = lazyPage(
   () => import("./features/auth/ForgotPasswordPage"),
   "ForgotPasswordPage",
@@ -206,6 +214,22 @@ export const router = createBrowserRouter(
           element: (
             <AuthGuard roles={["admin"]}>
               <AdminUsersPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/admin/suggestions",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <AdminSuggestionsPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/admin/suggestions/:id",
+          element: (
+            <AuthGuard roles={["admin"]}>
+              <AdminSuggestionDetailPage />
             </AuthGuard>
           ),
         },

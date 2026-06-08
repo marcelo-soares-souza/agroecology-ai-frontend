@@ -249,6 +249,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
           <div className="flex-1" />
 
+          {sectionLabel(t("nav.support"))}
+
           <NavLink to="/donate" className={linkClass} onClick={onClose}>
             <Heart className="h-4 w-4" />
             {t("nav.donate")}

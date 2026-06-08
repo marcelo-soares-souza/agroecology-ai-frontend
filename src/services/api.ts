@@ -120,6 +120,12 @@ export const api = {
       method: "DELETE",
     }),
 
+  updateMyProfile: (data: { about?: string | null; link?: string | null }) =>
+    request<import("./types").UserRecord>("/api/v1/auth/me/profile", {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
   getHumanChallenge: async (locale = "en") => {
     const resp = await fetch(
       `${API_BASE_URL}/api/v1/auth/human-challenge?locale=${locale}`,

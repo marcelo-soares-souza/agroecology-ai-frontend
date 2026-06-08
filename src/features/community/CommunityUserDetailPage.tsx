@@ -1,12 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import {
-  ArrowLeft,
-  Users,
-  FileText,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, Users, FileText, ExternalLink } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -109,6 +104,22 @@ export function CommunityUserDetailPage() {
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />@{user.slug}
           </div>
+          {user.about && (
+            <p className="text-text-primary mt-3 whitespace-pre-wrap text-base">
+              {user.about}
+            </p>
+          )}
+          {user.link && (
+            <a
+              href={user.link}
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary hover:underline inline-flex items-center gap-1 text-sm mt-1"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              {user.link}
+            </a>
+          )}
         </div>
       </Card>
 

@@ -16,6 +16,7 @@
     "suggestions": "My Suggestions",
     "community": "Community",
     "user": "User",
+    "editProfile": "Edit Profile",
     "support": "Support",
     "social": "Social"
   },
@@ -321,6 +322,15 @@
     "ctaChat": "Use the chat",
     "ctaDonate": "Support the project",
     "ctaDocuments": "View knowledge base"
+  },
+  "profile": {
+    "editTitle": "Edit Profile",
+    "about": "About",
+    "aboutPlaceholder": "Tell us about yourself (up to 4096 characters)...",
+    "aboutTooLong": "About must not exceed 4096 characters",
+    "link": "Link",
+    "invalidLink": "Link must start with http:// or https://",
+    "saved": "Profile saved successfully"
   },
   "community": {
     "empty": "No community members yet.",

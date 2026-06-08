@@ -17,6 +17,7 @@
     "suggestions": "Mis Sugerencias",
     "community": "Comunidad",
     "user": "Usuario",
+    "editProfile": "Editar Perfil",
     "support": "Apoyo"
   },
   "common": {
@@ -321,6 +322,15 @@
     "ctaChat": "Usar el chat",
     "ctaDonate": "Apoyar el proyecto",
     "ctaDocuments": "Ver base de conocimiento"
+  },
+  "profile": {
+    "editTitle": "Editar Perfil",
+    "about": "Sobre mí",
+    "aboutPlaceholder": "Cuenta sobre ti (hasta 4096 caracteres)...",
+    "aboutTooLong": "Sobre mí no puede exceder 4096 caracteres",
+    "link": "Enlace",
+    "invalidLink": "El enlace debe comenzar con http:// o https://",
+    "saved": "Perfil guardado exitosamente"
   },
   "community": {
     "empty": "Aún no hay miembros en la comunidad.",

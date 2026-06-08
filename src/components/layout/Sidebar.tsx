@@ -199,6 +199,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.suggestions")}
               </NavLink>
 
+              <NavLink
+                to="/profile/edit"
+                className={linkClass}
+                onClick={onClose}
+              >
+                <FileText className="h-4 w-4" />
+                {t("nav.editProfile")}
+              </NavLink>
+
               {isAdmin && (
                 <>
                   {sectionLabel(t("nav.documents"))}

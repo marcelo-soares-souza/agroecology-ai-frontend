@@ -137,6 +137,8 @@ export interface UserRecord {
   last_login_at: string | null;
   created_at: string;
   updated_at: string;
+  about: string | null;
+  link: string | null;
 }
 
 export interface HumanChallenge {

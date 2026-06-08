@@ -115,6 +115,11 @@ const SuggestionListPage = lazyPage(
   () => import("./features/suggestions/SuggestionListPage"),
   "SuggestionListPage",
 );
+
+const ProfileEditPage = lazyPage(
+  () => import("./features/auth/ProfileEditPage"),
+  "ProfileEditPage",
+);
 const SuggestionCreatePage = lazyPage(
   () => import("./features/suggestions/SuggestionCreatePage"),
   "SuggestionCreatePage",
@@ -260,6 +265,14 @@ export const router = createBrowserRouter(
         { path: "/reset-password", element: <ResetPasswordPage /> },
         { path: "/resend-confirmation", element: <ResendConfirmationPage /> },
         { path: "/profile/:slug", element: <ProfilePage /> },
+        {
+          path: "/profile/edit",
+          element: (
+            <AuthGuard>
+              <ProfileEditPage />
+            </AuthGuard>
+          ),
+        },
         { path: "*", element: <Navigate to="/" replace /> },
       ],
     },

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Save, Loader2, User, Globe, Upload } from "lucide-react";
 import { api } from "@/services/api";
+import { queryClient } from "@/services/query-client";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -22,6 +23,7 @@ export function ProfileEditPage() {
   const [about, setAbout] = useState("");
   const [link, setLink] = useState("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarVersion, setAvatarVersion] = useState(() => Date.now());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [avatarUploading, setAvatarUploading] = useState(false);
@@ -69,6 +71,7 @@ export function ProfileEditPage() {
     try {
       const result = await api.uploadAvatar(file);
       setAvatarUrl(result.avatar_url || null);
+      setAvatarVersion((v) => v + 1);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("common.error"));
     } finally {
@@ -103,6 +106,7 @@ export function ProfileEditPage() {
         link: link.trim() || null,
       });
       setSuccess(true);
+      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       setTimeout(() => navigate(`/profile/${session?.slug}`), 1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("common.error"));
@@ -147,7 +151,7 @@ export function ProfileEditPage() {
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
             {avatarUrl ? (
               <img
-                src={buildApiUrl(avatarUrl)}
+                src={`${buildApiUrl(avatarUrl)}?v=${avatarVersion}`}
                 alt=""
                 className="h-full w-full object-cover"
               />

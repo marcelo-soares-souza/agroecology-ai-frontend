@@ -128,6 +128,16 @@ const SuggestionEditPage = lazyPage(
   "SuggestionEditPage",
 );
 
+const CommunityListPage = lazyPage(
+  () => import("./features/community/CommunityListPage"),
+  "CommunityListPage",
+);
+
+const CommunityUserDetailPage = lazyPage(
+  () => import("./features/community/CommunityUserDetailPage"),
+  "CommunityUserDetailPage",
+);
+
 export const router = createBrowserRouter(
   [
     {
@@ -176,6 +186,14 @@ export const router = createBrowserRouter(
               <SuggestionEditPage />
             </AuthGuard>
           ),
+        },
+        {
+          path: "/community",
+          element: <CommunityListPage />,
+        },
+        {
+          path: "/community/:slug",
+          element: <CommunityUserDetailPage />,
         },
         {
           path: "/documents",

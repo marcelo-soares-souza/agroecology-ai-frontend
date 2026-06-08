@@ -14,7 +14,8 @@
     "about": "Acerca de",
     "donate": "Apoyar",
     "social": "Redes Sociales",
-    "suggestions": "Mis Sugerencias"
+    "suggestions": "Mis Sugerencias",
+    "community": "Comunidad"
   },
   "common": {
     "back": "Volver",
@@ -318,6 +319,12 @@
     "ctaChat": "Usar el chat",
     "ctaDonate": "Apoyar el proyecto",
     "ctaDocuments": "Ver base de conocimiento"
+  },
+  "community": {
+    "empty": "Aún no hay miembros en la comunidad.",
+    "memberSince": "Miembro desde {{date}}",
+    "approvedSuggestions": "Documentos sugeridos",
+    "noSuggestions": "Aún no hay sugerencias aprobadas."
   },
   "suggestions": {
     "title": "Mis Sugerencias",

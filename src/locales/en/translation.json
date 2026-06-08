@@ -14,6 +14,7 @@
     "about": "About",
     "donate": "Donate",
     "suggestions": "My Suggestions",
+    "community": "Community",
     "social": "Social"
   },
   "common": {
@@ -318,6 +319,12 @@
     "ctaChat": "Use the chat",
     "ctaDonate": "Support the project",
     "ctaDocuments": "View knowledge base"
+  },
+  "community": {
+    "empty": "No community members yet.",
+    "memberSince": "Member since {{date}}",
+    "approvedSuggestions": "Suggested documents",
+    "noSuggestions": "No approved suggestions yet."
   },
   "suggestions": {
     "title": "My Suggestions",

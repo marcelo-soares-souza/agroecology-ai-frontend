@@ -144,6 +144,14 @@ export const api = {
       method: "DELETE",
     }),
 
+  listActiveUsers: () =>
+    request<import("./types").UserRecord[]>("/api/v1/auth/users"),
+
+  listPublicSuggestions: (userId: string) =>
+    request<DocumentSuggestion[]>(
+      `/api/v1/suggestions/public?user_id=${userId}`,
+    ),
+
   createSuggestion: (formData: FormData) =>
     request<DocumentSuggestion>("/api/v1/suggestions", {
       method: "POST",

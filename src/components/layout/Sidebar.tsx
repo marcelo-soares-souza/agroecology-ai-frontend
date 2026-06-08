@@ -14,6 +14,7 @@ import {
   Users,
   MessageCircle,
   Lightbulb,
+  Globe,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
@@ -151,6 +152,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.documents")}
               </NavLink>
 
+              <NavLink to="/community" className={linkClass} onClick={onClose}>
+                <Globe className="h-4 w-4" />
+                {t("nav.community")}
+              </NavLink>
+
               <NavLink to="/login" className={linkClass} onClick={onClose}>
                 <LogIn className="h-4 w-4" />
                 {t("auth.login")}
@@ -170,6 +176,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <NavLink to="/documents" className={linkClass} onClick={onClose}>
                 <FileText className="h-4 w-4" />
                 {t("nav.documents")}
+              </NavLink>
+
+              <NavLink
+                to="/community"
+                className={linkClass}
+                onClick={onClose}
+              >
+                <Globe className="h-4 w-4" />
+                {t("nav.community")}
               </NavLink>
 
               <NavLink to="/status" className={linkClass} onClick={onClose}>

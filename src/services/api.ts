@@ -11,6 +11,8 @@ import type {
   MetadataExtractionStatus,
   UploadResponse,
   IngestionRun,
+  DocumentSuggestion,
+  DocumentSuggestionUpdate,
 } from "./types";
 
 class ApiError extends Error {
@@ -130,6 +132,97 @@ export const api = {
 
   deleteDocument: (id: string) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`, {
+      method: "DELETE",
+    }),
+
+  createSuggestion: (formData: FormData) =>
+    request<DocumentSuggestion>("/api/v1/suggestions", {
+      method: "POST",
+      body: formData,
+    }),
+
+  listMySuggestions: (status?: string) => {
+    const params = status ? `?status=${status}` : "";
+    return request<DocumentSuggestion[]>(`/api/v1/suggestions${params}`);
+  },
+
+  getSuggestion: (id: string) =>
+    request<DocumentSuggestion>(`/api/v1/suggestions/${id}`),
+
+  updateSuggestion: (id: string, data: DocumentSuggestionUpdate) =>
+    request<DocumentSuggestion>(`/api/v1/suggestions/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  deleteSuggestion: (id: string) =>
+    request<DocumentSuggestion>(`/api/v1/suggestions/${id}`, {
+      method: "DELETE",
+    }),
+
+  replaceSuggestionFile: (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    return request<DocumentSuggestion>(`/api/v1/suggestions/${id}/file`, {
+      method: "PUT",
+      body: formData,
+    });
+  },
+
+  adminListSuggestions: (filters?: {
+    status?: string;
+    user_id?: string;
+    has_pdf?: boolean;
+    q?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters?.status) params.set("status", filters.status);
+    if (filters?.user_id) params.set("user_id", filters.user_id);
+    if (filters?.has_pdf !== undefined)
+      params.set("has_pdf", String(filters.has_pdf));
+    if (filters?.q) params.set("q", filters.q);
+    if (filters?.limit) params.set("limit", String(filters.limit));
+    if (filters?.offset) params.set("offset", String(filters.offset));
+    const qs = params.toString();
+    return request<DocumentSuggestion[]>(
+      `/api/v1/admin/suggestions${qs ? `?${qs}` : ""}`,
+    );
+  },
+
+  adminUpdateSuggestion: (
+    id: string,
+    data: {
+      title?: string | null;
+      authors?: string | null;
+      url?: string | null;
+      user_comment?: string | null;
+      admin_comment?: string | null;
+    },
+  ) =>
+    request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  adminApproveSuggestion: (
+    id: string,
+    data?: { admin_comment?: string | null },
+  ) =>
+    request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}/approve`, {
+      method: "POST",
+      body: JSON.stringify(data || {}),
+    }),
+
+  adminRejectSuggestion: (id: string, data: { admin_comment: string }) =>
+    request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}/reject`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  adminDeleteSuggestion: (id: string) =>
+    request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}`, {
       method: "DELETE",
     }),
 };

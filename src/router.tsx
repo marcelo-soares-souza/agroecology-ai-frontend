@@ -103,6 +103,22 @@ const ProfilePage = lazyPage(
   () => import("./features/auth/ProfilePage"),
   "ProfilePage",
 );
+const SuggestionListPage = lazyPage(
+  () => import("./features/suggestions/SuggestionListPage"),
+  "SuggestionListPage",
+);
+const SuggestionCreatePage = lazyPage(
+  () => import("./features/suggestions/SuggestionCreatePage"),
+  "SuggestionCreatePage",
+);
+const SuggestionDetailPage = lazyPage(
+  () => import("./features/suggestions/SuggestionDetailPage"),
+  "SuggestionDetailPage",
+);
+const SuggestionEditPage = lazyPage(
+  () => import("./features/suggestions/SuggestionEditPage"),
+  "SuggestionEditPage",
+);
 
 export const router = createBrowserRouter(
   [
@@ -118,6 +134,38 @@ export const router = createBrowserRouter(
           element: (
             <AuthGuard>
               <StatusPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/suggestions",
+          element: (
+            <AuthGuard>
+              <SuggestionListPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/suggestions/new",
+          element: (
+            <AuthGuard>
+              <SuggestionCreatePage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/suggestions/:id",
+          element: (
+            <AuthGuard>
+              <SuggestionDetailPage />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "/suggestions/:id/edit",
+          element: (
+            <AuthGuard>
+              <SuggestionEditPage />
             </AuthGuard>
           ),
         },

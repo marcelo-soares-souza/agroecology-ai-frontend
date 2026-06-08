@@ -13,6 +13,7 @@ import {
   UserPlus,
   Users,
   MessageCircle,
+  Lightbulb,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
@@ -174,6 +175,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <NavLink to="/status" className={linkClass} onClick={onClose}>
                 <Activity className="h-4 w-4" />
                 {t("nav.status")}
+              </NavLink>
+
+              <NavLink
+                to="/suggestions"
+                className={linkClass}
+                onClick={onClose}
+              >
+                <Lightbulb className="h-4 w-4" />
+                {t("nav.suggestions")}
               </NavLink>
 
               {isAdmin && (

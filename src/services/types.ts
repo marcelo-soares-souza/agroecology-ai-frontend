@@ -143,3 +143,29 @@ export interface HumanChallenge {
   challenge_id: string;
   question: string;
 }
+
+export interface DocumentSuggestion {
+  id: string;
+  user_id: string;
+  status: "pending" | "approved" | "rejected";
+  title: string | null;
+  authors: string | null;
+  url: string | null;
+  user_comment: string;
+  admin_comment: string | null;
+  original_filename: string | null;
+  file_type: string | null;
+  file_size: number | null;
+  document_id: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DocumentSuggestionUpdate {
+  title?: string | null;
+  authors?: string | null;
+  url?: string | null;
+  user_comment?: string | null;
+}

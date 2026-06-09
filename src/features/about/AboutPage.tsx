@@ -156,15 +156,27 @@ export function AboutPage() {
             <p className="text-text-primary text-base leading-relaxed">
               {t("about.creatorsDescription")}
             </p>
-            <div className="mt-3">
-              <a
-                href="https://agroecologymap.org/en/accounts/marcelo-soares-souza"
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline font-medium"
-              >
-                Marcelo Soares Souza
-              </a>
+            <div className="mt-3 space-y-2">
+              <div>
+                <a
+                  href="https://agroecologymap.org/en/accounts/marcelo-soares-souza"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Marcelo Soares Souza
+                </a>
+              </div>
+              <div>
+                <a
+                  href="https://agroecologymap.org/accounts/eduardo-fernandes-formighieri"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Eduardo Fernandes Formighieri, Ph.D.
+                </a>
+              </div>
             </div>
           </div>
         </div>

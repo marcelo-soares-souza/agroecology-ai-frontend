@@ -160,6 +160,7 @@ export function AdminSuggestionDetailPage() {
     setActionMsg(null);
     try {
       await api.adminDeleteSuggestion(id!);
+      invalidateAll();
       navigate("/admin/suggestions");
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);

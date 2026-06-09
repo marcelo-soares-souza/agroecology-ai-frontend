@@ -347,6 +347,7 @@
     "empty": "Aucun membre dans la communauté pour l'instant.",
     "memberSince": "Membre depuis {{date}}",
     "approvedSuggestions": "Documents suggérés",
+    "approvedSuggestionsTooltip": "{{count}} suggestion(s) de document approuvée(s)",
     "noSuggestions": "Aucune suggestion approuvée pour l'instant."
   },
   "suggestions": {

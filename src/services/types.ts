@@ -140,6 +140,7 @@ export interface UserRecord {
   about: string | null;
   link: string | null;
   avatar_url: string | null;
+  approved_suggestions_count: number;
 }
 
 export interface HumanChallenge {

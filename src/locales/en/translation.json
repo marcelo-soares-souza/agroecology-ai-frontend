@@ -347,6 +347,7 @@
     "empty": "No community members yet.",
     "memberSince": "Member since {{date}}",
     "approvedSuggestions": "Suggested documents",
+    "approvedSuggestionsTooltip": "{{count}} approved document suggestion(s)",
     "noSuggestions": "No approved suggestions yet."
   },
   "suggestions": {

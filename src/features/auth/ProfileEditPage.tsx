@@ -102,8 +102,8 @@ export function ProfileEditPage() {
     try {
       await api.updateMyProfile({
         full_name: fullName.trim() || null,
-        about: about.trim() || null,
-        link: link.trim() || null,
+        about: about.trim(),
+        link: link.trim(),
       });
       setSuccess(true);
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
@@ -235,7 +235,7 @@ export function ProfileEditPage() {
               <input
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
-                type="url"
+                type="text"
                 placeholder="https://..."
                 className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-surface pl-10 pr-4 py-2.5 text-text-primary placeholder:text-text-secondary/60 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />

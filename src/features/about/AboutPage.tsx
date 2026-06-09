@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   Code2,
   ExternalLink,
+  Lightbulb,
+  Send,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
@@ -63,6 +65,29 @@ export function AboutPage() {
             className="inline-flex shrink-0 items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
           >
             {t("about.ctaDocuments")}
+          </Link>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-start gap-3">
+            <Lightbulb className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+            <div>
+              <h2 className="font-semibold text-text-primary mb-2">
+                {t("about.suggestInviteTitle")}
+              </h2>
+              <p className="text-text-primary text-base leading-relaxed">
+                {t("about.suggestInviteDescription")}
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/suggestions/new"
+            className="inline-flex shrink-0 items-center justify-center rounded-button bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+          >
+            <Send className="h-4 w-4 mr-2" />
+            {t("about.suggestInviteCta")}
           </Link>
         </div>
       </Card>

@@ -25,14 +25,12 @@ export function SuggestionEditPage() {
 
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState("");
-  const [url, setUrl] = useState("");
   const [userComment, setUserComment] = useState("");
   const [initialized, setInitialized] = useState(false);
 
   if (suggestion && !initialized) {
     setTitle(suggestion.title || "");
     setAuthors(suggestion.authors || "");
-    setUrl(suggestion.url || "");
     setUserComment(suggestion.user_comment || "");
     setInitialized(true);
   }
@@ -41,7 +39,6 @@ export function SuggestionEditPage() {
     mutationFn: (data: {
       title?: string | null;
       authors?: string | null;
-      url?: string | null;
       user_comment?: string | null;
     }) => api.updateSuggestion(id!, data),
     invalidateKeys: [["suggestion"], ["my-suggestions"]],
@@ -55,7 +52,6 @@ export function SuggestionEditPage() {
     updateMutation.mutate({
       title: title.trim() || null,
       authors: authors.trim() || null,
-      url: url.trim() || null,
       user_comment: userComment.trim() || null,
     });
   };
@@ -131,17 +127,6 @@ export function SuggestionEditPage() {
               value={authors}
               onChange={(e) => setAuthors(e.target.value)}
               placeholder={t("documents.authorsPlaceholder")}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.url")}
-            </label>
-            <Input
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              type="url"
             />
           </div>
 

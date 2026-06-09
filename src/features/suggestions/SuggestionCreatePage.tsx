@@ -5,7 +5,6 @@ import { ArrowLeft, Upload, X, Loader2, FileText } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
@@ -15,7 +14,6 @@ export function SuggestionCreatePage() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [url, setUrl] = useState("");
   const [userComment, setUserComment] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [clientError, setClientError] = useState<string | null>(null);
@@ -68,14 +66,13 @@ export function SuggestionCreatePage() {
       return;
     }
 
-    if (!file && !url.trim()) {
-      setClientError(t("suggestions.fileOrUrlRequired"));
+    if (!file) {
+      setClientError(t("suggestions.fileRequired"));
       return;
     }
 
     const formData = new FormData();
     formData.append("user_comment", userComment.trim());
-    if (url.trim()) formData.append("url", url.trim());
     if (file) formData.append("file", file);
 
     createMutation.mutate(formData);
@@ -138,18 +135,6 @@ export function SuggestionCreatePage() {
                 onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.url")}
-            </label>
-            <Input
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              type="url"
-              placeholder="https://..."
-            />
           </div>
 
           <div>

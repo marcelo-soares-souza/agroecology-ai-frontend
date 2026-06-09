@@ -42,6 +42,8 @@ export function IngestionPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
 
+  const queryClient = useQueryClient();
+
   const triggerMutation = useAppMutation({
     mutationFn: () => api.triggerIngestion(false),
     invalidateKeys: [
@@ -50,6 +52,15 @@ export function IngestionPage() {
       ["ingestion-runs"],
       ["server-status"],
     ],
+    onSuccess: (data) => {
+      if (data.status === "processing") {
+        queryClient.setQueryData(["ingestion-status"], {
+          status: "processing",
+          chunks_indexed: null,
+          error: null,
+        });
+      }
+    },
   });
 
   const forceMutation = useAppMutation({
@@ -60,6 +71,15 @@ export function IngestionPage() {
       ["ingestion-runs"],
       ["server-status"],
     ],
+    onSuccess: (data) => {
+      if (data.status === "processing") {
+        queryClient.setQueryData(["ingestion-status"], {
+          status: "processing",
+          chunks_indexed: null,
+          error: null,
+        });
+      }
+    },
   });
 
   const { data: ingestStatus, isLoading: statusLoading } = useQuery({
@@ -80,8 +100,6 @@ export function IngestionPage() {
   });
 
   const pendingDocs = serverStatus?.pending_docs ?? 0;
-
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (ingestStatus?.status === "done") {

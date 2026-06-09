@@ -41,6 +41,10 @@ export interface ServerStatus {
   pending_docs: number;
   indexed_docs: number;
   total_docs: number;
+  llm_model: string;
+  llm_provider: string;
+  llm_transport: string;
+  llm_think_enabled: boolean;
   embedding_model: string;
   embedding_device: string;
   similarity_top_k: number;

@@ -76,6 +76,24 @@ export function StatusPage() {
   const ragRows = (data: NonNullable<typeof query.data>) =>
     [
       {
+        label: t("status.llmModel"),
+        value: data.llm_model,
+      },
+      {
+        label: t("status.llmProvider"),
+        value: data.llm_provider,
+      },
+      {
+        label: t("status.llmTransport"),
+        value: data.llm_transport,
+      },
+      {
+        label: t("status.reasoningMode"),
+        value: data.llm_think_enabled
+          ? t("status.reasoningEnabled")
+          : t("status.reasoningDisabled"),
+      },
+      {
         label: t("status.embeddingModel"),
         value: data.embedding_model,
       },

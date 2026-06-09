@@ -43,6 +43,7 @@ export function CommunityListPage() {
             full_name: string;
             slug: string;
             avatar_url: string | null;
+            updated_at: string;
           }[],
         ) => (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -57,7 +58,12 @@ export function CommunityListPage() {
                   <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden shrink-0">
                     {user.avatar_url ? (
                       <img
-                        src={buildApiUrl(user.avatar_url)}
+                        src={buildApiUrl(
+                          user.avatar_url +
+                            (user.updated_at
+                              ? `?v=${encodeURIComponent(user.updated_at)}`
+                              : ""),
+                        )}
                         alt=""
                         className="h-full w-full object-cover"
                       />

@@ -185,10 +185,10 @@ export const api = {
     }),
 
   requestPasswordReset: (email: string) =>
-    request<{ message: string }>(
-      `/api/v1/auth/password-reset/request?email=${encodeURIComponent(email)}`,
-      { method: "POST" },
-    ),
+    request<{ message: string }>("/api/v1/auth/password-reset/request", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    }),
 
   resetPassword: (data: ResetPasswordRequest) =>
     request<{ message: string }>("/api/v1/auth/password-reset/confirm", {
@@ -197,16 +197,16 @@ export const api = {
     }),
 
   resendConfirmation: (email: string) =>
-    request<{ message: string }>(
-      `/api/v1/auth/confirm-email/resend?email=${encodeURIComponent(email)}`,
-      { method: "POST" },
-    ),
+    request<{ message: string }>("/api/v1/auth/confirm-email/resend", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    }),
 
   refreshToken: (refreshToken: string) =>
-    request<RefreshTokenResponse>(
-      `/api/v1/auth/refresh?refresh_token=${encodeURIComponent(refreshToken)}`,
-      { method: "POST" },
-    ),
+    request<RefreshTokenResponse>("/api/v1/auth/refresh", {
+      method: "POST",
+      body: JSON.stringify({ refresh_token: refreshToken }),
+    }),
 
   logout: () =>
     request<{ message: string }>("/api/v1/auth/logout", {

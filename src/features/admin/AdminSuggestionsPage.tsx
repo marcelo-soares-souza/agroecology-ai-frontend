@@ -171,7 +171,9 @@ export function AdminSuggestionsPage() {
                         <Badge variant={statusVariant[s.status] || "default"}>
                           {t(`suggestions.status_${s.status}`)}
                         </Badge>
-                        <span>User: {s.user_name || s.user_id.slice(0, 8)}</span>
+                        <span>
+                          User: {s.user_name || s.user_id.slice(0, 8)}
+                        </span>
                         {s.original_filename && (
                           <Badge variant="info">PDF</Badge>
                         )}

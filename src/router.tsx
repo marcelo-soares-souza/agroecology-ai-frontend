@@ -151,6 +151,10 @@ export const router = createBrowserRouter(
         {
           path: "/",
           element: <HomePage />,
+          handle: {
+            titleKey: "landing.title",
+            descriptionKey: "landing.metaDescription",
+          },
         },
         {
           path: "/status",
@@ -159,6 +163,10 @@ export const router = createBrowserRouter(
               <StatusPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "status.title",
+            descriptionKey: "status.description",
+          },
         },
         {
           path: "/suggestions",
@@ -167,6 +175,10 @@ export const router = createBrowserRouter(
               <SuggestionListPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "suggestions.title",
+            descriptionKey: "suggestions.description",
+          },
         },
         {
           path: "/suggestions/new",
@@ -175,6 +187,10 @@ export const router = createBrowserRouter(
               <SuggestionCreatePage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "suggestions.createTitle",
+            descriptionKey: "suggestions.createDescription",
+          },
         },
         {
           path: "/suggestions/:id",
@@ -183,6 +199,10 @@ export const router = createBrowserRouter(
               <SuggestionDetailPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "suggestions.detailTitle",
+            descriptionKey: "suggestions.description",
+          },
         },
         {
           path: "/suggestions/:id/edit",
@@ -191,22 +211,42 @@ export const router = createBrowserRouter(
               <SuggestionEditPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "suggestions.editTitle",
+            descriptionKey: "suggestions.createDescription",
+          },
         },
         {
           path: "/community",
           element: <CommunityListPage />,
+          handle: {
+            titleKey: "community.title",
+            descriptionKey: "community.description",
+          },
         },
         {
           path: "/community/:slug",
           element: <CommunityUserDetailPage />,
+          handle: {
+            titleKey: "community.detailTitle",
+            descriptionKey: "community.description",
+          },
         },
         {
           path: "/documents",
           element: <DocumentListPage />,
+          handle: {
+            titleKey: "documents.title",
+            descriptionKey: "documents.listDescription",
+          },
         },
         {
           path: "/documents/:id",
           element: <DocumentDetailPage />,
+          handle: {
+            titleKey: "documents.detailTitle",
+            descriptionKey: "documents.listDescription",
+          },
         },
         {
           path: "/documents/:id/edit",
@@ -215,6 +255,9 @@ export const router = createBrowserRouter(
               <DocumentEditPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "documents.editTitle",
+          },
         },
         {
           path: "/upload",
@@ -223,6 +266,10 @@ export const router = createBrowserRouter(
               <DocumentUploadPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "documents.uploadTitle",
+            descriptionKey: "documents.uploadDescription",
+          },
         },
         {
           path: "/ingestion",
@@ -231,6 +278,10 @@ export const router = createBrowserRouter(
               <IngestionPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "ingestion.title",
+            descriptionKey: "ingestion.description",
+          },
         },
         {
           path: "/admin/users",
@@ -239,6 +290,10 @@ export const router = createBrowserRouter(
               <AdminUsersPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "admin.users",
+            descriptionKey: "admin.usersDescription",
+          },
         },
         {
           path: "/admin/suggestions",
@@ -247,6 +302,10 @@ export const router = createBrowserRouter(
               <AdminSuggestionsPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "admin.suggestions",
+            descriptionKey: "admin.suggestionsDescription",
+          },
         },
         {
           path: "/admin/suggestions/:id",
@@ -255,16 +314,79 @@ export const router = createBrowserRouter(
               <AdminSuggestionDetailPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "admin.suggestions",
+            descriptionKey: "admin.suggestionsDescription",
+          },
         },
-        { path: "/about", element: <AboutPage /> },
-        { path: "/donate", element: <DonatePage /> },
-        { path: "/login", element: <LoginPage /> },
-        { path: "/register", element: <RegisterPage /> },
-        { path: "/confirm-email", element: <ConfirmEmailPage /> },
-        { path: "/forgot-password", element: <ForgotPasswordPage /> },
-        { path: "/reset-password", element: <ResetPasswordPage /> },
-        { path: "/resend-confirmation", element: <ResendConfirmationPage /> },
-        { path: "/profile/:slug", element: <ProfilePage /> },
+        {
+          path: "/about",
+          element: <AboutPage />,
+          handle: {
+            titleKey: "about.title",
+            descriptionKey: "about.description",
+          },
+        },
+        {
+          path: "/donate",
+          element: <DonatePage />,
+          handle: {
+            titleKey: "donate.title",
+            descriptionKey: "donate.metaDescription",
+          },
+        },
+        {
+          path: "/login",
+          element: <LoginPage />,
+          handle: {
+            titleKey: "auth.login",
+            descriptionKey: "auth.loginDescription",
+          },
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />,
+          handle: {
+            titleKey: "auth.register",
+            descriptionKey: "auth.registerDescription",
+          },
+        },
+        {
+          path: "/confirm-email",
+          element: <ConfirmEmailPage />,
+          handle: {
+            titleKey: "auth.confirmingEmail",
+          },
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPasswordPage />,
+          handle: {
+            titleKey: "auth.forgotPasswordTitle",
+          },
+        },
+        {
+          path: "/reset-password",
+          element: <ResetPasswordPage />,
+          handle: {
+            titleKey: "auth.resetPassword",
+          },
+        },
+        {
+          path: "/resend-confirmation",
+          element: <ResendConfirmationPage />,
+          handle: {
+            titleKey: "auth.resendConfirmationTitle",
+          },
+        },
+        {
+          path: "/profile/:slug",
+          element: <ProfilePage />,
+          handle: {
+            titleKey: "profile.title",
+            descriptionKey: "profile.metaDescription",
+          },
+        },
         {
           path: "/profile/edit",
           element: (
@@ -272,6 +394,9 @@ export const router = createBrowserRouter(
               <ProfileEditPage />
             </AuthGuard>
           ),
+          handle: {
+            titleKey: "profile.editTitle",
+          },
         },
         { path: "*", element: <Navigate to="/" replace /> },
       ],

@@ -142,6 +142,8 @@
     "newChat": "New chat"
   },
   "landing": {
+    "title": "Agroecology Map AI",
+    "metaDescription": "AI-powered research assistant for agroecological knowledge. Upload documents, ask questions, and get answers grounded in verifiable sources.",
     "heroDescription": "Your AI-powered research assistant for agroecological knowledge. Upload documents, ask questions, and get answers grounded in real research.",
     "accessNotice": "Chat is open to all registered users. Document upload and ingestion are currently restricted to administrators while the platform is in active development.",
     "getStarted": "Get Started",
@@ -175,6 +177,7 @@
   },
   "documents": {
     "title": "Knowledge Base",
+    "detailTitle": "Document Details",
     "uploadTitle": "Upload Documents",
     "uploadDescription": "Upload articles, papers, manuals, and documents in PDF or Markdown to feed the AI knowledge base. Duplicate files are automatically detected.",
     "dragDrop": "Drag and drop files here or click to select",
@@ -339,6 +342,8 @@
     "ctaDocuments": "View knowledge base"
   },
   "profile": {
+    "title": "Profile",
+    "metaDescription": "View the profile and contributions of Agroecology Map community members.",
     "editTitle": "Edit Profile",
     "name": "Name",
     "about": "About",
@@ -352,6 +357,8 @@
     "avatarTooLarge": "Image must not exceed 5MB."
   },
   "community": {
+    "title": "Community",
+    "detailTitle": "Community Profile",
     "description": "Explore community members and their contributions.",
     "empty": "No community members yet.",
     "memberSince": "Member since {{date}}",
@@ -361,6 +368,7 @@
   },
   "suggestions": {
     "title": "My Suggestions",
+    "detailTitle": "Suggestion Details",
     "description": "Track your submitted document suggestions and their approval status.",
     "new": "New Suggestion",
     "createTitle": "New Suggestion",
@@ -400,6 +408,7 @@
   },
   "donate": {
     "title": "Support Agroecology Map AI",
+    "metaDescription": "Help maintain and expand Agroecology Map AI, a free software artificial intelligence platform for agroecology.",
     "whatIsTitle": "What Is Agroecology Map AI",
     "whatIs": "Agroecology Map AI is an artificial intelligence platform specialized in agroecology. It transforms scientific papers, field manuals, technical booklets, theses, and reports into a searchable knowledge base, allowing people to ask questions in natural language and receive answers with source citations. Unlike generic chatbots, the platform answers based on the provided documents - without inventing facts or hiding where information came from. Our goal is to democratize access to agroecological knowledge for farmers, researchers, extension workers, educators, and communities through a reliable, free software tool designed to run on local infrastructure.",
     "intro": "Agroecology Map AI is the next step in 8 years of volunteer work on Agroecology Map: a free software AI that makes agroecological knowledge more accessible, traceable, and useful for communities, researchers, and farmers.",
@@ -441,6 +450,7 @@
       "title": "How You Can Help",
       "description": "Your contribution, of any amount, brings us closer to the USD 3,000 goal to acquire local development equipment. With your help, we will be able to accelerate AI processing, test open models, reduce external dependencies, and keep the platform free and open. Every contribution turns into more reliable agroecological knowledge available to the people who need it.",
       "koFi": "Support us on Ko-fi ❤️",
+      "patreon": "Support us on Patreon",
       "qrAlt": "QR code to support Agroecology Map AI on Ko-fi",
       "qrLabel": "Scan to donate through Ko-fi",
       "other": "Other ways to contribute: share the platform with your community, contribute documents to the knowledge base, or join us as a development volunteer. Every form of support strengthens our mission."

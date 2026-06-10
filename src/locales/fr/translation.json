@@ -142,6 +142,8 @@
     "newChat": "Nouvelle conversation"
   },
   "landing": {
+    "title": "Agroecology Map AI",
+    "metaDescription": "Assistant de recherche IA pour les connaissances agroécologiques. Importez des documents, posez des questions et obtenez des réponses fondées sur des sources vérifiables.",
     "heroDescription": "Votre assistant de recherche avec IA pour les connaissances agroécologiques. Importez des documents, posez des questions et obtenez des réponses fondées sur de vraies recherches.",
     "accessNotice": "Le chat est ouvert à tous les utilisateurs inscrits. L'importation de documents et l'ingestion sont actuellement réservées aux administrateurs pendant le développement actif de la plateforme.",
     "getStarted": "Commencer",
@@ -175,6 +177,7 @@
   },
   "documents": {
     "title": "Base de Connaissances",
+    "detailTitle": "Détails du Document",
     "uploadTitle": "Importer des Documents",
     "uploadDescription": "Importez des articles, papers, manuels et documents en PDF ou Markdown pour alimenter la base de connaissances de l'IA. Les fichiers dupliqués sont détectés automatiquement.",
     "dragDrop": "Glissez-déposez des fichiers ici ou cliquez pour sélectionner",
@@ -339,6 +342,8 @@
     "ctaDocuments": "Voir la base de connaissances"
   },
   "profile": {
+    "title": "Profil",
+    "metaDescription": "Voir le profil et les contributions des membres de la communauté Agroecology Map.",
     "editTitle": "Modifier le Profil",
     "name": "Nom",
     "about": "À propos",
@@ -352,6 +357,8 @@
     "avatarTooLarge": "L'image ne doit pas dépasser 5 Mo."
   },
   "community": {
+    "title": "Communauté",
+    "detailTitle": "Profil Communautaire",
     "description": "Explorez les membres de la communauté et leurs contributions.",
     "empty": "Aucun membre dans la communauté pour l'instant.",
     "memberSince": "Membre depuis {{date}}",
@@ -361,6 +368,7 @@
   },
   "suggestions": {
     "title": "Mes Suggestions",
+    "detailTitle": "Détails de la Suggestion",
     "description": "Suivez vos suggestions de documents soumises et leur statut d'approbation.",
     "new": "Nouvelle Suggestion",
     "createTitle": "Nouvelle Suggestion",
@@ -400,6 +408,7 @@
   },
   "donate": {
     "title": "Soutenir Agroecology Map AI",
+    "metaDescription": "Aidez à maintenir et développer Agroecology Map AI, une plateforme libre d'intelligence artificielle pour l'agroécologie.",
     "whatIsTitle": "Qu'est-ce qu'Agroecology Map AI",
     "whatIs": "Agroecology Map AI est une plateforme d'intelligence artificielle spécialisée en agroécologie. Elle transforme des articles scientifiques, manuels de terrain, livrets techniques, thèses et rapports en une base de connaissances consultable, permettant de poser des questions en langage naturel et de recevoir des réponses avec citations des sources utilisées. Contrairement aux chatbots génériques, la plateforme répond à partir des documents fournis - sans inventer de faits et sans cacher d'où vient l'information. Notre objectif est de démocratiser l'accès au savoir agroécologique pour les agriculteurs, chercheurs, agents de vulgarisation, éducateurs et communautés, avec un outil fiable, libre et conçu pour fonctionner sur une infrastructure locale.",
     "intro": "Agroecology Map AI est la prochaine étape de 8 ans de travail bénévole sur Agroecology Map : une IA libre pour rendre les connaissances agroécologiques plus accessibles, traçables et utiles aux communautés, chercheurs et agriculteurs.",
@@ -441,6 +450,7 @@
       "title": "Comment Vous Pouvez Aider",
       "description": "Votre contribution, quel qu'en soit le montant, nous rapproche de l'objectif de USD 3 000 pour acquérir l'équipement de développement local. Avec votre aide, nous pourrons accélérer le traitement IA, tester des modèles ouverts, réduire les dépendances externes et garder la plateforme libre et gratuite. Chaque contribution devient davantage de connaissances agroécologiques fiables disponibles pour les personnes qui en ont besoin.",
       "koFi": "Nous soutenir via Ko-fi ❤️",
+      "patreon": "Nous soutenir via Patreon",
       "qrAlt": "Code QR pour soutenir Agroecology Map AI sur Ko-fi",
       "qrLabel": "Scannez pour donner via Ko-fi",
       "other": "Autres façons de contribuer : partagez la plateforme avec votre communauté, contribuez des documents à la base de connaissances ou rejoignez-nous comme bénévole en développement. Chaque forme de soutien renforce notre mission."

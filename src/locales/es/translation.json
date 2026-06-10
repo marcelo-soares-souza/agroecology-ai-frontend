@@ -142,6 +142,8 @@
     "newChat": "Nueva conversación"
   },
   "landing": {
+    "title": "Agroecology Map AI",
+    "metaDescription": "Asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en fuentes verificables.",
     "heroDescription": "Tu asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en investigaciones reales.",
     "accessNotice": "El chat está abierto a todos los usuarios registrados. La carga de documentos y la ingesta están restringidas a administradores mientras la plataforma está en desarrollo activo.",
     "getStarted": "Comenzar",
@@ -175,6 +177,7 @@
   },
   "documents": {
     "title": "Base de Conocimiento",
+    "detailTitle": "Detalles del Documento",
     "uploadTitle": "Subir Documentos",
     "uploadDescription": "Sube artículos, papers, manuales y documentos en PDF o Markdown para alimentar la base de conocimiento de la IA. Los archivos duplicados se detectan automáticamente.",
     "dragDrop": "Arrastra y suelta archivos aquí o haz clic para seleccionar",
@@ -339,6 +342,8 @@
     "ctaDocuments": "Ver base de conocimiento"
   },
   "profile": {
+    "title": "Perfil",
+    "metaDescription": "Ve el perfil y las contribuciones de los miembros de la comunidad Agroecology Map.",
     "editTitle": "Editar Perfil",
     "name": "Nombre",
     "about": "Sobre mí",
@@ -352,6 +357,8 @@
     "avatarTooLarge": "La imagen no debe exceder 5MB."
   },
   "community": {
+    "title": "Comunidad",
+    "detailTitle": "Perfil de la Comunidad",
     "description": "Explora los miembros de la comunidad y sus contribuciones.",
     "empty": "Aún no hay miembros en la comunidad.",
     "memberSince": "Miembro desde {{date}}",
@@ -361,6 +368,7 @@
   },
   "suggestions": {
     "title": "Mis Sugerencias",
+    "detailTitle": "Detalles de la Sugerencia",
     "description": "Sigue tus sugerencias de documentos enviadas y su estado de aprobación.",
     "new": "Nueva Sugerencia",
     "createTitle": "Nueva Sugerencia",
@@ -400,6 +408,7 @@
   },
   "donate": {
     "title": "Apoya Agroecology Map AI",
+    "metaDescription": "Ayuda a mantener y expandir Agroecology Map AI, una plataforma libre de inteligencia artificial para la agroecología.",
     "whatIsTitle": "Qué Es Agroecology Map AI",
     "whatIs": "Agroecology Map AI es una plataforma de inteligencia artificial especializada en agroecología. Transforma artículos científicos, manuales de campo, cartillas técnicas, tesis e informes en una base de conocimiento consultable, permitiendo hacer preguntas en lenguaje natural y recibir respuestas con citas de las fuentes utilizadas. A diferencia de chatbots genéricos, la plataforma responde con base en los documentos proporcionados - sin inventar hechos y sin ocultar de dónde proviene la información. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico para agricultores, investigadores, extensionistas, educadores y comunidades, con una herramienta confiable, libre y preparada para ejecutarse en infraestructura local.",
     "intro": "Agroecology Map AI es el siguiente paso de 8 años de trabajo voluntario en Agroecology Map: una IA libre para hacer que el conocimiento agroecológico sea más accesible, rastreable y útil para comunidades, investigadores y agricultores.",
@@ -441,6 +450,7 @@
       "title": "Cómo Puedes Ayudar",
       "description": "Tu contribución, de cualquier valor, nos acerca a la meta de USD 3.000 para adquirir el equipo de desarrollo local. Con tu ayuda, podremos acelerar el procesamiento de IA, probar modelos abiertos, reducir dependencias externas y mantener la plataforma libre y gratuita. Cada contribución se transforma en más conocimiento agroecológico confiable disponible para quienes lo necesitan.",
       "koFi": "Apoyar vía Ko-fi ❤️",
+      "patreon": "Apoyar vía Patreon",
       "qrAlt": "Código QR para apoyar Agroecology Map AI en Ko-fi",
       "qrLabel": "Escanea para donar por Ko-fi",
       "other": "Otras formas de contribuir: comparte la plataforma con tu comunidad, contribuye con documentos para la base de conocimiento o únete a nosotros como voluntario en el desarrollo. Cada forma de apoyo fortalece nuestra misión."

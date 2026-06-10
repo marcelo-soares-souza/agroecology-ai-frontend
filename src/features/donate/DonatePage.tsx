@@ -15,20 +15,31 @@ import { Card } from "@/components/ui/Card";
 const koFiUrl = "https://ko-fi.com/agroecologymap";
 const koFiQrUrl =
   "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=https%3A%2F%2Fko-fi.com%2Fagroecologymap";
+const patreonUrl = "https://www.patreon.com/c/agroecologymap";
 const goalProgress = 0;
 
 export function DonatePage() {
   const { t } = useTranslation();
 
-  const donateButton = (
-    <a
-      href={koFiUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
-    >
-      {t("donate.howToHelp.koFi")}
-    </a>
+  const donateButtons = (
+    <div className="flex flex-col sm:flex-row items-center gap-3">
+      <a
+        href={koFiUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
+      >
+        {t("donate.howToHelp.koFi")}
+      </a>
+      <a
+        href={patreonUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
+      >
+        {t("donate.howToHelp.patreon")}
+      </a>
+    </div>
   );
 
   return (
@@ -47,7 +58,7 @@ export function DonatePage() {
             </p>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {donateButton}
+            {donateButtons}
             <div className="min-w-0 sm:min-w-64">
               <div className="mb-2 flex items-center justify-between gap-3 text-sm">
                 <span className="font-semibold text-text-primary">
@@ -173,7 +184,7 @@ export function DonatePage() {
           {t("donate.howToHelp.description")}
         </p>
         <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
-          {donateButton}
+          {donateButtons}
           <div className="flex flex-col items-center gap-2">
             <img
               src={koFiQrUrl}

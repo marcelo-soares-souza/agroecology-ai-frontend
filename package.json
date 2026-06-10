@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && bun run generate-sitemap && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "format:fix": "prettier --write .",
     "format": "prettier --check .",
     "test": "bun test --preload ./src/test-setup.ts --pass-with-no-tests",
-    "scan:bundle-secrets": "bun scripts/scan-build-secrets.ts"
+    "scan:bundle-secrets": "bun scripts/scan-build-secrets.ts",
+    "generate-sitemap": "bun scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

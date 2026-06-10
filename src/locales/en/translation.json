@@ -147,9 +147,9 @@
     "getStarted": "Get Started",
     "allUsers": "All Users",
     "features": {
-      "upload": {
-        "title": "Upload Documents",
-        "description": "Add your PDFs, research papers, field manuals, and Markdown files. Currently restricted to administrators while in development."
+      "suggest": {
+        "title": "Suggest Documents",
+        "description": "Any registered user can suggest PDFs, articles, papers, and documents. The team reviews each submission and, once approved, the content is indexed and becomes available in the chat."
       },
       "ask": {
         "title": "Ask Questions",

@@ -147,9 +147,9 @@
     "getStarted": "Começar",
     "allUsers": "Todos",
     "features": {
-      "upload": {
-        "title": "Enviar Documentos",
-        "description": "Adicione PDFs, artigos científicos, manuais de campo e arquivos Markdown. Atualmente restrito a administradores durante o desenvolvimento."
+      "suggest": {
+        "title": "Sugerir Documentos",
+        "description": "Qualquer pessoa cadastrada pode sugerir PDFs, artigos, papers e documentos. A equipe revisa cada sugestão e, quando aprovada, o conteúdo é indexado e fica disponível no chat."
       },
       "ask": {
         "title": "Fazer Perguntas",

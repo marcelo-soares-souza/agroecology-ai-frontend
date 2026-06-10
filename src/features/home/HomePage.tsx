@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { FileText, MessageCircle, Lock, Database, Cpu } from "lucide-react";
+import { Lightbulb, MessageCircle, Lock, Database, Cpu } from "lucide-react";
 
 export function HomePage() {
   const { t } = useTranslation();
@@ -63,19 +63,19 @@ export function HomePage() {
       <div className="grid gap-6 md:grid-cols-3 px-4 max-w-5xl mx-auto">
         <Card>
           <div className="flex flex-col items-center text-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-50">
-              <FileText className="h-6 w-6 text-primary" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50">
+              <Lightbulb className="h-6 w-6 text-amber-600" />
             </div>
             <div className="flex items-center gap-2">
               <h3 className="font-semibold text-text-primary">
-                {t("landing.features.upload.title")}
+                {t("landing.features.suggest.title")}
               </h3>
-              <Badge variant="warning" className="text-[10px]">
-                {t("admin.section")}
+              <Badge variant="success" className="text-[10px]">
+                {t("landing.allUsers")}
               </Badge>
             </div>
             <p className="text-sm text-text-secondary">
-              {t("landing.features.upload.description")}
+              {t("landing.features.suggest.description")}
             </p>
           </div>
         </Card>

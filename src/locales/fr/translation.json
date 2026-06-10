@@ -147,9 +147,9 @@
     "getStarted": "Commencer",
     "allUsers": "Tous",
     "features": {
-      "upload": {
-        "title": "Importer des Documents",
-        "description": "Ajoutez vos PDFs, articles scientifiques, manuels de terrain et fichiers Markdown. Actuellement réservé aux administrateurs pendant le développement."
+      "suggest": {
+        "title": "Suggérer des Documents",
+        "description": "Toute personne inscrite peut suggérer des PDFs, articles, papers et documents. L'équipe examine chaque suggestion et, une fois approuvée, le contenu est indexé et disponible dans le chat."
       },
       "ask": {
         "title": "Poser des Questions",

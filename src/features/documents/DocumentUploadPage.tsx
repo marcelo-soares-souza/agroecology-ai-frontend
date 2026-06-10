@@ -356,7 +356,7 @@ export function DocumentUploadPage() {
         </Card>
       )}
 
-      {error && <Card className="text-error">{error}</Card>}
+      {error && <Card className="text-error text-sm">{error}</Card>}
     </div>
   );
 }

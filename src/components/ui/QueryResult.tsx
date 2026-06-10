@@ -37,7 +37,7 @@ export function QueryResult<TData>({
   if (query.isError) {
     return (
       error ?? (
-        <Card className="text-error">
+        <Card className="text-error text-sm">
           {query.error?.message ?? t("common.errorOccurred")}
         </Card>
       )

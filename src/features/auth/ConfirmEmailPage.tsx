@@ -55,7 +55,7 @@ export function ConfirmEmailPage() {
             <h1 className="text-2xl font-bold text-text-primary mb-4">
               {t("auth.confirmationFailedTitle")}
             </h1>
-            <p className="text-error">{error}</p>
+            <p className="text-error text-sm">{error}</p>
             <Link
               to="/login"
               className="text-primary hover:underline mt-4 inline-block"

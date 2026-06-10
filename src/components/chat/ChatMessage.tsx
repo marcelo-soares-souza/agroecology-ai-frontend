@@ -37,7 +37,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             <span>{t("home.thinking")}</span>
           </div>
         ) : message.status === "error" ? (
-          <div className="flex items-center gap-2 text-error">
+          <div className="flex items-center gap-2 text-error text-sm">
             <AlertCircle className="h-4 w-4" />
             <span>{message.error || t("common.error")}</span>
           </div>

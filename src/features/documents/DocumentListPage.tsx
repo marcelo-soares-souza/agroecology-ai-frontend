@@ -253,7 +253,7 @@ export function DocumentListPage() {
       )}
       {extractMsg && (
         <p
-          className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-text-secondary"}`}
+          className={`text-sm mt-2 ${extractMsg.type === "success" ? "text-success" : "text-error"}`}
         >
           {extractMsg.text}
         </p>
@@ -389,7 +389,7 @@ export function DocumentListPage() {
                               deleteMutation.variables === doc.id ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
                               ) : (
-                                <Trash2 className="h-4 w-4 text-red-500" />
+                                <Trash2 className="h-4 w-4 text-error" />
                               )}
                             </Button>
                           </>

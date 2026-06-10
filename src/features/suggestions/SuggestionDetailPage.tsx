@@ -81,7 +81,7 @@ export function SuggestionDetailPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Card className="text-error">
+        <Card className="text-error text-sm">
           {error?.message || t("suggestions.notFound")}
         </Card>
       </div>

@@ -280,7 +280,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <div className="border-t border-primary-100 p-3">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base w-full text-red-500 hover:bg-red-50 transition-colors"
+              className="flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-base w-full text-error hover:bg-error/10 transition-colors"
             >
               <LogOut className="h-4 w-4" />
               {t("auth.logout")}

@@ -78,7 +78,7 @@ export function CommunityUserDetailPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Card className="text-error">{t("common.notFound")}</Card>
+        <Card className="text-error text-sm">{t("common.notFound")}</Card>
       </div>
     );
   }

@@ -52,7 +52,7 @@ export function Header({ onMenuClick }: HeaderProps) {
                 logout();
                 navigate("/");
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-error hover:bg-red-50 rounded-xl transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-error hover:bg-error/10 rounded-xl transition-colors"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">{t("auth.logout")}</span>

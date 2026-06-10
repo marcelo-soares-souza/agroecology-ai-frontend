@@ -74,7 +74,7 @@ export function SuggestionEditPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Card className="text-error">{t("suggestions.notFound")}</Card>
+        <Card className="text-error text-sm">{t("suggestions.notFound")}</Card>
       </div>
     );
   }
@@ -88,7 +88,7 @@ export function SuggestionEditPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Card className="text-error">{t("suggestions.noAccess")}</Card>
+        <Card className="text-error text-sm">{t("suggestions.noAccess")}</Card>
       </div>
     );
   }

@@ -263,7 +263,7 @@ export function IngestionPage() {
                           run.status === "done"
                             ? "bg-green-100 text-green-700"
                             : run.status === "error"
-                              ? "bg-red-100 text-red-700"
+                              ? "bg-error/10 text-error"
                               : "bg-amber-100 text-amber-700"
                         }`}
                       >

@@ -18,7 +18,7 @@ export function Badge({
           "bg-primary-100 text-primary-700": variant === "default",
           "bg-green-100 text-green-700": variant === "success",
           "bg-amber-100 text-amber-700": variant === "warning",
-          "bg-red-100 text-red-700": variant === "error",
+          "bg-error/10 text-error": variant === "error",
           "bg-blue-100 text-blue-700": variant === "info",
         },
         className,

@@ -186,7 +186,7 @@ export function AdminSuggestionDetailPage() {
             {t("common.back")}
           </Button>
         </Link>
-        <Card className="text-error">{t("suggestions.notFound")}</Card>
+        <Card className="text-error text-sm">{t("suggestions.notFound")}</Card>
       </div>
     );
   }
@@ -221,7 +221,9 @@ export function AdminSuggestionDetailPage() {
         <Card
           padding="sm"
           className={
-            actionMsg.type === "success" ? "text-success" : "text-error"
+            actionMsg.type === "success"
+              ? "text-success text-sm"
+              : "text-error text-sm"
           }
         >
           {actionMsg.text}

@@ -49,51 +49,49 @@ export function CommunityListPage() {
           }[],
         ) => (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {users
-              .filter((u) => !u.roles.includes("admin"))
-              .map((user) => (
-                <Card
-                  key={user.id}
-                  padding="sm"
-                  className="hover:bg-primary-50/30 transition-colors cursor-pointer"
-                  onClick={() => navigate(`/community/${user.slug}`)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden shrink-0">
-                      {user.avatar_url ? (
-                        <img
-                          src={buildApiUrl(
-                            user.avatar_url +
-                              (user.updated_at
-                                ? `?v=${encodeURIComponent(user.updated_at)}`
-                                : ""),
-                          )}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-primary text-white">
-                          <User className="h-5 w-5" />
-                        </div>
-                      )}
-                    </div>
-                    <span className="font-medium text-text-primary truncate min-w-0">
-                      {user.full_name}
-                    </span>
-                    {user.approved_suggestions_count > 0 && (
-                      <span
-                        className="ml-auto flex items-center gap-1 text-xs text-text-secondary shrink-0"
-                        title={t("community.approvedSuggestionsTooltip", {
-                          count: user.approved_suggestions_count,
-                        })}
-                      >
-                        <FileText className="h-3.5 w-3.5" />
-                        {user.approved_suggestions_count}
-                      </span>
+            {users.map((user) => (
+              <Card
+                key={user.id}
+                padding="sm"
+                className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                onClick={() => navigate(`/community/${user.slug}`)}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden shrink-0">
+                    {user.avatar_url ? (
+                      <img
+                        src={buildApiUrl(
+                          user.avatar_url +
+                            (user.updated_at
+                              ? `?v=${encodeURIComponent(user.updated_at)}`
+                              : ""),
+                        )}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-primary text-white">
+                        <User className="h-5 w-5" />
+                      </div>
                     )}
                   </div>
-                </Card>
-              ))}
+                  <span className="font-medium text-text-primary truncate min-w-0">
+                    {user.full_name}
+                  </span>
+                  {user.approved_suggestions_count > 0 && (
+                    <span
+                      className="ml-auto flex items-center gap-1 text-xs text-text-secondary shrink-0"
+                      title={t("community.approvedSuggestionsTooltip", {
+                        count: user.approved_suggestions_count,
+                      })}
+                    >
+                      <FileText className="h-3.5 w-3.5" />
+                      {user.approved_suggestions_count}
+                    </span>
+                  )}
+                </div>
+              </Card>
+            ))}
           </div>
         )}
       </QueryResult>

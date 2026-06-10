@@ -45,7 +45,7 @@ export function DocumentUploadPage() {
     batch: number;
     totalBatches: number;
   } | null>(null);
-  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   const handleFiles = (newFiles: FileList | File[]) => {
     const arr = Array.from(newFiles);
@@ -128,7 +128,7 @@ export function DocumentUploadPage() {
     };
 
     setIsUploading(true);
-    setUploadError(null);
+    setError("");
     setResults(null);
 
     for (let i = 0; i < batches.length; i++) {
@@ -145,7 +145,7 @@ export function DocumentUploadPage() {
         accumulated.skipped.push(...batchResult.skipped);
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        setUploadError(`Batch ${i + 1}/${batches.length} failed: ${message}`);
+        setError(`Batch ${i + 1}/${batches.length} failed: ${message}`);
         setResults(accumulated);
         setIsUploading(false);
         setUploadProgress(null);
@@ -356,7 +356,7 @@ export function DocumentUploadPage() {
         </Card>
       )}
 
-      {uploadError && <Card className="text-error">{uploadError}</Card>}
+      {error && <Card className="text-error">{error}</Card>}
     </div>
   );
 }

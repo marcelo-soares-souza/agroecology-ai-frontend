@@ -4,7 +4,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { buildApiUrl } from "@/config/api";
+import { api } from "@/services/api";
 
 export function ResetPasswordPage() {
   const { t } = useTranslation();
@@ -30,20 +30,7 @@ export function ResetPasswordPage() {
     }
     setStatus("loading");
     try {
-      const resp = await fetch(
-        buildApiUrl("/api/v1/auth/password-reset/confirm"),
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token, new_password: password }),
-        },
-      );
-      if (!resp.ok) {
-        const data = await resp.json().catch(() => ({}));
-        throw new Error(
-          (data as { detail?: string }).detail || t("auth.resetFailed"),
-        );
-      }
+      await api.resetPassword({ token, new_password: password });
       setStatus("success");
     } catch (err) {
       setStatus("error");
@@ -96,7 +83,7 @@ export function ResetPasswordPage() {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.newPassword")}
             </label>
             <Input
@@ -108,7 +95,7 @@ export function ResetPasswordPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.confirmPassword")}
             </label>
             <Input

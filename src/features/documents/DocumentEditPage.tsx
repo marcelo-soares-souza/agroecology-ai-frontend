@@ -93,7 +93,7 @@ export function DocumentEditPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("documents.titleField")}
             </label>
             <Input
@@ -104,7 +104,7 @@ export function DocumentEditPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("documents.authorsField")}
             </label>
             <Input
@@ -114,7 +114,7 @@ export function DocumentEditPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("documents.urlField")}
             </label>
             <Input

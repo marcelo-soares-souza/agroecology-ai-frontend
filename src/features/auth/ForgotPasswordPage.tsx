@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { buildApiUrl } from "@/config/api";
+import { api } from "@/services/api";
 
 export function ForgotPasswordPage() {
   const { t } = useTranslation();
@@ -18,13 +18,7 @@ export function ForgotPasswordPage() {
     setError("");
     setLoading(true);
     try {
-      const resp = await fetch(
-        buildApiUrl(
-          `/api/v1/auth/password-reset/request?email=${encodeURIComponent(email)}`,
-        ),
-        { method: "POST" },
-      );
-      if (!resp.ok) throw new Error(t("common.error"));
+      await api.requestPasswordReset(email);
       setSent(true);
     } catch {
       setError(t("auth.resetEmailFailed"));
@@ -59,7 +53,7 @@ export function ForgotPasswordPage() {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.email")}
             </label>
             <Input

@@ -3,8 +3,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { Skeleton } from "./components/ui/Skeleton";
-import { authStore } from "./stores/auth-store";
-import { queryClient } from "./services/query-client";
+import { authStore } from "./stores/AuthStore";
+import { queryClient } from "./services/QueryClient";
 
 export default function App() {
   useEffect(() => {

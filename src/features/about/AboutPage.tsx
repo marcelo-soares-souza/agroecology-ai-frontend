@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   Info,
   Heart,
@@ -208,7 +208,7 @@ export function AboutPage() {
           <Code2 className="h-6 w-6 text-primary mt-0.5 shrink-0" />
           <div>
             <h3 className="font-semibold text-text-primary mb-3">
-              Repositories
+              {t("about.repositories")}
             </h3>
             <div className="space-y-2">
               <a
@@ -218,7 +218,7 @@ export function AboutPage() {
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
               >
                 <ExternalLink className="h-4 w-4" />
-                Frontend
+                {t("about.frontendRepo")}
               </a>
               <br />
               <a
@@ -228,7 +228,7 @@ export function AboutPage() {
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
               >
                 <ExternalLink className="h-4 w-4" />
-                Backend
+                {t("about.backendRepo")}
               </a>
             </div>
           </div>

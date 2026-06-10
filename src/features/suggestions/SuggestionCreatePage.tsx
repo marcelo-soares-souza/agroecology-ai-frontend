@@ -16,7 +16,7 @@ export function SuggestionCreatePage() {
 
   const [userComment, setUserComment] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [clientError, setClientError] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   const errorKeyMap: Record<string, string> = {
     "A suggestion with this file content already exists":
@@ -40,34 +40,36 @@ export function SuggestionCreatePage() {
     }
     const ext = f.name.split(".").pop()?.toLowerCase();
     if (ext !== "pdf") {
-      setClientError(t("suggestions.onlyPdf"));
+      setError(t("suggestions.onlyPdf"));
       return;
     }
     if (f.size === 0) {
-      setClientError("Empty file");
+      setError(t("suggestions.emptyFile"));
       return;
     }
     if (f.size > MAX_FILE_SIZE) {
-      setClientError(
-        `File exceeds 50 MB (${(f.size / 1024 / 1024).toFixed(1)} MB)`,
+      setError(
+        t("suggestions.fileExceedsSize", {
+          size: (f.size / 1024 / 1024).toFixed(1),
+        }),
       );
       return;
     }
-    setClientError(null);
+    setError("");
     setFile(f);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setClientError(null);
+    setError("");
 
     if (!userComment.trim()) {
-      setClientError(t("suggestions.commentRequired"));
+      setError(t("suggestions.commentRequired"));
       return;
     }
 
     if (!file) {
-      setClientError(t("suggestions.fileRequired"));
+      setError(t("suggestions.fileRequired"));
       return;
     }
 
@@ -168,7 +170,7 @@ export function SuggestionCreatePage() {
             </Link>
           </div>
 
-          {clientError && <p className="text-error text-sm">{clientError}</p>}
+          {error && <p className="text-error text-sm">{error}</p>}
           {createMutation.isError && (
             <p className="text-error text-sm">
               {t(errorKeyMap[createMutation.error?.message ?? ""]) ||

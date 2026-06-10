@@ -238,7 +238,7 @@ export function AdminSuggestionDetailPage() {
                   <Input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Title"
+                    placeholder={t("documents.titleField")}
                     className="text-xl font-bold"
                   />
                 ) : (
@@ -261,7 +261,7 @@ export function AdminSuggestionDetailPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <span className="text-sm text-text-secondary block">
-                  User ID
+                  {t("admin.userId")}
                 </span>
                 <span className="text-text-primary text-sm font-mono">
                   {suggestion.user_id}
@@ -408,7 +408,7 @@ export function AdminSuggestionDetailPage() {
       {isPending && (
         <Card>
           <h2 className="font-semibold text-text-primary mb-4">
-            Review Actions
+            {t("admin.reviewActions")}
           </h2>
           <div className="space-y-4">
             <div className="flex flex-wrap gap-3">
@@ -416,16 +416,14 @@ export function AdminSuggestionDetailPage() {
                 variant="success"
                 onClick={handleApprove}
                 disabled={!hasPdf}
-                title={
-                  !hasPdf ? "Cannot approve without a PDF file" : undefined
-                }
+                title={!hasPdf ? t("admin.cannotApproveNoPdf") : undefined}
               >
                 <CheckCircle className="h-4 w-4" />
                 {t("admin.approve")}
               </Button>
               {!hasPdf && (
                 <p className="text-sm text-text-secondary self-center">
-                  A PDF file is required to approve
+                  {t("admin.pdfRequiredToApprove")}
                 </p>
               )}
             </div>
@@ -438,7 +436,7 @@ export function AdminSuggestionDetailPage() {
                     onChange={(e) => setRejectComment(e.target.value)}
                     rows={2}
                     className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-white px-3 py-2 text-base text-text-primary outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-vertical"
-                    placeholder="Reason for rejection (required)..."
+                    placeholder={t("admin.rejectionReason")}
                   />
                   <div className="flex gap-2">
                     <Button
@@ -485,7 +483,7 @@ export function AdminSuggestionDetailPage() {
         {suggestion.reviewed_at && (
           <div className="flex items-center gap-2">
             <CheckCircle className="h-4 w-4" />
-            Reviewed: {formatDate(suggestion.reviewed_at, locale)}
+            {t("admin.reviewed")}: {formatDate(suggestion.reviewed_at, locale)}
           </div>
         )}
       </div>

@@ -91,7 +91,7 @@ export function SuggestionListPage() {
           </p>
           {query.data && (
             <p className="text-sm text-text-secondary mt-1">
-              {query.data.length} total
+              {query.data.length} {t("suggestions.total")}
             </p>
           )}
         </div>

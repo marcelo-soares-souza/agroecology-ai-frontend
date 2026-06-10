@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { buildApiUrl } from "@/config/api";
-import type { DocumentSuggestion } from "@/services/types";
+import type { DocumentSuggestion, UserRecord } from "@/services/types";
 
 function formatDate(iso: string | null, locale: string) {
   if (!iso) return "\u2014";
@@ -40,15 +40,11 @@ export function CommunityUserDetailPage() {
 
   const userQuery = useQuery({
     queryKey: ["community-user", slug],
-    queryFn: () =>
-      fetch(`/api/v1/auth/users/by-slug/${slug}`).then((r) => {
-        if (!r.ok) throw new Error("User not found");
-        return r.json();
-      }),
+    queryFn: () => api.getUserBySlug(slug!),
     enabled: !!slug,
   });
 
-  const profileId = userQuery.data?.id as string | undefined;
+  const profileId = userQuery.data?.id;
 
   const suggestionsQuery = useQuery({
     queryKey: ["community-suggestions", profileId],
@@ -62,10 +58,10 @@ export function CommunityUserDetailPage() {
         <Skeleton className="h-8 w-32" />
         <Card>
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-primary-100 animate-pulse" />
+            <Skeleton className="h-16 w-16 rounded-full" />
             <div className="flex-1 space-y-2">
-              <div className="h-6 w-48 bg-primary-100 rounded animate-pulse" />
-              <div className="h-4 w-32 bg-primary-100 rounded animate-pulse" />
+              <Skeleton className="h-6 w-48" />
+              <Skeleton className="h-4 w-32" />
             </div>
           </div>
         </Card>
@@ -87,19 +83,7 @@ export function CommunityUserDetailPage() {
     );
   }
 
-  const user = userQuery.data as {
-    id: string;
-    full_name: string;
-    slug: string;
-    status: string;
-    roles: string[];
-    created_at: string;
-    updated_at: string;
-    last_login_at: string | null;
-    about: string | null;
-    link: string | null;
-    avatar_url: string | null;
-  };
+  const user = userQuery.data as UserRecord;
   const canEdit = user.id === userId || isAdmin;
 
   return (

@@ -76,7 +76,7 @@ export function AdminSuggestionsPage() {
           </p>
           {query.data && (
             <p className="text-sm text-text-secondary mt-1">
-              {query.data.length} total
+              {query.data.length} {t("suggestions.total")}
             </p>
           )}
         </div>
@@ -122,7 +122,7 @@ export function AdminSuggestionsPage() {
               onChange={(e) => setHasPdfFilter(e.target.checked ? true : null)}
               className="rounded border-primary-300"
             />
-            Has PDF
+            {t("admin.hasPdf")}
           </label>
         </div>
       </Card>

@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { Trash2, Eye, User, Users } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
@@ -8,7 +9,6 @@ import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { UserRecord } from "@/services/types";
-import { useState } from "react";
 
 export function AdminUsersPage() {
   const { t, i18n } = useTranslation();

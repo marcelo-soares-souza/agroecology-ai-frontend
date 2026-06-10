@@ -1,6 +1,7 @@
-import { buildApiUrl } from "@/config/api";
 import i18n from "@/config/i18n";
-import { queryClient } from "@/services/query-client";
+import { queryClient } from "@/services/QueryClient";
+import { api } from "@/services/api";
+import type { UserRecord } from "@/services/types";
 
 interface AuthSession {
   userId: string;
@@ -54,55 +55,45 @@ function createAuthStore() {
   }
 
   async function login(email: string, password: string) {
-    const resp = await fetch(buildApiUrl("/api/v1/auth/login"), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    if (!resp.ok) {
-      const err = await resp
-        .json()
-        .catch(() => ({ detail: i18n.t("auth.loginFailed") }));
-      throw new Error(err.detail || i18n.t("auth.loginFailed"));
-    }
-    const data = await resp.json();
-    localStorage.setItem(TOKEN_KEY, data.access_token);
-    localStorage.setItem(REFRESH_KEY, data.refresh_token);
-    localStorage.setItem(EMAIL_KEY, email);
+    try {
+      const data = await api.login({ email, password });
+      localStorage.setItem(TOKEN_KEY, data.access_token);
+      localStorage.setItem(REFRESH_KEY, data.refresh_token);
+      localStorage.setItem(EMAIL_KEY, email);
 
-    const payload = decodeJwt(data.access_token);
-    const fullName = payload.full_name || email;
-    session = {
-      userId: payload.sub,
-      email: email,
-      fullName,
-      slug: payload.sub,
-      roles: payload.roles || [],
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token,
-      expiresAt: payload.exp * 1000,
-    };
-    localStorage.setItem(FULL_NAME_KEY, fullName);
-    fetchProfile();
-    notify();
+      const payload = decodeJwt(data.access_token);
+      const fullName = payload.full_name || email;
+      session = {
+        userId: payload.sub,
+        email: email,
+        fullName,
+        slug: payload.sub,
+        roles: payload.roles || [],
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+        expiresAt: payload.exp * 1000,
+      };
+      localStorage.setItem(FULL_NAME_KEY, fullName);
+      fetchProfile();
+      notify();
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : i18n.t("auth.loginFailed");
+      throw new Error(message, { cause: err });
+    }
   }
 
   async function fetchProfile() {
     if (!session?.accessToken) return;
     try {
-      const resp = await fetch(buildApiUrl("/api/v1/auth/me"), {
-        headers: { Authorization: `Bearer ${session.accessToken}` },
-      });
-      if (resp.ok) {
-        const profile = await resp.json();
-        if (session) {
-          session.slug = profile.slug || session.userId;
-          if (profile.full_name) {
-            session.fullName = profile.full_name;
-            localStorage.setItem(FULL_NAME_KEY, profile.full_name);
-          }
-          notify();
+      const profile: UserRecord = await api.getMe();
+      if (session) {
+        session.slug = profile.slug || session.userId;
+        if (profile.full_name) {
+          session.fullName = profile.full_name;
+          localStorage.setItem(FULL_NAME_KEY, profile.full_name);
         }
+        notify();
       }
     } catch {
       // Profile fetch is best-effort, ignore failures
@@ -117,40 +108,37 @@ function createAuthStore() {
     challenge_answer: string;
     locale?: string;
   }) {
-    const resp = await fetch(buildApiUrl("/api/v1/auth/register"), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!resp.ok) {
-      const err = await resp
-        .json()
-        .catch(() => ({ detail: i18n.t("auth.registrationFailed") }));
-      throw new Error(err.detail || i18n.t("auth.registrationFailed"));
+    try {
+      await api.register({
+        full_name: data.full_name,
+        email: data.email,
+        password: data.password,
+        challenge_id: data.challenge_id,
+        challenge_answer: data.challenge_answer,
+        locale: data.locale,
+      });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : i18n.t("auth.registrationFailed");
+      throw new Error(message, { cause: err });
     }
   }
 
   async function confirmEmail(token: string) {
-    const resp = await fetch(buildApiUrl("/api/v1/auth/confirm-email"), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
-    });
-    if (!resp.ok) {
-      const err = await resp
-        .json()
-        .catch(() => ({ detail: i18n.t("auth.confirmationFailed") }));
-      throw new Error(err.detail || i18n.t("auth.confirmationFailed"));
+    try {
+      await api.confirmEmail({ token });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : i18n.t("auth.confirmationFailed");
+      throw new Error(message, { cause: err });
     }
   }
 
   function logout() {
-    const token = getToken();
-    if (token) {
-      fetch(buildApiUrl("/api/v1/auth/logout"), {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-      }).catch(() => {});
+    try {
+      api.logout().catch(() => {});
+    } catch {
+      // ignore
     }
     session = null;
     localStorage.removeItem(TOKEN_KEY);
@@ -187,12 +175,8 @@ function createAuthStore() {
           // Try refresh
           const refreshToken = localStorage.getItem(REFRESH_KEY);
           if (refreshToken) {
-            const resp = await fetch(
-              buildApiUrl(`/api/v1/auth/refresh?refresh_token=${refreshToken}`),
-              { method: "POST" },
-            );
-            if (resp.ok) {
-              const data = await resp.json();
+            try {
+              const data = await api.refreshToken(refreshToken);
               localStorage.setItem(TOKEN_KEY, data.access_token);
               localStorage.setItem(REFRESH_KEY, data.refresh_token);
               const newPayload = decodeJwt(data.access_token);
@@ -209,7 +193,7 @@ function createAuthStore() {
                 refreshToken: data.refresh_token,
                 expiresAt: newPayload.exp * 1000,
               };
-            } else {
+            } catch {
               localStorage.removeItem(TOKEN_KEY);
               localStorage.removeItem(REFRESH_KEY);
             }

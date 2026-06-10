@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { buildApiUrl } from "@/config/api";
+import { api } from "@/services/api";
 
 export function ResendConfirmationPage() {
   const { t } = useTranslation();
@@ -18,18 +18,7 @@ export function ResendConfirmationPage() {
     setError("");
     setLoading(true);
     try {
-      const resp = await fetch(
-        buildApiUrl(
-          `/api/v1/auth/confirm-email/resend?email=${encodeURIComponent(email)}`,
-        ),
-        { method: "POST" },
-      );
-      if (!resp.ok) {
-        const data = await resp.json().catch(() => ({}));
-        throw new Error(
-          (data as { detail?: string }).detail || t("common.error"),
-        );
-      }
+      await api.resendConfirmation(email);
       setSent(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("auth.resendFailed"));
@@ -64,7 +53,7 @@ export function ResendConfirmationPage() {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.email")}
             </label>
             <Input

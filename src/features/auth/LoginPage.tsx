@@ -46,7 +46,7 @@ export function LoginPage() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.email")}
             </label>
             <Input
@@ -58,7 +58,7 @@ export function LoginPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.password")}
             </label>
             <Input

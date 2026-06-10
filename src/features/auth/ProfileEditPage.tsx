@@ -3,10 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Save, Loader2, User, Globe, Upload } from "lucide-react";
 import { api } from "@/services/api";
-import { queryClient } from "@/services/query-client";
+import { queryClient } from "@/services/QueryClient";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { buildApiUrl } from "@/config/api";
 
@@ -27,18 +28,12 @@ export function ProfileEditPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [avatarUploading, setAvatarUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-    fetch(buildApiUrl("/api/v1/auth/me"), {
-      signal: controller.signal,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("agroecology_access_token")}`,
-      },
-    })
-      .then((r) => r.json())
+    api
+      .getMe()
       .then((data) => {
         setFullName(data.full_name || "");
         setAbout(data.about || "");
@@ -47,7 +42,6 @@ export function ProfileEditPage() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-    return () => controller.abort();
   }, []);
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +61,7 @@ export function ProfileEditPage() {
     }
 
     setAvatarUploading(true);
-    setError(null);
+    setError("");
     try {
       const result = await api.uploadAvatar(file);
       setAvatarUrl(result.avatar_url || null);
@@ -82,7 +76,7 @@ export function ProfileEditPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setError("");
     setSuccess(false);
 
     if (!fullName.trim()) {
@@ -127,12 +121,12 @@ export function ProfileEditPage() {
           </Button>
         </Link>
         <Card>
-          <div className="space-y-6 animate-pulse">
-            <div className="h-8 w-48 bg-primary-100 rounded" />
-            <div className="h-16 w-16 rounded-full bg-primary-100" />
-            <div className="h-12 bg-primary-100 rounded" />
-            <div className="h-32 bg-primary-100 rounded" />
-            <div className="h-12 bg-primary-100 rounded" />
+          <div className="space-y-6">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-16 w-16 rounded-full" />
+            <Skeleton className="h-12" />
+            <Skeleton className="h-32" />
+            <Skeleton className="h-12" />
           </div>
         </Card>
       </div>

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useParams, Link } from "react-router-dom";
 import { User, Calendar, Clock, Globe, Pencil } from "lucide-react";
+import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
@@ -28,14 +29,7 @@ export function ProfilePage() {
 
   const query = useQuery({
     queryKey: ["user-profile", slug],
-    queryFn: () =>
-      fetch(buildApiUrl(`/api/v1/auth/users/by-slug/${slug}`)).then((r) => {
-        if (!r.ok) {
-          if (r.status === 404) throw new Error(t("admin.userNotFound"));
-          throw new Error(t("auth.profileLoadFailed"));
-        }
-        return r.json();
-      }),
+    queryFn: () => api.getUserBySlug(slug!),
     enabled: !!slug,
   });
 
@@ -62,22 +56,7 @@ export function ProfilePage() {
         }
       >
         {(profile) => {
-          const profileData = profile as {
-            id?: string;
-            full_name?: string;
-            email?: string;
-            slug?: string;
-            status?: string;
-            roles?: string[];
-            locale?: string;
-            created_at?: string;
-            updated_at?: string;
-            last_login_at?: string;
-            about?: string | null;
-            link?: string | null;
-            avatar_url?: string | null;
-          };
-          const canEdit = profileData.id === userId || isAdmin;
+          const canEdit = profile.id === userId || isAdmin;
 
           return (
             <>
@@ -86,12 +65,12 @@ export function ProfilePage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
                       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
-                        {profileData.avatar_url ? (
+                        {profile.avatar_url ? (
                           <img
                             src={buildApiUrl(
-                              profileData.avatar_url +
-                                (profileData.updated_at
-                                  ? `?v=${encodeURIComponent(profileData.updated_at)}`
+                              profile.avatar_url +
+                                (profile.updated_at
+                                  ? `?v=${encodeURIComponent(profile.updated_at)}`
                                   : ""),
                             )}
                             alt=""
@@ -105,11 +84,9 @@ export function ProfilePage() {
                       </div>
                       <div>
                         <h1 className="text-2xl font-bold text-text-primary">
-                          {profileData.full_name || profileData.email}
+                          {profile.full_name || profile.email}
                         </h1>
-                        <p className="text-text-secondary">
-                          @{profileData.slug}
-                        </p>
+                        <p className="text-text-secondary">@{profile.slug}</p>
                       </div>
                     </div>
                     {canEdit && (
@@ -123,12 +100,12 @@ export function ProfilePage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {profileData.status === "active" ? (
+                    {profile.status === "active" ? (
                       <Badge variant="success">{t("admin.statusActive")}</Badge>
                     ) : (
-                      <Badge variant="warning">{profileData.status}</Badge>
+                      <Badge variant="warning">{profile.status}</Badge>
                     )}
-                    {(profileData.roles || []).map((r: string) => (
+                    {(profile.roles || []).map((r: string) => (
                       <Badge
                         key={r}
                         variant={r === "admin" ? "default" : "info"}
@@ -139,19 +116,19 @@ export function ProfilePage() {
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
-                    {profileData.link && (
+                    {profile.link && (
                       <div className="flex items-center gap-2 text-sm">
                         <Globe className="h-4 w-4 text-text-secondary" />
                         <span className="text-text-secondary">
                           {t("profile.link")}:
                         </span>
                         <a
-                          href={profileData.link}
+                          href={profile.link}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-primary hover:underline truncate"
                         >
-                          {profileData.link}
+                          {profile.link}
                         </a>
                       </div>
                     )}
@@ -161,7 +138,7 @@ export function ProfilePage() {
                         {t("admin.joined")}:
                       </span>
                       <span className="text-text-primary">
-                        {formatDate(profileData.created_at || null, locale)}
+                        {formatDate(profile.created_at || null, locale)}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
@@ -170,20 +147,20 @@ export function ProfilePage() {
                         {t("admin.lastLogin")}:
                       </span>
                       <span className="text-text-primary">
-                        {formatDate(profileData.last_login_at || null, locale)}
+                        {formatDate(profile.last_login_at || null, locale)}
                       </span>
                     </div>
                   </div>
                 </div>
               </Card>
 
-              {profileData.about && (
+              {profile.about && (
                 <Card className="mt-6">
                   <h2 className="text-lg font-semibold text-text-primary mb-3">
                     {t("profile.about")}
                   </h2>
                   <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap">
-                    {profileData.about}
+                    {profile.about}
                   </p>
                 </Card>
               )}

@@ -177,3 +177,36 @@ export interface DocumentSuggestionUpdate {
   url?: string | null;
   user_comment?: string | null;
 }
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface RegisterRequest {
+  full_name: string;
+  email: string;
+  password: string;
+  challenge_id: string;
+  challenge_answer: string;
+  locale?: string;
+}
+
+export interface ConfirmEmailRequest {
+  token: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  new_password: string;
+}
+
+export interface RefreshTokenResponse {
+  access_token: string;
+  refresh_token: string;
+}

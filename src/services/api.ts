@@ -11,8 +11,16 @@ import type {
   MetadataExtractionStatus,
   UploadResponse,
   IngestionRun,
+  UserRecord,
+  HumanChallenge,
   DocumentSuggestion,
   DocumentSuggestionUpdate,
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  ConfirmEmailRequest,
+  ResetPasswordRequest,
+  RefreshTokenResponse,
 } from "./types";
 
 class ApiError extends Error {
@@ -106,12 +114,10 @@ export const api = {
       method: "POST",
     }),
 
-  listUsers: () =>
-    request<import("./types").UserRecord[]>("/api/v1/admin/users"),
-  getUser: (id: string) =>
-    request<import("./types").UserRecord>(`/api/v1/admin/users/${id}`),
+  listUsers: () => request<UserRecord[]>("/api/v1/admin/users"),
+  getUser: (id: string) => request<UserRecord>(`/api/v1/admin/users/${id}`),
   updateUser: (id: string, data: Record<string, string | null>) =>
-    request<import("./types").UserRecord>(`/api/v1/admin/users/${id}`, {
+    request<UserRecord>(`/api/v1/admin/users/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
     }),
@@ -125,7 +131,7 @@ export const api = {
     about?: string | null;
     link?: string | null;
   }) =>
-    request<import("./types").UserRecord>("/api/v1/auth/me/profile", {
+    request<UserRecord>("/api/v1/auth/me/profile", {
       method: "PUT",
       body: JSON.stringify(data),
     }),
@@ -133,22 +139,14 @@ export const api = {
   uploadAvatar: (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
-    return request<import("./types").UserRecord>(
-      "/api/v1/auth/me/profile/avatar",
-      {
-        method: "POST",
-        body: formData,
-      },
-    );
+    return request<UserRecord>("/api/v1/auth/me/profile/avatar", {
+      method: "POST",
+      body: formData,
+    });
   },
 
-  getHumanChallenge: async (locale = "en") => {
-    const resp = await fetch(
-      `${API_BASE_URL}/api/v1/auth/human-challenge?locale=${locale}`,
-    );
-    if (!resp.ok) throw new ApiError("Failed to get challenge", resp.status);
-    return resp.json() as Promise<import("./types").HumanChallenge>;
-  },
+  getHumanChallenge: async (locale = "en") =>
+    request<HumanChallenge>(`/api/v1/auth/human-challenge?locale=${locale}`),
 
   extractAllMetadata: () =>
     request<{ message: string }>("/api/v1/documents/extract-all-metadata", {
@@ -166,8 +164,59 @@ export const api = {
       method: "DELETE",
     }),
 
-  listActiveUsers: () =>
-    request<import("./types").UserRecord[]>("/api/v1/auth/users"),
+  listActiveUsers: () => request<UserRecord[]>("/api/v1/auth/users"),
+
+  login: (data: LoginRequest) =>
+    request<LoginResponse>("/api/v1/auth/login", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  register: (data: RegisterRequest) =>
+    request<{ message: string }>("/api/v1/auth/register", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  confirmEmail: (data: ConfirmEmailRequest) =>
+    request<{ message: string }>("/api/v1/auth/confirm-email", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  requestPasswordReset: (email: string) =>
+    request<{ message: string }>(
+      `/api/v1/auth/password-reset/request?email=${encodeURIComponent(email)}`,
+      { method: "POST" },
+    ),
+
+  resetPassword: (data: ResetPasswordRequest) =>
+    request<{ message: string }>("/api/v1/auth/password-reset/confirm", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  resendConfirmation: (email: string) =>
+    request<{ message: string }>(
+      `/api/v1/auth/confirm-email/resend?email=${encodeURIComponent(email)}`,
+      { method: "POST" },
+    ),
+
+  refreshToken: (refreshToken: string) =>
+    request<RefreshTokenResponse>(
+      `/api/v1/auth/refresh?refresh_token=${encodeURIComponent(refreshToken)}`,
+      { method: "POST" },
+    ),
+
+  logout: () =>
+    request<{ message: string }>("/api/v1/auth/logout", {
+      method: "POST",
+    }),
+
+  getMe: () => request<UserRecord>("/api/v1/auth/me"),
+
+  getUserBySlug: (slug: string) =>
+    request<UserRecord>(`/api/v1/auth/users/by-slug/${slug}`),
 
   listPublicSuggestions: (userId: string) =>
     request<DocumentSuggestion[]>(

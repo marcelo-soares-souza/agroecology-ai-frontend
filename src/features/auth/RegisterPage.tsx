@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, type FormEvent } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { UserPlus } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
@@ -109,7 +109,7 @@ export function RegisterPage() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.fullName")}
             </label>
             <Input
@@ -119,7 +119,7 @@ export function RegisterPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.email")}
             </label>
             <Input
@@ -130,7 +130,7 @@ export function RegisterPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.password")}
             </label>
             <Input
@@ -142,7 +142,7 @@ export function RegisterPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-text-secondary mb-1">
+            <label className="block text-sm font-medium text-text-secondary mb-1.5">
               {t("auth.confirmPassword")}
             </label>
             <Input

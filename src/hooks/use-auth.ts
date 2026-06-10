@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { authStore } from "@/stores/auth-store";
+import { authStore } from "@/stores/AuthStore";
 
 export function useAuth() {
   const [, setTick] = useState(0);

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";

@@ -6,7 +6,7 @@ import {
   saveChatMessages,
   loadChatMessages,
   clearChatMessages,
-} from "@/lib/chat-storage";
+} from "@/lib/ChatStorage";
 
 function useTaskPolling(
   taskId: string | null,

@@ -182,11 +182,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 {t("nav.community")}
               </NavLink>
 
-              <NavLink to="/status" className={linkClass} onClick={onClose}>
-                <Activity className="h-4 w-4" />
-                {t("nav.status")}
-              </NavLink>
-
               {sectionLabel(t("nav.user"))}
 
               <NavLink
@@ -207,8 +202,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     {t("nav.upload")}
                   </NavLink>
 
-                  {sectionLabel(t("nav.ingestion"))}
-
+                  {sectionLabel(t("admin.section"))}
                   <NavLink
                     to="/ingestion"
                     className={linkClass}
@@ -217,8 +211,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     <RefreshCw className="h-4 w-4" />
                     {t("nav.ingestion")}
                   </NavLink>
-
-                  {sectionLabel(t("admin.section"))}
 
                   <NavLink
                     to="/admin/users"
@@ -241,21 +233,25 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               )}
             </>
           ) : null}
-
           <div className="flex-1" />
-
-          {sectionLabel(t("nav.support"))}
-
-          <NavLink to="/donate" className={linkClass} onClick={onClose}>
-            <Heart className="h-4 w-4" />
-            {t("nav.donate")}
-          </NavLink>
-
+          {sectionLabel(t("nav.about"))}
           <NavLink to="/about" className={linkClass} onClick={onClose}>
             <Info className="h-4 w-4" />
             {t("nav.about")}
           </NavLink>
 
+          {isAuthenticated && (
+            <NavLink to="/status" className={linkClass} onClick={onClose}>
+              <Activity className="h-4 w-4" />
+              {t("nav.status")}
+            </NavLink>
+          )}
+
+          {sectionLabel(t("nav.support"))}
+          <NavLink to="/donate" className={linkClass} onClick={onClose}>
+            <Heart className="h-4 w-4" />
+            {t("nav.donate")}
+          </NavLink>
           {sectionLabel(t("nav.social"))}
           <div className="flex flex-wrap gap-2 px-4 py-2">
             {socialLinks.map(({ title, href, path, viewBox }) => (

@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
         "dev.climabalance.org",
         "climabalance.org",
         "www.climabalance.org",
+        "dev-ai.agroecologymap.org",
       ],
       port: 5173,
       proxy: {

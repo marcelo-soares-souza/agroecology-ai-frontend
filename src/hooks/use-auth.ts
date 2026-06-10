@@ -25,6 +25,5 @@ export function useAuth() {
     confirmEmail: authStore.confirmEmail,
     logout: authStore.logout,
     hasRole: authStore.hasRole,
-    getToken: authStore.getToken,
   };
 }

@@ -226,9 +226,18 @@ export function CommunityUserDetailPage() {
                         {s.authors}
                       </p>
                     )}
-                    <p className="text-xs text-text-secondary">
-                      {formatDate(s.created_at, locale)}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-text-secondary">
+                        {formatDate(s.created_at, locale)}
+                      </p>
+                      {s.document_id && (
+                        <Badge variant={s.ingested ? "success" : "warning"}>
+                          {s.ingested
+                            ? t("documents.indexed")
+                            : t("documents.pending")}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                   {s.document_id && (
                     <ExternalLink className="h-4 w-4 text-text-secondary shrink-0" />

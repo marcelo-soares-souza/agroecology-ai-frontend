@@ -155,6 +155,7 @@ export interface HumanChallenge {
 export interface DocumentSuggestion {
   id: string;
   user_id: string;
+  user_name: string | null;
   status: "pending" | "approved" | "rejected";
   title: string | null;
   authors: string | null;

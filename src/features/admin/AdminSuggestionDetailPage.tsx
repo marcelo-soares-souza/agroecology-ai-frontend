@@ -265,8 +265,8 @@ export function AdminSuggestionDetailPage() {
                 <span className="text-sm text-text-secondary block">
                   {t("admin.userId")}
                 </span>
-                <span className="text-text-primary text-sm font-mono">
-                  {suggestion.user_id}
+                <span className="text-text-primary text-sm">
+                  {suggestion.user_name || suggestion.user_id}
                 </span>
               </div>
               <div>

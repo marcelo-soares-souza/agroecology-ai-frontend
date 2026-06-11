@@ -485,5 +485,80 @@
       "content": "Avec chaque personne qui utilise, partage ou contribue à Agroecology Map, notre communauté se renforce. Nous croyons que l'agroécologie est la voie à suivre, et qu'ensemble nous pouvons construire les outils dont nos communautés ont besoin pour s'épanouir. Merci beaucoup de faire partie de cette histoire.",
       "closing": "Avec affection, l'équipe bénévole d'Agroecology Map."
     }
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité",
+    "metaDescription": "Politique de confidentialité d'Agroecology Map AI — comment nous collectons, utilisons et protégeons vos données.",
+    "lastUpdated": "Dernière mise à jour : 11 juin 2026",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "Agroecology Map AI (« nous », « notre » ou « la plateforme ») s'engage à protéger votre vie privée et à expliquer clairement comment vos données personnelles sont traitées."
+      },
+      "dataController": {
+        "title": "Responsable du traitement",
+        "content": "Le responsable du traitement est le projet Agroecology Map, une initiative de logiciel libre, de données ouvertes et de science citoyenne. Pour toute question ou demande liée à la protection des données, contactez notre DPO : contact@agroecologymap.org."
+      },
+      "whatWeCollect": {
+        "title": "Ce que nous collectons",
+        "content": "Lorsque vous créez un compte, nous collectons :\n\n- Nom complet\n- Adresse email\n- Mot de passe stocké uniquement sous forme de hash\n- Langue ou locale préférée\n\nVous pouvez aussi fournir des données de profil facultatives : texte de présentation, lien externe et avatar.\n\nLorsque vous suggérez un document, nous collectons votre commentaire et le fichier envoyé, le cas échéant.\n\nL'historique du chat peut être stocké localement dans votre navigateur ou dans l'app mobile pour continuer les conversations récentes sur le même appareil."
+      },
+      "automaticallyCollected": {
+        "title": "Données collectées automatiquement",
+        "content": "Lorsque vous utilisez la plateforme, nous pouvons enregistrer :\n\n- Adresse IP dans les logs de requêtes, à des fins de sécurité et de débogage\n- Horodatages des actions comme création de compte, connexion et mise à jour du profil\n- Nombre de caractères des questions et métriques de performance du chat\n\nNous n'utilisons pas de cookies publicitaires, fingerprinting, pixels de suivi ni services d'analytics tiers. Le site et l'app utilisent le stockage local seulement pour la session, la langue, le choix de consentement et l'historique local du chat."
+      },
+      "whatWeDontCollect": {
+        "title": "Ce que nous ne collectons pas",
+        "content": "Nous ne collectons pas :\n\n- Données de localisation, sauf adresse IP transitoire dans les logs\n- Historique de navigation ou suivi comportemental\n- Identifiants publicitaires\n- Données personnelles sensibles\n- Informations de paiement ; les dons sont traités par Ko-fi ou Patreon sur leurs propres plateformes."
+      },
+      "purpose": {
+        "title": "Finalité et base légale",
+        "content": "Nous traitons les données pour créer et gérer les comptes, authentifier les utilisateurs, envoyer des emails transactionnels, afficher les profils communautaires, faire fonctionner la plateforme et respecter les obligations légales applicables, notamment la LGPD et le RGPD."
+      },
+      "dataStorage": {
+        "title": "Stockage et sécurité",
+        "content": "Les données peuvent être stockées dans PostgreSQL, le système de fichiers local du serveur, LanceDB pour l'index de documents, et le stockage local de votre navigateur ou app.\n\nLe traitement IA utilise des modèles hébergés localement ou sur une infrastructure contrôlée par le projet. Les questions, l'historique du chat, les embeddings et les documents ne sont pas envoyés à des API externes d'IA.\n\nLes mots de passe sont hashés, les tokens ont une expiration, les emails sont masqués dans les logs et les API utilisent HTTPS en production."
+      },
+      "dataSharing": {
+        "title": "Partage des données",
+        "content": "Nous ne partageons, vendons, louons ni échangeons vos données personnelles avec des tiers. Les questions, l'historique du chat, les embeddings et les documents ne sont pas envoyés à des fournisseurs externes d'IA.\n\nLes liens de don ouvrent des plateformes externes comme Ko-fi ou Patreon, qui appliquent leurs propres politiques."
+      },
+      "dataRetention": {
+        "title": "Conservation",
+        "content": "Nous conservons vos données tant que votre compte est actif. Lorsque vous supprimez votre compte, vos données personnelles sont anonymisées ou supprimées, les sessions sont révoquées et les contributions peuvent rester dans la base de connaissances sous forme anonymisée."
+      },
+      "userRights": {
+        "title": "Vos droits",
+        "content": "Selon la LGPD et le RGPD, vous pouvez demander l'accès, la rectification, la suppression, la portabilité, des informations sur le traitement et le retrait du consentement. Utilisez la page de profil ou contactez : contact@agroecologymap.org."
+      },
+      "rightToBeForgotten": {
+        "title": "Suppression du compte",
+        "content": "Vous pouvez demander la suppression de votre compte depuis votre profil. Un email de confirmation est envoyé. Après confirmation, vos données personnelles sont anonymisées de façon permanente et vos sessions sont terminées."
+      },
+      "appStoreCompliance": {
+        "title": "Conformité mobile",
+        "content": "L'app mobile ne demande pas l'accès à la caméra, au microphone, aux contacts ou à la localisation. L'accès à la galerie peut être demandé uniquement si vous choisissez un avatar ; seule l'image sélectionnée est envoyée. L'app ne collecte pas de données en arrière-plan, n'utilise pas de SDK d'analytics tiers et ne recourt pas aux identifiants publicitaires."
+      },
+      "contact": {
+        "title": "Contact et DPO",
+        "content": "Pour toute question ou demande relative à vos données personnelles, contactez notre DPO :\n\nEmail : contact@agroecologymap.org\nProjet : Agroecology Map AI\nLicence : GPLv3 (logiciel libre)\nDépôt : https://codeberg.org/agroecologymap"
+      },
+      "updates": {
+        "title": "Modifications de cette politique",
+        "content": "Cette politique peut être mise à jour pour refléter des changements dans nos pratiques ou obligations légales. Les changements importants seront communiqués aux utilisateurs enregistrés."
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Conditions d'utilisation",
+    "metaDescription": "Conditions d'utilisation d'Agroecology Map AI — règles et conditions d'utilisation de la plateforme.",
+    "lastUpdated": "Dernière mise à jour : 11 juin 2026",
+    "content": "1. Acceptation des conditions\n\nEn créant un compte et en utilisant Agroecology Map AI, vous acceptez ces Conditions d'utilisation. Si vous n'êtes pas d'accord, veuillez ne pas utiliser la plateforme.\n\n2. Description du service\n\nAgroecology Map AI est une plateforme de logiciel libre qui permet de consulter une base de connaissances agroécologiques avec une interface de chat IA. Les modèles d'IA et d'embeddings sont exécutés localement ou sur une infrastructure contrôlée par le projet, sans API externe d'IA.\n\n3. Comptes utilisateur\n\nVous êtes responsable de vos identifiants. Les informations d'inscription doivent être exactes. L'âge minimum est de 16 ans.\n\n4. Utilisation acceptable\n\nN'utilisez pas la plateforme à des fins illégales, ne soumettez pas de contenu nuisible ou portant atteinte à des droits, ne tentez pas d'interrompre le service et ne déformez pas votre identité.\n\n5. Contenu utilisateur\n\nEn soumettant du contenu, vous accordez à la plateforme une licence non exclusive pour l'afficher et le distribuer dans la plateforme. Vous conservez la propriété de votre contenu.\n\n6. Propriété intellectuelle\n\nLe logiciel est sous licence GPLv3. Les documents conservent leurs licences et attributions d'origine.\n\n7. Aucune garantie\n\nLa plateforme est fournie « telle quelle ». Les réponses de l'IA peuvent être inexactes ou incomplètes. Vérifiez toujours les sources primaires.\n\n8. Limitation de responsabilité\n\nDans les limites permises par la loi, le projet et ses bénévoles ne sont pas responsables des dommages résultant de l'utilisation de la plateforme.\n\n9. Résiliation du compte\n\nLes comptes qui violent ces conditions peuvent être suspendus. Vous pouvez supprimer votre compte à tout moment.\n\n10. Modifications\n\nCes conditions peuvent être mises à jour. Les changements importants seront communiqués par email.\n\n11. Loi applicable\n\nCes conditions sont régies par les lois du Brésil.\n\n12. Contact\n\nPour toute question, contactez : contact@agroecologymap.org"
+  },
+  "consent": {
+    "message": "Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Nous utilisons le stockage local pour la session, la langue, le choix de consentement et l'historique du chat sur cet appareil. En continuant, vous reconnaissez notre",
+    "and": "et nos",
+    "accept": "Accepter",
+    "decline": "Refuser"
   }
 }

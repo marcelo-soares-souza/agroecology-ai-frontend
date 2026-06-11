@@ -212,6 +212,8 @@ export interface RegisterRequest {
   challenge_id: string;
   challenge_answer: string;
   locale?: string;
+  privacy_policy_accepted: boolean;
+  tos_accepted: boolean;
 }
 
 export interface ConfirmEmailRequest {

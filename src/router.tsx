@@ -71,6 +71,16 @@ const DonatePage = lazyPage(
   () => import("./features/donate/DonatePage"),
   "DonatePage",
 );
+
+const PrivacyPolicyPage = lazyPage(
+  () => import("./features/about/PrivacyPolicyPage"),
+  "PrivacyPolicyPage",
+);
+
+const TermsOfServicePage = lazyPage(
+  () => import("./features/about/TermsOfServicePage"),
+  "TermsOfServicePage",
+);
 const LoginPage = lazyPage(
   () => import("./features/auth/LoginPage"),
   "LoginPage",
@@ -82,6 +92,10 @@ const RegisterPage = lazyPage(
 const ConfirmEmailPage = lazyPage(
   () => import("./features/auth/ConfirmEmailPage"),
   "ConfirmEmailPage",
+);
+const ConfirmDeleteAccountPage = lazyPage(
+  () => import("./features/auth/ConfirmDeleteAccountPage"),
+  "ConfirmDeleteAccountPage",
 );
 const AdminUsersPage = lazyPage(
   () => import("./features/admin/AdminUsersPage"),
@@ -336,6 +350,22 @@ export const router = createBrowserRouter(
           },
         },
         {
+          path: "/privacy",
+          element: <PrivacyPolicyPage />,
+          handle: {
+            titleKey: "privacyPolicy.title",
+            descriptionKey: "privacyPolicy.metaDescription",
+          },
+        },
+        {
+          path: "/terms",
+          element: <TermsOfServicePage />,
+          handle: {
+            titleKey: "termsOfService.title",
+            descriptionKey: "termsOfService.metaDescription",
+          },
+        },
+        {
           path: "/login",
           element: <LoginPage />,
           handle: {
@@ -356,6 +386,13 @@ export const router = createBrowserRouter(
           element: <ConfirmEmailPage />,
           handle: {
             titleKey: "auth.confirmingEmail",
+          },
+        },
+        {
+          path: "/confirm-delete-account",
+          element: <ConfirmDeleteAccountPage />,
+          handle: {
+            titleKey: "profile.deleteAccountConfirmTitle",
           },
         },
         {

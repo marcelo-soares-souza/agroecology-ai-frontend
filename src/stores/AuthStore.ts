@@ -107,6 +107,8 @@ function createAuthStore() {
     challenge_id: string;
     challenge_answer: string;
     locale?: string;
+    privacy_policy_accepted?: boolean;
+    tos_accepted?: boolean;
   }) {
     try {
       await api.register({
@@ -116,6 +118,8 @@ function createAuthStore() {
         challenge_id: data.challenge_id,
         challenge_answer: data.challenge_answer,
         locale: data.locale,
+        privacy_policy_accepted: data.privacy_policy_accepted || false,
+        tos_accepted: data.tos_accepted || false,
       });
     } catch (err) {
       const message =

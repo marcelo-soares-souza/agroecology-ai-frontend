@@ -14,6 +14,8 @@ import {
   Users,
   MessageCircle,
   Lightbulb,
+  Shield,
+  Scale,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
@@ -238,6 +240,14 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <NavLink to="/about" className={linkClass} onClick={onClose}>
             <Info className="h-4 w-4" />
             {t("nav.about")}
+          </NavLink>
+          <NavLink to="/privacy" className={linkClass} onClick={onClose}>
+            <Shield className="h-4 w-4" />
+            {t("nav.privacy")}
+          </NavLink>
+          <NavLink to="/terms" className={linkClass} onClick={onClose}>
+            <Scale className="h-4 w-4" />
+            {t("nav.terms")}
           </NavLink>
 
           {isAuthenticated && (

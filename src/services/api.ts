@@ -215,6 +215,22 @@ export const api = {
 
   getMe: () => request<UserRecord>("/api/v1/auth/me"),
 
+  exportMyData: () =>
+    request<{ user: Record<string, unknown>; suggestions: unknown[] }>(
+      "/api/v1/auth/me/export",
+    ),
+
+  requestDeleteAccount: () =>
+    request<{ message: string }>("/api/v1/auth/me/delete-request", {
+      method: "POST",
+    }),
+
+  confirmDeleteAccount: (token: string) =>
+    request<{ message: string }>("/api/v1/auth/me/delete-confirm", {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    }),
+
   getUserBySlug: (slug: string) =>
     request<UserRecord>(`/api/v1/auth/users/by-slug/${slug}`),
 

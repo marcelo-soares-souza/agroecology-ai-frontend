@@ -18,7 +18,9 @@
     "community": "Comunidade",
     "user": "Usuário",
     "editProfile": "Editar Perfil",
-    "support": "Apoio"
+    "support": "Apoio",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço"
   },
   "common": {
     "back": "Voltar",
@@ -97,7 +99,15 @@
     "confirmingEmail": "Confirmando seu email...",
     "emailConfirmed": "Email Confirmado!",
     "accountActive": "Sua conta está ativa.",
-    "emailSent": "Email Enviado!"
+    "emailSent": "Email Enviado!",
+    "acceptPrivacyPolicy": {
+      "prefix": "Aceito a",
+      "link": "Política de Privacidade"
+    },
+    "acceptTos": {
+      "prefix": "Aceito os",
+      "link": "Termos de Serviço"
+    }
   },
   "admin": {
     "section": "Admin",
@@ -371,7 +381,23 @@
     "saved": "Perfil salvo com sucesso",
     "changePhoto": "Alterar Foto",
     "avatarUnsupportedType": "Tipo de imagem não suportado. Use JPEG, PNG ou WebP.",
-    "avatarTooLarge": "A imagem não deve exceder 5MB."
+    "avatarTooLarge": "A imagem não deve exceder 5MB.",
+    "dataAndPrivacy": "Dados e Privacidade",
+    "exportMyData": "Exportar Meus Dados",
+    "exporting": "Exportando...",
+    "exportFailed": "Falha ao exportar dados. Tente novamente.",
+    "deleteMyAccount": "Excluir Minha Conta",
+    "deleting": "Solicitando...",
+    "deleteAccountConfirm": "Tem certeza que deseja excluir sua conta? Um email de confirmação será enviado. Após confirmado, seus dados pessoais serão anonimizados permanentemente. Esta ação não pode ser desfeita.",
+    "deleteAccountFailed": "Falha ao solicitar exclusão da conta. Tente novamente.",
+    "deleteRequested": "Email de confirmação enviado",
+    "checkEmailForDeleteConfirmation": "Um email de confirmação foi enviado para sua caixa de entrada. Verifique seu email para completar a exclusão da conta.",
+    "deleteAccountConfirmTitle": "Excluir Conta",
+    "deletingAccount": "Excluindo sua conta...",
+    "deletingAccountDescription": "Aguarde enquanto processamos sua solicitação de exclusão.",
+    "accountDeleted": "Conta Excluída",
+    "accountDeletedDescription": "Sua conta foi excluída permanentemente. Seus dados pessoais foram anonimizados. Obrigado por fazer parte da nossa comunidade.",
+    "deleteAccountNoToken": "Nenhum token de exclusão fornecido."
   },
   "community": {
     "title": "Comunidade",
@@ -485,5 +511,74 @@
       "content": "A cada pessoa que usa, compartilha ou contribui com o Agroecology Map, nossa comunidade se fortalece. Acreditamos que a agroecologia é o caminho, e que juntos podemos construir as ferramentas que nossas comunidades precisam para florescer. Muito obrigado por fazer parte dessa história.",
       "closing": "Com carinho, a equipe voluntária do Agroecology Map."
     }
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidade",
+    "metaDescription": "Política de Privacidade do Agroecology Map AI — como coletamos, usamos e protegemos seus dados.",
+    "lastUpdated": "Última atualização: 11 de junho de 2026",
+    "sections": {
+      "intro": {
+        "title": "Introdução",
+        "content": "O Agroecology Map AI (\"nós\", \"nosso\" ou \"a plataforma\") tem o compromisso de proteger sua privacidade e garantir transparência sobre como seus dados pessoais são tratados. Esta Política de Privacidade explica quais informações coletamos, por que as coletamos, como são usadas, armazenadas, compartilhadas e como você pode exercer seus direitos."
+      },
+      "dataController": {
+        "title": "Controlador de Dados",
+        "content": "O controlador de dados do Agroecology Map AI é o projeto Agroecology Map, uma iniciativa de software livre, dados abertos e ciência cidadã. Para dúvidas, entre em contato: admin@agroecologymap.org."
+      },
+      "whatWeCollect": {
+        "title": "O Que Coletamos",
+        "content": "Quando você cria uma conta, coletamos:\n\n- Nome completo (obrigatório para exibição e interação na comunidade)\n- Endereço de email (obrigatório para verificação da conta, recuperação e notificações)\n- Senha (armazenada apenas como hash bcrypt com pepper secreto — nunca em texto plano)\n- Idioma/localidade de preferência (para apresentar a interface no seu idioma)\n\nDados de perfil opcionais que você pode fornecer após o registro:\n\n- Texto \"Sobre\" (até 4096 caracteres)\n- Link externo (URL do seu site ou perfil)\n- Avatar de perfil (imagem processada para 256x256 WebP)\n\nQuando você envia sugestões de documentos:\n\n- Seu comentário sobre o documento sugerido\n- O arquivo PDF enviado (se aplicável)"
+      },
+      "automaticallyCollected": {
+        "title": "Dados Coletados Automaticamente",
+        "content": "Quando você usa a plataforma, registramos automaticamente:\n\n- Seu endereço IP (em logs de requisição para segurança e depuração, armazenado apenas nos logs stdout — nunca no banco de dados)\n- Carimbos de data/hora de ações (criação de conta, login, atualizações de perfil)\n- Contagem de caracteres das perguntas e métricas de desempenho ao usar o Chat (o texto completo das suas perguntas NÃO é armazenado ou registrado)\n\nNÃO usamos cookies, fingerprinting de navegador, pixels de rastreamento ou serviços de analytics de terceiros."
+      },
+      "whatWeDontCollect": {
+        "title": "O Que NÃO Coletamos",
+        "content": "Não coletamos:\n\n- Dados de localização (além do endereço IP, que é registrado transitoriamente)\n- Histórico de navegação ou rastreamento de comportamento\n- Identificadores de dispositivo ou hardware\n- Identificadores de publicidade\n- Dados pessoais sensíveis (raça, etnia, opiniões políticas, dados de saúde, etc.)\n- Informações de pagamento (doações são processadas pelo Ko-fi e Patreon em suas próprias plataformas)"
+      },
+      "purpose": {
+        "title": "Finalidade e Base Legal",
+        "content": "Processamos seus dados pessoais para as seguintes finalidades, com base nos fundamentos legais da Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018) e do Regulamento Geral de Proteção de Dados (GDPR) da UE:\n\n- Criação de conta e autenticação (base legal: execução de contrato — LGPD Art. 7º, V / GDPR Art. 6(1)(b))\n- Comunicação por email (verificação de conta, redefinição de senha, notificações sobre suas sugestões) (base legal: legítimo interesse — LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Exibição do perfil na comunidade (nome, sobre, link, avatar) (base legal: consentimento e legítimo interesse — LGPD Art. 7º, I / GDPR Art. 6(1)(a))\n- Operação e melhoria da plataforma (base legal: legítimo interesse — LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Cumprimento de obrigações legais (base legal: obrigação legal — LGPD Art. 7º, II / GDPR Art. 6(1)(c))"
+      },
+      "dataStorage": {
+        "title": "Armazenamento e Segurança dos Dados",
+        "content": "Seus dados pessoais são armazenados em:\n\n- Banco de dados PostgreSQL (tabela users) — email, nome, senha hash, campos de perfil, carimbos de data/hora\n- Sistema de arquivos local do servidor — avatares enviados (como imagens WebP), PDFs de documentos\n- LanceDB (banco vetorial) — pedaços de texto de documentos indexados (sem dados pessoais, apenas conteúdo da base de conhecimento)\n- Confirmações de email, tokens de redefinição de senha e refresh tokens são armazenados com hash SHA-256 e expiração automática\n\nImplementamos as seguintes medidas de segurança:\n\n- Senhas são hashadas com bcrypt (12 rounds) mais pepper secreto configurável\n- Autenticação usa tokens JWT (TTL de 15 minutos) com rotação de refresh token\n- Endereços de email nos logs são mascarados (ex: j***e@exemplo.com)\n- Todas as APIs usam HTTPS em produção"
+      },
+      "dataSharing": {
+        "title": "Compartilhamento de Dados",
+        "content": "NÃO compartilhamos, vendemos, alugamos ou negociamos seus dados pessoais com terceiros. Especificamente:\n\n- Nenhum dado é compartilhado com anunciantes ou empresas de marketing\n- Nenhum dado é vendido para corretores de dados\n- Nenhum dado é transferido para serviços externos de analytics\n- Nenhum dado é compartilhado com entidades governamentais sem ordem legal válida\n\nO código-fonte de toda a plataforma está publicamente disponível sob a licença GPLv3, permitindo verificação independente de nossas práticas de dados."
+      },
+      "dataRetention": {
+        "title": "Retenção de Dados",
+        "content": "Retemos seus dados pessoais enquanto sua conta permanecer ativa. Quando você exclui sua conta:\n\n- Seu nome, email, texto \"sobre\", link externo e avatar são permanentemente anonimizados ou excluídos\n- O status da sua conta muda para \"deleted\"\n- Todas as sessões ativas e refresh tokens são revogados\n- Contribuições feitas à base de conhecimento (sugestões de documentos, documentos aprovados) são mantidas de forma anonimizada para preservar a integridade da plataforma\n- Logs temporários contendo endereços IP são eliminados nos ciclos de retenção de logs do sistema (tipicamente dias a semanas)"
+      },
+      "userRights": {
+        "title": "Seus Direitos",
+        "content": "De acordo com a LGPD e o GDPR, você tem os seguintes direitos sobre seus dados pessoais:\n\n1. Direito de Acesso — solicitar uma cópia de todos os dados que mantemos sobre você (use o botão \"Exportar Meus Dados\" no seu perfil)\n2. Direito de Retificação — corrigir dados imprecisos ou incompletos (edite seu perfil a qualquer momento)\n3. Direito de Exclusão (\"Direito ao Esquecimento\") — solicitar a exclusão dos seus dados pessoais (use o botão \"Excluir Minha Conta\" no seu perfil)\n4. Direito à Portabilidade — receber seus dados em formato estruturado e legível por máquina (use o botão \"Exportar Meus Dados\")\n5. Direito de Revogar Consentimento — você pode parar de usar a plataforma e excluir sua conta a qualquer momento\n6. Direito à Informação — solicitar esclarecimentos sobre como seus dados são processados\n\nPara exercer qualquer um desses direitos, entre em contato: admin@agroecologymap.org"
+      },
+      "rightToBeForgotten": {
+        "title": "Direito ao Esquecimento (Exclusão de Conta)",
+        "content": "Você pode solicitar a exclusão da conta diretamente da sua página de perfil clicando em \"Excluir Minha Conta\". O processo de exclusão funciona da seguinte forma:\n\n1. Clique em \"Excluir Minha Conta\" na sua página de perfil e confirme a ação\n2. Você receberá um email de confirmação com um link único\n3. Clique no link em até 1 hora para confirmar a exclusão\n4. Após confirmação, seus dados pessoais são permanentemente anonimizados:\n   - Nome completo se torna \"Deleted User\"\n   - Email é substituído por um placeholder não identificável\n   - Bio, link e avatar são excluídos\n   - O status da conta é definido como \"deleted\"\n   - Todas as sessões ativas são encerradas\n\nSuas contribuições (sugestões de documentos, documentos aprovados) permanecem na base de conhecimento de forma anonimizada para preservar a integridade da plataforma.\n\nSe você não conseguir acessar sua conta, também pode solicitar a exclusão enviando um email para admin@agroecologymap.org do endereço de email associado à sua conta."
+      },
+      "appStoreCompliance": {
+        "title": "Conformidade com Lojas de Aplicativos",
+        "content": "O aplicativo mobile Agroecology Map AI (disponível no Google Play Store e Apple App Store) está em conformidade com todos os requisitos das plataformas:\n\n- Nenhuma permissão sensível de dispositivo é solicitada (sem acesso à câmera, microfone, contatos ou localização)\n- O acesso à rede é usado exclusivamente para comunicação com nossos servidores via API\n- Nenhuma coleta ou processamento de dados em segundo plano ocorre\n- Nenhum SDK de terceiros ou framework de analytics está incorporado\n- Toda transmissão de dados usa criptografia HTTPS\n- O aplicativo não acessa, coleta ou transmite dados de outros aplicativos no seu dispositivo\n- Nenhum identificador de publicidade ou rastreamento é utilizado"
+      },
+      "contact": {
+        "title": "Contato e DPO",
+        "content": "Para quaisquer dúvidas, preocupações ou solicitações relacionadas à sua privacidade e dados pessoais, entre em contato com nosso Encarregado de Proteção de Dados:\n\nEmail: admin@agroecologymap.org\nProjeto: Agroecology Map AI\nLicença: GPLv3 (Software Livre)\nRepositório: https://codeberg.org/agroecologymap\n\nResponderemos a todas as solicitações relacionadas à privacidade em até 15 dias úteis."
+      },
+      "updates": {
+        "title": "Alterações nesta Política",
+        "content": "Esta Política de Privacidade pode ser atualizada periodicamente para refletir mudanças em nossas práticas de dados ou requisitos legais. Quando forem feitas alterações significativas:\n\n- Notificaremos todos os usuários registrados por email\n- Atualizaremos a data de \"Última atualização\" no topo desta página\n- Para mudanças significativas que afetem seus direitos, podemos exigir que você aceite novamente a política atualizada\n\nRecomendamos que você revise esta política periodicamente. O uso contínuo da plataforma após as alterações entrarem em vigor constitui aceitação da política atualizada."
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Termos de Serviço",
+    "metaDescription": "Termos de Serviço do Agroecology Map AI — regras e condições para uso da plataforma.",
+    "lastUpdated": "Última atualização: 11 de junho de 2026",
+    "content": "1. Aceitação dos Termos\n\nAo criar uma conta e usar o Agroecology Map AI (\"a Plataforma\"), você concorda em se vincular a estes Termos de Serviço. Se você não concordar, por favor, não use a Plataforma.\n\n2. Descrição do Serviço\n\nO Agroecology Map AI é uma plataforma de software livre que oferece uma interface de chat com inteligência artificial para consultar uma base de conhecimento curada de documentos agroecológicos. A Plataforma também permite que usuários sugiram novos documentos para inclusão e participem de uma comunidade de prática.\n\n3. Contas de Usuário\n\nVocê é responsável por manter a confidencialidade das credenciais da sua conta. Você deve fornecer informações de registro precisas e completas. É necessário ter pelo menos 16 anos para criar uma conta.\n\n4. Uso Aceitável\n\nVocê concorda em não:\n- Usar a Plataforma para fins ilegais ou em violação às leis aplicáveis\n- Enviar conteúdo difamatório, abusivo, ameaçador ou que infrinja direitos de propriedade intelectual\n- Tentar interromper, degradar ou interferir na operação da Plataforma\n- Usar meios automatizados (bots, scrapers) para acessar a Plataforma sem permissão explícita\n- Deturpar sua identidade ou afiliação\n\n5. Conteúdo do Usuário\n\nAo enviar sugestões de documentos, comentários ou informações de perfil, você concede à Plataforma uma licença não exclusiva, mundial e gratuita para exibir e distribuir este conteúdo dentro da Plataforma. Você mantém todos os direitos de propriedade sobre seu conteúdo.\n\n6. Propriedade Intelectual\n\nO software Agroecology Map AI é licenciado sob a GNU General Public License v3 (GPLv3). O conteúdo da base de conhecimento (documentos) mantém suas licenças e atribuições originais. O nome, logotipo e identidade visual da Plataforma são protegidos. Usuários mantêm a propriedade total do conteúdo que contribuírem.\n\n7. Isenção de Garantias\n\nA Plataforma é fornecida \"NO ESTADO EM QUE SE ENCONTRA\" sem garantia de qualquer tipo, expressa ou implícita. Não garantimos que as respostas geradas pela IA sejam precisas, completas ou adequadas para qualquer finalidade específica. Sempre verifique as informações com fontes primárias.\n\n8. Limitação de Responsabilidade\n\nNa extensão máxima permitida por lei, o projeto Agroecology Map e seus voluntários não serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso da Plataforma.\n\n9. Encerramento de Conta\n\nReservamo-nos o direito de suspender ou encerrar contas que violem estes Termos. Usuários podem excluir suas contas a qualquer momento através da página de perfil. Após a exclusão, os dados pessoais são anonimizados conforme nossa Política de Privacidade.\n\n10. Modificações nos Termos\n\nPodemos atualizar estes Termos periodicamente. Alterações significativas serão comunicadas por email. O uso contínuo após as alterações entrarem em vigor constitui aceitação dos Termos atualizados.\n\n11. Lei Aplicável\n\nEstes Termos são regidos pelas leis do Brasil. Quaisquer disputas serão resolvidas nos tribunais de Brasília, Distrito Federal, Brasil.\n\n12. Contato\n\nPara dúvidas sobre estes Termos, entre em contato: admin@agroecologymap.org"
   }
 }

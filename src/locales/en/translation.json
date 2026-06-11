@@ -18,7 +18,9 @@
     "user": "User",
     "editProfile": "Edit Profile",
     "support": "Support",
-    "social": "Social"
+    "social": "Social",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   },
   "common": {
     "back": "Back",
@@ -97,7 +99,15 @@
     "confirmingEmail": "Confirming your email...",
     "emailConfirmed": "Email Confirmed!",
     "accountActive": "Your account is now active.",
-    "emailSent": "Email Sent!"
+    "emailSent": "Email Sent!",
+    "acceptPrivacyPolicy": {
+      "prefix": "I accept the",
+      "link": "Privacy Policy"
+    },
+    "acceptTos": {
+      "prefix": "I accept the",
+      "link": "Terms of Service"
+    }
   },
   "admin": {
     "section": "Admin",
@@ -371,7 +381,23 @@
     "saved": "Profile saved successfully",
     "changePhoto": "Change Photo",
     "avatarUnsupportedType": "Unsupported image type. Use JPEG, PNG, or WebP.",
-    "avatarTooLarge": "Image must not exceed 5MB."
+    "avatarTooLarge": "Image must not exceed 5MB.",
+    "dataAndPrivacy": "Data & Privacy",
+    "exportMyData": "Export My Data",
+    "exporting": "Exporting...",
+    "exportFailed": "Failed to export data. Please try again.",
+    "deleteMyAccount": "Delete My Account",
+    "deleting": "Requesting...",
+    "deleteAccountConfirm": "Are you sure you want to delete your account? This will send a confirmation email. Once confirmed, your personal data will be permanently anonymized. This action cannot be undone.",
+    "deleteAccountFailed": "Failed to request account deletion. Please try again.",
+    "deleteRequested": "Confirmation email sent",
+    "checkEmailForDeleteConfirmation": "A confirmation email has been sent to your inbox. Please check your email to complete the account deletion.",
+    "deleteAccountConfirmTitle": "Delete Account",
+    "deletingAccount": "Deleting your account...",
+    "deletingAccountDescription": "Please wait while we process your deletion request.",
+    "accountDeleted": "Account Deleted",
+    "accountDeletedDescription": "Your account has been permanently deleted. Your personal data has been anonymized. Thank you for being part of our community.",
+    "deleteAccountNoToken": "No deletion token provided."
   },
   "community": {
     "title": "Community",
@@ -485,5 +511,74 @@
       "content": "With every person who uses, shares, or contributes to Agroecology Map, our community grows stronger. We believe that agroecology is the way forward, and that together we can build the tools our communities need to flourish. Thank you so much for being part of this story.",
       "closing": "With love, the Agroecology Map volunteer team."
     }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "metaDescription": "Agroecology Map AI Privacy Policy — how we collect, use, and protect your data.",
+    "lastUpdated": "Last updated: June 11, 2026",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "Agroecology Map AI (\"we\", \"our\", or \"the platform\") is committed to protecting your privacy and ensuring transparency about how your personal data is handled. This Privacy Policy explains what information we collect, why we collect it, how it is used, stored, shared, and how you can exercise your rights."
+      },
+      "dataController": {
+        "title": "Data Controller",
+        "content": "The data controller for Agroecology Map AI is the Agroecology Map project, a free software, open data, and citizen science initiative. For questions, contact: admin@agroecologymap.org."
+      },
+      "whatWeCollect": {
+        "title": "What We Collect",
+        "content": "When you register an account, we collect:\n\n- Full name (required for display and community interaction)\n- Email address (required for account verification, recovery, and notifications)\n- Password (stored only as a bcrypt hash with a secret pepper — never stored in plain text)\n- Preferred locale/language (to present the interface in your language)\n\nOptional profile data you may provide after registration:\n\n- Bio/About text (up to 4096 characters)\n- External link (URL to your website or profile)\n- Profile avatar image (processed to 256x256 WebP)\n\nWhen you submit document suggestions:\n\n- Your user comment about the suggested document\n- The PDF file you upload (if applicable)"
+      },
+      "automaticallyCollected": {
+        "title": "Automatically Collected Data",
+        "content": "When you use the platform, we automatically log:\n\n- Your IP address (in request logs for security and debugging purposes, stored in stdout logs only — not in the database)\n- Timestamps of actions (account creation, login, profile updates)\n- Question character counts and performance metrics when using the Chat feature (the full text of your questions is NOT stored or logged)\n\nWe DO NOT use cookies, browser fingerprinting, tracking pixels, or any third-party analytics services."
+      },
+      "whatWeDontCollect": {
+        "title": "What We DON'T Collect",
+        "content": "We do not collect:\n\n- Location data (beyond IP address, which is logged transiently)\n- Browsing history or behavior tracking\n- Device or hardware identifiers\n- Advertising identifiers\n- Sensitive personal data (race, ethnicity, political opinions, health data, etc.)\n- Payment information (donations are handled by Ko-fi and Patreon on their own platforms)"
+      },
+      "purpose": {
+        "title": "Purpose and Legal Basis",
+        "content": "We process your personal data for the following purposes, based on the legal grounds under the Brazilian General Data Protection Law (LGPD, Law 13.709/2018) and the EU General Data Protection Regulation (GDPR):\n\n- Account creation and authentication (legal basis: performance of a contract — LGPD Art. 7, V / GDPR Art. 6(1)(b))\n- Email communication (account verification, password reset, notifications about your suggestions) (legal basis: legitimate interest — LGPD Art. 7, IX / GDPR Art. 6(1)(f))\n- Community profile display (name, about, link, avatar) (legal basis: consent and legitimate interest — LGPD Art. 7, I / GDPR Art. 6(1)(a))\n- Platform operation and improvement (legal basis: legitimate interest — LGPD Art. 7, IX / GDPR Art. 6(1)(f))\n- Compliance with legal obligations (legal basis: legal obligation — LGPD Art. 7, II / GDPR Art. 6(1)(c))"
+      },
+      "dataStorage": {
+        "title": "Data Storage and Security",
+        "content": "Your personal data is stored in:\n\n- PostgreSQL database (users table) — email, name, hashed password, profile fields, timestamps\n- Local server filesystem — uploaded avatars (as WebP images), document PDFs\n- LanceDB vector store — text chunks from ingested documents (no personal data, only knowledge base content)\n- Email confirmations, password reset tokens, and refresh tokens are stored with SHA-256 hashing and automatic expiration\n\nWe implement the following security measures:\n\n- Passwords are hashed with bcrypt (12 rounds) plus a configurable secret pepper\n- Authentication uses JWT access tokens (15-minute TTL) with refresh token rotation\n- Email addresses in logs are masked (e.g., j***e@example.com)\n- All APIs use HTTPS in production"
+      },
+      "dataSharing": {
+        "title": "Data Sharing",
+        "content": "We do NOT share, sell, rent, or trade your personal data with third parties. Specifically:\n\n- No data is shared with advertisers or marketing companies\n- No data is sold to data brokers\n- No data is transferred to external analytics services\n- No data is shared with government entities without a valid legal order\n\nThe source code of the entire platform is publicly available under the GPLv3 license, allowing independent verification of our data practices."
+      },
+      "dataRetention": {
+        "title": "Data Retention",
+        "content": "We retain your personal data for as long as your account remains active. When you delete your account:\n\n- Your name, email, about text, external link, and avatar are permanently anonymized or deleted\n- Your account status changes to \"deleted\"\n- All active sessions and refresh tokens are revoked\n- Contributions you made to the knowledge base (document suggestions, approved documents) are retained in anonymized form to preserve the integrity of the platform\n- Temporary logs containing IP addresses rotate out within system log retention cycles (typically days to weeks)"
+      },
+      "userRights": {
+        "title": "Your Rights",
+        "content": "Under LGPD and GDPR, you have the following rights regarding your personal data:\n\n1. Right to Access — request a copy of all data we hold about you (use the \"Export My Data\" button on your profile)\n2. Right to Rectification — correct inaccurate or incomplete data (edit your profile at any time)\n3. Right to Erasure (\"Right to be Forgotten\") — request deletion of your personal data (use the \"Delete My Account\" button on your profile)\n4. Right to Data Portability — receive your data in a structured, machine-readable format (use the \"Export My Data\" button)\n5. Right to Withdraw Consent — you may stop using the platform and delete your account at any time\n6. Right to Information — request clarification about how your data is processed\n\nTo exercise any of these rights, contact: admin@agroecologymap.org"
+      },
+      "rightToBeForgotten": {
+        "title": "Right to be Forgotten (Account Deletion)",
+        "content": "You can request account deletion directly from your profile page by clicking \"Delete My Account\". The deletion process works as follows:\n\n1. Click \"Delete My Account\" on your profile page and confirm the action\n2. You will receive a confirmation email with a unique link\n3. Click the link within 1 hour to confirm the deletion\n4. Once confirmed, your personal data is permanently anonymized:\n   - Full name becomes \"Deleted User\"\n   - Email is replaced with a non-identifiable placeholder\n   - Bio, link, and avatar are deleted\n   - Account status is set to \"deleted\"\n   - All active sessions are terminated\n\nYour contributions (document suggestions, approved documents) remain in the knowledge base in anonymized form to preserve platform integrity.\n\nIf you cannot access your account, you may also request deletion by sending an email to admin@agroecologymap.org from the email address associated with your account."
+      },
+      "appStoreCompliance": {
+        "title": "App Store Compliance",
+        "content": "The Agroecology Map AI mobile application (available on Google Play Store and Apple App Store) complies with all platform requirements:\n\n- No sensitive device permissions are requested (no camera, microphone, contacts, or location access)\n- Network access is used exclusively for API communication with our servers\n- No background data collection or processing occurs\n- No third-party SDKs or analytics frameworks are embedded\n- All data transmission uses HTTPS encryption\n- The app does not access, collect, or transmit data from other apps on your device\n- No advertising or tracking identifiers are used"
+      },
+      "contact": {
+        "title": "Contact and DPO",
+        "content": "For any questions, concerns, or requests related to your privacy and personal data, contact our Data Protection Officer:\n\nEmail: admin@agroecologymap.org\nProject: Agroecology Map AI\nLicense: GPLv3 (Free Software)\nRepository: https://codeberg.org/agroecologymap\n\nWe will respond to all privacy-related inquiries within 15 business days."
+      },
+      "updates": {
+        "title": "Changes to This Policy",
+        "content": "This Privacy Policy may be updated from time to time to reflect changes in our data practices or legal requirements. When material changes are made, we will:\n\n- Notify all registered users via email\n- Update the \"Last updated\" date at the top of this page\n- For significant changes that affect your rights, we may require you to re-accept the updated policy\n\nWe encourage you to review this policy periodically. Continued use of the platform after changes take effect constitutes acceptance of the updated policy."
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Terms of Service",
+    "metaDescription": "Agroecology Map AI Terms of Service — rules and conditions for using the platform.",
+    "lastUpdated": "Last updated: June 11, 2026",
+    "content": "1. Acceptance of Terms\n\nBy creating an account and using Agroecology Map AI (\"the Platform\"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Platform.\n\n2. Description of Service\n\nAgroecology Map AI is a free software platform that provides an AI-powered chat interface for querying a curated knowledge base of agroecological documents. The Platform also allows users to suggest new documents for inclusion and participate in a community of practice.\n\n3. User Accounts\n\nYou are responsible for maintaining the confidentiality of your account credentials. You must provide accurate and complete registration information. You must be at least 16 years old to create an account.\n\n4. Acceptable Use\n\nYou agree not to:\n- Use the Platform for any illegal purpose or in violation of any applicable laws\n- Submit content that is defamatory, harassing, threatening, or infringes on intellectual property rights\n- Attempt to disrupt, degrade, or interfere with the Platform's operation\n- Use automated means (bots, scrapers) to access the Platform without explicit permission\n- Misrepresent your identity or affiliation\n\n5. User Content\n\nBy submitting document suggestions, comments, or profile information, you grant the Platform a non-exclusive, worldwide, royalty-free license to display and distribute this content within the Platform. You retain all ownership rights to your content.\n\n6. Intellectual Property\n\nThe Agroecology Map AI software is licensed under the GNU General Public License v3 (GPLv3). The knowledge base content (documents) retains its original licenses and attributions. The Platform's name, logo, and visual identity are protected. Users retain full ownership of their contributed content.\n\n7. Disclaimer of Warranties\n\nThe Platform is provided \"AS IS\" without warranty of any kind, express or implied. We do not guarantee that the AI-generated answers are accurate, complete, or suitable for any particular purpose. Always verify information with primary sources.\n\n8. Limitation of Liability\n\nTo the fullest extent permitted by law, the Agroecology Map project and its volunteers shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform.\n\n9. Account Termination\n\nWe reserve the right to suspend or terminate accounts that violate these Terms. Users may delete their accounts at any time through the profile page. Upon deletion, personal data is anonymized per our Privacy Policy.\n\n10. Modifications to Terms\n\nWe may update these Terms from time to time. Material changes will be communicated via email. Continued use after changes take effect constitutes acceptance of the updated Terms.\n\n11. Governing Law\n\nThese Terms are governed by the laws of Brazil. Any disputes shall be resolved in the courts of Brasília, Distrito Federal, Brazil.\n\n12. Contact\n\nFor questions about these Terms, contact: admin@agroecologymap.org"
   }
 }

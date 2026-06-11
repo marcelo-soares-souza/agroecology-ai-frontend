@@ -1,7 +1,16 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useParams, Link } from "react-router-dom";
-import { User, Calendar, Clock, Globe, Pencil } from "lucide-react";
+import {
+  User,
+  Calendar,
+  Clock,
+  Globe,
+  Pencil,
+  Download,
+  Trash2,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -26,12 +35,46 @@ export function ProfilePage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
   const { userId, isAdmin } = useAuth();
+  const [exporting, setExporting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteRequested, setDeleteRequested] = useState(false);
 
   const query = useQuery({
     queryKey: ["user-profile", slug],
     queryFn: () => api.getUserBySlug(slug!),
     enabled: !!slug,
   });
+
+  const handleExportData = async () => {
+    setExporting(true);
+    try {
+      const data = await api.exportMyData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `agroecology-export-${slug}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert(t("profile.exportFailed"));
+    }
+    setExporting(false);
+  };
+
+  const handleRequestDelete = async () => {
+    if (!window.confirm(t("profile.deleteAccountConfirm"))) return;
+    setDeleting(true);
+    try {
+      await api.requestDeleteAccount();
+      setDeleteRequested(true);
+    } catch {
+      alert(t("profile.deleteAccountFailed"));
+    }
+    setDeleting(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -162,6 +205,45 @@ export function ProfilePage() {
                   <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap">
                     {profile.about}
                   </p>
+                </Card>
+              )}
+
+              {canEdit && (
+                <Card className="mt-6">
+                  <h2 className="text-lg font-semibold text-text-primary mb-4">
+                    {t("profile.dataAndPrivacy")}
+                  </h2>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={handleExportData}
+                      disabled={exporting}
+                    >
+                      <Download className="h-4 w-4" />
+                      {exporting
+                        ? t("profile.exporting")
+                        : t("profile.exportMyData")}
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={handleRequestDelete}
+                      disabled={deleting || deleteRequested}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      {deleteRequested
+                        ? t("profile.deleteRequested")
+                        : deleting
+                          ? t("profile.deleting")
+                          : t("profile.deleteMyAccount")}
+                    </Button>
+                  </div>
+                  {deleteRequested && (
+                    <p className="text-sm text-text-secondary mt-3">
+                      {t("profile.checkEmailForDeleteConfirmation")}
+                    </p>
+                  )}
                 </Card>
               )}
             </>

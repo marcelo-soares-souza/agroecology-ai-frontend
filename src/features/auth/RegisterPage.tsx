@@ -22,6 +22,8 @@ export function RegisterPage() {
     question: string;
   } | null>(null);
   const [challengeAnswer, setChallengeAnswer] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [tosAccepted, setTosAccepted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -61,6 +63,8 @@ export function RegisterPage() {
         challenge_id: challenge.challenge_id,
         challenge_answer: challengeAnswer,
         locale,
+        privacy_policy_accepted: privacyAccepted,
+        tos_accepted: tosAccepted,
       });
       setSuccess(true);
     } catch (err) {
@@ -179,9 +183,47 @@ export function RegisterPage() {
             </div>
           )}
           {error && <p className="text-error text-sm">{error}</p>}
+          <div className="space-y-2">
+            <label className="flex items-start gap-2 text-sm text-text-secondary cursor-pointer">
+              <input
+                type="checkbox"
+                checked={privacyAccepted}
+                onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-primary-200 text-primary focus:ring-primary"
+              />
+              <span>
+                {t("auth.acceptPrivacyPolicy.prefix")}{" "}
+                <Link
+                  to="/privacy"
+                  target="_blank"
+                  className="text-primary hover:underline"
+                >
+                  {t("auth.acceptPrivacyPolicy.link")}
+                </Link>
+              </span>
+            </label>
+            <label className="flex items-start gap-2 text-sm text-text-secondary cursor-pointer">
+              <input
+                type="checkbox"
+                checked={tosAccepted}
+                onChange={(e) => setTosAccepted(e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-primary-200 text-primary focus:ring-primary"
+              />
+              <span>
+                {t("auth.acceptTos.prefix")}{" "}
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  className="text-primary hover:underline"
+                >
+                  {t("auth.acceptTos.link")}
+                </Link>
+              </span>
+            </label>
+          </div>
           <Button
             type="submit"
-            disabled={loading || !challenge}
+            disabled={loading || !challenge || !privacyAccepted || !tosAccepted}
             className="w-full"
           >
             {loading ? t("auth.registering") : t("auth.register")}

@@ -88,6 +88,9 @@ export interface DocumentRecord {
   ingested: boolean;
   created_at: string;
   updated_at: string;
+  suggested_by_user_id: string | null;
+  suggested_by_user_name: string | null;
+  suggested_by_user_slug: string | null;
 }
 
 export interface DocumentUpdateRequest {

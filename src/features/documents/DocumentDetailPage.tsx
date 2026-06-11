@@ -10,6 +10,7 @@ import {
   Download,
   Sparkles,
   Loader2,
+  User,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl, getViewUrl } from "@/config/api";
@@ -177,6 +178,18 @@ export function DocumentDetailPage() {
           </div>
 
           <div className="border-t border-primary-100 pt-4 mt-2 flex flex-wrap gap-6">
+            {doc.suggested_by_user_name && doc.suggested_by_user_slug && (
+              <div className="flex items-center gap-2 text-sm text-text-secondary">
+                <User className="h-4 w-4" />
+                {t("documents.suggestedBy")}:{" "}
+                <Link
+                  to={`/profile/${doc.suggested_by_user_slug}`}
+                  className="text-primary hover:underline font-medium"
+                >
+                  {doc.suggested_by_user_name}
+                </Link>
+              </div>
+            )}
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Calendar className="h-4 w-4" />
               {t("documents.createdAt")}: {formatDate(doc.created_at, locale)}

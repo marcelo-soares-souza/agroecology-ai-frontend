@@ -218,6 +218,7 @@
     "extractMetadata": "Extraer Metadatos",
     "indexed": "Indexado",
     "pending": "Pendiente",
+    "suggestedBy": "Sugerido por",
     "indexProgress": "{{indexed}} de {{total}} archivos indexados",
     "indexComplete": "Todos los archivos de la lista ya fueron indexados.",
     "indexPending_one": "{{count}} archivo aún espera indexación.",

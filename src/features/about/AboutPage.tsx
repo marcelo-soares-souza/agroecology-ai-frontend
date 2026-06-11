@@ -192,6 +192,7 @@ export function AboutPage() {
             <div className="space-y-1 text-text-secondary text-sm">
               <p>{t("about.frontend")}</p>
               <p>{t("about.backend")}</p>
+              <p>{t("about.mobile")}</p>
               <p>{t("about.embedding")}</p>
               <p>{t("about.vectorStore")}</p>
               <p>{t("about.llm")}</p>
@@ -212,7 +213,7 @@ export function AboutPage() {
             </h3>
             <div className="space-y-2">
               <a
-                href="https://codeberg.org/marcelo-soares-souza/agroecology-map-AI-frontend"
+                href="https://codeberg.org/agroecologymap/agroecology-map-AI-frontend"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
@@ -222,13 +223,23 @@ export function AboutPage() {
               </a>
               <br />
               <a
-                href="https://codeberg.org/marcelo-soares-souza/agroecology-map-AI-backend"
+                href="https://codeberg.org/agroecologymap/agroecology-map-AI-backend"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
               >
                 <ExternalLink className="h-4 w-4" />
                 {t("about.backendRepo")}
+              </a>
+              <br />
+              <a
+                href="https://codeberg.org/agroecologymap/agroecology-map-AI-app"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+              >
+                <ExternalLink className="h-4 w-4" />
+                {t("about.mobileRepo")}
               </a>
             </div>
           </div>

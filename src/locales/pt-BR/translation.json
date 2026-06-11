@@ -354,7 +354,7 @@
     "backend": "Backend: FastAPI + psycopg (PostgreSQL async) + LanceDB + Valkey/Redis",
     "embedding": "Embeddings: BAAI/bge-m3 (1024-dim, 102 idiomas) com SentenceTransformers",
     "vectorStore": "Busca Vetorial: LanceDB (cosseno) + BM25 palavras-chave + Reciprocal Rank Fusion",
-    "llm": "LLM: DeepSeek v4 Flash (nuvem) ou Ollama (local) via API OpenAI-compatível",
+    "llm": "LLM: DeepSeek v4 Flash (nuvem) ou Qwen3.5:4b (local) via Ollama / API compatível com OpenAI",
     "version": "Versão 1.0.0",
     "repositories": "Repositórios",
     "frontendRepo": "Frontend",
@@ -366,7 +366,9 @@
     "ctaDescription": "Use o chat, confira as fontes das respostas e ajude a fortalecer uma IA livre para a agroecologia.",
     "ctaChat": "Usar o chat",
     "ctaDonate": "Apoiar o projeto",
-    "ctaDocuments": "Ver base de conhecimento"
+    "ctaDocuments": "Ver base de conhecimento",
+    "mobileRepo": "App Mobile (Flutter)",
+    "mobile": "Mobile: Flutter 3.44 + Dart + Clean Architecture"
   },
   "profile": {
     "title": "Perfil",

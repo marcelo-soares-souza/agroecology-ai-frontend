@@ -59,20 +59,32 @@ export interface ServerStatus {
 
 export interface IngestionRun {
   id: string;
-  status: "processing" | "done" | "error";
+  status: "queued" | "processing" | "done" | "error";
+  phase: string;
   chunks_indexed: number;
+  chunks_generated: number;
+  documents_total: number;
+  documents_processed: number;
+  force: boolean;
   error: string | null;
   started_at: string;
   finished_at: string | null;
+  queued_at: string | null;
 }
 
 export interface IngestStatusResponse {
-  status: "idle" | "processing" | "done" | "error";
+  status: "idle" | "queued" | "processing" | "done" | "error";
+  phase: string | null;
   chunks_indexed: number | null;
+  chunks_generated: number | null;
+  documents_total: number | null;
+  documents_processed: number | null;
   error: string | null;
+  run_id: string | null;
 }
 
 export interface IngestTriggerResponse {
+  run_id: string;
   status: string;
 }
 

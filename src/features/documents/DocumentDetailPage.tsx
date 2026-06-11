@@ -183,7 +183,7 @@ export function DocumentDetailPage() {
                 <User className="h-4 w-4" />
                 {t("documents.suggestedBy")}:{" "}
                 <Link
-                  to={`/profile/${doc.suggested_by_user_slug}`}
+                  to={`/community/${doc.suggested_by_user_slug}`}
                   className="text-primary hover:underline font-medium"
                 >
                   {doc.suggested_by_user_name}

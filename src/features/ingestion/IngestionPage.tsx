@@ -53,13 +53,19 @@ export function IngestionPage() {
       ["server-status"],
     ],
     onSuccess: (data) => {
-      if (data.status === "processing") {
-        queryClient.setQueryData(["ingestion-status"], {
-          status: "processing",
-          chunks_indexed: null,
-          error: null,
-        });
-      }
+      queryClient.setQueryData(["ingestion-status"], {
+        status: data.status,
+        phase: data.status,
+        chunks_indexed: null,
+        chunks_generated: null,
+        documents_total: null,
+        documents_processed: null,
+        error: null,
+        run_id: data.run_id,
+      });
+    },
+    onError: () => {
+      queryClient.invalidateQueries({ queryKey: ["ingestion-status"] });
     },
   });
 
@@ -72,13 +78,19 @@ export function IngestionPage() {
       ["server-status"],
     ],
     onSuccess: (data) => {
-      if (data.status === "processing") {
-        queryClient.setQueryData(["ingestion-status"], {
-          status: "processing",
-          chunks_indexed: null,
-          error: null,
-        });
-      }
+      queryClient.setQueryData(["ingestion-status"], {
+        status: data.status,
+        phase: data.status,
+        chunks_indexed: null,
+        chunks_generated: null,
+        documents_total: null,
+        documents_processed: null,
+        error: null,
+        run_id: data.run_id,
+      });
+    },
+    onError: () => {
+      queryClient.invalidateQueries({ queryKey: ["ingestion-status"] });
     },
   });
 
@@ -87,7 +99,8 @@ export function IngestionPage() {
     queryFn: api.getIngestionStatus,
     refetchInterval: (query) => {
       const data = query.state.data;
-      if (data?.status === "processing") return 3000;
+      if (data?.status === "queued" || data?.status === "processing")
+        return 3000;
       return false;
     },
   });
@@ -108,6 +121,7 @@ export function IngestionPage() {
   }, [ingestStatus?.status, queryClient]);
 
   const isProcessing =
+    ingestStatus?.status === "queued" ||
     ingestStatus?.status === "processing" ||
     triggerMutation.isPending ||
     forceMutation.isPending;
@@ -192,13 +206,38 @@ export function IngestionPage() {
                         : "warning"
                   }
                 >
-                  {ingestStatus.status === "done"
-                    ? t("ingestion.done")
-                    : ingestStatus.status === "error"
-                      ? t("ingestion.error")
-                      : t("ingestion.processing")}
+                  {ingestStatus.status === "queued"
+                    ? t("ingestion.queued")
+                    : ingestStatus.status === "done"
+                      ? t("ingestion.done")
+                      : ingestStatus.status === "error"
+                        ? t("ingestion.error")
+                        : t("ingestion.processing")}
                 </Badge>
               </div>
+              {ingestStatus.documents_total != null &&
+                ingestStatus.documents_total > 0 && (
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-sm text-text-secondary">
+                      <FileText className="h-4 w-4 inline mr-1" />
+                      {t("ingestion.documentsProcessed", {
+                        processed: ingestStatus.documents_processed ?? 0,
+                        total: ingestStatus.documents_total,
+                      })}
+                    </span>
+                  </div>
+                )}
+              {ingestStatus.chunks_generated != null &&
+                ingestStatus.chunks_generated > 0 && (
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-sm text-text-secondary">
+                      <FileText className="h-4 w-4 inline mr-1" />
+                      {t("ingestion.chunksGenerated", {
+                        count: ingestStatus.chunks_generated,
+                      })}
+                    </span>
+                  </div>
+                )}
               {ingestStatus.chunks_indexed != null &&
                 ingestStatus.chunks_indexed > 0 && (
                   <div className="flex items-center justify-between mt-3">
@@ -216,10 +255,10 @@ export function IngestionPage() {
             </div>
           )}
 
-          {triggerMutation.data?.status === "already_running" && (
-            <p className="text-warning text-sm">
-              {t("ingestion.alreadyRunning")}
-            </p>
+          {triggerMutation.isError && !ingestStatus && (
+            <div className="w-full max-w-sm border-t border-error/20 pt-4">
+              <Badge variant="error">{t("ingestion.alreadyRunning")}</Badge>
+            </div>
           )}
         </div>
       </Card>
@@ -236,7 +275,12 @@ export function IngestionPage() {
             queryFn: api.listIngestionRuns,
             refetchInterval: (query) => {
               const data = query.state.data;
-              if (data?.some((r) => r.status === "processing")) return 3000;
+              if (
+                data?.some(
+                  (r) => r.status === "queued" || r.status === "processing",
+                )
+              )
+                return 3000;
               return false;
             },
           })}
@@ -255,51 +299,80 @@ export function IngestionPage() {
                   ? formatElapsedMinutes(run.started_at, run.finished_at)
                   : null;
 
+                const isQueued = run.status === "queued";
+                const isDone = run.status === "done";
+                const isError = run.status === "error";
+
                 return (
                   <Card key={run.id} padding="sm">
                     <div className="flex items-center gap-4">
                       <div
                         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
-                          run.status === "done"
+                          isDone
                             ? "bg-green-100 text-green-700"
-                            : run.status === "error"
+                            : isError
                               ? "bg-error/10 text-error"
-                              : "bg-amber-100 text-amber-700"
+                              : isQueued
+                                ? "bg-blue-100 text-blue-700"
+                                : "bg-amber-100 text-amber-700"
                         }`}
                       >
-                        {run.status === "done" ? (
+                        {isDone ? (
                           <CheckCircle2 className="h-4 w-4" />
-                        ) : run.status === "error" ? (
+                        ) : isError ? (
                           <XCircle className="h-4 w-4" />
+                        ) : isQueued ? (
+                          <Clock className="h-4 w-4" />
                         ) : (
                           <Loader2 className="h-4 w-4 animate-spin" />
                         )}
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <Badge
                             variant={
-                              run.status === "done"
+                              isDone
                                 ? "success"
-                                : run.status === "error"
+                                : isError
                                   ? "error"
-                                  : "warning"
+                                  : isQueued
+                                    ? "info"
+                                    : "warning"
                             }
                           >
-                            {run.status === "done"
+                            {isDone
                               ? t("ingestion.completed")
-                              : run.status === "error"
+                              : isError
                                 ? t("ingestion.errorLabel")
-                                : t("ingestion.processingLabel")}
+                                : isQueued
+                                  ? t("ingestion.queuedLabel")
+                                  : t("ingestion.processingLabel")}
                           </Badge>
+                          {run.documents_total > 0 && (
+                            <span className="text-sm text-text-secondary">
+                              {run.documents_processed}/{run.documents_total}{" "}
+                              {t("ingestion.documents")}
+                            </span>
+                          )}
+                          {run.chunks_generated > 0 && (
+                            <span className="text-sm text-text-secondary">
+                              {run.chunks_generated} {t("ingestion.chunks")}
+                            </span>
+                          )}
                           {run.chunks_indexed > 0 && (
                             <span className="text-sm text-text-secondary">
-                              {run.chunks_indexed} {t("ingestion.chunks")}
+                              {run.chunks_indexed} {t("ingestion.indexed")}
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
+                        <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary flex-wrap">
+                          {run.queued_at && (
+                            <span>
+                              {t("ingestion.queued")}:{" "}
+                              {formatDate(run.queued_at, locale)}
+                            </span>
+                          )}
                           <span>
                             {t("ingestion.started")}:{" "}
                             {formatDate(run.started_at, locale)}

@@ -397,7 +397,12 @@
     "deletingAccountDescription": "Aguarde enquanto processamos sua solicitação de exclusão.",
     "accountDeleted": "Conta Excluída",
     "accountDeletedDescription": "Sua conta foi excluída permanentemente. Seus dados pessoais foram anonimizados. Obrigado por fazer parte da nossa comunidade.",
-    "deleteAccountNoToken": "Nenhum token de exclusão fornecido."
+    "deleteAccountNoToken": "Nenhum token de exclusão fornecido.",
+    "notAvailable": "—",
+    "avatarAlt": "Avatar de {{name}}",
+    "slugPrefix": "@{{slug}}",
+    "role_admin": "admin",
+    "role_user": "usuário"
   },
   "community": {
     "title": "Comunidade",
@@ -580,5 +585,11 @@
     "metaDescription": "Termos de Serviço do Agroecology Map AI — regras e condições para uso da plataforma.",
     "lastUpdated": "Última atualização: 11 de junho de 2026",
     "content": "1. Aceitação dos Termos\n\nAo criar uma conta e usar o Agroecology Map AI (\"a Plataforma\"), você concorda em se vincular a estes Termos de Serviço. Se você não concordar, por favor, não use a Plataforma.\n\n2. Descrição do Serviço\n\nO Agroecology Map AI é uma plataforma de software livre que oferece uma interface de chat com inteligência artificial para consultar uma base de conhecimento curada de documentos agroecológicos. A Plataforma também permite que usuários sugiram novos documentos para inclusão e participem de uma comunidade de prática.\n\n3. Contas de Usuário\n\nVocê é responsável por manter a confidencialidade das credenciais da sua conta. Você deve fornecer informações de registro precisas e completas. É necessário ter pelo menos 16 anos para criar uma conta.\n\n4. Uso Aceitável\n\nVocê concorda em não:\n- Usar a Plataforma para fins ilegais ou em violação às leis aplicáveis\n- Enviar conteúdo difamatório, abusivo, ameaçador ou que infrinja direitos de propriedade intelectual\n- Tentar interromper, degradar ou interferir na operação da Plataforma\n- Usar meios automatizados (bots, scrapers) para acessar a Plataforma sem permissão explícita\n- Deturpar sua identidade ou afiliação\n\n5. Conteúdo do Usuário\n\nAo enviar sugestões de documentos, comentários ou informações de perfil, você concede à Plataforma uma licença não exclusiva, mundial e gratuita para exibir e distribuir este conteúdo dentro da Plataforma. Você mantém todos os direitos de propriedade sobre seu conteúdo.\n\n6. Propriedade Intelectual\n\nO software Agroecology Map AI é licenciado sob a GNU General Public License v3 (GPLv3). O conteúdo da base de conhecimento (documentos) mantém suas licenças e atribuições originais. O nome, logotipo e identidade visual da Plataforma são protegidos. Usuários mantêm a propriedade total do conteúdo que contribuírem.\n\n7. Isenção de Garantias\n\nA Plataforma é fornecida \"NO ESTADO EM QUE SE ENCONTRA\" sem garantia de qualquer tipo, expressa ou implícita. Não garantimos que as respostas geradas pela IA sejam precisas, completas ou adequadas para qualquer finalidade específica. Sempre verifique as informações com fontes primárias.\n\n8. Limitação de Responsabilidade\n\nNa extensão máxima permitida por lei, o projeto Agroecology Map e seus voluntários não serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso da Plataforma.\n\n9. Encerramento de Conta\n\nReservamo-nos o direito de suspender ou encerrar contas que violem estes Termos. Usuários podem excluir suas contas a qualquer momento através da página de perfil. Após a exclusão, os dados pessoais são anonimizados conforme nossa Política de Privacidade.\n\n10. Modificações nos Termos\n\nPodemos atualizar estes Termos periodicamente. Alterações significativas serão comunicadas por email. O uso contínuo após as alterações entrarem em vigor constitui aceitação dos Termos atualizados.\n\n11. Lei Aplicável\n\nEstes Termos são regidos pelas leis do Brasil. Quaisquer disputas serão resolvidas nos tribunais de Brasília, Distrito Federal, Brasil.\n\n12. Contato\n\nPara dúvidas sobre estes Termos, entre em contato: admin@agroecologymap.org"
+  },
+  "consent": {
+    "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Ao continuar, você reconhece nossa",
+    "and": "e nossos",
+    "accept": "Aceitar",
+    "decline": "Recusar"
   }
 }

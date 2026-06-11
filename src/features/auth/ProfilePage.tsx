@@ -19,8 +19,8 @@ import { Button } from "@/components/ui/Button";
 import { buildApiUrl } from "@/config/api";
 import { useAuth } from "@/hooks/use-auth";
 
-function formatDate(iso: string | null, locale: string) {
-  if (!iso) return "\u2014";
+function formatDate(iso: string | null, locale: string, fallback: string) {
+  if (!iso) return fallback;
   return new Date(iso).toLocaleDateString(locale, {
     day: "2-digit",
     month: "2-digit",
@@ -116,7 +116,9 @@ export function ProfilePage() {
                                   ? `?v=${encodeURIComponent(profile.updated_at)}`
                                   : ""),
                             )}
-                            alt=""
+                            alt={t("profile.avatarAlt", {
+                              name: profile.full_name || profile.email,
+                            })}
                             className="h-full w-full object-cover"
                           />
                         ) : (
@@ -129,7 +131,9 @@ export function ProfilePage() {
                         <h1 className="text-2xl font-bold text-text-primary">
                           {profile.full_name || profile.email}
                         </h1>
-                        <p className="text-text-secondary">@{profile.slug}</p>
+                        <p className="text-text-secondary">
+                          {t("profile.slugPrefix", { slug: profile.slug })}
+                        </p>
                       </div>
                     </div>
                     {canEdit && (
@@ -153,7 +157,11 @@ export function ProfilePage() {
                         key={r}
                         variant={r === "admin" ? "default" : "info"}
                       >
-                        {r}
+                        {r === "admin"
+                          ? t("profile.role_admin")
+                          : r === "user"
+                            ? t("profile.role_user")
+                            : r}
                       </Badge>
                     ))}
                   </div>
@@ -181,7 +189,11 @@ export function ProfilePage() {
                         {t("admin.joined")}:
                       </span>
                       <span className="text-text-primary">
-                        {formatDate(profile.created_at || null, locale)}
+                        {formatDate(
+                          profile.created_at || null,
+                          locale,
+                          t("profile.notAvailable"),
+                        )}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
@@ -190,7 +202,11 @@ export function ProfilePage() {
                         {t("admin.lastLogin")}:
                       </span>
                       <span className="text-text-primary">
-                        {formatDate(profile.last_login_at || null, locale)}
+                        {formatDate(
+                          profile.last_login_at || null,
+                          locale,
+                          t("profile.notAvailable"),
+                        )}
                       </span>
                     </div>
                   </div>

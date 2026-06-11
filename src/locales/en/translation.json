@@ -397,7 +397,12 @@
     "deletingAccountDescription": "Please wait while we process your deletion request.",
     "accountDeleted": "Account Deleted",
     "accountDeletedDescription": "Your account has been permanently deleted. Your personal data has been anonymized. Thank you for being part of our community.",
-    "deleteAccountNoToken": "No deletion token provided."
+    "deleteAccountNoToken": "No deletion token provided.",
+    "notAvailable": "—",
+    "avatarAlt": "Avatar of {{name}}",
+    "slugPrefix": "@{{slug}}",
+    "role_admin": "admin",
+    "role_user": "user"
   },
   "community": {
     "title": "Community",
@@ -580,5 +585,11 @@
     "metaDescription": "Agroecology Map AI Terms of Service — rules and conditions for using the platform.",
     "lastUpdated": "Last updated: June 11, 2026",
     "content": "1. Acceptance of Terms\n\nBy creating an account and using Agroecology Map AI (\"the Platform\"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Platform.\n\n2. Description of Service\n\nAgroecology Map AI is a free software platform that provides an AI-powered chat interface for querying a curated knowledge base of agroecological documents. The Platform also allows users to suggest new documents for inclusion and participate in a community of practice.\n\n3. User Accounts\n\nYou are responsible for maintaining the confidentiality of your account credentials. You must provide accurate and complete registration information. You must be at least 16 years old to create an account.\n\n4. Acceptable Use\n\nYou agree not to:\n- Use the Platform for any illegal purpose or in violation of any applicable laws\n- Submit content that is defamatory, harassing, threatening, or infringes on intellectual property rights\n- Attempt to disrupt, degrade, or interfere with the Platform's operation\n- Use automated means (bots, scrapers) to access the Platform without explicit permission\n- Misrepresent your identity or affiliation\n\n5. User Content\n\nBy submitting document suggestions, comments, or profile information, you grant the Platform a non-exclusive, worldwide, royalty-free license to display and distribute this content within the Platform. You retain all ownership rights to your content.\n\n6. Intellectual Property\n\nThe Agroecology Map AI software is licensed under the GNU General Public License v3 (GPLv3). The knowledge base content (documents) retains its original licenses and attributions. The Platform's name, logo, and visual identity are protected. Users retain full ownership of their contributed content.\n\n7. Disclaimer of Warranties\n\nThe Platform is provided \"AS IS\" without warranty of any kind, express or implied. We do not guarantee that the AI-generated answers are accurate, complete, or suitable for any particular purpose. Always verify information with primary sources.\n\n8. Limitation of Liability\n\nTo the fullest extent permitted by law, the Agroecology Map project and its volunteers shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform.\n\n9. Account Termination\n\nWe reserve the right to suspend or terminate accounts that violate these Terms. Users may delete their accounts at any time through the profile page. Upon deletion, personal data is anonymized per our Privacy Policy.\n\n10. Modifications to Terms\n\nWe may update these Terms from time to time. Material changes will be communicated via email. Continued use after changes take effect constitutes acceptance of the updated Terms.\n\n11. Governing Law\n\nThese Terms are governed by the laws of Brazil. Any disputes shall be resolved in the courts of Brasília, Distrito Federal, Brazil.\n\n12. Contact\n\nFor questions about these Terms, contact: admin@agroecologymap.org"
+  },
+  "consent": {
+    "message": "This site does not use advertising cookies or third-party trackers. By continuing, you acknowledge our",
+    "and": "and",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

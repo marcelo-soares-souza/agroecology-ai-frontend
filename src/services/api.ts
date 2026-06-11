@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "@/config/api";
+import i18n from "@/config/i18n";
 import type {
   AskRequest,
   AskResponse,
@@ -32,6 +33,18 @@ class ApiError extends Error {
   }
 }
 
+function getUnexpectedTemporaryErrorMessage(): string {
+  return i18n.t("common.unexpectedTemporaryError");
+}
+
+function isHtmlResponse(contentType: string | null, text: string): boolean {
+  if (contentType?.toLowerCase().includes("text/html")) {
+    return true;
+  }
+
+  return /<!doctype html|<html[\s>]/i.test(text);
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem("agroecology_access_token");
   const headers: Record<string, string> = {
@@ -44,13 +57,24 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE_URL}${url}`, {
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}${url}`, {
+      ...options,
+      headers,
+    });
+  } catch {
+    throw new ApiError(getUnexpectedTemporaryErrorMessage(), 0);
+  }
 
   if (!response.ok) {
     const text = await response.text();
+    const contentType = response.headers.get("content-type");
+
+    if (response.status >= 500 || isHtmlResponse(contentType, text)) {
+      throw new ApiError(getUnexpectedTemporaryErrorMessage(), response.status);
+    }
+
     let message = text || response.statusText;
     try {
       const parsed = JSON.parse(text);

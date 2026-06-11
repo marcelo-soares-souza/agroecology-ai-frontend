@@ -39,6 +39,7 @@
     "notFound": "No encontrado",
     "errorOccurred": "Ocurrió un error",
     "unknownError": "Error desconocido",
+    "unexpectedTemporaryError": "Ocurrió un error inesperado. Inténtalo de nuevo en unos minutos o ponte en contacto.",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English",

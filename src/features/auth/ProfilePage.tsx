@@ -100,6 +100,8 @@ export function ProfilePage() {
       >
         {(profile) => {
           const canEdit = profile.id === userId || isAdmin;
+          const profileIsAdmin =
+            (profile.roles || []).includes("admin");
 
           return (
             <>
@@ -136,7 +138,7 @@ export function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    {canEdit && (
+              {canEdit && (
                       <Link to="/profile/edit">
                         <Button variant="secondary" size="sm">
                           <Pencil className="h-4 w-4" />
@@ -224,7 +226,7 @@ export function ProfilePage() {
                 </Card>
               )}
 
-              {canEdit && (
+              {canEdit && !profileIsAdmin && (
                 <Card className="mt-6">
                   <h2 className="text-lg font-semibold text-text-primary mb-4">
                     {t("profile.dataAndPrivacy")}

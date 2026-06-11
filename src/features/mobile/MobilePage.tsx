@@ -4,8 +4,7 @@ import { Card } from "@/components/ui/Card";
 
 const playStoreUrl =
   "https://play.google.com/store/apps/details?id=org.agroecologymap.agroecology_map_ai&pcampaignid=web_share";
-const playStoreBadgeUrl =
-  "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png";
+const playStoreBadgeUrl = "/google-play-badge.png";
 
 export function MobilePage() {
   const { t } = useTranslation();

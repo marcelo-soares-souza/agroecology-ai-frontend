@@ -179,7 +179,7 @@ export function HomePage() {
               className="inline-block"
             >
               <img
-                src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                src="/google-play-badge.png"
                 alt={t("mobile.downloadButton")}
                 className="h-20 w-auto"
               />

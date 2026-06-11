@@ -15,9 +15,9 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { SuggestionPdfViewer } from "@/components/ui/SuggestionPdfViewer";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import { useAuth } from "@/hooks/use-auth";
-import { getSuggestionViewUrl } from "@/config/api";
 
 function formatDate(iso: string, locale: string) {
   return new Date(iso).toLocaleDateString(locale, {
@@ -201,10 +201,9 @@ export function SuggestionDetailPage() {
 
           {suggestion.original_filename && suggestion.file_type === "pdf" && (
             <Card padding="none" className="overflow-hidden">
-              <iframe
-                src={getSuggestionViewUrl(suggestion.id)}
+              <SuggestionPdfViewer
+                suggestionId={suggestion.id}
                 title={suggestion.original_filename}
-                className="w-full h-[80vh] border-0"
               />
             </Card>
           )}

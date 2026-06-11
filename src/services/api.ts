@@ -277,6 +277,50 @@ export const api = {
   getSuggestion: (id: string) =>
     request<DocumentSuggestion>(`/api/v1/suggestions/${id}`),
 
+  getSuggestionFileBlob: async (
+    id: string,
+  ): Promise<{ blob: Blob; type: string }> => {
+    const token = localStorage.getItem("agroecology_access_token");
+
+    let response: Response;
+    try {
+      response = await fetch(`${API_BASE_URL}/api/v1/suggestions/${id}/view`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+    } catch {
+      throw new ApiError(getUnexpectedTemporaryErrorMessage(), 0);
+    }
+
+    if (!response.ok) {
+      const text = await response.text();
+      const contentType = response.headers.get("content-type");
+
+      if (response.status >= 500 || isHtmlResponse(contentType, text)) {
+        throw new ApiError(
+          getUnexpectedTemporaryErrorMessage(),
+          response.status,
+        );
+      }
+
+      let message = text || response.statusText;
+      try {
+        const parsed = JSON.parse(text);
+        if (parsed.detail) {
+          message = parsed.detail;
+        }
+      } catch {
+        // not JSON, use raw text
+      }
+      throw new ApiError(message, response.status);
+    }
+
+    const blob = await response.blob();
+    return {
+      blob,
+      type: response.headers.get("content-type") || "application/pdf",
+    };
+  },
+
   updateSuggestion: (id: string, data: DocumentSuggestionUpdate) =>
     request<DocumentSuggestion>(`/api/v1/suggestions/${id}`, {
       method: "PUT",
@@ -318,6 +362,9 @@ export const api = {
       `/api/v1/admin/suggestions${qs ? `?${qs}` : ""}`,
     );
   },
+
+  adminGetSuggestion: (id: string) =>
+    request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}`),
 
   adminUpdateSuggestion: (
     id: string,

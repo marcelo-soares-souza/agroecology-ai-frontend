@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { getSuggestionViewUrl } from "@/config/api";
+import { SuggestionPdfViewer } from "@/components/ui/SuggestionPdfViewer";
 
 function formatDate(iso: string, locale: string) {
   return new Date(iso).toLocaleDateString(locale, {
@@ -53,7 +53,7 @@ export function AdminSuggestionDetailPage() {
     error,
   } = useQuery({
     queryKey: ["admin-suggestion", id],
-    queryFn: () => api.getSuggestion(id!),
+    queryFn: () => api.adminGetSuggestion(id!),
     enabled: !!id,
   });
 
@@ -361,10 +361,9 @@ export function AdminSuggestionDetailPage() {
 
             {hasPdf && (
               <Card padding="none" className="overflow-hidden">
-                <iframe
-                  src={getSuggestionViewUrl(suggestion.id)}
+                <SuggestionPdfViewer
+                  suggestionId={suggestion.id}
                   title={suggestion.original_filename ?? ""}
-                  className="w-full h-[80vh] border-0"
                 />
               </Card>
             )}

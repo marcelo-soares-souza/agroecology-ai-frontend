@@ -155,7 +155,7 @@ export function HomePage() {
       </div> */}
 
       {/* Mobile App */}
-      <div className="max-w-md mx-auto px-4 text-center">
+      <div className="max-w-sm mx-auto px-4 text-center">
         <Card>
           <div className="flex flex-col items-center gap-3">
             <Smartphone className="h-8 w-8 text-primary" />

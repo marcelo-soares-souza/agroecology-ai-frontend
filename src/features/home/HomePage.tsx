@@ -4,7 +4,14 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { Lightbulb, MessageCircle, Lock, Database, Cpu } from "lucide-react";
+import {
+  Lightbulb,
+  MessageCircle,
+  Lock,
+  Database,
+  Cpu,
+  Smartphone,
+} from "lucide-react";
 
 export function HomePage() {
   const { t } = useTranslation();
@@ -152,6 +159,33 @@ export function HomePage() {
             </div>
           </Card>
         </div>
+      </div>
+
+      {/* Mobile App */}
+      <div className="max-w-md mx-auto px-4 text-center">
+        <Card>
+          <div className="flex flex-col items-center gap-3">
+            <Smartphone className="h-8 w-8 text-primary" />
+            <h3 className="font-semibold text-text-primary">
+              {t("mobile.title")}
+            </h3>
+            <p className="text-sm text-text-secondary">
+              {t("mobile.cta.description")}
+            </p>
+            <a
+              href="https://play.google.com/store/apps/details?id=org.agroecologymap.agroecology_map_ai&pcampaignid=web_share"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block"
+            >
+              <img
+                src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                alt={t("mobile.downloadButton")}
+                className="h-20 w-auto"
+              />
+            </a>
+          </div>
+        </Card>
       </div>
 
       {/* Footer */}

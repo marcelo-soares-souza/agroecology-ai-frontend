@@ -13,6 +13,7 @@
     "ingestion": "Ingestão",
     "about": "Sobre",
     "donate": "Apoiar",
+    "mobile": "App",
     "social": "Redes Sociais",
     "suggestions": "Minhas Sugestões",
     "community": "Comunidade",
@@ -361,7 +362,7 @@
     "frontendRepo": "Frontend",
     "backendRepo": "Backend",
     "suggestInviteTitle": "Ajude a Crescer a Base de Conhecimento",
-    "suggestInviteDescription": "Com nosso sistema de Sugestões, qualquer pessoa pode contribuir: envie um PDF com um comentário explicando por que o material importa. Nossa equipe revisa cada submissão. Uma vez aprovado — em até 24 horas — o conteúdo é indexado e fica disponível no chat da IA. Cada contribuição torna a IA mais informada sobre práticas agroecológicas, pesquisas científicas e saberes locais. Pesquisadores, agricultores, ativistas, estudantes: sua voz pertence a esta base de dados.",
+    "suggestInviteDescription": "Com nosso sistema de Sugestões, qualquer pessoa pode contribuir: envie um PDF com um comentário explicando por que o material importa. Nossa equipe revisa cada submissão. Uma vez aprovado - em até 24 horas - o conteúdo é indexado e fica disponível no chat da IA. Cada contribuição torna a IA mais informada sobre práticas agroecológicas, pesquisas científicas e saberes locais. Pesquisadores, agricultores, ativistas, estudantes: sua voz pertence a esta base de dados.",
     "suggestInviteCta": "Sugerir documento",
     "ctaTitle": "Explore, teste e apoie",
     "ctaDescription": "Use o chat, confira as fontes das respostas e ajude a fortalecer uma IA livre para a agroecologia.",
@@ -401,7 +402,7 @@
     "accountDeleted": "Conta Excluída",
     "accountDeletedDescription": "Sua conta foi excluída permanentemente. Seus dados pessoais foram anonimizados. Obrigado por fazer parte da nossa comunidade.",
     "deleteAccountNoToken": "Nenhum token de exclusão fornecido.",
-    "notAvailable": "—",
+    "notAvailable": "-",
     "avatarAlt": "Avatar de {{name}}",
     "slugPrefix": "@{{slug}}",
     "role_admin": "admin",
@@ -522,7 +523,7 @@
   },
   "privacyPolicy": {
     "title": "Política de Privacidade",
-    "metaDescription": "Política de Privacidade do Agroecology Map AI — como coletamos, usamos e protegemos seus dados.",
+    "metaDescription": "Política de Privacidade do Agroecology Map AI - como coletamos, usamos e protegemos seus dados.",
     "lastUpdated": "Última atualização: 11 de junho de 2026",
     "sections": {
       "intro": {
@@ -535,11 +536,11 @@
       },
       "whatWeCollect": {
         "title": "O Que Coletamos",
-        "content": "Quando você cria uma conta, coletamos:\n\n- Nome completo (obrigatório para exibição e interação na comunidade)\n- Endereço de email (obrigatório para verificação da conta, recuperação e notificações)\n- Senha (armazenada apenas como hash bcrypt com pepper secreto — nunca em texto plano)\n- Idioma/localidade de preferência (para apresentar a interface no seu idioma)\n\nDados de perfil opcionais que você pode fornecer após o registro:\n\n- Texto \"Sobre\" (até 4096 caracteres)\n- Link externo (URL do seu site ou perfil)\n- Avatar de perfil (imagem processada para 256x256 WebP)\n\nQuando você envia sugestões de documentos:\n\n- Seu comentário sobre o documento sugerido\n- O arquivo PDF enviado (se aplicável)\n\nO histórico do chat pode ser armazenado localmente no navegador ou no armazenamento do app mobile para permitir continuar conversas recentes no mesmo dispositivo."
+        "content": "Quando você cria uma conta, coletamos:\n\n- Nome completo (obrigatório para exibição e interação na comunidade)\n- Endereço de email (obrigatório para verificação da conta, recuperação e notificações)\n- Senha (armazenada apenas como hash bcrypt com pepper secreto - nunca em texto plano)\n- Idioma/localidade de preferência (para apresentar a interface no seu idioma)\n\nDados de perfil opcionais que você pode fornecer após o registro:\n\n- Texto \"Sobre\" (até 4096 caracteres)\n- Link externo (URL do seu site ou perfil)\n- Avatar de perfil (imagem processada para 256x256 WebP)\n\nQuando você envia sugestões de documentos:\n\n- Seu comentário sobre o documento sugerido\n- O arquivo PDF enviado (se aplicável)\n\nO histórico do chat pode ser armazenado localmente no navegador ou no armazenamento do app mobile para permitir continuar conversas recentes no mesmo dispositivo."
       },
       "automaticallyCollected": {
         "title": "Dados Coletados Automaticamente",
-        "content": "Quando você usa a plataforma, registramos automaticamente:\n\n- Seu endereço IP (em logs de requisição para segurança e depuração, armazenado apenas nos logs stdout — nunca no banco de dados)\n- Carimbos de data/hora de ações (criação de conta, login, atualizações de perfil)\n- Contagem de caracteres das perguntas e métricas de desempenho ao usar o Chat (o texto completo das suas perguntas NÃO é armazenado nos logs do servidor)\n\nNÃO usamos cookies de publicidade, fingerprinting de navegador, pixels de rastreamento ou serviços de analytics de terceiros. O site e o app usam armazenamento local apenas para sessão, preferência de idioma, escolha de consentimento e histórico local do chat."
+        "content": "Quando você usa a plataforma, registramos automaticamente:\n\n- Seu endereço IP (em logs de requisição para segurança e depuração, armazenado apenas nos logs stdout - nunca no banco de dados)\n- Carimbos de data/hora de ações (criação de conta, login, atualizações de perfil)\n- Contagem de caracteres das perguntas e métricas de desempenho ao usar o Chat (o texto completo das suas perguntas NÃO é armazenado nos logs do servidor)\n\nNÃO usamos cookies de publicidade, fingerprinting de navegador, pixels de rastreamento ou serviços de analytics de terceiros. O site e o app usam armazenamento local apenas para sessão, preferência de idioma, escolha de consentimento e histórico local do chat."
       },
       "whatWeDontCollect": {
         "title": "O Que NÃO Coletamos",
@@ -547,11 +548,11 @@
       },
       "purpose": {
         "title": "Finalidade e Base Legal",
-        "content": "Processamos seus dados pessoais para as seguintes finalidades, com base nos fundamentos legais da Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018) e do Regulamento Geral de Proteção de Dados (GDPR) da UE:\n\n- Criação de conta e autenticação (base legal: execução de contrato — LGPD Art. 7º, V / GDPR Art. 6(1)(b))\n- Comunicação por email (verificação de conta, redefinição de senha, notificações sobre suas sugestões) (base legal: legítimo interesse — LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Exibição do perfil na comunidade (nome, sobre, link, avatar) (base legal: consentimento e legítimo interesse — LGPD Art. 7º, I / GDPR Art. 6(1)(a))\n- Operação e melhoria da plataforma (base legal: legítimo interesse — LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Cumprimento de obrigações legais (base legal: obrigação legal — LGPD Art. 7º, II / GDPR Art. 6(1)(c))"
+        "content": "Processamos seus dados pessoais para as seguintes finalidades, com base nos fundamentos legais da Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018) e do Regulamento Geral de Proteção de Dados (GDPR) da UE:\n\n- Criação de conta e autenticação (base legal: execução de contrato - LGPD Art. 7º, V / GDPR Art. 6(1)(b))\n- Comunicação por email (verificação de conta, redefinição de senha, notificações sobre suas sugestões) (base legal: legítimo interesse - LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Exibição do perfil na comunidade (nome, sobre, link, avatar) (base legal: consentimento e legítimo interesse - LGPD Art. 7º, I / GDPR Art. 6(1)(a))\n- Operação e melhoria da plataforma (base legal: legítimo interesse - LGPD Art. 7º, IX / GDPR Art. 6(1)(f))\n- Cumprimento de obrigações legais (base legal: obrigação legal - LGPD Art. 7º, II / GDPR Art. 6(1)(c))"
       },
       "dataStorage": {
         "title": "Armazenamento e Segurança dos Dados",
-        "content": "Seus dados pessoais são armazenados em:\n\n- Banco de dados PostgreSQL (tabela users) — email, nome, senha hash, campos de perfil, carimbos de data/hora\n- Sistema de arquivos local do servidor — avatares enviados (como imagens WebP), PDFs de documentos\n- LanceDB (banco vetorial) — pedaços de texto de documentos indexados (sem dados pessoais, apenas conteúdo da base de conhecimento)\n- Armazenamento local do navegador ou do app mobile — estado de sessão, preferência de idioma, escolha de consentimento e histórico recente do chat no seu próprio dispositivo\n- Confirmações de email, tokens de redefinição de senha e refresh tokens são armazenados com hash SHA-256 e expiração automática\n\nO processamento de IA roda em modelos hospedados localmente ou em infraestrutura controlada pelo projeto. Perguntas, histórico do chat, embeddings e documentos não são enviados para APIs externas de IA.\n\nImplementamos as seguintes medidas de segurança:\n\n- Senhas são hashadas com bcrypt (12 rounds) mais pepper secreto configurável\n- Autenticação usa tokens JWT (TTL de 15 minutos) com rotação de refresh token\n- Endereços de email nos logs são mascarados (ex: j***e@exemplo.com)\n- Todas as APIs usam HTTPS em produção"
+        "content": "Seus dados pessoais são armazenados em:\n\n- Banco de dados PostgreSQL (tabela users) - email, nome, senha hash, campos de perfil, carimbos de data/hora\n- Sistema de arquivos local do servidor - avatares enviados (como imagens WebP), PDFs de documentos\n- LanceDB (banco vetorial) - pedaços de texto de documentos indexados (sem dados pessoais, apenas conteúdo da base de conhecimento)\n- Armazenamento local do navegador ou do app mobile - estado de sessão, preferência de idioma, escolha de consentimento e histórico recente do chat no seu próprio dispositivo\n- Confirmações de email, tokens de redefinição de senha e refresh tokens são armazenados com hash SHA-256 e expiração automática\n\nO processamento de IA roda em modelos hospedados localmente ou em infraestrutura controlada pelo projeto. Perguntas, histórico do chat, embeddings e documentos não são enviados para APIs externas de IA.\n\nImplementamos as seguintes medidas de segurança:\n\n- Senhas são hashadas com bcrypt (12 rounds) mais pepper secreto configurável\n- Autenticação usa tokens JWT (TTL de 15 minutos) com rotação de refresh token\n- Endereços de email nos logs são mascarados (ex: j***e@exemplo.com)\n- Todas as APIs usam HTTPS em produção"
       },
       "dataSharing": {
         "title": "Compartilhamento de Dados",
@@ -563,7 +564,7 @@
       },
       "userRights": {
         "title": "Seus Direitos",
-        "content": "De acordo com a LGPD e o GDPR, você tem os seguintes direitos sobre seus dados pessoais:\n\n1. Direito de Acesso — solicitar uma cópia de todos os dados que mantemos sobre você (use o botão \"Exportar Meus Dados\" no seu perfil)\n2. Direito de Retificação — corrigir dados imprecisos ou incompletos (edite seu perfil a qualquer momento)\n3. Direito de Exclusão (\"Direito ao Esquecimento\") — solicitar a exclusão dos seus dados pessoais (use o botão \"Excluir Minha Conta\" no seu perfil)\n4. Direito à Portabilidade — receber seus dados em formato estruturado e legível por máquina (use o botão \"Exportar Meus Dados\")\n5. Direito de Revogar Consentimento — você pode parar de usar a plataforma e excluir sua conta a qualquer momento\n6. Direito à Informação — solicitar esclarecimentos sobre como seus dados são processados\n\nPara exercer qualquer um desses direitos, entre em contato: contact@agroecologymap.org"
+        "content": "De acordo com a LGPD e o GDPR, você tem os seguintes direitos sobre seus dados pessoais:\n\n1. Direito de Acesso - solicitar uma cópia de todos os dados que mantemos sobre você (use o botão \"Exportar Meus Dados\" no seu perfil)\n2. Direito de Retificação - corrigir dados imprecisos ou incompletos (edite seu perfil a qualquer momento)\n3. Direito de Exclusão (\"Direito ao Esquecimento\") - solicitar a exclusão dos seus dados pessoais (use o botão \"Excluir Minha Conta\" no seu perfil)\n4. Direito à Portabilidade - receber seus dados em formato estruturado e legível por máquina (use o botão \"Exportar Meus Dados\")\n5. Direito de Revogar Consentimento - você pode parar de usar a plataforma e excluir sua conta a qualquer momento\n6. Direito à Informação - solicitar esclarecimentos sobre como seus dados são processados\n\nPara exercer qualquer um desses direitos, entre em contato: contact@agroecologymap.org"
       },
       "rightToBeForgotten": {
         "title": "Direito ao Esquecimento (Exclusão de Conta)",
@@ -585,9 +586,39 @@
   },
   "termsOfService": {
     "title": "Termos de Serviço",
-    "metaDescription": "Termos de Serviço do Agroecology Map AI — regras e condições para uso da plataforma.",
+    "metaDescription": "Termos de Serviço do Agroecology Map AI - regras e condições para uso da plataforma.",
     "lastUpdated": "Última atualização: 11 de junho de 2026",
     "content": "1. Aceitação dos Termos\n\nAo criar uma conta e usar o Agroecology Map AI (\"a Plataforma\"), você concorda em se vincular a estes Termos de Serviço. Se você não concordar, por favor, não use a Plataforma.\n\n2. Descrição do Serviço\n\nO Agroecology Map AI é uma plataforma de software livre que oferece uma interface de chat com inteligência artificial para consultar uma base de conhecimento curada de documentos agroecológicos. Modelos de IA e embeddings rodam localmente ou em infraestrutura controlada pelo projeto, sem APIs externas de IA. A Plataforma também permite que usuários sugiram novos documentos para inclusão e participem de uma comunidade de prática.\n\n3. Contas de Usuário\n\nVocê é responsável por manter a confidencialidade das credenciais da sua conta. Você deve fornecer informações de registro precisas e completas. É necessário ter pelo menos 16 anos para criar uma conta.\n\n4. Uso Aceitável\n\nVocê concorda em não:\n- Usar a Plataforma para fins ilegais ou em violação às leis aplicáveis\n- Enviar conteúdo difamatório, abusivo, ameaçador ou que infrinja direitos de propriedade intelectual\n- Tentar interromper, degradar ou interferir na operação da Plataforma\n- Usar meios automatizados (bots, scrapers) para acessar a Plataforma sem permissão explícita\n- Deturpar sua identidade ou afiliação\n\n5. Conteúdo do Usuário\n\nAo enviar sugestões de documentos, comentários ou informações de perfil, você concede à Plataforma uma licença não exclusiva, mundial e gratuita para exibir e distribuir este conteúdo dentro da Plataforma. Você mantém todos os direitos de propriedade sobre seu conteúdo.\n\n6. Propriedade Intelectual\n\nO software Agroecology Map AI é licenciado sob a GNU General Public License v3 (GPLv3). O conteúdo da base de conhecimento (documentos) mantém suas licenças e atribuições originais. O nome, logotipo e identidade visual da Plataforma são protegidos. Usuários mantêm a propriedade total do conteúdo que contribuírem.\n\n7. Isenção de Garantias\n\nA Plataforma é fornecida \"NO ESTADO EM QUE SE ENCONTRA\" sem garantia de qualquer tipo, expressa ou implícita. Não garantimos que as respostas geradas pela IA sejam precisas, completas ou adequadas para qualquer finalidade específica. Sempre verifique as informações com fontes primárias.\n\n8. Limitação de Responsabilidade\n\nNa extensão máxima permitida por lei, o projeto Agroecology Map e seus voluntários não serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso da Plataforma.\n\n9. Encerramento de Conta\n\nReservamo-nos o direito de suspender ou encerrar contas que violem estes Termos. Usuários podem excluir suas contas a qualquer momento através da página de perfil. Após a exclusão, os dados pessoais são anonimizados conforme nossa Política de Privacidade.\n\n10. Modificações nos Termos\n\nPodemos atualizar estes Termos periodicamente. Alterações significativas serão comunicadas por email. O uso contínuo após as alterações entrarem em vigor constitui aceitação dos Termos atualizados.\n\n11. Lei Aplicável\n\nEstes Termos são regidos pelas leis do Brasil. Quaisquer disputas serão resolvidas nos tribunais de Brasília, Distrito Federal, Brasil.\n\n12. Contato\n\nPara dúvidas sobre estes Termos, entre em contato: contact@agroecologymap.org"
+  },
+  "mobile": {
+    "title": "App Mobile",
+    "metaDescription": "Baixe o app do Agroecology Map AI na Play Store e acesse conhecimento agroecológico onde estiver.",
+    "intro": "O Agroecology Map AI agora está disponível como aplicativo para Android. Com o app, você pode fazer perguntas sobre agroecologia, consultar a base de conhecimento e receber respostas com citação de fontes - tudo diretamente do seu celular. Nosso objetivo é democratizar o acesso ao conhecimento agroecológico, permitindo que agricultores, pesquisadores, extensionistas, estudantes e comunidades tenham informações confiáveis ao alcance das mãos, mesmo em áreas com conectividade limitada.",
+    "downloadButton": "Baixar na Play Store",
+    "features": {
+      "title": "Funcionalidades do App",
+      "access": {
+        "title": "Acesso Simplificado",
+        "description": "Consulte a base de conhecimento agroecológico a qualquer hora e em qualquer lugar, diretamente do seu dispositivo Android."
+      },
+      "democratize": {
+        "title": "Conhecimento para Todos",
+        "description": "Leve informações confiáveis sobre agroecologia para mais pessoas, incluindo comunidades rurais e agricultores familiares."
+      },
+      "knowledge": {
+        "title": "Base de Conhecimento ao Alcance",
+        "description": "Faça perguntas em linguagem natural e receba respostas baseadas em artigos científicos, manuais técnicos e experiências documentadas."
+      },
+      "privacy": {
+        "title": "Privacidade e Transparência",
+        "description": "Software livre (GPLv3), sem rastreadores, sem coleta de dados desnecessária e com total transparência sobre como a IA funciona."
+      }
+    },
+    "cta": {
+      "title": "Leve o conhecimento agroecológico no seu bolso",
+      "description": "O app é gratuito e de código aberto. Baixe agora e comece a explorar a base de conhecimento agroecológico onde quer que você esteja.",
+      "free": "Gratuito e software livre - sem anúncios, sem coleta de dados."
+    }
   },
   "consent": {
     "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Usamos armazenamento local para sessão, idioma, escolha de consentimento e histórico de chat neste dispositivo. Ao continuar, você reconhece nossa",

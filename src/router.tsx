@@ -71,6 +71,10 @@ const DonatePage = lazyPage(
   () => import("./features/donate/DonatePage"),
   "DonatePage",
 );
+const MobilePage = lazyPage(
+  () => import("./features/mobile/MobilePage"),
+  "MobilePage",
+);
 
 const PrivacyPolicyPage = lazyPage(
   () => import("./features/about/PrivacyPolicyPage"),
@@ -347,6 +351,14 @@ export const router = createBrowserRouter(
           handle: {
             titleKey: "donate.title",
             descriptionKey: "donate.metaDescription",
+          },
+        },
+        {
+          path: "/mobile",
+          element: <MobilePage />,
+          handle: {
+            titleKey: "mobile.title",
+            descriptionKey: "mobile.metaDescription",
           },
         },
         {

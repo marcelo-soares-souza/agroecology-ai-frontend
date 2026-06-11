@@ -13,6 +13,7 @@
     "ingestion": "Ingesta",
     "about": "Acerca de",
     "donate": "Apoyar",
+    "mobile": "App",
     "social": "Redes Sociales",
     "suggestions": "Mis Sugerencias",
     "community": "Comunidad",
@@ -351,7 +352,7 @@
     "frontendRepo": "Frontend",
     "backendRepo": "Backend",
     "suggestInviteTitle": "Ayuda a Crecer la Base de Conocimiento",
-    "suggestInviteDescription": "Nuestro sistema de Sugerencias permite que cualquiera contribuya: sube un PDF con un comentario explicando por qué el material es relevante. Nuestro equipo revisa cada envío. Una vez aprobado — en hasta 24 horas — el contenido se indexa y está disponible en el chat de IA. Cada contribución hace que la IA esté más informada sobre prácticas agroecológicas, investigación científica y saberes locales. Investigadores, agricultores, activistas, estudiantes: tu voz pertenece a esta base de datos.",
+    "suggestInviteDescription": "Nuestro sistema de Sugerencias permite que cualquiera contribuya: sube un PDF con un comentario explicando por qué el material es relevante. Nuestro equipo revisa cada envío. Una vez aprobado - en hasta 24 horas - el contenido se indexa y está disponible en el chat de IA. Cada contribución hace que la IA esté más informada sobre prácticas agroecológicas, investigación científica y saberes locales. Investigadores, agricultores, activistas, estudiantes: tu voz pertenece a esta base de datos.",
     "suggestInviteCta": "Sugerir documento",
     "ctaTitle": "Explora, prueba y apoya",
     "ctaDescription": "Usa el chat, verifica las fuentes de las respuestas y ayuda a fortalecer una IA libre para la agroecología.",
@@ -489,7 +490,7 @@
   },
   "privacyPolicy": {
     "title": "Política de Privacidad",
-    "metaDescription": "Política de Privacidad de Agroecology Map AI — cómo recopilamos, usamos y protegemos tus datos.",
+    "metaDescription": "Política de Privacidad de Agroecology Map AI - cómo recopilamos, usamos y protegemos tus datos.",
     "lastUpdated": "Última actualización: 11 de junio de 2026",
     "sections": {
       "intro": {
@@ -552,9 +553,39 @@
   },
   "termsOfService": {
     "title": "Términos de Servicio",
-    "metaDescription": "Términos de Servicio de Agroecology Map AI — reglas y condiciones para usar la plataforma.",
+    "metaDescription": "Términos de Servicio de Agroecology Map AI - reglas y condiciones para usar la plataforma.",
     "lastUpdated": "Última actualización: 11 de junio de 2026",
     "content": "1. Aceptación de los términos\n\nAl crear una cuenta y usar Agroecology Map AI, aceptas estos Términos de Servicio. Si no estás de acuerdo, no uses la plataforma.\n\n2. Descripción del servicio\n\nAgroecology Map AI es una plataforma de software libre que permite consultar una base de conocimiento agroecológico mediante una interfaz de chat con IA. Los modelos de IA y embeddings se ejecutan localmente o en infraestructura controlada por el proyecto, sin API externa de IA.\n\n3. Cuentas de usuario\n\nEres responsable de tus credenciales. La información de registro debe ser precisa. La edad mínima es de 16 años.\n\n4. Uso aceptable\n\nNo uses la plataforma para fines ilegales, no envíes contenido dañino o que infrinja derechos, no intentes interrumpir el servicio y no falsees tu identidad.\n\n5. Contenido del usuario\n\nAl enviar contenido, otorgas a la plataforma una licencia no exclusiva para mostrarlo y distribuirlo dentro de la plataforma. Conservas la propiedad de tu contenido.\n\n6. Propiedad intelectual\n\nEl software está licenciado bajo GPLv3. Los documentos conservan sus licencias y atribuciones originales.\n\n7. Sin garantías\n\nLa plataforma se ofrece «tal cual». Las respuestas de IA pueden ser inexactas o incompletas. Verifica siempre las fuentes primarias.\n\n8. Limitación de responsabilidad\n\nEn la medida permitida por la ley, el proyecto y sus voluntarios no son responsables por daños derivados del uso de la plataforma.\n\n9. Terminación de cuenta\n\nLas cuentas que violen estos términos pueden ser suspendidas. Puedes eliminar tu cuenta en cualquier momento.\n\n10. Modificaciones\n\nEstos términos pueden actualizarse. Los cambios importantes se comunicarán por email.\n\n11. Ley aplicable\n\nEstos términos se rigen por las leyes de Brasil.\n\n12. Contacto\n\nPara preguntas, contacta: contact@agroecologymap.org"
+  },
+  "mobile": {
+    "title": "App Móvil",
+    "metaDescription": "Descarga la app de Agroecology Map AI en Play Store y accede al conocimiento agroecológico donde estés.",
+    "intro": "Agroecology Map AI ahora está disponible como aplicación para Android. Con la app, puedes hacer preguntas sobre agroecología, consultar la base de conocimiento y recibir respuestas con citas de fuentes - todo directamente desde tu teléfono. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico, permitiendo que agricultores, investigadores, extensionistas, estudiantes y comunidades tengan información confiable al alcance de la mano, incluso en áreas con conectividad limitada.",
+    "downloadButton": "Descargar en Play Store",
+    "features": {
+      "title": "Funcionalidades de la App",
+      "access": {
+        "title": "Acceso Simplificado",
+        "description": "Consulta la base de conocimiento agroecológico en cualquier momento y lugar, directamente desde tu dispositivo Android."
+      },
+      "democratize": {
+        "title": "Conocimiento para Todos",
+        "description": "Lleva información confiable sobre agroecología a más personas, incluyendo comunidades rurales y agricultores familiares."
+      },
+      "knowledge": {
+        "title": "Base de Conocimiento al Alcance",
+        "description": "Haz preguntas en lenguaje natural y recibe respuestas basadas en artículos científicos, manuales técnicos y experiencias documentadas."
+      },
+      "privacy": {
+        "title": "Privacidad y Transparencia",
+        "description": "Software libre (GPLv3), sin rastreadores, sin recolección de datos innecesaria y total transparencia sobre cómo funciona la IA."
+      }
+    },
+    "cta": {
+      "title": "Lleva el conocimiento agroecológico en tu bolsillo",
+      "description": "La app es gratuita y de código abierto. Descárgala ahora y comienza a explorar la base de conocimiento agroecológico donde quiera que estés.",
+      "free": "Gratuita y de software libre - sin anuncios, sin recolección de datos."
+    }
   },
   "consent": {
     "message": "Este sitio no utiliza cookies publicitarios ni rastreadores de terceros. Usamos almacenamiento local para sesión, idioma, elección de consentimiento e historial de chat en este dispositivo. Al continuar, reconoces nuestra",

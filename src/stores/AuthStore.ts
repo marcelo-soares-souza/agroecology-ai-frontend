@@ -74,6 +74,7 @@ function createAuthStore() {
         expiresAt: payload.exp * 1000,
       };
       localStorage.setItem(FULL_NAME_KEY, fullName);
+      queryClient.invalidateQueries({ queryKey: ["community-users"] });
       fetchProfile();
       notify();
     } catch (err) {

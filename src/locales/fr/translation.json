@@ -154,7 +154,7 @@
     "title": "Agroecology Map AI",
     "metaDescription": "Assistant de recherche IA pour les connaissances agroécologiques. Importez des documents, posez des questions et obtenez des réponses fondées sur des sources vérifiables.",
     "heroDescription": "Votre assistant de recherche avec IA pour les connaissances agroécologiques. Importez des documents, posez des questions et obtenez des réponses fondées sur de vraies recherches.",
-    "accessNotice": "Le chat est ouvert à tous les utilisateurs inscrits. L'importation de documents et l'ingestion sont actuellement réservées aux administrateurs pendant le développement actif de la plateforme.",
+    "accessNotice": "Le Chat et la Suggestion de Documents sont ouverts à tous les utilisateurs inscrits. L'ingestion est actuellement réservée aux administrateurs pendant le développement actif de la plateforme.",
     "getStarted": "Commencer",
     "allUsers": "Tous",
     "features": {

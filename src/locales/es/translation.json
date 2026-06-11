@@ -154,7 +154,7 @@
     "title": "Agroecology Map AI",
     "metaDescription": "Asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en fuentes verificables.",
     "heroDescription": "Tu asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en investigaciones reales.",
-    "accessNotice": "El chat está abierto a todos los usuarios registrados. La carga de documentos y la ingesta están restringidas a administradores mientras la plataforma está en desarrollo activo.",
+    "accessNotice": "El Chat y la Sugerencia de Documentos están abiertos a todos los usuarios registrados. La ingesta está restringida a administradores mientras la plataforma está en desarrollo activo.",
     "getStarted": "Comenzar",
     "allUsers": "Todos",
     "features": {

@@ -4,14 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import {
-  Lightbulb,
-  MessageCircle,
-  Lock,
-  Database,
-  Cpu,
-  Smartphone,
-} from "lucide-react";
+import { Lightbulb, MessageCircle, Database, Smartphone } from "lucide-react";
 
 export function HomePage() {
   const { t } = useTranslation();
@@ -30,7 +23,7 @@ export function HomePage() {
   }
 
   return (
-    <div className="space-y-16 py-8">
+    <div className="space-y-3 py-2">
       {/* Hero */}
       <div className="flex flex-col items-center text-center px-4">
         <img src="/logo.png" alt={t("app.name")} className="h-28 w-28 mb-8" />
@@ -67,7 +60,7 @@ export function HomePage() {
       </div>
 
       {/* Features */}
-      <div className="grid gap-6 md:grid-cols-3 px-4 max-w-5xl mx-auto">
+      <div className="grid gap-6 md:grid-cols-3 px-4 max-w-6xl mx-auto">
         <Card>
           <div className="flex flex-col items-center text-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50">
@@ -127,7 +120,7 @@ export function HomePage() {
       </div>
 
       {/* Tech */}
-      <div className="max-w-3xl mx-auto px-4 text-center">
+      {/* <div className="max-w-3xl mx-auto px-4 text-center">
         <h2 className="text-2xl font-bold text-text-primary mb-6">
           {t("landing.techTitle")}
         </h2>
@@ -159,7 +152,7 @@ export function HomePage() {
             </div>
           </Card>
         </div>
-      </div>
+      </div> */}
 
       {/* Mobile App */}
       <div className="max-w-md mx-auto px-4 text-center">

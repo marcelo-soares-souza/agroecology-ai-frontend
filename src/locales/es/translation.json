@@ -383,7 +383,8 @@
     "memberSince": "Miembro desde {{date}}",
     "approvedSuggestions": "Documentos sugeridos",
     "approvedSuggestionsTooltip": "{{count}} documento(s) sugerido(s) aprobado(s)",
-    "noSuggestions": "Aún no hay sugerencias aprobadas."
+    "noSuggestions": "Aún no hay sugerencias aprobadas.",
+    "refresh": "Actualizar lista"
   },
   "suggestions": {
     "title": "Mis Sugerencias",

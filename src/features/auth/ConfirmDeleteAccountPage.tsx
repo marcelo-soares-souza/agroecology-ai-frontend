@@ -5,6 +5,7 @@ import { Shield, Loader2 } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { authStore } from "@/stores/AuthStore";
 
 export function ConfirmDeleteAccountPage() {
   const { t } = useTranslation();
@@ -23,7 +24,10 @@ export function ConfirmDeleteAccountPage() {
     }
     api
       .confirmDeleteAccount(token)
-      .then(() => setStatus("success"))
+      .then(() => {
+        authStore.clearSession();
+        setStatus("success");
+      })
       .catch((err) => {
         setStatus("error");
         setErrorMsg(

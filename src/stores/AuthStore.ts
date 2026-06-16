@@ -54,6 +54,17 @@ function createAuthStore() {
     return localStorage.getItem(TOKEN_KEY) || session?.accessToken || null;
   }
 
+  function clearSession() {
+    session = null;
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_KEY);
+    localStorage.removeItem(EMAIL_KEY);
+    localStorage.removeItem(FULL_NAME_KEY);
+    localStorage.removeItem("agroecology_chat_messages");
+    queryClient.clear();
+    notify();
+  }
+
   async function login(email: string, password: string) {
     try {
       const data = await api.login({ email, password });
@@ -145,14 +156,7 @@ function createAuthStore() {
     } catch {
       // ignore
     }
-    session = null;
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_KEY);
-    localStorage.removeItem(EMAIL_KEY);
-    localStorage.removeItem(FULL_NAME_KEY);
-    localStorage.removeItem("agroecology_chat_messages");
-    queryClient.clear();
-    notify();
+    clearSession();
   }
 
   async function restoreSession() {
@@ -240,6 +244,7 @@ function createAuthStore() {
     register,
     confirmEmail,
     logout,
+    clearSession,
     restoreSession,
     isAuthenticated,
     isAdmin,

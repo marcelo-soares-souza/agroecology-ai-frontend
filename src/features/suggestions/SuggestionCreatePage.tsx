@@ -6,6 +6,7 @@ import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -99,9 +100,12 @@ export function SuggestionCreatePage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.pdf")}
-            </label>
+            <div className="mb-1 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("suggestions.pdf")}
+              </label>
+              <InfoTooltip label={t("suggestions.pdfHelp")} />
+            </div>
             <div
               className="rounded-[var(--radius-card)] border-2 border-dashed p-6 text-center transition-colors cursor-pointer border-primary-200 hover:border-primary-400"
               onClick={() => fileInputRef.current?.click()}
@@ -137,12 +141,18 @@ export function SuggestionCreatePage() {
                 onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
               />
             </div>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("suggestions.pdfHelp")}
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.comment")} *
-            </label>
+            <div className="mb-1 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("suggestions.comment")} *
+              </label>
+              <InfoTooltip label={t("suggestions.commentHelp")} />
+            </div>
             <textarea
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
@@ -150,6 +160,9 @@ export function SuggestionCreatePage() {
               rows={4}
               className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-white px-3 py-2 text-base text-text-primary placeholder:text-text-secondary/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-vertical"
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("suggestions.commentHelp")}
+            </p>
           </div>
 
           <div className="flex gap-3 pt-4">

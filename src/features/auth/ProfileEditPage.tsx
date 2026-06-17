@@ -190,6 +190,9 @@ export function ProfileEditPage() {
               )}
               {t("profile.changePhoto") || "Change Photo"}
             </Button>
+            <p className="text-xs text-text-secondary">
+              {t("profile.avatarHelp")}
+            </p>
           </div>
 
           <div>
@@ -201,6 +204,9 @@ export function ProfileEditPage() {
               onChange={(e) => setFullName(e.target.value)}
               placeholder={t("auth.fullName")}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("auth.fullNameHelp")}
+            </p>
           </div>
 
           <div>
@@ -218,6 +224,9 @@ export function ProfileEditPage() {
             <p className="text-xs text-text-secondary mt-1 text-right">
               {about.length}/4096
             </p>
+            <p className="text-xs text-text-secondary mt-1">
+              {t("profile.aboutHelp")}
+            </p>
           </div>
 
           <div>
@@ -234,6 +243,9 @@ export function ProfileEditPage() {
                 className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-surface pl-10 pr-4 py-2.5 text-text-primary placeholder:text-text-secondary/60 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("profile.linkHelp")}
+            </p>
           </div>
 
           <div className="flex items-center gap-3 pt-2">

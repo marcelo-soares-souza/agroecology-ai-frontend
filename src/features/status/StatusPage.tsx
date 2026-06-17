@@ -15,6 +15,7 @@ import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
 export function StatusPage() {
   const { t } = useTranslation();
@@ -33,12 +34,14 @@ export function StatusPage() {
       {
         icon: <Database className="h-5 w-5" />,
         label: t("status.indexReady"),
+        tooltip: t("status.help.indexReady"),
         value: data!.index_ready ? t("status.yes") : t("status.no"),
         variant: data!.index_ready ? ("success" as const) : ("error" as const),
       },
       {
         icon: <BarChart3 className="h-5 w-5" />,
         label: t("status.ingestStatus"),
+        tooltip: t("status.help.ingestStatus"),
         value: data!.ingest_status,
         variant:
           data!.ingest_status === "done"
@@ -48,18 +51,21 @@ export function StatusPage() {
       {
         icon: <Database className="h-5 w-5" />,
         label: t("status.chunksIndexed"),
+        tooltip: t("status.help.chunksIndexed"),
         value: String(data!.chunks_indexed),
         variant: "info" as const,
       },
       {
         icon: <Cpu className="h-5 w-5" />,
         label: t("status.activeTasks"),
+        tooltip: t("status.help.activeTasks"),
         value: String(data!.active_tasks),
         variant: "info" as const,
       },
       {
         icon: <CheckCircle2 className="h-5 w-5" />,
         label: t("status.cacheEnabled"),
+        tooltip: t("status.help.cacheEnabled"),
         value: data!.cache_enabled ? t("status.yes") : t("status.no"),
         variant: data!.cache_enabled
           ? ("success" as const)
@@ -68,6 +74,7 @@ export function StatusPage() {
       {
         icon: <BarChart3 className="h-5 w-5" />,
         label: t("status.cacheHits"),
+        tooltip: t("status.help.cacheHits"),
         value: String(data!.cache_hits),
         variant: "info" as const,
       },
@@ -77,52 +84,64 @@ export function StatusPage() {
     [
       {
         label: t("status.llmModel"),
+        tooltip: t("status.help.llmModel"),
         value: data.llm_model,
       },
       {
         label: t("status.llmProvider"),
+        tooltip: t("status.help.llmProvider"),
         value: data.llm_provider,
       },
       {
         label: t("status.llmTransport"),
+        tooltip: t("status.help.llmTransport"),
         value: data.llm_transport,
       },
       {
         label: t("status.reasoningMode"),
+        tooltip: t("status.help.reasoningMode"),
         value: data.llm_think_enabled
           ? t("status.reasoningEnabled")
           : t("status.reasoningDisabled"),
       },
       {
         label: t("status.embeddingModel"),
+        tooltip: t("status.help.embeddingModel"),
         value: data.embedding_model,
       },
       {
         label: t("status.embeddingDevice"),
+        tooltip: t("status.help.embeddingDevice"),
         value: data.embedding_device,
       },
       {
         label: t("status.similarityTopK"),
+        tooltip: t("status.help.similarityTopK"),
         value: String(data.similarity_top_k),
       },
       {
         label: t("status.bm25TopK"),
+        tooltip: t("status.help.bm25TopK"),
         value: String(data.bm25_top_k),
       },
       {
         label: t("status.hybridTopK"),
+        tooltip: t("status.help.hybridTopK"),
         value: String(data.hybrid_top_k),
       },
       {
         label: t("status.rerankTopK"),
+        tooltip: t("status.help.rerankTopK"),
         value: String(data.rerank_top_k),
       },
       {
         label: t("status.rerankerModel"),
+        tooltip: t("status.help.rerankerModel"),
         value: data.reranker_model ?? t("status.disabled"),
       },
       {
         label: t("status.rerankerDevice"),
+        tooltip: t("status.help.rerankerDevice"),
         value: data.reranker_device ?? t("status.disabled"),
       },
     ] as const;
@@ -162,10 +181,13 @@ export function StatusPage() {
               <Card key={card.label}>
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-0.5">{card.icon}</div>
-                  <div className="flex items-start gap-3">
-                    <p className="text-sm text-text-secondary mb-1">
-                      {card.label}
-                    </p>
+                  <div className="min-w-0">
+                    <div className="mb-1 flex items-center gap-1.5">
+                      <p className="text-sm text-text-secondary">
+                        {card.label}
+                      </p>
+                      <InfoTooltip label={card.tooltip} />
+                    </div>
                     <Badge variant={card.variant}>{card.value}</Badge>
                   </div>
                 </div>
@@ -175,9 +197,12 @@ export function StatusPage() {
               <div className="flex items-start gap-3">
                 <FileText className="h-5 w-5 text-primary mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-sm text-text-secondary mb-3">
-                    {t("status.documents")}
-                  </p>
+                  <div className="mb-3 flex items-center gap-1.5">
+                    <p className="text-sm text-text-secondary">
+                      {t("status.documents")}
+                    </p>
+                    <InfoTooltip label={t("status.help.documents")} />
+                  </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-text-secondary flex items-center gap-1.5">
@@ -214,9 +239,12 @@ export function StatusPage() {
                 <SlidersHorizontal className="h-5 w-5 text-primary mt-0.5" />
                 <div className="min-w-0 flex-1">
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-sm text-text-secondary">
-                      {t("status.ragConfig")}
-                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-sm text-text-secondary">
+                        {t("status.ragConfig")}
+                      </p>
+                      <InfoTooltip label={t("status.help.ragConfig")} />
+                    </div>
                     <Badge
                       variant={
                         data.reranker_enabled
@@ -235,9 +263,12 @@ export function StatusPage() {
                         key={row.label}
                         className="min-w-0 rounded-md border border-primary-100 bg-surface px-3 py-2"
                       >
-                        <p className="mb-1 text-xs font-medium text-text-secondary">
-                          {row.label}
-                        </p>
+                        <div className="mb-1 flex items-center gap-1.5">
+                          <p className="text-xs font-medium text-text-secondary">
+                            {row.label}
+                          </p>
+                          <InfoTooltip label={row.tooltip} />
+                        </div>
                         <p className="break-words text-sm font-semibold text-text-primary">
                           {row.value}
                         </p>

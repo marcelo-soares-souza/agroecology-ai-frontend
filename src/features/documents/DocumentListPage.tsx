@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { DocumentRecord } from "@/services/types";
 
@@ -219,12 +220,15 @@ export function DocumentListPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-3">
               <div>
-                <p className="font-semibold text-text-primary">
-                  {t("documents.indexProgress", {
-                    indexed: indexStats.indexed,
-                    total: indexStats.total,
-                  })}
-                </p>
+                <div className="flex items-center gap-1.5">
+                  <p className="font-semibold text-text-primary">
+                    {t("documents.indexProgress", {
+                      indexed: indexStats.indexed,
+                      total: indexStats.total,
+                    })}
+                  </p>
+                  <InfoTooltip label={t("documents.indexStatusHelp")} />
+                </div>
                 <p className="text-sm text-text-secondary">
                   {indexPending === 0
                     ? t("documents.indexComplete")
@@ -248,12 +252,15 @@ export function DocumentListPage() {
             {metadataStats && metadataStats.total > 0 && (
               <div className="flex flex-col gap-3">
                 <div>
-                  <p className="font-semibold text-text-primary">
-                    {t("documents.metadataProgress", {
-                      extracted: metadataStats.extracted,
-                      total: metadataStats.total,
-                    })}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="font-semibold text-text-primary">
+                      {t("documents.metadataProgress", {
+                        extracted: metadataStats.extracted,
+                        total: metadataStats.total,
+                      })}
+                    </p>
+                    <InfoTooltip label={t("documents.metadataStatusHelp")} />
+                  </div>
                   <p className="text-sm text-text-secondary">
                     {metadataActive > 0
                       ? t("documents.metadataInProgress", {
@@ -380,13 +387,21 @@ export function DocumentListPage() {
                           >
                             {doc.file_type.toUpperCase()}
                           </Badge>
-                          <Badge variant={doc.ingested ? "success" : "warning"}>
+                          <Badge
+                            variant={doc.ingested ? "success" : "warning"}
+                            title={
+                              doc.ingested
+                                ? t("documents.indexStatusHelp")
+                                : t("documents.pendingStatusHelp")
+                            }
+                          >
                             {doc.ingested
                               ? t("documents.indexed")
                               : t("documents.pending")}
                           </Badge>
                           {doc.file_type === "pdf" && (
                             <Badge
+                              title={t("documents.metadataStatusHelp")}
                               variant={
                                 doc.title?.trim() && doc.authors?.trim()
                                   ? "success"

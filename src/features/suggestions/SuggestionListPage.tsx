@@ -179,7 +179,10 @@ export function SuggestionListPage() {
                           </span>
                         </div>
                         <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
-                          <Badge variant={statusVariant[s.status] || "default"}>
+                          <Badge
+                            variant={statusVariant[s.status] || "default"}
+                            title={t(`suggestions.statusHelp.${s.status}`)}
+                          >
                             {t(`suggestions.status_${s.status}`)}
                           </Badge>
                           {s.original_filename && (

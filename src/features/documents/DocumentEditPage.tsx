@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
 export function DocumentEditPage() {
   const { t } = useTranslation();
@@ -93,35 +94,53 @@ export function DocumentEditPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1.5">
-              {t("documents.titleField")}
-            </label>
+            <div className="mb-1.5 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("documents.titleField")}
+              </label>
+              <InfoTooltip label={t("documents.titleHelp")} />
+            </div>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder={doc.filename}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("documents.titleHelp")}
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1.5">
-              {t("documents.authorsField")}
-            </label>
+            <div className="mb-1.5 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("documents.authorsField")}
+              </label>
+              <InfoTooltip label={t("documents.authorsHelp")} />
+            </div>
             <Input
               value={authors}
               onChange={(e) => setAuthors(e.target.value)}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("documents.authorsHelp")}
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1.5">
-              {t("documents.urlField")}
-            </label>
+            <div className="mb-1.5 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("documents.urlField")}
+              </label>
+              <InfoTooltip label={t("documents.urlHelp")} />
+            </div>
             <Input
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               type="url"
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("documents.urlHelp")}
+            </p>
           </div>
 
           <div className="flex gap-3 pt-4">

@@ -32,9 +32,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       <div className="flex-1 min-w-0">
         {message.status === "thinking" ? (
-          <div className="flex items-center gap-2 text-text-secondary">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            <span>{t("home.thinking")}</span>
+          <div className="text-text-secondary">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span>{t("home.thinking")}</span>
+            </div>
+            <p className="mt-1 text-xs">{t("home.thinkingHelp")}</p>
           </div>
         ) : message.status === "error" ? (
           <div className="flex items-center gap-2 text-error text-sm">

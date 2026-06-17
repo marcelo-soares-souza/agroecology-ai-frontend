@@ -177,6 +177,9 @@ export function DocumentUploadPage() {
         <p className="text-sm text-text-secondary mt-1">
           {t("documents.uploadDescription")}
         </p>
+        <p className="text-xs text-text-secondary/80 mt-2">
+          {t("documents.uploadHelp")}
+        </p>
       </div>
 
       <div

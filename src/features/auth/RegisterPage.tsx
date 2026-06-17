@@ -121,6 +121,9 @@ export function RegisterPage() {
               onChange={(e) => setFullName(e.target.value)}
               required
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("auth.fullNameHelp")}
+            </p>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1.5">
@@ -132,6 +135,9 @@ export function RegisterPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("auth.emailHelp")}
+            </p>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1.5">
@@ -144,6 +150,9 @@ export function RegisterPage() {
               required
               minLength={8}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("auth.passwordHelp")}
+            </p>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1.5">
@@ -180,6 +189,9 @@ export function RegisterPage() {
                 onChange={(e) => setChallengeAnswer(e.target.value)}
                 required
               />
+              <p className="mt-1 text-xs text-text-secondary">
+                {t("auth.challengeHelp")}
+              </p>
             </div>
           )}
           {error && <p className="text-error text-sm">{error}</p>}

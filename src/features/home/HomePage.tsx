@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { Lightbulb, MessageCircle, Database, Smartphone } from "lucide-react";
 
 export function HomePage() {
@@ -70,6 +71,7 @@ export function HomePage() {
               <h3 className="font-semibold text-text-primary">
                 {t("landing.features.suggest.title")}
               </h3>
+              <InfoTooltip label={t("landing.features.suggest.description")} />
               <Badge variant="success" className="text-[10px]">
                 {t("landing.allUsers")}
               </Badge>
@@ -89,6 +91,7 @@ export function HomePage() {
               <h3 className="font-semibold text-text-primary">
                 {t("landing.features.ask.title")}
               </h3>
+              <InfoTooltip label={t("landing.features.ask.description")} />
               <Badge variant="success" className="text-[10px]">
                 {t("landing.allUsers")}
               </Badge>
@@ -108,6 +111,7 @@ export function HomePage() {
               <h3 className="font-semibold text-text-primary">
                 {t("landing.features.ingest.title")}
               </h3>
+              <InfoTooltip label={t("landing.features.ingest.description")} />
               <Badge variant="warning" className="text-[10px]">
                 {t("admin.section")}
               </Badge>

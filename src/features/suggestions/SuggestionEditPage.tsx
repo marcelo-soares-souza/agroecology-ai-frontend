@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import { useAuth } from "@/hooks/use-auth";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
 export function SuggestionEditPage() {
   const { t } = useTranslation();
@@ -109,37 +110,55 @@ export function SuggestionEditPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("documents.titleField")}
-            </label>
+            <div className="mb-1 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("documents.titleField")}
+              </label>
+              <InfoTooltip label={t("documents.titleHelp")} />
+            </div>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder={t("documents.titlePlaceholder")}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("documents.titleHelp")}
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("documents.authorsField")}
-            </label>
+            <div className="mb-1 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("documents.authorsField")}
+              </label>
+              <InfoTooltip label={t("documents.authorsHelp")} />
+            </div>
             <Input
               value={authors}
               onChange={(e) => setAuthors(e.target.value)}
               placeholder={t("documents.authorsPlaceholder")}
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("documents.authorsHelp")}
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              {t("suggestions.comment")}
-            </label>
+            <div className="mb-1 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-text-secondary">
+                {t("suggestions.comment")}
+              </label>
+              <InfoTooltip label={t("suggestions.commentHelp")} />
+            </div>
             <textarea
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
               rows={4}
               className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-white px-3 py-2 text-base text-text-primary placeholder:text-text-secondary/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-vertical"
             />
+            <p className="mt-1 text-xs text-text-secondary">
+              {t("suggestions.commentHelp")}
+            </p>
           </div>
 
           <div className="flex gap-3 pt-4">

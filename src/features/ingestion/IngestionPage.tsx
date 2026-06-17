@@ -14,6 +14,7 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 
 function formatDate(iso: string, locale: string) {
@@ -136,6 +137,9 @@ export function IngestionPage() {
         <p className="text-sm text-text-secondary mt-1">
           {t("ingestion.description")}
         </p>
+        <p className="mt-2 text-xs text-text-secondary/80">
+          {t("ingestion.processHelp")}
+        </p>
       </div>
 
       <Card>
@@ -178,6 +182,13 @@ export function IngestionPage() {
                 {t("ingestion.forceRebuild")}
               </Button>
             </div>
+            <div className="mt-3 flex flex-wrap justify-center gap-3 text-xs text-text-secondary">
+              <span>{t("ingestion.processHelp")}</span>
+              <span className="inline-flex items-center gap-1">
+                {t("ingestion.forceRebuild")}
+                <InfoTooltip label={t("ingestion.forceRebuildHelp")} />
+              </span>
+            </div>
 
             {!isProcessing && pendingDocs === 0 && !statusLoading && (
               <p className="text-success text-sm mt-2">
@@ -194,8 +205,9 @@ export function IngestionPage() {
           {ingestStatus && ingestStatus.status !== "idle" && !statusLoading && (
             <div className="w-full max-w-sm border-t border-primary-100 pt-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">
+                <span className="inline-flex items-center gap-1.5 text-sm text-text-secondary">
                   {t("ingestion.status")}
+                  <InfoTooltip label={t("ingestion.processHelp")} />
                 </span>
                 <Badge
                   variant={

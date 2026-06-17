@@ -19,7 +19,9 @@
     "community": "Comunidad",
     "user": "Usuario",
     "editProfile": "Editar Perfil",
-    "support": "Apoyo"
+    "support": "Apoyo",
+    "privacy": "Privacidad",
+    "terms": "Términos"
   },
   "common": {
     "back": "Volver",
@@ -43,6 +45,7 @@
     "errorOccurred": "Ocurrió un error",
     "unknownError": "Error desconocido",
     "unexpectedTemporaryError": "Ocurrió un error inesperado. Inténtalo de nuevo en unos minutos o ponte en contacto.",
+    "help": "Ayuda",
     "locales": {
       "ptBR": "Português (BR)",
       "en": "English",
@@ -101,7 +104,19 @@
     "confirmingEmail": "Confirmando tu email...",
     "emailConfirmed": "¡Email Confirmado!",
     "accountActive": "Tu cuenta ahora está activa.",
-    "emailSent": "¡Email Enviado!"
+    "emailSent": "¡Email Enviado!",
+    "fullNameHelp": "Este nombre puede aparecer en tu perfil público y en tus contribuciones.",
+    "emailHelp": "Usaremos este email para iniciar sesión, confirmar la cuenta y recuperar la contraseña.",
+    "passwordHelp": "Usa al menos 8 caracteres.",
+    "challengeHelp": "Esta pregunta ayuda a proteger el registro contra envíos automatizados.",
+    "acceptPrivacyPolicy": {
+      "prefix": "Acepto la ",
+      "link": "Política de Privacidad"
+    },
+    "acceptTos": {
+      "prefix": "Acepto los ",
+      "link": "Términos de Servicio"
+    }
   },
   "admin": {
     "section": "Admin",
@@ -139,49 +154,50 @@
     "statusActive": "Activo"
   },
   "home": {
-    "title": "Chat Agroecológico",
-    "description": "Haz preguntas sobre agroecología, permacultura y agricultura sostenible.",
+    "title": "Pregunta a la base agroecológica",
+    "description": "Encuentra respuestas en documentos agroecológicos verificables, con fuentes para consultar y profundizar.",
     "placeholder": "Escribe tu pregunta sobre agroecología...",
-    "knowledgeBase": "Este chat utiliza los documentos de la base de conocimiento para responder tus preguntas.",
+    "knowledgeBase": "La IA consulta documentos indexados antes de responder.",
     "viewDocuments": "Ver documentos",
     "send": "Enviar",
     "thinking": "Pensando...",
+    "thinkingHelp": "Buscando documentos relevantes y preparando una respuesta con fuentes.",
     "sources": "Fuentes consultadas",
     "sourceLabel": "Fuente: {{title}}",
     "pollingTimeout": "Tiempo de espera agotado",
-    "empty": "Haz una pregunta sobre agroecología para comenzar.",
+    "empty": "Pregunta sobre suelo, agroforestería, compostaje, biodiversidad, semillas o políticas agroecológicas.",
     "newChat": "Nueva conversación"
   },
   "landing": {
     "title": "Agroecology Map AI",
-    "metaDescription": "Asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en fuentes verificables.",
-    "heroDescription": "Tu asistente de investigación con IA para conocimiento agroecológico. Sube documentos, haz preguntas y recibe respuestas basadas en investigaciones reales.",
-    "accessNotice": "El Chat y la Sugerencia de Documentos están abiertos a todos los usuarios registrados. La ingesta está restringida a administradores mientras la plataforma está en desarrollo activo.",
+    "metaDescription": "IA de software libre para consultar conocimiento agroecológico. Haz preguntas en lenguaje natural y recibe respuestas basadas en documentos verificables.",
+    "heroDescription": "Haz preguntas en lenguaje natural y recibe respuestas basadas en artículos, cartillas, manuales, tesis e informes agroecológicos, siempre con fuentes para verificar.",
+    "accessNotice": "El chat y la sugerencia de documentos están disponibles para usuarios registrados. La indexación de nuevos materiales sigue restringida a administradores durante el desarrollo.",
     "getStarted": "Comenzar",
-    "allUsers": "Todos",
+    "allUsers": "Usuarios registrados",
     "features": {
       "suggest": {
-        "title": "Sugerir Documentos",
-        "description": "Cualquier persona registrada puede sugerir PDFs, artículos, papers y documentos. El equipo revisa cada sugerencia y, cuando se aprueba, el contenido se indexa y está disponible en el chat."
+        "title": "Contribuir con Documentos",
+        "description": "Los usuarios registrados pueden sugerir PDFs, artículos, cartillas e informes. Después de la revisión, los materiales aprobados entran en la base consultada por el chat."
       },
       "ask": {
-        "title": "Hacer Preguntas",
-        "description": "¡Disponible para todos! Haz preguntas en tu propio idioma y recibe respuestas basadas en documentos existentes, con citas completas de las fuentes."
+        "title": "Recibir Respuestas con Fuentes",
+        "description": "Pregunta en tu idioma y recibe respuestas vinculadas a los documentos consultados, para verificar el contexto original y continuar la investigación."
       },
       "ingest": {
-        "title": "Ingerir Conocimiento",
-        "description": "Indexa documentos en el motor de búsqueda híbrida. Actualmente restringido a administradores durante el desarrollo."
+        "title": "Indexar Materiales Revisados",
+        "description": "Los documentos aprobados se organizan en una base consultable. Esta etapa administrativa preserva la calidad y la trazabilidad."
       }
     },
     "techTitle": "Abierto y Local-First",
     "tech": {
       "data": {
         "title": "Tus Datos, Tu Control",
-        "description": "Todo se ejecuta en tu infraestructura. Ningún dato sale de tus servidores. Usa APIs en la nube o ejecuta todo localmente con Ollama."
+        "description": "La plataforma está pensada para instalaciones controladas por la comunidad, con camino hacia una operación local y autoalojable."
       },
       "backends": {
         "title": "Backends de IA Enchufables",
-        "description": "DeepSeek, Ollama o cualquier API compatible con OpenAI. Cambia modelos sin modificar tu flujo de trabajo."
+        "description": "Soporta modelos locales mediante Ollama o APIs compatibles, permitiendo elegir según costo, privacidad e infraestructura."
       }
     },
     "footerPrefix": "Software Libre (GPLv3) - Mantenido por"
@@ -191,9 +207,10 @@
     "detailTitle": "Detalles del Documento",
     "uploadTitle": "Subir Documentos",
     "uploadDescription": "Sube artículos, papers, manuales y documentos en PDF o Markdown para alimentar la base de conocimiento de la IA. Los archivos duplicados se detectan automáticamente.",
+    "uploadHelp": "Sube materiales revisados o relevantes para la agroecología. Después de subirlos, aún deben indexarse antes de aparecer en el chat.",
     "dragDrop": "Arrastra y suelta archivos aquí o haz clic para seleccionar",
     "supportedFormats": "Formatos aceptados: PDF, Markdown (hasta 50 MB)",
-    "listDescription": "Esta es la lista de documentos, artículos y papers utilizados como base de conocimiento para el entrenamiento de la IA. Los documentos marcados como \"Indexed\" ya fueron procesados y están disponibles para consultas en el Chat.",
+    "listDescription": "Estos son los documentos que la IA consulta antes de responder. Los materiales marcados como \"Indexado\" ya fueron procesados y pueden aparecer como fuentes en las respuestas del chat.",
     "extensionsNote": "Extensiones aceptadas: .pdf, .md (hasta 50 MB)",
     "uploading": "Subiendo...",
     "uploadingBatch": "Subiendo (lote {{batch}}/{{totalBatches}})…",
@@ -238,6 +255,12 @@
     "total_one": "{{count}} documento",
     "total_other": "{{count}} documentos",
     "metadataOptional": "Metadatos (opcional)",
+    "titleHelp": "Usa el título original del documento siempre que sea posible.",
+    "authorsHelp": "Separa múltiples autores con comas.",
+    "urlHelp": "Usa el enlace oficial de la publicación o una página pública de referencia.",
+    "indexStatusHelp": "Los documentos indexados ya pueden usarse como fuentes en las respuestas del chat.",
+    "pendingStatusHelp": "Los documentos pendientes fueron subidos, pero aún no están disponibles para el chat.",
+    "metadataStatusHelp": "Los metadatos ayudan a identificar títulos y autores de PDFs en la base.",
     "selected_one": "{{count}} archivo seleccionado",
     "selected_other": "{{count}} archivos seleccionados",
     "rejectedTitle_one": "{{count}} archivo rechazado",
@@ -251,7 +274,9 @@
   },
   "ingestion": {
     "title": "Ingesta de Documentos",
-    "description": "La ingesta transforma los documentos subidos en una base de conocimiento consultable por la IA. Solo se indexan documentos aún no procesados. Usa \"Force Rebuild\" para reconstruir todo el índice desde cero.",
+    "description": "La indexación transforma documentos revisados en una base consultable por la IA. Solo se indexan documentos aún no procesados. Usa \"Forzar Reconstrucción\" para reconstruir todo el índice desde cero.",
+    "processHelp": "Este proceso divide documentos en fragmentos, genera índices de búsqueda y puede tardar algunos minutos.",
+    "forceRebuildHelp": "Reconstruye todo el índice a partir de los documentos actuales. Úsalo cuando la base deba recalcularse.",
     "trigger": "Iniciar Ingesta",
     "processing": "Ingiriendo documentos...",
     "done": "Ingesta completada",
@@ -312,32 +337,54 @@
     "rerankerDevice": "Dispositivo del Reranker",
     "rerankerEnabled": "Reranker activo",
     "rerankerDisabled": "Reranker desactivado",
-    "disabled": "Desactivado"
+    "disabled": "Desactivado",
+    "help": {
+      "indexReady": "Indica si la base consultable está lista para el chat.",
+      "ingestStatus": "Muestra la etapa actual del procesamiento de documentos.",
+      "chunksIndexed": "Los fragmentos son partes menores de los documentos usadas en la búsqueda.",
+      "activeTasks": "Preguntas o procesamientos en ejecución en este momento.",
+      "cacheEnabled": "La caché reutiliza respuestas recientes para reducir tiempo y costo.",
+      "cacheHits": "Cantidad de respuestas servidas desde caché.",
+      "documents": "Resumen de documentos disponibles, pendientes y totales.",
+      "ragConfig": "Configuración técnica de búsqueda que recupera documentos antes de que la IA responda.",
+      "llmModel": "Modelo de lenguaje configurado para generar respuestas.",
+      "llmProvider": "Proveedor o backend usado por el modelo de lenguaje.",
+      "llmTransport": "Forma de comunicación con el backend de IA.",
+      "reasoningMode": "Indica si el modo de razonamiento configurado está activo.",
+      "embeddingModel": "Modelo usado para transformar textos en representaciones consultables.",
+      "embeddingDevice": "Dispositivo usado para generar embeddings, como CPU o GPU.",
+      "similarityTopK": "Cantidad de resultados recuperados por similitud semántica.",
+      "bm25TopK": "Cantidad de resultados recuperados por búsqueda de palabras clave.",
+      "hybridTopK": "Cantidad de candidatos tras combinar búsqueda semántica y palabras clave.",
+      "rerankTopK": "Cantidad final de fragmentos reordenados enviados a la respuesta.",
+      "rerankerModel": "Modelo que reordena fragmentos para priorizar los más relevantes.",
+      "rerankerDevice": "Dispositivo usado por el modelo de reordenación."
+    }
   },
   "about": {
     "title": "Acerca de",
     "betaNotice": "Esta plataforma está en desarrollo activo y actualmente en fase BETA. Las funcionalidades pueden cambiar, las respuestas deben verificarse con las fuentes citadas y algunas operaciones aún están restringidas a administradores.",
     "intro": "Acerca de Agroecology Map AI",
-    "description": "Agroecology Map AI es una herramienta de software libre creada para hacer que el conocimiento agroecológico sea más fácil de encontrar, comprender y compartir. La plataforma permite consultar artículos científicos, textos técnicos, cartillas, manuales, tesis e informes mediante preguntas en lenguaje natural, haciendo que materiales muchas veces largos o dispersos sean más accesibles para las personas que los necesitan en el trabajo cotidiano.",
+    "description": "Agroecology Map AI es una herramienta de software libre que transforma documentos agroecológicos en una base de consulta accesible. En lugar de buscar manualmente en artículos, cartillas, manuales, tesis e informes, haces una pregunta en lenguaje natural y recibes una respuesta conectada con las fuentes utilizadas.",
     "highlights": {
       "freeSoftware": "Software Libre GPLv3",
       "sourceBased": "Basado en fuentes científicas y técnicas",
       "beta": "BETA en desarrollo activo"
     },
     "ragTitle": "Una IA RAG, No una IA Genérica",
-    "ragDescription": "A diferencia de un chatbot genérico, Agroecology Map AI responde a partir de los documentos disponibles en la base de conocimiento. Cuando alguien hace una pregunta, el sistema busca los fragmentos más relevantes, organiza esa información y construye una respuesta con referencias a las fuentes utilizadas. Esto ayuda a evitar respuestas inventadas y permite que cada persona verifique de dónde provino la información.",
-    "para1": "El objetivo es apoyar a agricultores, investigadores, extensionistas, estudiantes, educadores, comunidades y movimientos sociales que trabajan con agroecología, producción de alimentos, cuidado del suelo, biodiversidad y conocimientos tradicionales. La herramienta no reemplaza la lectura crítica ni la experiencia de campo, pero ayuda a abrir caminos: encontrar conceptos, comparar materiales, localizar referencias y transformar documentos complejos en conversaciones más accesibles.",
-    "para2": "La plataforma aún está en fase beta. El chat está disponible para usuarios registrados, mientras que la carga y organización de nuevos documentos siguen restringidas a administradores. Este cuidado permite ampliar el acceso gradualmente, preservando la calidad, la seguridad y la trazabilidad de las respuestas.",
-    "para3": "Nuestro objetivo a largo plazo es construir una infraestructura de IA local y autoalojable para la agroecología. La plataforma ya soporta backends enchufables, como DeepSeek en la nube o modelos locales mediante Ollama. A medida que los modelos abiertos maduren, queremos reducir dependencias externas y fortalecer la soberanía tecnológica de las comunidades.",
+    "ragDescription": "A diferencia de un chatbot genérico, Agroecology Map AI primero busca en los documentos disponibles en la base de conocimiento. El sistema recupera fragmentos relevantes, organiza la información y construye una respuesta con referencias a las fuentes utilizadas. Esto reduce el riesgo de respuestas sin base y permite verificar de dónde salió cada información.",
+    "para1": "El objetivo es apoyar a agricultores, investigadores, extensionistas, estudiantes, educadores, comunidades y movimientos sociales que trabajan con agroecología, producción de alimentos, cuidado del suelo, biodiversidad y conocimientos tradicionales. La herramienta no reemplaza la lectura crítica ni la experiencia de campo; ayuda a encontrar conceptos, comparar materiales, localizar referencias y transformar documentos complejos en rutas de lectura más claras.",
+    "para2": "La plataforma aún está en fase beta. El chat está disponible para usuarios registrados, y cualquier usuario registrado puede sugerir documentos para revisión. La organización e indexación final de los materiales siguen restringidas a administradores para preservar calidad, seguridad y trazabilidad.",
+    "para3": "Nuestro objetivo a largo plazo es construir una infraestructura de IA local y autoalojable para la agroecología. La plataforma soporta backends enchufables, desde modelos locales mediante Ollama hasta APIs compatibles cuando sea necesario. A medida que los modelos abiertos maduren, queremos reducir dependencias externas y fortalecer la soberanía tecnológica de las comunidades.",
     "aboutAgroecologyMap": "Acerca de Agroecology Map",
-    "agroecologyMapDescription": "El proyecto crece dentro del ecosistema Agroecology Map, una iniciativa de ciencia ciudadana, datos abiertos y software libre que desde hace 8 años mapea experiencias agroecológicas y conecta personas en diferentes regiones. Mientras Agroecology Map registra prácticas y territorios, Agroecology Map AI transforma textos y documentos en una base de conocimiento interactiva, manteniendo los mismos valores de colaboración, conocimiento libre y tecnología al servicio de las comunidades.",
-    "knowledgeBaseTitle": "Base de Conocimiento Usada por la IA RAG",
-    "knowledgeBaseDescription": "La página de documentos muestra la base de conocimiento usada por el sistema RAG de Agroecology Map AI. Estas fuentes indexadas son lo que la IA consulta antes de escribir una respuesta, manteniendo cada respuesta conectada a documentos que pueden verificarse.",
+    "agroecologyMapDescription": "El proyecto crece dentro del ecosistema Agroecology Map, una iniciativa de ciencia ciudadana, datos abiertos y software libre que desde hace 8 años mapea experiencias agroecológicas y conecta personas en diferentes regiones. Mientras Agroecology Map registra prácticas y territorios, Agroecology Map AI hace que textos y documentos puedan consultarse por conversación, manteniendo los mismos valores de colaboración, conocimiento libre y tecnología al servicio de las comunidades.",
+    "knowledgeBaseTitle": "Documentos Consultados por la IA",
+    "knowledgeBaseDescription": "La página de documentos muestra la base usada por Agroecology Map AI. Estas fuentes indexadas se consultan antes de escribir una respuesta, manteniendo cada respuesta conectada a materiales que se pueden abrir, leer y verificar.",
     "principles": "Principios",
     "freeSoftware": "Software Libre",
     "freeSoftwareDescription": "Agroecology Map AI se publica como Software Libre bajo licencia GPLv3. Esto significa que la comunidad puede usar, estudiar, modificar y compartir el código, manteniendo la herramienta auditable y alineada con el interés público.",
     "sourceKnowledge": "Conocimiento con Fuentes",
-    "sourceKnowledgeDescription": "Las respuestas se construyen a partir de documentos indexados, como artículos científicos y textos técnicos. La IA debe indicar las fuentes utilizadas para que las personas puedan verificar el contexto y evaluar la calidad de la respuesta.",
+    "sourceKnowledgeDescription": "Las respuestas se construyen a partir de documentos indexados, como artículos científicos, cartillas y textos técnicos. La IA indica las fuentes utilizadas para que cada persona pueda verificar el contexto y evaluar la calidad de la respuesta.",
     "community": "Comunidad",
     "communityDescription": "El proyecto nace del trabajo voluntario que sostiene Agroecology Map desde hace 8 años. Está hecho por personas que creen en la agroecología, las tecnologías sociales, la soberanía alimentaria y la colaboración abierta.",
     "localFirst": "Soberanía Tecnológica",
@@ -348,16 +395,18 @@
     "backend": "Backend: FastAPI + psycopg (PostgreSQL async) + LanceDB + Valkey/Redis",
     "embedding": "Embeddings: BAAI/bge-m3 (1024-dim, 102 idiomas) con SentenceTransformers",
     "vectorStore": "Búsqueda Vectorial: LanceDB (coseno) + búsqueda por palabras clave BM25 + Reciprocal Rank Fusion",
-    "llm": "LLM: DeepSeek v4 Flash (nube) u Ollama (local) vía API compatible con OpenAI",
+    "llm": "LLM: backend configurable, con modelos locales vía Ollama o APIs compatibles según la implementación",
     "version": "Versión 1.0.0",
     "repositories": "Repositorios",
     "frontendRepo": "Frontend",
     "backendRepo": "Backend",
+    "mobileRepo": "App móvil (Flutter)",
+    "mobile": "Móvil: Flutter 3.44 + Dart + Clean Architecture",
     "suggestInviteTitle": "Ayuda a Crecer la Base de Conocimiento",
-    "suggestInviteDescription": "Nuestro sistema de Sugerencias permite que cualquiera contribuya: sube un PDF con un comentario explicando por qué el material es relevante. Nuestro equipo revisa cada envío. Una vez aprobado - en hasta 24 horas - el contenido se indexa y está disponible en el chat de IA. Cada contribución hace que la IA esté más informada sobre prácticas agroecológicas, investigación científica y saberes locales. Investigadores, agricultores, activistas, estudiantes: tu voz pertenece a esta base de datos.",
+    "suggestInviteDescription": "Con el sistema de sugerencias, los usuarios registrados pueden ayudar a ampliar la base: sube un PDF y explica por qué el material es relevante. Nuestro equipo revisa cada envío; cuando se aprueba, se indexa y puede aparecer en las respuestas del chat. Cada contribución amplía el acceso a prácticas agroecológicas, investigación científica y saberes locales.",
     "suggestInviteCta": "Sugerir documento",
     "ctaTitle": "Explora, prueba y apoya",
-    "ctaDescription": "Usa el chat, verifica las fuentes de las respuestas y ayuda a fortalecer una IA libre para la agroecología.",
+    "ctaDescription": "Usa el chat, verifica las fuentes y ayuda a fortalecer una IA libre, verificable y útil para la agroecología.",
     "ctaChat": "Usar el chat",
     "ctaDonate": "Apoyar el proyecto",
     "ctaDocuments": "Ver base de conocimiento"
@@ -369,19 +418,43 @@
     "name": "Nombre",
     "about": "Sobre mí",
     "aboutPlaceholder": "Cuenta sobre ti (hasta 4096 caracteres)...",
+    "aboutHelp": "Describe brevemente tu relación con agroecología, investigación, enseñanza, producción o comunidad.",
     "aboutTooLong": "Sobre mí no puede exceder 4096 caracteres",
     "link": "Enlace",
+    "linkHelp": "Sitio web, currículo, perfil público o página de tu trabajo.",
+    "avatarHelp": "Usa JPEG, PNG o WebP hasta 5 MB.",
     "invalidLink": "El enlace debe comenzar con http:// o https://",
     "saved": "Perfil guardado exitosamente",
     "changePhoto": "Cambiar Foto",
     "avatarUnsupportedType": "Tipo de imagen no soportado. Use JPEG, PNG o WebP.",
-    "avatarTooLarge": "La imagen no debe exceder 5MB."
+    "avatarTooLarge": "La imagen no debe exceder 5MB.",
+    "avatarAlt": "Avatar de {{name}}",
+    "notAvailable": "No disponible",
+    "slugPrefix": "@{{slug}}",
+    "role_admin": "admin",
+    "role_user": "usuario",
+    "dataAndPrivacy": "Datos y Privacidad",
+    "exportMyData": "Exportar Mis Datos",
+    "exporting": "Exportando...",
+    "exportFailed": "Error al exportar datos",
+    "deleteMyAccount": "Eliminar Mi Cuenta",
+    "deleteAccountConfirmTitle": "Eliminar Cuenta",
+    "deleteAccountConfirm": "¿Estás seguro? Se enviará un email de confirmación. Después de confirmar, tus datos personales serán anonimizados permanentemente.",
+    "deleting": "Eliminando...",
+    "deleteRequested": "Revisa tu email para confirmar la eliminación de la cuenta.",
+    "deleteAccountFailed": "Error al solicitar la eliminación de la cuenta",
+    "deleteAccountNoToken": "No se proporcionó ningún token de eliminación.",
+    "deletingAccount": "Eliminando cuenta...",
+    "deletingAccountDescription": "Estamos procesando la confirmación de eliminación.",
+    "accountDeleted": "Cuenta eliminada",
+    "accountDeletedDescription": "Tu cuenta fue anonimizada y tus sesiones fueron finalizadas.",
+    "checkEmailForDeleteConfirmation": "Revisa tu email para confirmar la eliminación."
   },
   "community": {
     "title": "Comunidad",
     "detailTitle": "Perfil de la Comunidad",
     "description": "Explora los miembros de la comunidad y sus contribuciones.",
-    "empty": "Aún no hay miembros en la comunidad.",
+    "empty": "Aún no hay miembros con contribuciones públicas.",
     "memberSince": "Miembro desde {{date}}",
     "approvedSuggestions": "Documentos sugeridos",
     "approvedSuggestionsTooltip": "{{count}} documento(s) sugerido(s) aprobado(s)",
@@ -400,7 +473,7 @@
     "status_pending": "Pendiente",
     "status_approved": "Aprobada",
     "status_rejected": "Rechazada",
-    "empty": "Aún no hay sugerencias.",
+    "empty": "Aún no has sugerido documentos. Envía un PDF relevante para ayudar a ampliar la base.",
     "comment": "Comentario",
     "commentPlaceholder": "Explica por qué este documento es relevante...",
     "commentRequired": "El comentario es obligatorio",
@@ -426,6 +499,13 @@
     "fileExceedsSize": "El archivo excede 50 MB ({{size}} MB)",
     "replaceFile": "Reemplazar PDF",
     "uploadPdf": "Subir un archivo PDF",
+    "pdfHelp": "Envía un material relevante para agroecología. Solo PDF, hasta 50 MB.",
+    "commentHelp": "Explica por qué este material debería entrar en la base. Esto ayuda a la revisión.",
+    "statusHelp": {
+      "pending": "La sugerencia aún espera revisión.",
+      "approved": "La sugerencia fue aprobada y vinculada a un documento de la base.",
+      "rejected": "La sugerencia fue revisada y no se incluirá en este momento."
+    },
     "errors": {
       "duplicateFile": "Ya existe una sugerencia con este mismo archivo.",
       "duplicateDocument": "Este archivo ya ha sido subido como documento."
@@ -435,8 +515,8 @@
     "title": "Apoya Agroecology Map AI",
     "metaDescription": "Ayuda a mantener y expandir Agroecology Map AI, una plataforma libre de inteligencia artificial para la agroecología.",
     "whatIsTitle": "Qué Es Agroecology Map AI",
-    "whatIs": "Agroecology Map AI es una plataforma de inteligencia artificial especializada en agroecología. Transforma artículos científicos, manuales de campo, cartillas técnicas, tesis e informes en una base de conocimiento consultable, permitiendo hacer preguntas en lenguaje natural y recibir respuestas con citas de las fuentes utilizadas. A diferencia de chatbots genéricos, la plataforma responde con base en los documentos proporcionados - sin inventar hechos y sin ocultar de dónde proviene la información. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico para agricultores, investigadores, extensionistas, educadores y comunidades, con una herramienta confiable, libre y preparada para ejecutarse en infraestructura local.",
-    "intro": "Agroecology Map AI es el siguiente paso de 8 años de trabajo voluntario en Agroecology Map: una IA libre para hacer que el conocimiento agroecológico sea más accesible, rastreable y útil para comunidades, investigadores y agricultores.",
+    "whatIs": "Agroecology Map AI es una plataforma de inteligencia artificial especializada en agroecología. Transforma artículos científicos, manuales de campo, cartillas técnicas, tesis e informes en una base consultable, permitiendo hacer preguntas en lenguaje natural y recibir respuestas con fuentes para verificar. A diferencia de chatbots genéricos, la plataforma responde a partir de documentos recuperados, reduciendo el riesgo de respuestas sin base y mostrando de dónde provino la información. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico para agricultores, investigadores, extensionistas, educadores y comunidades, con una herramienta libre, verificable y preparada para infraestructura local.",
+    "intro": "Agroecology Map AI es el siguiente paso de 8 años de trabajo voluntario en Agroecology Map: una IA libre que transforma documentos agroecológicos en respuestas accesibles, con fuentes para verificar.",
     "goal": {
       "label": "Meta de la campaña",
       "amount": "USD 0 / USD 3.000"
@@ -444,17 +524,17 @@
     "history": {
       "title": "8 Años de Historia",
       "content": "Desde 2016, Agroecology Map ha sido una plataforma libre y gratuita de ciencia ciudadana y datos abiertos que permite a personas de todo el mundo mapear, conectar y compartir prácticas agroecológicas. Nacido en Brasilia, Brasil, el proyecto creció de forma orgánica: de una iniciativa local a una red global, con miles de experiencias mapeadas y una comunidad formada por agricultores, investigadores, extensionistas, educadores y activistas.",
-      "body": "Esta historia fue construida sin inversores y sin control corporativo. El trabajo ocurrió en noches, fines de semana y feriados, porque creemos que cada experiencia agroecológica registrada es una semilla de conocimiento que puede inspirar a otras personas, fortalecer redes y acelerar prácticas agrícolas más justas y sostenibles."
+      "body": "Esta historia fue construida sin inversores y sin control corporativo. El trabajo ocurrió en noches, fines de semana y feriados, porque creemos que cada experiencia agroecológica registrada puede inspirar a otras personas, fortalecer redes y acelerar prácticas agrícolas más justas y sostenibles."
     },
     "importance": {
       "title": "Por Qué Este Proyecto Es Importante",
       "content": "La crisis climática, la pérdida de biodiversidad y la inseguridad alimentaria exigen respuestas concretas. La agroecología muestra que es posible producir alimentos mientras se regeneran ecosistemas, se fortalecen comunidades y se preserva el conocimiento tradicional. Pero ese conocimiento aún está disperso en artículos, cartillas, informes y experiencias locales, muchas veces difícil de encontrar, traducir y aplicar.",
-      "body": "Agroecology Map AI ayuda a hacer que ese conocimiento sea más accesible. Conecta documentos confiables con preguntas reales, siempre manteniendo la trazabilidad de las fuentes. A diferencia de plataformas comerciales, no vendemos datos, no cobramos suscripciones y no ponemos el conocimiento detrás de paywalls. Todo el software es libre bajo licencia GPLv3, para que la comunidad pueda usarlo, estudiarlo, modificarlo y compartirlo."
+      "body": "Agroecology Map AI ayuda a hacer que ese conocimiento sea más accesible. Conecta documentos verificables con preguntas reales, siempre manteniendo la trazabilidad de las fuentes. A diferencia de plataformas comerciales, no vendemos datos, no cobramos suscripciones y no ponemos el conocimiento detrás de paywalls. Todo el software es libre bajo licencia GPLv3, para que la comunidad pueda usarlo, estudiarlo, modificarlo y compartirlo."
     },
     "voluntary": {
       "title": "Esfuerzo 100% Voluntario",
       "content": "Agroecology Map es mantenido por un pequeño equipo de voluntarios - desarrolladores, investigadores y activistas - que dedican su tiempo libre a construir y mejorar la plataforma. No tenemos inversores, patrocinadores corporativos ni financiamiento externo significativo. Hacemos esto porque creemos profundamente en la agroecología, el software libre y el poder transformador del conocimiento compartido.",
-      "body": "Pero hay límites para lo que el trabajo voluntario puede sostener por sí solo. A medida que Agroecology Map AI crece, los costos de procesamiento, almacenamiento y desarrollo aumentan. La donación que estamos solicitando es específica: adquirir equipo local dedicado para acelerar el desarrollo y reducir la dependencia de servicios en la nube."
+      "body": "Pero hay límites para lo que el trabajo voluntario puede sostener por sí solo. A medida que Agroecology Map AI crece, los costos de procesamiento, almacenamiento y desarrollo aumentan. La campaña tiene una meta concreta: adquirir equipo local dedicado para acelerar la indexación de documentos, probar modelos abiertos y reducir la dependencia de servicios en la nube."
     },
     "aiNeeds": {
       "title": "La Necesidad de Poder de Procesamiento para IA",
@@ -473,7 +553,7 @@
     },
     "howToHelp": {
       "title": "Cómo Puedes Ayudar",
-      "description": "Tu contribución, de cualquier valor, nos acerca a la meta de USD 3.000 para adquirir el equipo de desarrollo local. Con tu ayuda, podremos acelerar el procesamiento de IA, probar modelos abiertos, reducir dependencias externas y mantener la plataforma libre y gratuita. Cada contribución se transforma en más conocimiento agroecológico confiable disponible para quienes lo necesitan.",
+      "description": "Tu contribución, de cualquier valor, nos acerca a la meta de USD 3.000 para adquirir equipo local dedicado. Con tu ayuda, podremos procesar más documentos, probar modelos abiertos, reducir dependencias externas y mantener la plataforma libre y gratuita. Cada contribución se transforma en más conocimiento agroecológico verificable disponible para quienes lo necesitan.",
       "koFi": "Apoyar vía Ko-fi ❤️",
       "patreon": "Apoyar vía Patreon",
       "qrAlt": "Código QR para apoyar Agroecology Map AI en Ko-fi",
@@ -522,11 +602,11 @@
       },
       "dataStorage": {
         "title": "Almacenamiento y seguridad",
-        "content": "Los datos pueden almacenarse en PostgreSQL, el sistema de archivos local del servidor, LanceDB para el índice de documentos y el almacenamiento local de tu navegador o app.\n\nEl procesamiento de IA usa modelos alojados localmente o en infraestructura controlada por el proyecto. Las preguntas, el historial del chat, los embeddings y los documentos no se envían a APIs externas de IA.\n\nLas contraseñas se almacenan con hash, los tokens tienen expiración, los emails se enmascaran en logs y las APIs usan HTTPS en producción."
+        "content": "Los datos pueden almacenarse en PostgreSQL, el sistema de archivos local del servidor, LanceDB para el índice de documentos y el almacenamiento local de tu navegador o app.\n\nEl procesamiento de IA depende de la configuración de la implementación. Puede ejecutarse en modelos locales o en infraestructura/proveedores configurados por el proyecto; cuando se usa una API externa de IA, solo se envían los datos necesarios para generar respuestas o metadatos según esta política y la configuración de la instancia.\n\nLas contraseñas se almacenan con hash, los tokens tienen expiración, los emails se enmascaran en logs y las APIs usan HTTPS en producción."
       },
       "dataSharing": {
         "title": "Compartición de datos",
-        "content": "No compartimos, vendemos, alquilamos ni negociamos tus datos personales con terceros. Las preguntas, el historial del chat, los embeddings y los documentos no se envían a proveedores externos de IA.\n\nLos enlaces de donación abren plataformas externas como Ko-fi o Patreon, que aplican sus propias políticas."
+        "content": "No vendemos, alquilamos ni negociamos tus datos personales con terceros. Las preguntas, el historial del chat, los embeddings y los documentos solo se envían a proveedores de IA cuando la instancia está configurada para usar ese proveedor para el procesamiento.\n\nLos enlaces de donación abren plataformas externas como Ko-fi o Patreon, que aplican sus propias políticas."
       },
       "dataRetention": {
         "title": "Conservación",
@@ -558,26 +638,26 @@
     "title": "Términos de Servicio",
     "metaDescription": "Términos de Servicio de Agroecology Map AI - reglas y condiciones para usar la plataforma.",
     "lastUpdated": "Última actualización: 11 de junio de 2026",
-    "content": "1. Aceptación de los términos\n\nAl crear una cuenta y usar Agroecology Map AI, aceptas estos Términos de Servicio. Si no estás de acuerdo, no uses la plataforma.\n\n2. Descripción del servicio\n\nAgroecology Map AI es una plataforma de software libre que permite consultar una base de conocimiento agroecológico mediante una interfaz de chat con IA. Los modelos de IA y embeddings se ejecutan localmente o en infraestructura controlada por el proyecto, sin API externa de IA.\n\n3. Cuentas de usuario\n\nEres responsable de tus credenciales. La información de registro debe ser precisa. La edad mínima es de 16 años.\n\n4. Uso aceptable\n\nNo uses la plataforma para fines ilegales, no envíes contenido dañino o que infrinja derechos, no intentes interrumpir el servicio y no falsees tu identidad.\n\n5. Contenido del usuario\n\nAl enviar contenido, otorgas a la plataforma una licencia no exclusiva para mostrarlo y distribuirlo dentro de la plataforma. Conservas la propiedad de tu contenido.\n\n6. Propiedad intelectual\n\nEl software está licenciado bajo GPLv3. Los documentos conservan sus licencias y atribuciones originales.\n\n7. Sin garantías\n\nLa plataforma se ofrece «tal cual». Las respuestas de IA pueden ser inexactas o incompletas. Verifica siempre las fuentes primarias.\n\n8. Limitación de responsabilidad\n\nEn la medida permitida por la ley, el proyecto y sus voluntarios no son responsables por daños derivados del uso de la plataforma.\n\n9. Terminación de cuenta\n\nLas cuentas que violen estos términos pueden ser suspendidas. Puedes eliminar tu cuenta en cualquier momento.\n\n10. Modificaciones\n\nEstos términos pueden actualizarse. Los cambios importantes se comunicarán por email.\n\n11. Ley aplicable\n\nEstos términos se rigen por las leyes de Brasil.\n\n12. Contacto\n\nPara preguntas, contacta: contact@agroecologymap.org"
+    "content": "1. Aceptación de los términos\n\nAl crear una cuenta y usar Agroecology Map AI, aceptas estos Términos de Servicio. Si no estás de acuerdo, no uses la plataforma.\n\n2. Descripción del servicio\n\nAgroecology Map AI es una plataforma de software libre que permite consultar una base de conocimiento agroecológico mediante una interfaz de chat con IA. Los modelos de IA y embeddings pueden ejecutarse localmente o en infraestructura/proveedores configurados por la implementación, según se describe en la Política de Privacidad.\n\n3. Cuentas de usuario\n\nEres responsable de tus credenciales. La información de registro debe ser precisa. La edad mínima es de 16 años.\n\n4. Uso aceptable\n\nNo uses la plataforma para fines ilegales, no envíes contenido dañino o que infrinja derechos, no intentes interrumpir el servicio y no falsees tu identidad.\n\n5. Contenido del usuario\n\nAl enviar contenido, otorgas a la plataforma una licencia no exclusiva para mostrarlo y distribuirlo dentro de la plataforma. Conservas la propiedad de tu contenido.\n\n6. Propiedad intelectual\n\nEl software está licenciado bajo GPLv3. Los documentos conservan sus licencias y atribuciones originales.\n\n7. Sin garantías\n\nLa plataforma se ofrece «tal cual». Las respuestas de IA pueden ser inexactas o incompletas. Verifica siempre las fuentes primarias.\n\n8. Limitación de responsabilidad\n\nEn la medida permitida por la ley, el proyecto y sus voluntarios no son responsables por daños derivados del uso de la plataforma.\n\n9. Terminación de cuenta\n\nLas cuentas que violen estos términos pueden ser suspendidas. Puedes eliminar tu cuenta en cualquier momento.\n\n10. Modificaciones\n\nEstos términos pueden actualizarse. Los cambios importantes se comunicarán por email.\n\n11. Ley aplicable\n\nEstos términos se rigen por las leyes de Brasil.\n\n12. Contacto\n\nPara preguntas, contacta: contact@agroecologymap.org"
   },
   "mobile": {
     "title": "App Móvil",
     "metaDescription": "Descarga la app de Agroecology Map AI en Play Store y accede al conocimiento agroecológico donde estés.",
-    "intro": "Agroecology Map AI ahora está disponible como aplicación para Android. Con la app, puedes hacer preguntas sobre agroecología, consultar la base de conocimiento y recibir respuestas con citas de fuentes - todo directamente desde tu teléfono. Nuestro objetivo es democratizar el acceso al conocimiento agroecológico, permitiendo que agricultores, investigadores, extensionistas, estudiantes y comunidades tengan información confiable al alcance de la mano, incluso en áreas con conectividad limitada.",
+    "intro": "Agroecology Map AI está disponible como aplicación para Android. Con la app, puedes hacer preguntas sobre agroecología, consultar documentos de la base y recibir respuestas con fuentes para verificar, directamente desde tu teléfono. La propuesta es llevar conocimiento agroecológico accesible a agricultores, investigadores, extensionistas, estudiantes y comunidades.",
     "downloadButton": "Descargar en Play Store",
     "features": {
       "title": "Funcionalidades de la App",
       "access": {
         "title": "Acceso Simplificado",
-        "description": "Consulta la base de conocimiento agroecológico en cualquier momento y lugar, directamente desde tu dispositivo Android."
+        "description": "Consulta documentos agroecológicos y respuestas con fuentes directamente desde tu dispositivo Android."
       },
       "democratize": {
         "title": "Conocimiento para Todos",
-        "description": "Lleva información confiable sobre agroecología a más personas, incluyendo comunidades rurales y agricultores familiares."
+        "description": "Lleva conocimiento agroecológico verificable a más personas, incluyendo comunidades rurales y agricultores familiares."
       },
       "knowledge": {
         "title": "Base de Conocimiento al Alcance",
-        "description": "Haz preguntas en lenguaje natural y recibe respuestas basadas en artículos científicos, manuales técnicos y experiencias documentadas."
+        "description": "Haz preguntas en lenguaje natural y recibe respuestas basadas en artículos científicos, manuales técnicos, cartillas y experiencias documentadas."
       },
       "privacy": {
         "title": "Privacidad y Transparencia",
@@ -586,7 +666,7 @@
     },
     "cta": {
       "title": "Lleva el conocimiento agroecológico en tu bolsillo",
-      "description": "La app es gratuita y de código abierto. Descárgala ahora y comienza a explorar la base de conocimiento agroecológico donde quiera que estés.",
+      "description": "La app es gratuita y de código abierto. Descárgala ahora y consulta conocimiento agroecológico con fuentes verificables donde quiera que estés.",
       "free": "Gratuita y de software libre - sin anuncios, sin recolección de datos."
     }
   },

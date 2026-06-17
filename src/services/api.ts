@@ -8,6 +8,7 @@ import type {
   IngestStatusResponse,
   IngestTriggerResponse,
   DocumentRecord,
+  DocumentStats,
   DocumentUpdateRequest,
   PaginatedResponse,
   PaginationParams,
@@ -144,6 +145,8 @@ export const api = {
     request<PaginatedResponse<DocumentRecord>>(
       `/api/v1/documents${buildQueryString(params)}`,
     ),
+
+  getDocumentStats: () => request<DocumentStats>("/api/v1/documents/stats"),
 
   getMetadataExtractionStatus: () =>
     request<MetadataExtractionStatus>("/api/v1/documents/metadata-status"),

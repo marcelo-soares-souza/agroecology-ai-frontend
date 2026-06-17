@@ -213,7 +213,7 @@ export function AboutPage() {
             </h3>
             <div className="space-y-2">
               <a
-                href="https://codeberg.org/agroecologymap/agroecology-map-AI-frontend"
+                href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
@@ -223,7 +223,7 @@ export function AboutPage() {
               </a>
               <br />
               <a
-                href="https://codeberg.org/agroecologymap/agroecology-map-AI-backend"
+                href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
@@ -233,7 +233,7 @@ export function AboutPage() {
               </a>
               <br />
               <a
-                href="https://codeberg.org/agroecologymap/agroecology-map-AI-app"
+                href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"

@@ -25,30 +25,6 @@ import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { DocumentRecord } from "@/services/types";
 
 const PAGE_SIZE = 50;
-const STATS_PAGE_SIZE = 100;
-
-async function fetchDocumentsForStats(searchQuery: string) {
-  const q = searchQuery.trim() || undefined;
-  const firstPage = await api.listDocuments({
-    q,
-    limit: STATS_PAGE_SIZE,
-    offset: 0,
-  });
-  const allDocuments = [...firstPage.data];
-
-  while (allDocuments.length < firstPage.total) {
-    const nextPage = await api.listDocuments({
-      q,
-      limit: STATS_PAGE_SIZE,
-      offset: allDocuments.length,
-    });
-    allDocuments.push(...nextPage.data);
-
-    if (nextPage.data.length === 0) break;
-  }
-
-  return allDocuments;
-}
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -106,8 +82,8 @@ export function DocumentListPage() {
     placeholderData: keepPreviousData,
   });
   const statsQuery = useQuery({
-    queryKey: ["documents", "stats", debouncedSearchQuery],
-    queryFn: () => fetchDocumentsForStats(debouncedSearchQuery),
+    queryKey: ["documents", "stats"],
+    queryFn: api.getDocumentStats,
     placeholderData: keepPreviousData,
   });
   const metadataStatusQuery = useQuery({
@@ -115,32 +91,20 @@ export function DocumentListPage() {
     queryFn: api.getMetadataExtractionStatus,
     enabled: isAdmin,
   });
-  const statsDocuments = statsQuery.data ?? [];
-  const metadataStats = statsDocuments.reduce(
-    (acc, doc) => {
-      if (doc.file_type !== "pdf") return acc;
-      acc.total += 1;
-      if (doc.title?.trim() && doc.authors?.trim()) {
-        acc.extracted += 1;
+  const documentStats = statsQuery.data;
+  const metadataStats = documentStats
+    ? {
+        extracted: documentStats.metadata_extracted,
+        total: documentStats.metadata_total,
       }
-      return acc;
-    },
-    { extracted: 0, total: 0 },
-  );
+    : null;
   const metadataPending = metadataStats
     ? metadataStats.total - metadataStats.extracted
     : 0;
   const metadataActive = metadataStatusQuery.data?.active ?? 0;
-  const indexStats = statsDocuments.reduce(
-    (acc, doc) => {
-      acc.total += 1;
-      if (doc.ingested) {
-        acc.indexed += 1;
-      }
-      return acc;
-    },
-    { indexed: 0, total: 0 },
-  );
+  const indexStats = documentStats
+    ? { indexed: documentStats.indexed, total: documentStats.total }
+    : null;
   const indexPending = indexStats ? indexStats.total - indexStats.indexed : 0;
   const totalDocuments = query.data?.total ?? 0;
   const isSearchSettling = searchQuery !== debouncedSearchQuery;

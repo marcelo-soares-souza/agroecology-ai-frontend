@@ -112,6 +112,13 @@ export interface PaginatedResponse<T> {
   offset: number;
 }
 
+export interface DocumentStats {
+  total: number;
+  indexed: number;
+  metadata_total: number;
+  metadata_extracted: number;
+}
+
 export interface PaginationParams {
   q?: string;
   limit?: number;

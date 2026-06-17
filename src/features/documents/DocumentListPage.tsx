@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
@@ -22,6 +22,33 @@ import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import type { DocumentRecord } from "@/services/types";
+
+const PAGE_SIZE = 50;
+const STATS_PAGE_SIZE = 100;
+
+async function fetchDocumentsForStats(searchQuery: string) {
+  const q = searchQuery.trim() || undefined;
+  const firstPage = await api.listDocuments({
+    q,
+    limit: STATS_PAGE_SIZE,
+    offset: 0,
+  });
+  const allDocuments = [...firstPage.data];
+
+  while (allDocuments.length < firstPage.total) {
+    const nextPage = await api.listDocuments({
+      q,
+      limit: STATS_PAGE_SIZE,
+      offset: allDocuments.length,
+    });
+    allDocuments.push(...nextPage.data);
+
+    if (nextPage.data.length === 0) break;
+  }
+
+  return allDocuments;
+}
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -56,17 +83,40 @@ export function DocumentListPage() {
     type: "success" | "info";
   } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [documents, setDocuments] = useState<DocumentRecord[]>([]);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [searchQuery]);
 
   const query = useQuery({
-    queryKey: ["documents"],
-    queryFn: api.listDocuments,
+    queryKey: ["documents", debouncedSearchQuery],
+    queryFn: () =>
+      api.listDocuments({
+        q: debouncedSearchQuery.trim() || undefined,
+        limit: PAGE_SIZE,
+        offset: 0,
+      }),
+    placeholderData: keepPreviousData,
+  });
+  const statsQuery = useQuery({
+    queryKey: ["documents", "stats", debouncedSearchQuery],
+    queryFn: () => fetchDocumentsForStats(debouncedSearchQuery),
+    placeholderData: keepPreviousData,
   });
   const metadataStatusQuery = useQuery({
     queryKey: ["documents", "metadata-status"],
     queryFn: api.getMetadataExtractionStatus,
     enabled: isAdmin,
   });
-  const metadataStats = query.data?.reduce(
+  const statsDocuments = statsQuery.data ?? [];
+  const metadataStats = statsDocuments.reduce(
     (acc, doc) => {
       if (doc.file_type !== "pdf") return acc;
       acc.total += 1;
@@ -81,7 +131,7 @@ export function DocumentListPage() {
     ? metadataStats.total - metadataStats.extracted
     : 0;
   const metadataActive = metadataStatusQuery.data?.active ?? 0;
-  const indexStats = query.data?.reduce(
+  const indexStats = statsDocuments.reduce(
     (acc, doc) => {
       acc.total += 1;
       if (doc.ingested) {
@@ -92,20 +142,30 @@ export function DocumentListPage() {
     { indexed: 0, total: 0 },
   );
   const indexPending = indexStats ? indexStats.total - indexStats.indexed : 0;
+  const totalDocuments = query.data?.total ?? 0;
+  const isSearchSettling = searchQuery !== debouncedSearchQuery;
+  const hasMore = !isSearchSettling && documents.length < totalDocuments;
 
-  const filteredDocs = useMemo(
-    () =>
-      query.data?.filter((doc) => {
-        if (!searchQuery.trim()) return true;
-        const q = searchQuery.toLowerCase();
-        return (
-          doc.title?.toLowerCase().includes(q) ||
-          doc.filename?.toLowerCase().includes(q) ||
-          doc.authors?.toLowerCase().includes(q)
-        );
-      }),
-    [query.data, searchQuery],
-  );
+  useEffect(() => {
+    if (query.data) {
+      setDocuments(query.data.data);
+    }
+  }, [query.data]);
+
+  async function loadMore(): Promise<void> {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const nextPage = await api.listDocuments({
+        q: debouncedSearchQuery.trim() || undefined,
+        limit: PAGE_SIZE,
+        offset: documents.length,
+      });
+      setDocuments((current) => [...current, ...nextPage.data]);
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   const deleteMutation = useAppMutation({
     mutationFn: api.deleteDocument,
@@ -138,12 +198,17 @@ export function DocumentListPage() {
               variant="secondary"
               onClick={() => {
                 void query.refetch();
+                void statsQuery.refetch();
                 if (isAdmin) void metadataStatusQuery.refetch();
               }}
-              disabled={query.isFetching || metadataStatusQuery.isFetching}
+              disabled={
+                query.isFetching ||
+                statsQuery.isFetching ||
+                metadataStatusQuery.isFetching
+              }
             >
               <RefreshCw
-                className={`h-4 w-4 ${query.isFetching || metadataStatusQuery.isFetching ? "animate-spin" : ""}`}
+                className={`h-4 w-4 ${query.isFetching || statsQuery.isFetching || metadataStatusQuery.isFetching ? "animate-spin" : ""}`}
               />
               {t("documents.refresh")}
             </Button>
@@ -154,6 +219,7 @@ export function DocumentListPage() {
                   onClick={() => extractAllMutation.mutate(undefined)}
                   disabled={
                     extractAllMutation.isPending ||
+                    statsQuery.isLoading ||
                     metadataPending === 0 ||
                     metadataActive > 0
                   }
@@ -180,7 +246,7 @@ export function DocumentListPage() {
         </p>
         {query.data && (
           <p className="text-sm text-text-secondary mt-1">
-            {t("documents.total", { count: query.data.length })}
+            {t("documents.total", { count: query.data.total })}
           </p>
         )}
       </div>
@@ -279,8 +345,7 @@ export function DocumentListPage() {
         }
       >
         {() => {
-          const docs = filteredDocs ?? [];
-          if (docs.length === 0 && (query.data?.length ?? 0) > 0) {
+          if (documents.length === 0 && totalDocuments > 0) {
             return (
               <Card className="text-center py-12">
                 <Search className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
@@ -288,9 +353,21 @@ export function DocumentListPage() {
               </Card>
             );
           }
+          if (documents.length === 0) {
+            return (
+              <Card className="text-center py-12">
+                <FileText className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
+                <p className="text-text-secondary">
+                  {debouncedSearchQuery.trim()
+                    ? t("common.noResults")
+                    : t("documents.empty")}
+                </p>
+              </Card>
+            );
+          }
           return (
             <div className="space-y-3">
-              {docs.map((doc) => (
+              {documents.map((doc) => (
                 <div
                   key={doc.id}
                   className="block group"
@@ -399,6 +476,22 @@ export function DocumentListPage() {
                   </Card>
                 </div>
               ))}
+              {hasMore && (
+                <div className="flex justify-center pt-2">
+                  <Button
+                    variant="secondary"
+                    onClick={() => void loadMore()}
+                    disabled={loadingMore}
+                  >
+                    {loadingMore && (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    )}
+                    {loadingMore
+                      ? t("common.loadingMore")
+                      : t("common.loadMore")}
+                  </Button>
+                </div>
+              )}
             </div>
           );
         }}

@@ -9,10 +9,13 @@ import type {
   IngestTriggerResponse,
   DocumentRecord,
   DocumentUpdateRequest,
+  PaginatedResponse,
+  PaginationParams,
   MetadataExtractionStatus,
   UploadResponse,
   IngestionRun,
   UserRecord,
+  PublicUserRecord,
   HumanChallenge,
   DocumentSuggestion,
   DocumentSuggestionUpdate,
@@ -90,6 +93,18 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
   return response.json();
 }
 
+function buildQueryString(params?: PaginationParams): string {
+  if (!params) return "";
+  const searchParams = new URLSearchParams();
+  if (params.q) searchParams.set("q", params.q);
+  if (params.limit !== undefined)
+    searchParams.set("limit", String(params.limit));
+  if (params.offset !== undefined)
+    searchParams.set("offset", String(params.offset));
+  const query = searchParams.toString();
+  return query ? `?${query}` : "";
+}
+
 export const api = {
   ask: (data: AskRequest) =>
     request<AskResponse>("/api/v1/ask", {
@@ -125,7 +140,10 @@ export const api = {
     });
   },
 
-  listDocuments: () => request<DocumentRecord[]>("/api/v1/documents"),
+  listDocuments: (params?: PaginationParams) =>
+    request<PaginatedResponse<DocumentRecord>>(
+      `/api/v1/documents${buildQueryString(params)}`,
+    ),
 
   getMetadataExtractionStatus: () =>
     request<MetadataExtractionStatus>("/api/v1/documents/metadata-status"),
@@ -188,7 +206,10 @@ export const api = {
       method: "DELETE",
     }),
 
-  listActiveUsers: () => request<UserRecord[]>("/api/v1/auth/users"),
+  listActiveUsers: (params?: PaginationParams) =>
+    request<PaginatedResponse<PublicUserRecord>>(
+      `/api/v1/auth/users${buildQueryString(params)}`,
+    ),
 
   login: (data: LoginRequest) =>
     request<LoginResponse>("/api/v1/auth/login", {

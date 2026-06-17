@@ -31,6 +31,8 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "loading": "Loading...",
+    "loadMore": "Load more",
+    "loadingMore": "Loading more...",
     "retry": "Retry",
     "error": "Error",
     "success": "Success",

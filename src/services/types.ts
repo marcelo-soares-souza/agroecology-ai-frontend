@@ -105,6 +105,19 @@ export interface DocumentRecord {
   suggested_by_user_slug: string | null;
 }
 
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
+export interface PaginationParams {
+  q?: string;
+  limit?: number;
+  offset?: number;
+}
+
 export interface DocumentUpdateRequest {
   title?: string | null;
   authors?: string | null;
@@ -156,6 +169,17 @@ export interface UserRecord {
   last_login_at: string | null;
   created_at: string;
   updated_at: string;
+  about: string | null;
+  link: string | null;
+  avatar_url: string | null;
+  approved_suggestions_count: number;
+}
+
+export interface PublicUserRecord {
+  id: string;
+  full_name: string;
+  slug: string;
+  locale: string;
   about: string | null;
   link: string | null;
   avatar_url: string | null;

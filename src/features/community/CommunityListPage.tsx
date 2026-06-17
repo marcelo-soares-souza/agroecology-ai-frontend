@@ -1,34 +1,67 @@
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { useState, useMemo } from "react";
-import { Users, User, FileText, Search, RefreshCw } from "lucide-react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Users, FileText, Search, RefreshCw, Loader2 } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { buildApiUrl } from "@/config/api";
+import type { PublicUserRecord } from "@/services/types";
+
+const PAGE_SIZE = 50;
 
 export function CommunityListPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [users, setUsers] = useState<PublicUserRecord[]>([]);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [searchQuery]);
 
   const query = useQuery({
-    queryKey: ["community-users"],
-    queryFn: () => api.listActiveUsers(),
-  });
-
-  const filteredUsers = useMemo(
-    () =>
-      query.data?.filter((user) => {
-        if (!searchQuery.trim()) return true;
-        const q = searchQuery.toLowerCase();
-        return user.full_name?.toLowerCase().includes(q);
+    queryKey: ["community-users", debouncedSearchQuery],
+    queryFn: () =>
+      api.listActiveUsers({
+        q: debouncedSearchQuery.trim() || undefined,
+        limit: PAGE_SIZE,
+        offset: 0,
       }),
-    [query.data, searchQuery],
-  );
+    placeholderData: keepPreviousData,
+  });
+  const totalUsers = query.data?.total ?? 0;
+  const isSearchSettling = searchQuery !== debouncedSearchQuery;
+  const hasMore = !isSearchSettling && users.length < totalUsers;
+
+  useEffect(() => {
+    if (query.data) {
+      setUsers(query.data.data);
+    }
+  }, [query.data]);
+
+  async function loadMore(): Promise<void> {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const nextPage = await api.listActiveUsers({
+        q: debouncedSearchQuery.trim() || undefined,
+        limit: PAGE_SIZE,
+        offset: users.length,
+      });
+      setUsers((current) => [...current, ...nextPage.data]);
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -78,8 +111,7 @@ export function CommunityListPage() {
         }
       >
         {() => {
-          const users = filteredUsers ?? [];
-          if (users.length === 0 && (query.data?.length ?? 0) > 0) {
+          if (users.length === 0 && totalUsers > 0) {
             return (
               <Card className="text-center py-12">
                 <Search className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
@@ -87,51 +119,105 @@ export function CommunityListPage() {
               </Card>
             );
           }
+          if (users.length === 0) {
+            return (
+              <Card className="text-center py-12">
+                <Users className="h-12 w-12 text-text-secondary/40 mx-auto mb-3" />
+                <p className="text-text-secondary">
+                  {debouncedSearchQuery.trim()
+                    ? t("common.noResults")
+                    : t("community.empty")}
+                </p>
+              </Card>
+            );
+          }
           return (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {users.map((user) => (
-                <Card
-                  key={user.id}
-                  padding="sm"
-                  className="hover:bg-primary-50/30 transition-colors cursor-pointer"
-                  onClick={() => navigate(`/community/${user.slug}`)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden shrink-0">
-                      {user.avatar_url ? (
-                        <img
-                          src={buildApiUrl(
-                            user.avatar_url +
-                              (user.updated_at
-                                ? `?v=${encodeURIComponent(user.updated_at)}`
-                                : ""),
-                          )}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-primary text-white">
-                          <User className="h-5 w-5" />
-                        </div>
-                      )}
-                    </div>
-                    <span className="font-medium text-text-primary truncate min-w-0">
-                      {user.full_name}
-                    </span>
-                    {user.approved_suggestions_count > 0 && (
-                      <span
-                        className="ml-auto flex items-center gap-1 text-xs text-text-secondary shrink-0"
-                        title={t("community.approvedSuggestionsTooltip", {
-                          count: user.approved_suggestions_count,
-                        })}
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {users.map((user) => {
+                  const initials =
+                    user.full_name
+                      .split(" ")
+                      .map((word) => word[0])
+                      .filter(Boolean)
+                      .slice(0, 2)
+                      .join("")
+                      .toUpperCase() || "?";
+
+                  return (
+                    <Link
+                      key={user.id}
+                      to={`/community/${user.slug}`}
+                      className="block h-full"
+                    >
+                      <Card
+                        padding="none"
+                        className="flex h-full cursor-pointer flex-col overflow-hidden transition-shadow hover:shadow-lg"
                       >
-                        <FileText className="h-3.5 w-3.5" />
-                        {user.approved_suggestions_count}
-                      </span>
+                        <div className="relative flex h-40 w-full items-center justify-center overflow-hidden bg-primary-50">
+                          {user.avatar_url ? (
+                            <img
+                              src={buildApiUrl(user.avatar_url)}
+                              alt={user.full_name}
+                              className="h-32 w-32 rounded-full border-4 border-white object-cover shadow-sm"
+                            />
+                          ) : (
+                            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white/70 text-5xl font-bold text-primary shadow-sm">
+                              {initials}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex flex-1 flex-col gap-4 p-5">
+                          <div>
+                            <h3 className="text-lg font-bold leading-snug text-text-primary">
+                              {user.full_name}
+                            </h3>
+                          </div>
+
+                          <div className="min-h-0 flex-1">
+                            {user.about && (
+                              <p className="line-clamp-3 text-sm leading-relaxed text-text-secondary">
+                                {user.about}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="rounded-lg bg-emerald-50 p-3 text-center">
+                            <FileText className="mx-auto mb-0.5 h-4 w-4 text-emerald-600" />
+                            <p className="text-lg font-bold text-emerald-700">
+                              {user.approved_suggestions_count}
+                            </p>
+                            <p
+                              className="text-xs text-emerald-600"
+                              title={t("community.approvedSuggestionsTooltip", {
+                                count: user.approved_suggestions_count,
+                              })}
+                            >
+                              {t("community.approvedSuggestions")}
+                            </p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+              {hasMore && (
+                <div className="flex justify-center">
+                  <Button
+                    variant="secondary"
+                    onClick={() => void loadMore()}
+                    disabled={loadingMore}
+                  >
+                    {loadingMore && (
+                      <Loader2 className="h-4 w-4 animate-spin" />
                     )}
-                  </div>
-                </Card>
-              ))}
+                    {loadingMore
+                      ? t("common.loadingMore")
+                      : t("common.loadMore")}
+                  </Button>
+                </div>
+              )}
             </div>
           );
         }}

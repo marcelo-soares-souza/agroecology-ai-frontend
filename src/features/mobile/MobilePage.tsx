@@ -4,7 +4,10 @@ import { Card } from "@/components/ui/Card";
 
 const playStoreUrl =
   "https://play.google.com/store/apps/details?id=org.agroecologymap.agroecology_map_ai&pcampaignid=web_share";
+const appStoreUrl =
+  "https://apps.apple.com/br/app/agroecology-map-ai/id6779950543";
 const playStoreBadgeUrl = "/google-play-badge.png";
+const appStoreBadgeUrl = "/app-store-badge.svg";
 
 export function MobilePage() {
   const { t } = useTranslation();
@@ -23,18 +26,32 @@ export function MobilePage() {
           <p className="text-text-primary text-base leading-relaxed">
             {t("mobile.intro")}
           </p>
-          <a
-            href={playStoreUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block"
-          >
-            <img
-              src={playStoreBadgeUrl}
-              alt={t("mobile.downloadButton")}
-              className="h-20 w-auto"
-            />
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={playStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center"
+            >
+              <img
+                src={playStoreBadgeUrl}
+                alt={t("mobile.playStoreDownloadButton")}
+                className="h-21 w-auto"
+              />
+            </a>
+            <a
+              href={appStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center"
+            >
+              <img
+                src={appStoreBadgeUrl}
+                alt={t("mobile.appStoreDownloadButton")}
+                className="h-15 w-auto"
+              />
+            </a>
+          </div>
         </div>
       </Card>
 
@@ -110,18 +127,32 @@ export function MobilePage() {
           <p className="text-text-primary text-base leading-relaxed max-w-xl">
             {t("mobile.cta.description")}
           </p>
-          <a
-            href={playStoreUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block"
-          >
-            <img
-              src={playStoreBadgeUrl}
-              alt={t("mobile.downloadButton")}
-              className="h-24 w-auto"
-            />
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={playStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center"
+            >
+              <img
+                src={playStoreBadgeUrl}
+                alt={t("mobile.playStoreDownloadButton")}
+                className="h-21 w-auto"
+              />
+            </a>
+            <a
+              href={appStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center"
+            >
+              <img
+                src={appStoreBadgeUrl}
+                alt={t("mobile.appStoreDownloadButton")}
+                className="h-15 w-auto"
+              />
+            </a>
+          </div>
           <p className="text-text-secondary text-sm">{t("mobile.cta.free")}</p>
         </div>
       </Card>

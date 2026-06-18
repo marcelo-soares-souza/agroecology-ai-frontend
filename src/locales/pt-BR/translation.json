@@ -642,14 +642,15 @@
   },
   "mobile": {
     "title": "App Mobile",
-    "metaDescription": "Baixe o app do Agroecology Map AI na Play Store e acesse conhecimento agroecológico onde estiver.",
-    "intro": "O Agroecology Map AI está disponível como aplicativo para Android. Com o app, você pode fazer perguntas sobre agroecologia, consultar documentos da base e receber respostas com fontes para verificar, diretamente do celular. A proposta é levar conhecimento agroecológico acessível a agricultores, pesquisadores, extensionistas, estudantes e comunidades.",
-    "downloadButton": "Baixar na Play Store",
+    "metaDescription": "Baixe o app do Agroecology Map AI na App Store ou na Play Store e acesse conhecimento agroecológico onde estiver.",
+    "intro": "O Agroecology Map AI está disponível para iPhone e Android. Com o app, você pode fazer perguntas sobre agroecologia, consultar documentos da base e receber respostas com fontes para verificar, diretamente do celular. A proposta é levar conhecimento agroecológico acessível a agricultores, pesquisadores, extensionistas, estudantes e comunidades.",
+    "playStoreDownloadButton": "Baixar na Play Store",
+    "appStoreDownloadButton": "Baixar na App Store",
     "features": {
       "title": "Funcionalidades do App",
       "access": {
         "title": "Acesso Simplificado",
-        "description": "Consulte documentos agroecológicos e respostas com fontes diretamente do seu dispositivo Android."
+        "description": "Consulte documentos agroecológicos e respostas com fontes diretamente do seu iPhone ou dispositivo Android."
       },
       "democratize": {
         "title": "Conhecimento para Todos",

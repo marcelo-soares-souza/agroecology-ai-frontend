@@ -7,6 +7,13 @@ import { Badge } from "@/components/ui/Badge";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { Lightbulb, MessageCircle, Database, Smartphone } from "lucide-react";
 
+const playStoreUrl =
+  "https://play.google.com/store/apps/details?id=org.agroecologymap.agroecology_map_ai&pcampaignid=web_share";
+const appStoreUrl =
+  "https://apps.apple.com/br/app/agroecology-map-ai/id6779950543";
+const playStoreBadgeUrl = "/google-play-badge.png";
+const appStoreBadgeUrl = "/app-store-badge.svg";
+
 export function HomePage() {
   const { t } = useTranslation();
   const { isAuthenticated, hasRestoredSession } = useAuth();
@@ -67,12 +74,16 @@ export function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50">
               <Lightbulb className="h-6 w-6 text-amber-600" />
             </div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-text-primary">
-                {t("landing.features.suggest.title")}
-              </h3>
-              <InfoTooltip label={t("landing.features.suggest.description")} />
-              <Badge variant="success" className="text-[10px]">
+            <div className="flex min-w-0 flex-col items-center justify-center gap-2">
+              <div className="flex min-w-0 items-center justify-center gap-2">
+                <h3 className="min-w-0 font-semibold text-text-primary">
+                  {t("landing.features.suggest.title")}
+                </h3>
+                <InfoTooltip
+                  label={t("landing.features.suggest.description")}
+                />
+              </div>
+              <Badge variant="success" className="shrink-0 text-[10px]">
                 {t("landing.allUsers")}
               </Badge>
             </div>
@@ -87,12 +98,14 @@ export function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50">
               <MessageCircle className="h-6 w-6 text-green-600" />
             </div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-text-primary">
-                {t("landing.features.ask.title")}
-              </h3>
-              <InfoTooltip label={t("landing.features.ask.description")} />
-              <Badge variant="success" className="text-[10px]">
+            <div className="flex min-w-0 flex-col items-center justify-center gap-2">
+              <div className="flex min-w-0 items-center justify-center gap-2">
+                <h3 className="min-w-0 font-semibold text-text-primary">
+                  {t("landing.features.ask.title")}
+                </h3>
+                <InfoTooltip label={t("landing.features.ask.description")} />
+              </div>
+              <Badge variant="success" className="shrink-0 text-[10px]">
                 {t("landing.allUsers")}
               </Badge>
             </div>
@@ -107,12 +120,14 @@ export function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-50">
               <Database className="h-6 w-6 text-primary" />
             </div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-text-primary">
-                {t("landing.features.ingest.title")}
-              </h3>
-              <InfoTooltip label={t("landing.features.ingest.description")} />
-              <Badge variant="warning" className="text-[10px]">
+            <div className="flex min-w-0 flex-col items-center justify-center gap-2">
+              <div className="flex min-w-0 items-center justify-center gap-2">
+                <h3 className="min-w-0 font-semibold text-text-primary">
+                  {t("landing.features.ingest.title")}
+                </h3>
+                <InfoTooltip label={t("landing.features.ingest.description")} />
+              </div>
+              <Badge variant="warning" className="shrink-0 text-[10px]">
                 {t("admin.section")}
               </Badge>
             </div>
@@ -159,7 +174,7 @@ export function HomePage() {
       </div> */}
 
       {/* Mobile App */}
-      <div className="max-w-sm mx-auto px-4 text-center">
+      <div className="max-w-md mx-auto px-4 text-center">
         <Card>
           <div className="flex flex-col items-center gap-3">
             <Smartphone className="h-8 w-8 text-primary" />
@@ -169,18 +184,32 @@ export function HomePage() {
             <p className="text-sm text-text-secondary">
               {t("mobile.cta.description")}
             </p>
-            <a
-              href="https://play.google.com/store/apps/details?id=org.agroecologymap.agroecology_map_ai&pcampaignid=web_share"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block"
-            >
-              <img
-                src="/google-play-badge.png"
-                alt={t("mobile.downloadButton")}
-                className="h-20 w-auto"
-              />
-            </a>
+            <div className="flex flex-col items-center justify-center gap-5">
+              <a
+                href={playStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center"
+              >
+                <img
+                  src={playStoreBadgeUrl}
+                  alt={t("mobile.playStoreDownloadButton")}
+                  className="h-21 w-auto"
+                />
+              </a>
+              <a
+                href={appStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center"
+              >
+                <img
+                  src={appStoreBadgeUrl}
+                  alt={t("mobile.appStoreDownloadButton")}
+                  className="h-16 w-auto"
+                />
+              </a>
+            </div>
           </div>
         </Card>
       </div>

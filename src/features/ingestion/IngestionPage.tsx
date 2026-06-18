@@ -143,24 +143,40 @@ export function IngestionPage() {
       </div>
 
       <Card>
-        <div className="flex flex-col gap-6 items-center text-center">
-          <div className="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center">
-            <RefreshCw
-              className={`h-8 w-8 text-primary ${isProcessing ? "animate-spin" : ""}`}
-            />
-          </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 items-start gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-100">
+                <RefreshCw
+                  className={`h-7 w-7 text-primary ${isProcessing ? "animate-spin" : ""}`}
+                />
+              </div>
 
-          <div>
-            <h2 className="text-xl font-semibold text-text-primary mb-2">
-              {t("ingestion.title")}
-            </h2>
-            <p className="text-text-secondary mb-6 max-w-md">
-              {t("ingestion.trigger")}
-            </p>
+              <div className="min-w-0">
+                <h2 className="text-xl font-semibold text-text-primary">
+                  {t("ingestion.title")}
+                </h2>
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-text-secondary">
+                  <span>{t("ingestion.processHelp")}</span>
+                </div>
 
-            <div className="flex gap-3">
+                {!isProcessing && pendingDocs === 0 && !statusLoading && (
+                  <p className="text-success text-sm mt-3">
+                    {t("ingestion.allProcessed")}
+                  </p>
+                )}
+                {!isProcessing && pendingDocs > 0 && (
+                  <p className="text-text-secondary text-sm mt-3">
+                    {t("ingestion.pendingDocuments", { count: pendingDocs })}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Button
                 size="lg"
+                className="w-full whitespace-nowrap sm:w-auto"
                 onClick={() => triggerMutation.mutate(undefined)}
                 disabled={isProcessing}
               >
@@ -170,40 +186,26 @@ export function IngestionPage() {
                     {t("ingestion.processing")}
                   </>
                 ) : (
-                  t("ingestion.trigger")
+                  <>
+                    <RefreshCw className="h-5 w-5" />
+                    {t("ingestion.trigger")}
+                  </>
                 )}
               </Button>
               <Button
                 variant="secondary"
                 size="lg"
+                className="w-full whitespace-nowrap sm:w-auto"
                 onClick={() => forceMutation.mutate(undefined)}
                 disabled={isProcessing}
               >
                 {t("ingestion.forceRebuild")}
               </Button>
             </div>
-            <div className="mt-3 flex flex-wrap justify-center gap-3 text-xs text-text-secondary">
-              <span>{t("ingestion.processHelp")}</span>
-              <span className="inline-flex items-center gap-1">
-                {t("ingestion.forceRebuild")}
-                <InfoTooltip label={t("ingestion.forceRebuildHelp")} />
-              </span>
-            </div>
-
-            {!isProcessing && pendingDocs === 0 && !statusLoading && (
-              <p className="text-success text-sm mt-2">
-                {t("ingestion.allProcessed")}
-              </p>
-            )}
-            {!isProcessing && pendingDocs > 0 && (
-              <p className="text-text-secondary text-sm mt-2">
-                {t("ingestion.pendingDocuments", { count: pendingDocs })}
-              </p>
-            )}
           </div>
 
           {ingestStatus && ingestStatus.status !== "idle" && !statusLoading && (
-            <div className="w-full max-w-sm border-t border-primary-100 pt-4">
+            <div className="w-full border-t border-primary-100 pt-4">
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 text-sm text-text-secondary">
                   {t("ingestion.status")}

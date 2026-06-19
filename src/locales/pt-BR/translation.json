@@ -166,7 +166,13 @@
     "sourceLabel": "Fonte: {{title}}",
     "pollingTimeout": "Tempo de espera excedido",
     "empty": "Pergunte sobre solo, agroflorestas, compostagem, biodiversidade, sementes ou políticas agroecológicas.",
-    "newChat": "Nova conversa"
+    "newChat": "Nova conversa",
+    "reindexingTitle": "Estamos reindexando a base agroecológica",
+    "reindexingBody": "Você pode continuar perguntando, mas talvez as respostas não fiquem tão precisas até a atualização terminar.",
+    "reindexingProgressDocuments": "{{processed}} de {{total}} documentos já foram processados.",
+    "reindexingProgressChunks": "{{count}} trechos já foram indexados.",
+    "reindexingProgressPreparing": "Estamos preparando a contagem do progresso.",
+    "reindexingPercent": "{{progressPercent}}% concluído"
   },
   "landing": {
     "title": "Agroecology Map AI",

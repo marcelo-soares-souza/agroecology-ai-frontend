@@ -109,6 +109,11 @@
     "emailHelp": "Usaremos este email para iniciar sesión, confirmar la cuenta y recuperar la contraseña.",
     "passwordHelp": "Usa al menos 8 caracteres.",
     "challengeHelp": "Esta pregunta ayuda a proteger el registro contra envíos automatizados.",
+    "rateLimitTitle": "Acceso bloqueado temporalmente",
+    "rateLimitDescription": "Demasiados intentos fallaron. Espera el tiempo indicado antes de intentarlo de nuevo.",
+    "rateLimitRetryIn": "Inténtalo de nuevo en {{time}}.",
+    "rateLimitRetryAvailable": "Ya puedes intentarlo de nuevo.",
+    "rateLimitTryAgain": "Intentar de nuevo",
     "acceptPrivacyPolicy": {
       "prefix": "Acepto la ",
       "link": "Política de Privacidad"

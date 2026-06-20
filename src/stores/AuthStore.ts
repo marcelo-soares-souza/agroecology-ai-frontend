@@ -1,6 +1,6 @@
 import i18n from "@/config/i18n";
 import { queryClient } from "@/services/QueryClient";
-import { api } from "@/services/api";
+import { api, isAuthRateLimitError } from "@/services/api";
 import type { UserRecord } from "@/services/types";
 
 interface AuthSession {
@@ -89,6 +89,9 @@ function createAuthStore() {
       fetchProfile();
       notify();
     } catch (err) {
+      if (isAuthRateLimitError(err)) {
+        throw err;
+      }
       const message =
         err instanceof Error ? err.message : i18n.t("auth.loginFailed");
       throw new Error(message, { cause: err });
@@ -134,6 +137,9 @@ function createAuthStore() {
         tos_accepted: data.tos_accepted || false,
       });
     } catch (err) {
+      if (isAuthRateLimitError(err)) {
+        throw err;
+      }
       const message =
         err instanceof Error ? err.message : i18n.t("auth.registrationFailed");
       throw new Error(message, { cause: err });

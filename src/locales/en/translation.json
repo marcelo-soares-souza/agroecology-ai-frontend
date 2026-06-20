@@ -116,7 +116,12 @@
     "fullNameHelp": "This name may appear on your public profile and contributions.",
     "emailHelp": "We use this email for login, account confirmation, and password recovery.",
     "passwordHelp": "Use at least 8 characters.",
-    "challengeHelp": "This question helps protect registration from automated submissions."
+    "challengeHelp": "This question helps protect registration from automated submissions.",
+    "rateLimitTitle": "Access temporarily blocked",
+    "rateLimitDescription": "Too many attempts failed. Wait for the indicated time before trying again.",
+    "rateLimitRetryIn": "Try again in {{time}}.",
+    "rateLimitRetryAvailable": "You can try again now.",
+    "rateLimitTryAgain": "Try again"
   },
   "admin": {
     "section": "Admin",

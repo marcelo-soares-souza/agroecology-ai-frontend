@@ -6,6 +6,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { isAuthRateLimitError, type AuthRateLimitInfo } from "@/services/api";
+import { AuthRateLimitBlock } from "./AuthRateLimitBlock";
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -17,6 +19,7 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [rateLimit, setRateLimit] = useState<AuthRateLimitInfo | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -27,10 +30,31 @@ export function LoginPage() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (err) {
+      if (isAuthRateLimitError(err)) {
+        setRateLimit({
+          retryAfterSeconds: err.retryAfterSeconds,
+          blockedUntil:
+            err.blockedUntil || fallbackBlockedUntil(err.retryAfterSeconds),
+        });
+        setLoading(false);
+        return;
+      }
       setError(err instanceof Error ? err.message : t("auth.loginFailed"));
     }
     setLoading(false);
   };
+
+  if (rateLimit) {
+    return (
+      <AuthRateLimitBlock
+        info={rateLimit}
+        onRetry={() => {
+          setRateLimit(null);
+          setError("");
+        }}
+      />
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -96,4 +120,9 @@ export function LoginPage() {
       </Card>
     </div>
   );
+}
+
+function fallbackBlockedUntil(retryAfterSeconds?: number): string | undefined {
+  if (!retryAfterSeconds) return undefined;
+  return new Date(Date.now() + retryAfterSeconds * 1000).toISOString();
 }

@@ -109,6 +109,11 @@
     "emailHelp": "Nous utiliserons cet email pour la connexion, la confirmation du compte et la récupération du mot de passe.",
     "passwordHelp": "Utilisez au moins 8 caractères.",
     "challengeHelp": "Cette question aide à protéger l'inscription contre les envois automatisés.",
+    "rateLimitTitle": "Accès temporairement bloqué",
+    "rateLimitDescription": "Trop de tentatives ont échoué. Attendez le délai indiqué avant de réessayer.",
+    "rateLimitRetryIn": "Réessayez dans {{time}}.",
+    "rateLimitRetryAvailable": "Vous pouvez réessayer maintenant.",
+    "rateLimitTryAgain": "Réessayer",
     "acceptPrivacyPolicy": {
       "prefix": "J'accepte la ",
       "link": "Politique de confidentialité"

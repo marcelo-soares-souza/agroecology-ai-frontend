@@ -28,13 +28,41 @@ import type {
   RefreshTokenResponse,
 } from "./types";
 
-class ApiError extends Error {
+export interface AuthRateLimitInfo {
+  retryAfterSeconds?: number;
+  blockedUntil?: string;
+}
+
+export class ApiError extends Error {
   status: number;
-  constructor(message: string, status: number) {
+  code?: string;
+  retryAfterSeconds?: number;
+  blockedUntil?: string;
+
+  constructor(
+    message: string,
+    status: number,
+    details?: {
+      code?: string;
+      retryAfterSeconds?: number;
+      blockedUntil?: string;
+    },
+  ) {
     super(message);
     this.name = "ApiError";
     this.status = status;
+    this.code = details?.code;
+    this.retryAfterSeconds = details?.retryAfterSeconds;
+    this.blockedUntil = details?.blockedUntil;
   }
+}
+
+export function isAuthRateLimitError(error: unknown): error is ApiError {
+  return (
+    error instanceof ApiError &&
+    error.status === 429 &&
+    error.code === "auth_rate_limited"
+  );
 }
 
 function getUnexpectedTemporaryErrorMessage(): string {
@@ -80,15 +108,45 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
     }
 
     let message = text || response.statusText;
+    let code: string | undefined;
+    let retryAfterSeconds: number | undefined;
+    let blockedUntil: string | undefined;
+
     try {
       const parsed = JSON.parse(text);
-      if (parsed.detail) {
+      if (typeof parsed.detail === "string") {
         message = parsed.detail;
+      } else if (parsed.detail && typeof parsed.detail === "object") {
+        if (typeof parsed.detail.message === "string") {
+          message = parsed.detail.message;
+        }
+        if (typeof parsed.detail.code === "string") {
+          code = parsed.detail.code;
+        }
+        if (typeof parsed.detail.retry_after_seconds === "number") {
+          retryAfterSeconds = parsed.detail.retry_after_seconds;
+        }
+        if (typeof parsed.detail.blocked_until === "string") {
+          blockedUntil = parsed.detail.blocked_until;
+        }
       }
     } catch {
       // not JSON, use raw text
     }
-    throw new ApiError(message, response.status);
+
+    const retryAfterHeader = response.headers.get("retry-after");
+    if (retryAfterSeconds === undefined && retryAfterHeader) {
+      const parsedRetryAfter = Number(retryAfterHeader);
+      if (Number.isFinite(parsedRetryAfter)) {
+        retryAfterSeconds = parsedRetryAfter;
+      }
+    }
+
+    throw new ApiError(message, response.status, {
+      code,
+      retryAfterSeconds,
+      blockedUntil,
+    });
   }
 
   return response.json();

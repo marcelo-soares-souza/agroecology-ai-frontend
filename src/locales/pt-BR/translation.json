@@ -116,7 +116,12 @@
     "fullNameHelp": "Esse nome pode aparecer no seu perfil público e nas contribuições.",
     "emailHelp": "Usaremos este email para login, confirmação de conta e recuperação de senha.",
     "passwordHelp": "Use pelo menos 8 caracteres.",
-    "challengeHelp": "Esta pergunta ajuda a proteger o cadastro contra envio automatizado."
+    "challengeHelp": "Esta pergunta ajuda a proteger o cadastro contra envio automatizado.",
+    "rateLimitTitle": "Acesso temporariamente bloqueado",
+    "rateLimitDescription": "Muitas tentativas falharam. Aguarde o tempo indicado antes de tentar novamente.",
+    "rateLimitRetryIn": "Tente novamente em {{time}}.",
+    "rateLimitRetryAvailable": "Você já pode tentar novamente.",
+    "rateLimitTryAgain": "Tentar novamente"
   },
   "admin": {
     "section": "Admin",

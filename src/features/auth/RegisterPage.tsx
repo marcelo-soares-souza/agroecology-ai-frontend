@@ -6,7 +6,12 @@ import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { api } from "@/services/api";
+import {
+  api,
+  isAuthRateLimitError,
+  type AuthRateLimitInfo,
+} from "@/services/api";
+import { AuthRateLimitBlock } from "./AuthRateLimitBlock";
 
 export function RegisterPage() {
   const { register } = useAuth();
@@ -25,6 +30,7 @@ export function RegisterPage() {
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [tosAccepted, setTosAccepted] = useState(false);
   const [error, setError] = useState("");
+  const [rateLimit, setRateLimit] = useState<AuthRateLimitInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [challengeLoading, setChallengeLoading] = useState(false);
@@ -68,6 +74,15 @@ export function RegisterPage() {
       });
       setSuccess(true);
     } catch (err) {
+      if (isAuthRateLimitError(err)) {
+        setRateLimit({
+          retryAfterSeconds: err.retryAfterSeconds,
+          blockedUntil:
+            err.blockedUntil || fallbackBlockedUntil(err.retryAfterSeconds),
+        });
+        setLoading(false);
+        return;
+      }
       setError(
         err instanceof Error ? err.message : t("auth.registrationFailed"),
       );
@@ -96,6 +111,18 @@ export function RegisterPage() {
           </Link>
         </Card>
       </div>
+    );
+  }
+
+  if (rateLimit) {
+    return (
+      <AuthRateLimitBlock
+        info={rateLimit}
+        onRetry={() => {
+          setRateLimit(null);
+          fetchChallenge();
+        }}
+      />
     );
   }
 
@@ -250,4 +277,9 @@ export function RegisterPage() {
       </Card>
     </div>
   );
+}
+
+function fallbackBlockedUntil(retryAfterSeconds?: number): string | undefined {
+  if (!retryAfterSeconds) return undefined;
+  return new Date(Date.now() + retryAfterSeconds * 1000).toISOString();
 }

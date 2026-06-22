@@ -170,7 +170,7 @@
     "sources": "Sources",
     "sourceLabel": "Source: {{title}}",
     "pollingTimeout": "Polling timeout",
-    "empty": "Ask about soil, agroforestry, composting, biodiversity, seeds, or agroecological policies.",
+    "empty": "Ask about agroecology, agroforestry, permaculture, organic farming, composting, biodiversity, seeds, and much more.",
     "newChat": "New chat",
     "reindexingTitle": "We are reindexing the agroecology base",
     "reindexingBody": "You can keep asking questions, but answers may be less precise until the update finishes.",

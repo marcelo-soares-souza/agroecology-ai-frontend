@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/Badge";
 import { QueryResult } from "@/components/ui/QueryResult";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { useAppMutation } from "@/hooks/use-app-mutation";
+import { useAuth } from "@/hooks/use-auth";
 
 function formatDate(iso: string, locale: string) {
   return new Date(iso).toLocaleDateString(locale, {
@@ -41,6 +42,7 @@ function formatElapsedMinutes(startedAt: string, finishedAt: string) {
 
 export function IngestionPage() {
   const { t, i18n } = useTranslation();
+  const { isAdmin } = useAuth();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
 
   const queryClient = useQueryClient();
@@ -98,7 +100,9 @@ export function IngestionPage() {
   const { data: ingestStatus, isLoading: statusLoading } = useQuery({
     queryKey: ["ingestion-status"],
     queryFn: api.getIngestionStatus,
+    enabled: isAdmin,
     refetchInterval: (query) => {
+      if (!isAdmin) return false;
       const data = query.state.data;
       if (data?.status === "queued" || data?.status === "processing")
         return 3000;
@@ -109,17 +113,35 @@ export function IngestionPage() {
   const { data: serverStatus } = useQuery({
     queryKey: ["server-status"],
     queryFn: api.getStatus,
+    enabled: isAdmin,
     refetchInterval: 5000,
     staleTime: 0,
+  });
+
+  const ingestionRunsQuery = useQuery({
+    queryKey: ["ingestion-runs"],
+    queryFn: api.listIngestionRuns,
+    enabled: isAdmin,
+    refetchInterval: (query) => {
+      if (!isAdmin) return false;
+      const data = query.state.data;
+      if (data?.some((r) => r.status === "queued" || r.status === "processing"))
+        return 3000;
+      return false;
+    },
   });
 
   const pendingDocs = serverStatus?.pending_docs ?? 0;
 
   useEffect(() => {
-    if (ingestStatus?.status === "done") {
+    if (isAdmin && ingestStatus?.status === "done") {
       queryClient.invalidateQueries({ queryKey: ["documents"] });
     }
-  }, [ingestStatus?.status, queryClient]);
+  }, [ingestStatus?.status, isAdmin, queryClient]);
+
+  if (!isAdmin) {
+    return null;
+  }
 
   const isProcessing =
     ingestStatus?.status === "queued" ||
@@ -284,20 +306,7 @@ export function IngestionPage() {
         </h2>
 
         <QueryResult
-          query={useQuery({
-            queryKey: ["ingestion-runs"],
-            queryFn: api.listIngestionRuns,
-            refetchInterval: (query) => {
-              const data = query.state.data;
-              if (
-                data?.some(
-                  (r) => r.status === "queued" || r.status === "processing",
-                )
-              )
-                return 3000;
-              return false;
-            },
-          })}
+          query={ingestionRunsQuery}
           empty={
             <Card className="text-center py-8">
               <p className="text-text-secondary">

@@ -36,7 +36,7 @@ export function CommunityUserDetailPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { userId, isAdmin } = useAuth();
+  const { userId } = useAuth();
 
   const userQuery = useQuery({
     queryKey: ["community-user", slug],
@@ -84,7 +84,7 @@ export function CommunityUserDetailPage() {
   }
 
   const user = userQuery.data as UserRecord;
-  const canEdit = user.id === userId || isAdmin;
+  const canEdit = user.id === userId;
 
   return (
     <div className="space-y-6">

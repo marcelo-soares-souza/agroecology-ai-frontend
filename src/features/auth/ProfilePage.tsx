@@ -34,7 +34,7 @@ export function ProfilePage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
-  const { userId, isAdmin } = useAuth();
+  const { userId } = useAuth();
   const [exporting, setExporting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteRequested, setDeleteRequested] = useState(false);
@@ -99,7 +99,7 @@ export function ProfilePage() {
         }
       >
         {(profile) => {
-          const canEdit = profile.id === userId || isAdmin;
+          const canEdit = profile.id === userId;
           const profileIsAdmin = (profile.roles || []).includes("admin");
 
           return (

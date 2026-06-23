@@ -65,7 +65,6 @@ export function DocumentListPage() {
     text: string;
     type: "success" | "info";
   } | null>(null);
-  const [academicDelaySeconds, setAcademicDelaySeconds] = useState(60);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
@@ -141,6 +140,14 @@ export function DocumentListPage() {
             100,
         )
       : 0;
+  const academicHasNoDocuments = Boolean(
+    documentStats && documentStats.total === 0,
+  );
+  const academicHasNoPendingDocuments = Boolean(
+    academicStatus &&
+    !academicIsActive &&
+    academicStatus.documents_pending === 0,
+  );
 
   useEffect(() => {
     if (query.data) {
@@ -197,10 +204,7 @@ export function DocumentListPage() {
   });
 
   const extractAcademicMetadataMutation = useAppMutation({
-    mutationFn: () =>
-      api.extractAcademicMetadata({
-        delay_seconds: Math.max(60, academicDelaySeconds || 60),
-      }),
+    mutationFn: () => api.extractAcademicMetadata(),
     invalidateKeys: [["documents", "academic-metadata-status"], ["documents"]],
     onSuccess: () => {
       setExtractMsg({
@@ -209,6 +213,36 @@ export function DocumentListPage() {
       });
     },
   });
+  const academicExtractionDisabled =
+    extractAcademicMetadataMutation.isPending ||
+    academicIsActive ||
+    statsQuery.isLoading ||
+    academicMetadataStatusQuery.isLoading ||
+    academicHasNoDocuments ||
+    academicHasNoPendingDocuments;
+  const academicButtonTitle = academicHasNoDocuments
+    ? t("documents.academicMetadataNoDocuments")
+    : academicHasNoPendingDocuments
+      ? t("documents.academicMetadataNoPending")
+      : undefined;
+  const academicStatusText = academicHasNoDocuments
+    ? t("documents.academicMetadataNoDocuments")
+    : academicIsActive && academicStatus
+      ? t("documents.academicMetadataProcessing", {
+          processed: academicStatus.documents_processed,
+          total: academicStatus.documents_total,
+        })
+      : academicStatus?.status === "done"
+        ? t("documents.academicMetadataDone", {
+            enriched: academicStatus.documents_enriched,
+            skipped: academicStatus.documents_skipped,
+            failed: academicStatus.documents_failed,
+          })
+        : academicStatus?.status === "error"
+          ? academicStatus.error || t("documents.academicMetadataError")
+          : academicHasNoPendingDocuments
+            ? t("documents.academicMetadataNoPending")
+            : t("documents.academicMetadataIdle");
 
   return (
     <div className="space-y-6">
@@ -370,21 +404,7 @@ export function DocumentListPage() {
                 <InfoTooltip label={t("documents.academicMetadataHelp")} />
               </div>
               <p className="text-sm text-text-secondary mt-1">
-                {academicIsActive && academicStatus
-                  ? t("documents.academicMetadataProcessing", {
-                      processed: academicStatus.documents_processed,
-                      total: academicStatus.documents_total,
-                    })
-                  : academicStatus?.status === "done"
-                    ? t("documents.academicMetadataDone", {
-                        enriched: academicStatus.documents_enriched,
-                        skipped: academicStatus.documents_skipped,
-                        failed: academicStatus.documents_failed,
-                      })
-                    : academicStatus?.status === "error"
-                      ? academicStatus.error ||
-                        t("documents.academicMetadataError")
-                      : t("documents.academicMetadataIdle")}
+                {academicStatusText}
               </p>
               {academicStatus && academicStatus.documents_total > 0 && (
                 <div className="h-2 overflow-hidden rounded-full bg-primary-100 mt-3 max-w-xl">
@@ -396,28 +416,14 @@ export function DocumentListPage() {
               )}
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-              <label className="text-xs font-medium text-text-secondary">
-                {t("documents.academicMetadataDelay")}
-                <Input
-                  type="number"
-                  min={60}
-                  step={15}
-                  value={academicDelaySeconds}
-                  onChange={(event) =>
-                    setAcademicDelaySeconds(Number(event.target.value))
-                  }
-                  className="mt-1 w-28"
-                />
-              </label>
+            <div className="flex shrink-0">
               <Button
                 variant="secondary"
                 onClick={() =>
                   extractAcademicMetadataMutation.mutate(undefined)
                 }
-                disabled={
-                  extractAcademicMetadataMutation.isPending || academicIsActive
-                }
+                disabled={academicExtractionDisabled}
+                title={academicButtonTitle}
               >
                 {extractAcademicMetadataMutation.isPending ||
                 academicIsActive ? (

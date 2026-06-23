@@ -212,12 +212,12 @@ export const api = {
   getMetadataExtractionStatus: () =>
     request<MetadataExtractionStatus>("/api/v1/documents/metadata-status"),
 
-  extractAcademicMetadata: (data: AcademicMetadataExtractRequest) =>
+  extractAcademicMetadata: (data?: AcademicMetadataExtractRequest) =>
     request<AcademicMetadataExtractResponse>(
       "/api/v1/admin/documents/academic-metadata/extract",
       {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data ?? {}),
       },
     ),
 

@@ -162,7 +162,7 @@ export interface MetadataExtractionStatus {
 }
 
 export interface AcademicMetadataExtractRequest {
-  delay_seconds: number;
+  delay_seconds?: number;
   force?: boolean;
 }
 
@@ -180,6 +180,7 @@ export interface AcademicMetadataRunStatus {
   documents_enriched: number;
   documents_skipped: number;
   documents_failed: number;
+  documents_pending: number;
   delay_seconds: number;
   current_document_id: string | null;
   error: string | null;

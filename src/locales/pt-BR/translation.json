@@ -181,8 +181,8 @@
   },
   "landing": {
     "title": "Agroecology Map AI",
-    "metaDescription": "IA livre para consultar conhecimento agroecológico. Faça perguntas em linguagem natural e receba respostas baseadas em documentos verificáveis, com metadados acadêmicos de OpenAlex e Crossref quando disponíveis.",
-    "heroDescription": "Faça perguntas em linguagem natural e receba respostas baseadas em artigos, cartilhas, manuais, teses e relatórios agroecológicos, com fontes para verificar e, quando disponíveis, DOI, citações e dados de publicação vindos de OpenAlex e Crossref.",
+    "metaDescription": "IA livre para consultar conhecimento agroecológico. Faça perguntas em linguagem natural e receba respostas baseadas em documentos verificáveis.",
+    "heroDescription": "Faça perguntas em linguagem natural e receba respostas baseadas em artigos, cartilhas, manuais, teses e relatórios agroecológicos, sempre com fontes para verificar.",
     "accessNotice": "O chat e a sugestão de documentos estão disponíveis para usuários cadastrados. A indexação de novos materiais segue restrita a administradores durante o desenvolvimento.",
     "getStarted": "Começar",
     "allUsers": "Usuários cadastrados",
@@ -197,7 +197,7 @@
       },
       "ingest": {
         "title": "Indexar Materiais Revisados",
-        "description": "Documentos aprovados são organizados em uma base pesquisável. Administradores também podem enriquecer registros científicos com metadados de OpenAlex e Crossref para melhorar a rastreabilidade."
+        "description": "Documentos aprovados são organizados em uma base pesquisável. Esta etapa é administrativa para preservar qualidade e rastreabilidade."
       }
     },
     "techTitle": "Aberto e Local-First",

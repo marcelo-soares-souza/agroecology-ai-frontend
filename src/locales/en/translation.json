@@ -181,8 +181,8 @@
   },
   "landing": {
     "title": "Agroecology Map AI",
-    "metaDescription": "Free software AI for exploring agroecological knowledge. Ask natural-language questions and get answers grounded in verifiable documents, with academic metadata from OpenAlex and Crossref when available.",
-    "heroDescription": "Ask questions in natural language and get answers grounded in agroecological papers, booklets, manuals, theses, and reports, with sources you can verify and, when available, DOI, citation, and publication metadata from OpenAlex and Crossref.",
+    "metaDescription": "Free software AI for exploring agroecological knowledge. Ask natural-language questions and get answers grounded in verifiable documents.",
+    "heroDescription": "Ask questions in natural language and get answers grounded in agroecological papers, booklets, manuals, theses, and reports, always with sources you can verify.",
     "accessNotice": "Chat and document suggestions are available to registered users. Indexing new materials remains restricted to administrators during development.",
     "getStarted": "Get Started",
     "allUsers": "Registered users",
@@ -197,7 +197,7 @@
       },
       "ingest": {
         "title": "Index Reviewed Materials",
-        "description": "Approved documents are organized into a searchable base. Admins can also enrich scientific records with OpenAlex and Crossref metadata to improve traceability."
+        "description": "Approved documents are organized into a searchable base. This administrative step preserves quality and traceability."
       }
     },
     "techTitle": "Open & Local-First",

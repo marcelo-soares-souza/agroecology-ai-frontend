@@ -55,6 +55,25 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
     txt: "info",
   };
 
+function hasText(value: string | null | undefined) {
+  return Boolean(value?.trim());
+}
+
+function hasFullMetadata(doc: DocumentRecord) {
+  const metadata = doc.academic_metadata;
+  return Boolean(
+    metadata &&
+      hasText(doc.title) &&
+      hasText(doc.authors) &&
+      metadata.publication_year !== null &&
+      metadata.publication_year !== undefined &&
+      hasText(metadata.venue) &&
+      metadata.citation_count !== null &&
+      metadata.citation_count !== undefined &&
+      hasText(metadata.source_url),
+  );
+}
+
 export function DocumentListPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
@@ -572,14 +591,12 @@ export function DocumentListPage() {
                                 : t("documents.metadataQueued")}
                             </Badge>
                           )}
-                          {doc.academic_metadata && (
+                          {hasFullMetadata(doc) && (
                             <Badge
-                              title={t("documents.academicMetadataHelp")}
+                              title={t("documents.fullMetadataHelp")}
                               variant="info"
                             >
-                              {doc.academic_metadata.doi
-                                ? t("documents.doiBadge")
-                                : t("documents.academicMetadataBadge")}
+                              {t("documents.fullMetadata")}
                             </Badge>
                           )}
                           {doc.academic_metadata?.citation_count !== null &&

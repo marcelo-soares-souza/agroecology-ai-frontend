@@ -103,6 +103,30 @@ export interface DocumentRecord {
   suggested_by_user_id: string | null;
   suggested_by_user_name: string | null;
   suggested_by_user_slug: string | null;
+  academic_metadata: DocumentAcademicMetadata | null;
+}
+
+export interface DocumentAcademicMetadata {
+  provider: string;
+  external_id: string | null;
+  doi: string | null;
+  publication_year: number | null;
+  venue: string | null;
+  publisher: string | null;
+  citation_count: number | null;
+  reference_count: number | null;
+  abstract: string | null;
+  source_url: string | null;
+  open_access_url: string | null;
+  topics: Array<Record<string, unknown>> | null;
+  keywords: Array<Record<string, unknown>> | null;
+  license: Array<Record<string, unknown>> | Record<string, unknown> | null;
+  funder: Array<Record<string, unknown>> | Record<string, unknown> | null;
+  match_confidence: number | null;
+  title_score: number | null;
+  author_score: number | null;
+  extracted_at: string;
+  updated_at: string;
 }
 
 export interface PaginatedResponse<T> {
@@ -135,6 +159,35 @@ export interface MetadataExtractionStatus {
   pending: number;
   running: number;
   active: number;
+}
+
+export interface AcademicMetadataExtractRequest {
+  delay_seconds: number;
+  force?: boolean;
+}
+
+export interface AcademicMetadataExtractResponse {
+  run_id: string;
+  status: string;
+  delay_seconds: number;
+}
+
+export interface AcademicMetadataRunStatus {
+  status: "idle" | "queued" | "processing" | "done" | "error";
+  run_id: string | null;
+  documents_total: number;
+  documents_processed: number;
+  documents_enriched: number;
+  documents_skipped: number;
+  documents_failed: number;
+  delay_seconds: number;
+  current_document_id: string | null;
+  error: string | null;
+  job_id: string | null;
+  started_at: string | null;
+  finished_at: string | null;
+  created_at: string | null;
+  updated_at: string | null;
 }
 
 export interface UploadedFile {

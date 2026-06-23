@@ -13,6 +13,9 @@ import type {
   PaginatedResponse,
   PaginationParams,
   MetadataExtractionStatus,
+  AcademicMetadataExtractRequest,
+  AcademicMetadataExtractResponse,
+  AcademicMetadataRunStatus,
   UploadResponse,
   IngestionRun,
   UserRecord,
@@ -208,6 +211,20 @@ export const api = {
 
   getMetadataExtractionStatus: () =>
     request<MetadataExtractionStatus>("/api/v1/documents/metadata-status"),
+
+  extractAcademicMetadata: (data: AcademicMetadataExtractRequest) =>
+    request<AcademicMetadataExtractResponse>(
+      "/api/v1/admin/documents/academic-metadata/extract",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      },
+    ),
+
+  getAcademicMetadataStatus: () =>
+    request<AcademicMetadataRunStatus>(
+      "/api/v1/admin/documents/academic-metadata/status",
+    ),
 
   getDocument: (id: string) =>
     request<DocumentRecord>(`/api/v1/documents/${id}`),

@@ -11,6 +11,8 @@ import {
   Sparkles,
   Loader2,
   User,
+  Database,
+  ExternalLink,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl, getViewUrl } from "@/config/api";
@@ -19,6 +21,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAuth } from "@/hooks/use-auth";
+import type { DocumentAcademicMetadata } from "@/services/types";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -34,6 +37,173 @@ function formatDate(iso: string, locale: string) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function formatPercent(value: number | null) {
+  if (value === null) return null;
+  return `${Math.round(value * 100)}%`;
+}
+
+function metadataListLabels(
+  value:
+    | Array<Record<string, unknown>>
+    | Record<string, unknown>
+    | null
+    | undefined,
+): string[] {
+  if (!value) return [];
+  const items = Array.isArray(value) ? value : [value];
+  return items
+    .map((item) => {
+      const label =
+        item.display_name ||
+        item.name ||
+        item["award"] ||
+        item.URL ||
+        item.url ||
+        item.DOI;
+      return typeof label === "string" ? label : null;
+    })
+    .filter((label): label is string => Boolean(label))
+    .slice(0, 6);
+}
+
+function AcademicMetadataDetails({
+  metadata,
+}: {
+  metadata: DocumentAcademicMetadata;
+}) {
+  const { t } = useTranslation();
+  const topics = metadataListLabels(metadata.topics);
+  const keywords = metadataListLabels(metadata.keywords);
+  const licenses = metadataListLabels(metadata.license);
+  const funders = metadataListLabels(metadata.funder);
+  const confidence = formatPercent(metadata.match_confidence);
+
+  return (
+    <Card>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+            <Database className="h-5 w-5 text-primary" />
+            {t("documents.academicMetadataTitle")}
+          </h2>
+          <Badge variant="info">{metadata.provider}</Badge>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {metadata.doi && (
+            <MetadataField
+              label={t("documents.doiField")}
+              value={metadata.doi}
+            />
+          )}
+          {metadata.publication_year && (
+            <MetadataField
+              label={t("documents.publicationYear")}
+              value={String(metadata.publication_year)}
+            />
+          )}
+          {metadata.citation_count !== null && (
+            <MetadataField
+              label={t("documents.citations")}
+              value={String(metadata.citation_count)}
+            />
+          )}
+          {metadata.reference_count !== null && (
+            <MetadataField
+              label={t("documents.references")}
+              value={String(metadata.reference_count)}
+            />
+          )}
+          {metadata.venue && (
+            <MetadataField
+              label={t("documents.venue")}
+              value={metadata.venue}
+            />
+          )}
+          {metadata.publisher && (
+            <MetadataField
+              label={t("documents.publisher")}
+              value={metadata.publisher}
+            />
+          )}
+          {confidence && (
+            <MetadataField
+              label={t("documents.matchConfidence")}
+              value={confidence}
+            />
+          )}
+        </div>
+
+        {(metadata.source_url || metadata.open_access_url) && (
+          <div className="flex flex-wrap gap-2">
+            {metadata.source_url && (
+              <a href={metadata.source_url} target="_blank" rel="noreferrer">
+                <Button variant="secondary" size="sm">
+                  <ExternalLink className="h-4 w-4" />
+                  {t("documents.sourceUrl")}
+                </Button>
+              </a>
+            )}
+            {metadata.open_access_url && (
+              <a
+                href={metadata.open_access_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button variant="secondary" size="sm">
+                  <ExternalLink className="h-4 w-4" />
+                  {t("documents.openAccessUrl")}
+                </Button>
+              </a>
+            )}
+          </div>
+        )}
+
+        {metadata.abstract && (
+          <div>
+            <span className="text-sm text-text-secondary block mb-1">
+              {t("documents.abstract")}
+            </span>
+            <p className="text-sm text-text-primary leading-relaxed">
+              {metadata.abstract}
+            </p>
+          </div>
+        )}
+
+        <MetadataTags label={t("documents.topics")} values={topics} />
+        <MetadataTags label={t("documents.keywords")} values={keywords} />
+        <MetadataTags label={t("documents.license")} values={licenses} />
+        <MetadataTags label={t("documents.funder")} values={funders} />
+      </div>
+    </Card>
+  );
+}
+
+function MetadataField({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <span className="text-sm text-text-secondary block">{label}</span>
+      <span className="text-text-primary break-words">{value}</span>
+    </div>
+  );
+}
+
+function MetadataTags({ label, values }: { label: string; values: string[] }) {
+  if (values.length === 0) return null;
+  return (
+    <div>
+      <span className="text-sm text-text-secondary block mb-2">{label}</span>
+      <div className="flex flex-wrap gap-2">
+        {values.map((value) => (
+          <Badge key={value} variant="default">
+            {value}
+          </Badge>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function DocumentDetailPage() {
@@ -201,6 +371,10 @@ export function DocumentDetailPage() {
           </div>
         </div>
       </Card>
+
+      {doc.academic_metadata && (
+        <AcademicMetadataDetails metadata={doc.academic_metadata} />
+      )}
 
       {doc.file_type === "pdf" && (
         <Card padding="none" className="overflow-hidden">

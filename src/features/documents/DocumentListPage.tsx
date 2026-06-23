@@ -1,5 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
@@ -13,6 +17,7 @@ import {
   Sparkles,
   RefreshCw,
   Search,
+  Database,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
@@ -55,10 +60,12 @@ export function DocumentListPage() {
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [extractMsg, setExtractMsg] = useState<{
     text: string;
     type: "success" | "info";
   } | null>(null);
+  const [academicDelaySeconds, setAcademicDelaySeconds] = useState(60);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
@@ -92,6 +99,18 @@ export function DocumentListPage() {
     queryFn: api.getMetadataExtractionStatus,
     enabled: isAdmin,
   });
+  const academicMetadataStatusQuery = useQuery({
+    queryKey: ["documents", "academic-metadata-status"],
+    queryFn: api.getAcademicMetadataStatus,
+    enabled: isAdmin,
+    refetchInterval: (statusQuery) => {
+      if (!isAdmin) return false;
+      const data = statusQuery.state.data;
+      if (data?.status === "queued" || data?.status === "processing")
+        return 5000;
+      return false;
+    },
+  });
   const documentStats = statsQuery.data;
   const metadataStats = documentStats
     ? {
@@ -110,12 +129,39 @@ export function DocumentListPage() {
   const totalDocuments = query.data?.total ?? 0;
   const isSearchSettling = searchQuery !== debouncedSearchQuery;
   const hasMore = !isSearchSettling && documents.length < totalDocuments;
+  const academicStatus = academicMetadataStatusQuery.data;
+  const academicIsActive =
+    academicStatus?.status === "queued" ||
+    academicStatus?.status === "processing";
+  const academicProgress =
+    academicStatus && academicStatus.documents_total > 0
+      ? Math.round(
+          (academicStatus.documents_processed /
+            academicStatus.documents_total) *
+            100,
+        )
+      : 0;
 
   useEffect(() => {
     if (query.data) {
       setDocuments(query.data.data);
     }
   }, [query.data]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    if (
+      academicStatus?.status === "done" ||
+      academicStatus?.status === "error"
+    ) {
+      void queryClient.invalidateQueries({ queryKey: ["documents"] });
+    }
+  }, [
+    academicStatus?.status,
+    academicStatus?.updated_at,
+    isAdmin,
+    queryClient,
+  ]);
 
   async function loadMore(): Promise<void> {
     if (loadingMore || !hasMore) return;
@@ -150,6 +196,20 @@ export function DocumentListPage() {
     },
   });
 
+  const extractAcademicMetadataMutation = useAppMutation({
+    mutationFn: () =>
+      api.extractAcademicMetadata({
+        delay_seconds: Math.max(60, academicDelaySeconds || 60),
+      }),
+    invalidateKeys: [["documents", "academic-metadata-status"], ["documents"]],
+    onSuccess: () => {
+      setExtractMsg({
+        text: t("documents.academicMetadataQueued"),
+        type: "success",
+      });
+    },
+  });
+
   return (
     <div className="space-y-6">
       <div>
@@ -165,15 +225,17 @@ export function DocumentListPage() {
                 void query.refetch();
                 void statsQuery.refetch();
                 if (isAdmin) void metadataStatusQuery.refetch();
+                if (isAdmin) void academicMetadataStatusQuery.refetch();
               }}
               disabled={
                 query.isFetching ||
                 statsQuery.isFetching ||
-                metadataStatusQuery.isFetching
+                metadataStatusQuery.isFetching ||
+                academicMetadataStatusQuery.isFetching
               }
             >
               <RefreshCw
-                className={`h-4 w-4 ${query.isFetching || statsQuery.isFetching || metadataStatusQuery.isFetching ? "animate-spin" : ""}`}
+                className={`h-4 w-4 ${query.isFetching || statsQuery.isFetching || metadataStatusQuery.isFetching || academicMetadataStatusQuery.isFetching ? "animate-spin" : ""}`}
               />
               {t("documents.refresh")}
             </Button>
@@ -296,6 +358,80 @@ export function DocumentListPage() {
         </p>
       )}
 
+      {isAdmin && (
+        <Card padding="sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <Database className="h-4 w-4 text-primary shrink-0" />
+                <p className="font-semibold text-text-primary">
+                  {t("documents.academicMetadataTitle")}
+                </p>
+                <InfoTooltip label={t("documents.academicMetadataHelp")} />
+              </div>
+              <p className="text-sm text-text-secondary mt-1">
+                {academicIsActive && academicStatus
+                  ? t("documents.academicMetadataProcessing", {
+                      processed: academicStatus.documents_processed,
+                      total: academicStatus.documents_total,
+                    })
+                  : academicStatus?.status === "done"
+                    ? t("documents.academicMetadataDone", {
+                        enriched: academicStatus.documents_enriched,
+                        skipped: academicStatus.documents_skipped,
+                        failed: academicStatus.documents_failed,
+                      })
+                    : academicStatus?.status === "error"
+                      ? academicStatus.error ||
+                        t("documents.academicMetadataError")
+                      : t("documents.academicMetadataIdle")}
+              </p>
+              {academicStatus && academicStatus.documents_total > 0 && (
+                <div className="h-2 overflow-hidden rounded-full bg-primary-100 mt-3 max-w-xl">
+                  <div
+                    className="h-full rounded-full bg-info transition-all"
+                    style={{ width: `${academicProgress}%` }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+              <label className="text-xs font-medium text-text-secondary">
+                {t("documents.academicMetadataDelay")}
+                <Input
+                  type="number"
+                  min={60}
+                  step={15}
+                  value={academicDelaySeconds}
+                  onChange={(event) =>
+                    setAcademicDelaySeconds(Number(event.target.value))
+                  }
+                  className="mt-1 w-28"
+                />
+              </label>
+              <Button
+                variant="secondary"
+                onClick={() =>
+                  extractAcademicMetadataMutation.mutate(undefined)
+                }
+                disabled={
+                  extractAcademicMetadataMutation.isPending || academicIsActive
+                }
+              >
+                {extractAcademicMetadataMutation.isPending ||
+                academicIsActive ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Database className="h-4 w-4" />
+                )}
+                {t("documents.extractMoreMetadata")}
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
         <Input
@@ -412,6 +548,30 @@ export function DocumentListPage() {
                                 ? t("documents.metadataExtracted")
                                 : t("documents.metadataQueued")}
                             </Badge>
+                          )}
+                          {doc.academic_metadata && (
+                            <Badge
+                              title={t("documents.academicMetadataHelp")}
+                              variant="info"
+                            >
+                              {doc.academic_metadata.doi
+                                ? t("documents.doiBadge")
+                                : t("documents.academicMetadataBadge")}
+                            </Badge>
+                          )}
+                          {doc.academic_metadata?.citation_count !== null &&
+                            doc.academic_metadata?.citation_count !==
+                              undefined && (
+                              <span>
+                                {t("documents.citationsShort", {
+                                  count: doc.academic_metadata.citation_count,
+                                })}
+                              </span>
+                            )}
+                          {doc.academic_metadata?.publication_year && (
+                            <span>
+                              {doc.academic_metadata.publication_year}
+                            </span>
                           )}
                           <span>{formatFileSize(doc.file_size)}</span>
                           <span>{formatDate(doc.created_at, locale)}</span>

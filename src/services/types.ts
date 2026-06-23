@@ -12,6 +12,7 @@ export interface AskResponse {
 export interface SourceChunk {
   text: string;
   score: number;
+  rank: number;
   metadata: {
     source: string;
     chunk_index: number;

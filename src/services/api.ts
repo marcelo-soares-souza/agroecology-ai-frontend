@@ -159,6 +159,7 @@ function buildQueryString(params?: PaginationParams): string {
   if (!params) return "";
   const searchParams = new URLSearchParams();
   if (params.q) searchParams.set("q", params.q);
+  if (params.full_metadata) searchParams.set("full_metadata", "true");
   if (params.limit !== undefined)
     searchParams.set("limit", String(params.limit));
   if (params.offset !== undefined)

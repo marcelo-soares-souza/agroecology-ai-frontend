@@ -272,6 +272,8 @@
     "indexStatusHelp": "Documentos indexados já podem ser usados como fontes nas respostas do chat.",
     "pendingStatusHelp": "Documentos pendentes foram enviados, mas ainda não estão disponíveis para o chat.",
     "metadataStatusHelp": "Metadados ajudam a identificar título e autoria de PDFs na base.",
+    "fullMetadata": "Full Metadata",
+    "fullMetadataHelp": "Mostra apenas documentos com título, autores, DOI, ano de publicação, venue, contagem de citações e link de origem.",
     "extractMoreMetadata": "Extrair mais metadados",
     "academicMetadataTitle": "Metadados acadêmicos",
     "academicMetadataHelp": "Dados acadêmicos externos de OpenAlex e Crossref, validados por título e autores, como DOI, citações, venue e links.",

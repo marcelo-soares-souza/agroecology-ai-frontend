@@ -272,6 +272,8 @@
     "indexStatusHelp": "Indexed documents can already be used as sources in chat answers.",
     "pendingStatusHelp": "Pending documents were uploaded but are not yet available to the chat.",
     "metadataStatusHelp": "Metadata helps identify PDF titles and authors in the knowledge base.",
+    "fullMetadata": "Full Metadata",
+    "fullMetadataHelp": "Show only documents with title, authors, DOI, publication year, venue, citation count, and source link.",
     "extractMoreMetadata": "Extract More Metadata",
     "academicMetadataTitle": "Academic Metadata",
     "academicMetadataHelp": "External academic data from OpenAlex and Crossref, validated by title and authors, such as DOI, citations, venue, and links.",

@@ -272,6 +272,8 @@
     "indexStatusHelp": "Les documents indexés peuvent déjà être utilisés comme sources dans les réponses du chat.",
     "pendingStatusHelp": "Les documents en attente ont été importés, mais ne sont pas encore disponibles pour le chat.",
     "metadataStatusHelp": "Les métadonnées aident à identifier les titres et auteurs des PDFs dans la base.",
+    "fullMetadata": "Full Metadata",
+    "fullMetadataHelp": "Affiche uniquement les documents avec titre, auteurs, DOI, année de publication, venue, nombre de citations et lien source.",
     "extractMoreMetadata": "Extraire plus de métadonnées",
     "academicMetadataTitle": "Métadonnées académiques",
     "academicMetadataHelp": "Données académiques externes d'OpenAlex et Crossref, validées par titre et auteurs, comme DOI, citations, venue et liens.",

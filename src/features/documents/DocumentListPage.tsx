@@ -65,6 +65,7 @@ export function DocumentListPage() {
     text: string;
     type: "success" | "info";
   } | null>(null);
+  const [fullMetadataOnly, setFullMetadataOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
@@ -79,10 +80,11 @@ export function DocumentListPage() {
   }, [searchQuery]);
 
   const query = useQuery({
-    queryKey: ["documents", debouncedSearchQuery],
+    queryKey: ["documents", debouncedSearchQuery, fullMetadataOnly],
     queryFn: () =>
       api.listDocuments({
         q: debouncedSearchQuery.trim() || undefined,
+        full_metadata: fullMetadataOnly,
         limit: PAGE_SIZE,
         offset: 0,
       }),
@@ -176,6 +178,7 @@ export function DocumentListPage() {
     try {
       const nextPage = await api.listDocuments({
         q: debouncedSearchQuery.trim() || undefined,
+        full_metadata: fullMetadataOnly,
         limit: PAGE_SIZE,
         offset: documents.length,
       });
@@ -438,14 +441,26 @@ export function DocumentListPage() {
         </Card>
       )}
 
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
-        <Input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder={t("common.search")}
-          className="pl-9"
-        />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t("common.search")}
+            className="pl-9"
+          />
+        </div>
+        <label className="flex min-h-11 shrink-0 items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary">
+          <input
+            type="checkbox"
+            checked={fullMetadataOnly}
+            onChange={(event) => setFullMetadataOnly(event.target.checked)}
+            className="h-4 w-4 rounded border-primary-300 accent-primary"
+          />
+          <span>{t("documents.fullMetadata")}</span>
+          <InfoTooltip label={t("documents.fullMetadataHelp")} />
+        </label>
       </div>
 
       <QueryResult
@@ -473,7 +488,9 @@ export function DocumentListPage() {
                 <p className="text-text-secondary">
                   {debouncedSearchQuery.trim()
                     ? t("common.noResults")
-                    : t("documents.empty")}
+                    : fullMetadataOnly
+                      ? t("common.noResults")
+                      : t("documents.empty")}
                 </p>
               </Card>
             );

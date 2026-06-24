@@ -99,6 +99,7 @@ export interface DocumentRecord {
   file_size: number;
   directory: string;
   ingested: boolean;
+  full_file_available: boolean;
   created_at: string;
   updated_at: string;
   suggested_by_user_id: string | null;

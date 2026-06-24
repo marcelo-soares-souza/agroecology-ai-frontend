@@ -619,11 +619,13 @@ export function DocumentListPage() {
                       </div>
 
                       <div className="flex items-center gap-1 shrink-0">
-                        <a href={getDownloadUrl(doc.id)} download>
-                          <Button variant="ghost" size="sm">
-                            <Download className="h-4 w-4" />
-                          </Button>
-                        </a>
+                        {doc.full_file_available && (
+                          <a href={getDownloadUrl(doc.id)} download>
+                            <Button variant="ghost" size="sm">
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </a>
+                        )}
                         {isAdmin && (
                           <>
                             <Link to={`/documents/${doc.id}/edit`}>

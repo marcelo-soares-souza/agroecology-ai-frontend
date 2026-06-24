@@ -13,25 +13,27 @@ export function ChatPage() {
   const { t } = useTranslation();
   const { messages, isSending, sendMessage, clearChat } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { data: ingestStatus } = useQuery({
-    queryKey: ["ingestion-status"],
-    queryFn: api.getIngestionStatus,
+  const { data: serverStatus } = useQuery({
+    queryKey: ["server-status", "chat"],
+    queryFn: api.getStatus,
     refetchInterval: (query) => {
-      const status = query.state.data?.status;
+      const status = query.state.data?.ingest_status;
       if (status === "queued" || status === "processing") return 3000;
       return 15000;
     },
   });
 
+  const lastIngestion = serverStatus?.last_ingestion;
   const isReindexing =
-    ingestStatus?.status === "queued" || ingestStatus?.status === "processing";
-  const documentsTotal = ingestStatus?.documents_total ?? 0;
-  const documentsProcessed = ingestStatus?.documents_processed ?? 0;
+    serverStatus?.ingest_status === "queued" ||
+    serverStatus?.ingest_status === "processing";
+  const documentsTotal = lastIngestion?.documents_total ?? 0;
+  const documentsProcessed = lastIngestion?.documents_processed ?? 0;
   const hasDocumentProgress = documentsTotal > 0;
   const progressPercent = hasDocumentProgress
     ? Math.min(100, Math.round((documentsProcessed / documentsTotal) * 100))
     : 0;
-  const chunksIndexed = ingestStatus?.chunks_indexed ?? 0;
+  const chunksIndexed = lastIngestion?.chunks_indexed ?? 0;
 
   useEffect(() => {
     if (scrollRef.current) {

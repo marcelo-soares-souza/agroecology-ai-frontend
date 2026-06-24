@@ -288,12 +288,14 @@ export function DocumentDetailPage() {
               {t("documents.extractMetadata")}
             </Button>
           )}
-          <a href={getDownloadUrl(doc.id)} download>
-            <Button variant="secondary">
-              <Download className="h-4 w-4" />
-              {t("common.download")}
-            </Button>
-          </a>
+          {doc.full_file_available && (
+            <a href={getDownloadUrl(doc.id)} download>
+              <Button variant="secondary">
+                <Download className="h-4 w-4" />
+                {t("common.download")}
+              </Button>
+            </a>
+          )}
         </div>
       </div>
 
@@ -376,7 +378,7 @@ export function DocumentDetailPage() {
         <AcademicMetadataDetails metadata={doc.academic_metadata} />
       )}
 
-      {doc.file_type === "pdf" && (
+      {doc.file_type === "pdf" && doc.full_file_available && (
         <Card padding="none" className="overflow-hidden">
           <iframe
             src={getViewUrl(doc.id)}

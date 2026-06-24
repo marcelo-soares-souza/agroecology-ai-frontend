@@ -185,6 +185,7 @@
     "heroDescription": "Faça perguntas em linguagem natural e receba respostas baseadas em artigos, cartilhas, manuais, teses e relatórios agroecológicos, sempre com fontes para verificar.",
     "accessNotice": "O chat e a sugestão de documentos estão disponíveis para usuários cadastrados. A indexação de novos materiais segue restrita a administradores durante o desenvolvimento.",
     "getStarted": "Começar",
+    "startConversation": "Iniciar uma conversa",
     "allUsers": "Usuários cadastrados",
     "features": {
       "suggest": {

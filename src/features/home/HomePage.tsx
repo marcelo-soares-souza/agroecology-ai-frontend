@@ -53,15 +53,15 @@ export function HomePage() {
         <p className="text-sm text-text-secondary/70 mb-8">
           {t("landing.accessNotice")}
         </p>
-        <div className="flex gap-4">
-          <Link to="/register">
-            <button className="px-8 py-3 bg-primary text-white rounded-xl font-semibold text-lg hover:bg-primary-dark transition-colors">
+        <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
+          <Link to="/register" className="w-full sm:w-auto">
+            <button className="w-full px-8 py-3 bg-primary text-white rounded-xl font-semibold text-lg hover:bg-primary-dark transition-colors">
               {t("landing.getStarted")}
             </button>
           </Link>
-          <Link to="/login">
-            <button className="px-8 py-3 border-2 border-primary text-primary rounded-xl font-semibold text-lg hover:bg-primary-50 transition-colors">
-              {t("auth.signIn")}
+          <Link to="/chat" className="w-full sm:w-auto">
+            <button className="w-full px-8 py-3 border-2 border-primary text-primary rounded-xl font-semibold text-lg hover:bg-primary-50 transition-colors">
+              {t("landing.startConversation")}
             </button>
           </Link>
         </div>

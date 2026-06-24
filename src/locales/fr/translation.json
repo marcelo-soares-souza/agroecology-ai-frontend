@@ -185,6 +185,7 @@
     "heroDescription": "Posez des questions en langage naturel et obtenez des réponses fondées sur des articles, livrets, manuels, thèses et rapports agroécologiques, toujours avec des sources à vérifier.",
     "accessNotice": "Le chat et la suggestion de documents sont disponibles pour les utilisateurs inscrits. L'indexation de nouveaux contenus reste réservée aux administrateurs pendant le développement.",
     "getStarted": "Commencer",
+    "startConversation": "Démarrer une conversation",
     "allUsers": "Utilisateurs inscrits",
     "features": {
       "suggest": {

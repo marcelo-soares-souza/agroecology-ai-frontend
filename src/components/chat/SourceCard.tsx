@@ -39,11 +39,13 @@ export function SourceCard({ source }: SourceCardProps) {
 
   const inner = (
     <>
+      <div className="mb-1 flex items-center">
+        <span className="inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold leading-none text-white">
+          {source.rank}
+        </span>
+      </div>
       <p className="text-text-primary line-clamp-3 mb-1">{source.text}</p>
       <div className="flex items-center gap-2 text-xs text-text-secondary">
-        <span className="shrink-0 rounded-full bg-primary-100 px-1.5 py-0.5 font-medium text-primary-700">
-          [{source.rank}]
-        </span>
         <span className="truncate">{displayName}</span>
         <span
           className={`rounded-full px-1.5 py-0.5 font-medium ${badgeColor}`}

@@ -185,6 +185,7 @@
     "heroDescription": "Ask questions in natural language and get answers grounded in agroecological papers, booklets, manuals, theses, and reports, always with sources you can verify.",
     "accessNotice": "Chat and document suggestions are available to registered users. Indexing new materials remains restricted to administrators during development.",
     "getStarted": "Get Started",
+    "startConversation": "Start a conversation",
     "allUsers": "Registered users",
     "features": {
       "suggest": {

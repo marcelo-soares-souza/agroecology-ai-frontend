@@ -63,14 +63,14 @@ function hasFullMetadata(doc: DocumentRecord) {
   const metadata = doc.academic_metadata;
   return Boolean(
     metadata &&
-      hasText(doc.title) &&
-      hasText(doc.authors) &&
-      metadata.publication_year !== null &&
-      metadata.publication_year !== undefined &&
-      hasText(metadata.venue) &&
-      metadata.citation_count !== null &&
-      metadata.citation_count !== undefined &&
-      hasText(metadata.source_url),
+    hasText(doc.title) &&
+    hasText(doc.authors) &&
+    metadata.publication_year !== null &&
+    metadata.publication_year !== undefined &&
+    hasText(metadata.venue) &&
+    metadata.citation_count !== null &&
+    metadata.citation_count !== undefined &&
+    hasText(metadata.source_url),
   );
 }
 

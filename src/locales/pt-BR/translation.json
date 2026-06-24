@@ -274,7 +274,7 @@
     "pendingStatusHelp": "Documentos pendentes foram enviados, mas ainda não estão disponíveis para o chat.",
     "metadataStatusHelp": "Metadados ajudam a identificar título e autoria de PDFs na base.",
     "fullMetadata": "Full Metadata",
-    "fullMetadataHelp": "Mostra apenas documentos com título, autores, ano de publicação, venue, contagem de citações e link de origem.",
+    "fullMetadataHelp": "Mostra apenas documentos com título, autores, ano de publicação, contagem de citações e link de origem.",
     "extractMoreMetadata": "Extrair mais metadados",
     "extractMoreMetadataStarting": "Iniciando extração...",
     "extractMoreMetadataProcessingShort": "Extraindo...",

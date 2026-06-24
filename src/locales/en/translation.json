@@ -274,7 +274,7 @@
     "pendingStatusHelp": "Pending documents were uploaded but are not yet available to the chat.",
     "metadataStatusHelp": "Metadata helps identify PDF titles and authors in the knowledge base.",
     "fullMetadata": "Full Metadata",
-    "fullMetadataHelp": "Show only documents with title, authors, publication year, venue, citation count, and source link.",
+    "fullMetadataHelp": "Show only documents with title, authors, publication year, citation count, and source link.",
     "extractMoreMetadata": "Extract More Metadata",
     "extractMoreMetadataStarting": "Starting extraction...",
     "extractMoreMetadataProcessingShort": "Extracting...",

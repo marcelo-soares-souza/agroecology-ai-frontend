@@ -67,7 +67,6 @@ function hasFullMetadata(doc: DocumentRecord) {
     hasText(doc.authors) &&
     metadata.publication_year !== null &&
     metadata.publication_year !== undefined &&
-    hasText(metadata.venue) &&
     metadata.citation_count !== null &&
     metadata.citation_count !== undefined &&
     hasText(metadata.source_url),

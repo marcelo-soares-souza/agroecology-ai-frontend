@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
@@ -14,7 +15,7 @@ import {
   Database,
   ExternalLink,
 } from "lucide-react";
-import { api } from "@/services/api";
+import { api, ApiError } from "@/services/api";
 import { getDownloadUrl, getViewUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -212,6 +213,7 @@ export function DocumentDetailPage() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const { isAdmin } = useAuth();
+  const [academicRunId, setAcademicRunId] = useState<string | null>(null);
 
   const {
     data: doc,
@@ -223,6 +225,19 @@ export function DocumentDetailPage() {
     enabled: !!id,
   });
 
+  const academicRunStatusQuery = useQuery({
+    queryKey: ["documents", "academic-metadata-run", academicRunId],
+    queryFn: () => api.getAcademicMetadataRun(academicRunId!),
+    enabled: isAdmin && Boolean(academicRunId),
+    refetchInterval: (statusQuery) => {
+      const data = statusQuery.state.data;
+      if (data?.status === "queued" || data?.status === "processing") {
+        return 5000;
+      }
+      return false;
+    },
+  });
+
   const extractMutation = useMutation({
     mutationFn: () => api.extractMetadata(id!),
     onSuccess: () => {
@@ -230,6 +245,81 @@ export function DocumentDetailPage() {
       queryClient.invalidateQueries({ queryKey: ["documents"] });
     },
   });
+
+  const extractAcademicMutation = useMutation({
+    mutationFn: () => api.extractDocumentAcademicMetadata(id!, { force: true }),
+    onSuccess: (data) => {
+      setAcademicRunId(data.run_id);
+      queryClient.invalidateQueries({
+        queryKey: ["documents", "academic-metadata-status"],
+      });
+    },
+  });
+
+  const academicRunStatus = academicRunStatusQuery.data;
+  const academicRunStatusPending = Boolean(academicRunId) && !academicRunStatus;
+  const academicRunActive =
+    academicRunStatusPending ||
+    academicRunStatus?.status === "queued" ||
+    academicRunStatus?.status === "processing";
+  const academicMetadataMissingInputs =
+    !doc?.title?.trim() || !doc?.authors?.trim();
+  const academicMetadataButtonTitle = academicMetadataMissingInputs
+    ? t("documents.academicMetadataRequiresTitleAuthors")
+    : academicRunActive
+      ? t("documents.extractMoreMetadataProcessingShort")
+      : undefined;
+  const academicMetadataStatusText = extractAcademicMutation.isPending
+    ? t("documents.extractMoreMetadataStarting")
+    : extractAcademicMutation.error instanceof ApiError &&
+        extractAcademicMutation.error.status === 409
+      ? t("documents.academicMetadataAnotherRunActive")
+      : extractAcademicMutation.error
+        ? extractAcademicMutation.error.message
+        : academicRunStatus?.status === "error"
+          ? academicRunStatus.error || t("documents.academicMetadataError")
+          : academicRunStatus?.status === "done"
+            ? t("documents.academicMetadataDone", {
+                enriched: academicRunStatus.documents_enriched,
+                skipped: academicRunStatus.documents_skipped,
+                failed: academicRunStatus.documents_failed,
+              })
+            : academicRunStatus?.status === "processing"
+              ? t("documents.academicMetadataProcessing", {
+                  processed: academicRunStatus.documents_processed,
+                  total: academicRunStatus.documents_total,
+                })
+              : academicRunId
+                ? t("documents.academicMetadataQueued")
+                : null;
+  const academicMetadataStatusIsError =
+    Boolean(extractAcademicMutation.error) ||
+    academicRunStatus?.status === "error";
+
+  useEffect(() => {
+    if (
+      !id ||
+      (academicRunStatus?.status !== "done" &&
+        academicRunStatus?.status !== "error")
+    ) {
+      return;
+    }
+
+    queryClient.invalidateQueries({ queryKey: ["document", id] });
+    queryClient.invalidateQueries({ queryKey: ["documents"] });
+    queryClient.invalidateQueries({
+      queryKey: ["documents", "academic-metadata-status"],
+    });
+  }, [
+    academicRunStatus?.status,
+    academicRunStatus?.updated_at,
+    id,
+    queryClient,
+  ]);
+
+  useEffect(() => {
+    setAcademicRunId(null);
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -258,45 +348,81 @@ export function DocumentDetailPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link to="/documents">
-          <Button variant="ghost">
-            <ArrowLeft className="h-4 w-4" />
-            {t("common.back")}
-          </Button>
-        </Link>
-        <div className="flex items-center gap-2">
-          {isAdmin && (
-            <Link to={`/documents/${doc.id}/edit`}>
-              <Button variant="secondary">
-                <Pencil className="h-4 w-4" />
-                {t("common.edit")}
-              </Button>
-            </Link>
-          )}
-          {isAdmin && doc.file_type === "pdf" && (
-            <Button
-              variant="secondary"
-              onClick={() => extractMutation.mutate()}
-              disabled={extractMutation.isPending}
-            >
-              {extractMutation.isPending ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Sparkles className="h-4 w-4" />
-              )}
-              {t("documents.extractMetadata")}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between gap-3">
+          <Link to="/documents">
+            <Button variant="ghost">
+              <ArrowLeft className="h-4 w-4" />
+              {t("common.back")}
             </Button>
-          )}
-          {doc.full_file_available && (
-            <a href={getDownloadUrl(doc.id)} download>
-              <Button variant="secondary">
-                <Download className="h-4 w-4" />
-                {t("common.download")}
+          </Link>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            {isAdmin && (
+              <Link to={`/documents/${doc.id}/edit`}>
+                <Button variant="secondary">
+                  <Pencil className="h-4 w-4" />
+                  {t("common.edit")}
+                </Button>
+              </Link>
+            )}
+            {isAdmin && doc.file_type === "pdf" && (
+              <Button
+                variant="secondary"
+                onClick={() => extractMutation.mutate()}
+                disabled={extractMutation.isPending}
+              >
+                {extractMutation.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4" />
+                )}
+                {t("documents.extractMetadata")}
               </Button>
-            </a>
-          )}
+            )}
+            {isAdmin && (
+              <Button
+                variant="secondary"
+                onClick={() => extractAcademicMutation.mutate()}
+                disabled={
+                  extractAcademicMutation.isPending ||
+                  academicRunActive ||
+                  academicMetadataMissingInputs
+                }
+                title={academicMetadataButtonTitle}
+              >
+                {extractAcademicMutation.isPending || academicRunActive ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Database className="h-4 w-4" />
+                )}
+                {extractAcademicMutation.isPending
+                  ? t("documents.extractMoreMetadataStarting")
+                  : academicRunActive
+                    ? t("documents.extractMoreMetadataProcessingShort")
+                    : t("documents.extractMoreMetadata")}
+              </Button>
+            )}
+            {doc.full_file_available && (
+              <a href={getDownloadUrl(doc.id)} download>
+                <Button variant="secondary">
+                  <Download className="h-4 w-4" />
+                  {t("common.download")}
+                </Button>
+              </a>
+            )}
+          </div>
         </div>
+        {isAdmin && academicMetadataStatusText && (
+          <p
+            className={`text-right text-sm ${
+              academicMetadataStatusIsError
+                ? "text-error"
+                : "text-text-secondary"
+            }`}
+          >
+            {academicMetadataStatusText}
+          </p>
+        )}
       </div>
 
       <Card>

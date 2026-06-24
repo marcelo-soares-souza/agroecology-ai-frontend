@@ -222,9 +222,26 @@ export const api = {
       },
     ),
 
+  extractDocumentAcademicMetadata: (
+    id: string,
+    data?: AcademicMetadataExtractRequest,
+  ) =>
+    request<AcademicMetadataExtractResponse>(
+      `/api/v1/admin/documents/${id}/academic-metadata/extract`,
+      {
+        method: "POST",
+        body: JSON.stringify(data ?? {}),
+      },
+    ),
+
   getAcademicMetadataStatus: () =>
     request<AcademicMetadataRunStatus>(
       "/api/v1/admin/documents/academic-metadata/status",
+    ),
+
+  getAcademicMetadataRun: (runId: string) =>
+    request<AcademicMetadataRunStatus>(
+      `/api/v1/admin/documents/academic-metadata/runs/${runId}`,
     ),
 
   getDocument: (id: string) =>

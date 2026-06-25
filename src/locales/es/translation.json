@@ -172,6 +172,7 @@
     "pollingTimeout": "Tiempo de espera agotado",
     "empty": "Pregunta sobre agroecología, agroforestería, permacultura, agricultura orgánica, compostaje, biodiversidad, semillas y mucho más.",
     "newChat": "Nueva conversación",
+    "saveHistory": "Guardar historial local",
     "reindexingTitle": "Estamos reindexando la base agroecológica",
     "reindexingBody": "Puedes seguir preguntando, pero las respuestas pueden ser menos precisas hasta que termine la actualización.",
     "reindexingProgressDocuments": "{{processed}} de {{total}} documentos ya fueron procesados.",
@@ -407,6 +408,7 @@
   },
   "about": {
     "title": "Acerca de",
+    "betaBadge": "BETA",
     "betaNotice": "Esta plataforma está en desarrollo activo y actualmente en fase BETA. Las funcionalidades pueden cambiar, las respuestas deben verificarse con las fuentes citadas y algunas operaciones aún están restringidas a administradores.",
     "intro": "Acerca de Agroecology Map AI",
     "description": "Agroecology Map AI es una herramienta de software libre que transforma documentos agroecológicos en una base de consulta accesible. En lugar de buscar manualmente en artículos, cartillas, manuales, tesis e informes, haces una pregunta en lenguaje natural y recibes una respuesta conectada con las fuentes utilizadas. Para materiales científicos, los registros pueden enriquecerse con DOI, citas, datos de publicación y enlaces de acceso abierto de OpenAlex y Crossref.",
@@ -422,6 +424,9 @@
     "para3": "Nuestro objetivo a largo plazo es construir una infraestructura de IA local y autoalojable para la agroecología. La plataforma soporta backends enchufables, desde modelos locales mediante Ollama hasta APIs compatibles cuando sea necesario. A medida que los modelos abiertos maduren, queremos reducir dependencias externas y fortalecer la soberanía tecnológica de las comunidades.",
     "aboutAgroecologyMap": "Acerca de Agroecology Map",
     "agroecologyMapDescription": "El proyecto crece dentro del ecosistema Agroecology Map, una iniciativa de ciencia ciudadana, datos abiertos y software libre que desde hace 8 años mapea experiencias agroecológicas y conecta personas en diferentes regiones. Mientras Agroecology Map registra prácticas y territorios, Agroecology Map AI hace que textos y documentos puedan consultarse por conversación, manteniendo los mismos valores de colaboración, conocimiento libre y tecnología al servicio de las comunidades.",
+    "privacyCommitmentTitle": "Privacidad y GDPR",
+    "privacyCommitmentDescription": "Agroecology Map AI está diseñado con controles técnicos alineados con el GDPR y la LGPD, incluyendo minimización de datos, exportación, eliminación/anonimización de cuenta, consentimiento registrado, retención limitada y transparencia sobre proveedores de IA. La conformidad legal completa también depende de la operación, contratos, políticas y configuración de cada despliegue.",
+    "privacyCommitmentCta": "Ver política de privacidad",
     "knowledgeBaseTitle": "Documentos Consultados por la IA",
     "knowledgeBaseDescription": "La página de documentos muestra la base usada por Agroecology Map AI. Estas fuentes indexadas se consultan antes de escribir una respuesta, manteniendo cada respuesta conectada a materiales que se pueden abrir, leer y verificar. Cuando están disponibles, los documentos científicos también muestran metadatos enriquecidos a partir de OpenAlex y Crossref.",
     "principles": "Principios",
@@ -716,8 +721,9 @@
     }
   },
   "consent": {
-    "message": "Este sitio no utiliza cookies publicitarios ni rastreadores de terceros. Usamos almacenamiento local para sesión, idioma, elección de consentimiento e historial de chat en este dispositivo. Al continuar, reconoces nuestra",
+    "message": "Este sitio no utiliza cookies publicitarios ni rastreadores de terceros. Usamos almacenamiento local para sesión, idioma, este aviso e historial de chat en este dispositivo. Al continuar, reconoces nuestra",
     "and": "y nuestros",
+    "acknowledge": "OK",
     "accept": "Aceptar",
     "decline": "Rechazar"
   }

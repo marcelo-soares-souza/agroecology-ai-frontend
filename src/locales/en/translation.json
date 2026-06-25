@@ -172,6 +172,7 @@
     "pollingTimeout": "Polling timeout",
     "empty": "Ask about agroecology, agroforestry, permaculture, organic farming, composting, biodiversity, seeds, and much more.",
     "newChat": "New chat",
+    "saveHistory": "Save local history",
     "reindexingTitle": "We are reindexing the agroecology base",
     "reindexingBody": "You can keep asking questions, but answers may be less precise until the update finishes.",
     "reindexingProgressDocuments": "{{processed}} of {{total}} documents have been processed.",
@@ -407,6 +408,7 @@
   },
   "about": {
     "title": "About",
+    "betaBadge": "BETA",
     "betaNotice": "This platform is under active development and currently in BETA. Features may change, answers should be checked against their cited sources, and some operations are still restricted to administrators.",
     "intro": "About Agroecology Map AI",
     "description": "Agroecology Map AI is a free software tool that turns agroecological documents into an accessible knowledge base. Instead of searching manually through papers, booklets, manuals, theses, and reports, you ask a natural-language question and receive an answer connected to the sources used. For scientific materials, records can be enriched with DOI, citations, publication data, and open access links from OpenAlex and Crossref.",
@@ -422,6 +424,9 @@
     "para3": "Our long-term goal is to build local, self-hostable AI infrastructure for agroecology. The platform supports pluggable backends, from local models through Ollama to compatible APIs when needed. As open models mature, we want to reduce external dependencies and strengthen technological sovereignty for communities.",
     "aboutAgroecologyMap": "About Agroecology Map",
     "agroecologyMapDescription": "The project grows within the Agroecology Map ecosystem, a citizen science, open data, and free software initiative that has mapped agroecological experiences and connected people across regions for 8 years. While Agroecology Map records practices and territories, Agroecology Map AI makes texts and documents searchable through conversation, carrying the same values of collaboration, free knowledge, and technology in service of communities.",
+    "privacyCommitmentTitle": "Privacy and GDPR",
+    "privacyCommitmentDescription": "Agroecology Map AI is designed with technical controls aligned with GDPR and LGPD, including data minimization, export, account deletion/anonymization, recorded consent, limited retention, and transparency about AI providers. Full legal compliance also depends on the operation, contracts, policies, and configuration of each deployment.",
+    "privacyCommitmentCta": "View privacy policy",
     "knowledgeBaseTitle": "Documents Consulted by the AI",
     "knowledgeBaseDescription": "The documents page shows the base used by Agroecology Map AI. These indexed sources are checked before an answer is written, keeping each response connected to materials people can open, read, and verify. When available, scientific documents also show metadata enriched from OpenAlex and Crossref.",
     "principles": "Principles",
@@ -716,8 +721,9 @@
     }
   },
   "consent": {
-    "message": "This site does not use advertising cookies or third-party trackers. We use local storage for session, language, consent choice, and chat history on this device. By continuing, you acknowledge our",
+    "message": "This site does not use advertising cookies or third-party trackers. We use local storage for session, language, this notice, and chat history on this device. By continuing, you acknowledge our",
     "and": "and",
+    "acknowledge": "OK",
     "accept": "Accept",
     "decline": "Decline"
   }

@@ -250,6 +250,12 @@ export interface PublicUserRecord {
   approved_suggestions_count: number;
 }
 
+export interface ExportedPersonalData {
+  user: Record<string, unknown>;
+  suggestions: unknown[];
+  external_identities: unknown[];
+}
+
 export interface HumanChallenge {
   challenge_id: string;
   question: string;

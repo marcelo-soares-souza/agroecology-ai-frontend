@@ -70,7 +70,6 @@ function createAuthStore() {
       const data = await api.login({ email, password });
       localStorage.setItem(TOKEN_KEY, data.access_token);
       localStorage.setItem(REFRESH_KEY, data.refresh_token);
-      localStorage.setItem(EMAIL_KEY, email);
 
       const payload = decodeJwt(data.access_token);
       const fullName = payload.full_name || email;
@@ -84,7 +83,6 @@ function createAuthStore() {
         refreshToken: data.refresh_token,
         expiresAt: payload.exp * 1000,
       };
-      localStorage.setItem(FULL_NAME_KEY, fullName);
       queryClient.invalidateQueries({ queryKey: ["community-users"] });
       fetchProfile();
       notify();
@@ -104,9 +102,9 @@ function createAuthStore() {
       const profile: UserRecord = await api.getMe();
       if (session) {
         session.slug = profile.slug || session.userId;
+        session.email = profile.email;
         if (profile.full_name) {
           session.fullName = profile.full_name;
-          localStorage.setItem(FULL_NAME_KEY, profile.full_name);
         }
         notify();
       }
@@ -173,13 +171,10 @@ function createAuthStore() {
       if (storedToken) {
         const payload = decodeJwt(storedToken);
         if (payload.exp * 1000 > Date.now()) {
-          const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
-          const storedFullName =
-            localStorage.getItem(FULL_NAME_KEY) || storedEmail;
           session = {
             userId: payload.sub,
-            email: payload.email || storedEmail,
-            fullName: payload.full_name || storedFullName,
+            email: payload.email || "",
+            fullName: payload.full_name || "",
             slug: payload.sub,
             roles: payload.roles || [],
             accessToken: storedToken,
@@ -195,13 +190,10 @@ function createAuthStore() {
               localStorage.setItem(TOKEN_KEY, data.access_token);
               localStorage.setItem(REFRESH_KEY, data.refresh_token);
               const newPayload = decodeJwt(data.access_token);
-              const storedEmail = localStorage.getItem(EMAIL_KEY) || "";
-              const storedFullName =
-                localStorage.getItem(FULL_NAME_KEY) || storedEmail;
               session = {
                 userId: newPayload.sub,
-                email: newPayload.email || storedEmail,
-                fullName: newPayload.full_name || storedFullName,
+                email: newPayload.email || "",
+                fullName: newPayload.full_name || "",
                 slug: newPayload.sub,
                 roles: newPayload.roles || [],
                 accessToken: data.access_token,

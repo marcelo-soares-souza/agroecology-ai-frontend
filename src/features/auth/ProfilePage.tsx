@@ -18,6 +18,13 @@ import { QueryResult } from "@/components/ui/QueryResult";
 import { Button } from "@/components/ui/Button";
 import { buildApiUrl } from "@/config/api";
 import { useAuth } from "@/hooks/use-auth";
+import type { PublicUserRecord, UserRecord } from "@/services/types";
+
+type ProfileRecord = UserRecord | PublicUserRecord;
+
+function isPrivateUserRecord(profile: ProfileRecord): profile is UserRecord {
+  return "email" in profile;
+}
 
 function formatDate(iso: string | null, locale: string, fallback: string) {
   if (!iso) return fallback;
@@ -34,14 +41,15 @@ export function ProfilePage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const { slug } = useParams<{ slug: string }>();
-  const { userId } = useAuth();
+  const { userId, session } = useAuth();
   const [exporting, setExporting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteRequested, setDeleteRequested] = useState(false);
+  const isOwnProfile = !!slug && (slug === userId || slug === session?.slug);
 
   const query = useQuery({
-    queryKey: ["user-profile", slug],
-    queryFn: () => api.getUserBySlug(slug!),
+    queryKey: ["user-profile", slug, isOwnProfile],
+    queryFn: () => (isOwnProfile ? api.getMe() : api.getUserBySlug(slug!)),
     enabled: !!slug,
   });
 
@@ -99,8 +107,13 @@ export function ProfilePage() {
         }
       >
         {(profile) => {
-          const canEdit = profile.id === userId;
-          const profileIsAdmin = (profile.roles || []).includes("admin");
+          const isPrivate = isPrivateUserRecord(profile);
+          const canEdit = isPrivate && profile.id === userId;
+          const profileIsAdmin =
+            isPrivate && (profile.roles || []).includes("admin");
+          const avatarVersion = isPrivate ? profile.updated_at : null;
+          const displayName =
+            profile.full_name || (isPrivate ? profile.email : profile.slug);
 
           return (
             <>
@@ -113,12 +126,12 @@ export function ProfilePage() {
                           <img
                             src={buildApiUrl(
                               profile.avatar_url +
-                                (profile.updated_at
-                                  ? `?v=${encodeURIComponent(profile.updated_at)}`
+                                (avatarVersion
+                                  ? `?v=${encodeURIComponent(avatarVersion)}`
                                   : ""),
                             )}
                             alt={t("profile.avatarAlt", {
-                              name: profile.full_name || profile.email,
+                              name: displayName,
                             })}
                             className="h-full w-full object-cover"
                           />
@@ -130,7 +143,7 @@ export function ProfilePage() {
                       </div>
                       <div>
                         <h1 className="text-2xl font-bold text-text-primary">
-                          {profile.full_name || profile.email}
+                          {displayName}
                         </h1>
                         <p className="text-text-secondary">
                           {t("profile.slugPrefix", { slug: profile.slug })}
@@ -147,25 +160,29 @@ export function ProfilePage() {
                     )}
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {profile.status === "active" ? (
-                      <Badge variant="success">{t("admin.statusActive")}</Badge>
-                    ) : (
-                      <Badge variant="warning">{profile.status}</Badge>
-                    )}
-                    {(profile.roles || []).map((r: string) => (
-                      <Badge
-                        key={r}
-                        variant={r === "admin" ? "default" : "info"}
-                      >
-                        {r === "admin"
-                          ? t("profile.role_admin")
-                          : r === "user"
-                            ? t("profile.role_user")
-                            : r}
-                      </Badge>
-                    ))}
-                  </div>
+                  {isPrivate && (
+                    <div className="flex flex-wrap gap-2">
+                      {profile.status === "active" ? (
+                        <Badge variant="success">
+                          {t("admin.statusActive")}
+                        </Badge>
+                      ) : (
+                        <Badge variant="warning">{profile.status}</Badge>
+                      )}
+                      {(profile.roles || []).map((r: string) => (
+                        <Badge
+                          key={r}
+                          variant={r === "admin" ? "default" : "info"}
+                        >
+                          {r === "admin"
+                            ? t("profile.role_admin")
+                            : r === "user"
+                              ? t("profile.role_user")
+                              : r}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
                     {profile.link && (
@@ -184,32 +201,36 @@ export function ProfilePage() {
                         </a>
                       </div>
                     )}
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="h-4 w-4 text-text-secondary" />
-                      <span className="text-text-secondary">
-                        {t("admin.joined")}:
-                      </span>
-                      <span className="text-text-primary">
-                        {formatDate(
-                          profile.created_at || null,
-                          locale,
-                          t("profile.notAvailable"),
-                        )}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Clock className="h-4 w-4 text-text-secondary" />
-                      <span className="text-text-secondary">
-                        {t("admin.lastLogin")}:
-                      </span>
-                      <span className="text-text-primary">
-                        {formatDate(
-                          profile.last_login_at || null,
-                          locale,
-                          t("profile.notAvailable"),
-                        )}
-                      </span>
-                    </div>
+                    {isPrivate && (
+                      <>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Calendar className="h-4 w-4 text-text-secondary" />
+                          <span className="text-text-secondary">
+                            {t("admin.joined")}:
+                          </span>
+                          <span className="text-text-primary">
+                            {formatDate(
+                              profile.created_at || null,
+                              locale,
+                              t("profile.notAvailable"),
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Clock className="h-4 w-4 text-text-secondary" />
+                          <span className="text-text-secondary">
+                            {t("admin.lastLogin")}:
+                          </span>
+                          <span className="text-text-primary">
+                            {formatDate(
+                              profile.last_login_at || null,
+                              locale,
+                              t("profile.notAvailable"),
+                            )}
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </Card>

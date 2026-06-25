@@ -172,6 +172,7 @@
     "pollingTimeout": "Délai d'attente dépassé",
     "empty": "Posez une question sur l'agroécologie, l'agroforesterie, la permaculture, l'agriculture biologique, le compostage, la biodiversité, les semences et bien plus encore.",
     "newChat": "Nouvelle conversation",
+    "saveHistory": "Enregistrer l'historique local",
     "reindexingTitle": "Nous réindexons la base agroécologique",
     "reindexingBody": "Vous pouvez continuer à poser des questions, mais les réponses peuvent être moins précises jusqu'à la fin de la mise à jour.",
     "reindexingProgressDocuments": "{{processed}} document(s) sur {{total}} ont déjà été traités.",
@@ -407,6 +408,7 @@
   },
   "about": {
     "title": "À propos",
+    "betaBadge": "BETA",
     "betaNotice": "Cette plateforme est en développement actif et actuellement en phase BETA. Les fonctionnalités peuvent changer, les réponses doivent être vérifiées avec les sources citées et certaines opérations sont encore réservées aux administrateurs.",
     "intro": "À propos d'Agroecology Map AI",
     "description": "Agroecology Map AI est un outil de logiciel libre qui transforme des documents agroécologiques en une base de consultation accessible. Au lieu de chercher manuellement dans des articles, livrets, manuels, thèses et rapports, vous posez une question en langage naturel et recevez une réponse reliée aux sources utilisées. Pour les contenus scientifiques, les notices peuvent être enrichies avec DOI, citations, données de publication et liens d'accès ouvert provenant d'OpenAlex et Crossref.",
@@ -422,6 +424,9 @@
     "para3": "Notre objectif à long terme est de construire une infrastructure d'IA locale et auto-hébergeable pour l'agroécologie. La plateforme prend en charge des backends modulaires, des modèles locaux via Ollama aux APIs compatibles lorsque nécessaire. À mesure que les modèles ouverts mûrissent, nous voulons réduire les dépendances externes et renforcer la souveraineté technologique des communautés.",
     "aboutAgroecologyMap": "À propos d'Agroecology Map",
     "agroecologyMapDescription": "Le projet se développe au sein de l'écosystème Agroecology Map, une initiative de science citoyenne, données ouvertes et logiciel libre qui cartographie des expériences agroécologiques et connecte des personnes dans différentes régions depuis 8 ans. Alors qu'Agroecology Map enregistre des pratiques et des territoires, Agroecology Map AI rend les textes et documents consultables par conversation, avec les mêmes valeurs de collaboration, connaissance libre et technologie au service des communautés.",
+    "privacyCommitmentTitle": "Confidentialité et GDPR",
+    "privacyCommitmentDescription": "Agroecology Map AI est conçu avec des contrôles techniques alignés sur le GDPR et la LGPD, notamment la minimisation des données, l'exportation, la suppression/anonymisation du compte, le consentement enregistré, la conservation limitée et la transparence sur les fournisseurs d'IA. La conformité juridique complète dépend aussi de l'exploitation, des contrats, des politiques et de la configuration de chaque déploiement.",
+    "privacyCommitmentCta": "Voir la politique de confidentialité",
     "knowledgeBaseTitle": "Documents Consultés par l'IA",
     "knowledgeBaseDescription": "La page de documents montre la base utilisée par Agroecology Map AI. Ces sources indexées sont consultées avant qu'une réponse soit écrite, afin que chaque réponse reste connectée à des contenus que l'on peut ouvrir, lire et vérifier. Lorsque disponibles, les documents scientifiques affichent aussi des métadonnées enrichies à partir d'OpenAlex et Crossref.",
     "principles": "Principes",
@@ -716,8 +721,9 @@
     }
   },
   "consent": {
-    "message": "Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Nous utilisons le stockage local pour la session, la langue, le choix de consentement et l'historique du chat sur cet appareil. En continuant, vous reconnaissez notre",
+    "message": "Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Nous utilisons le stockage local pour la session, la langue, cet avis et l'historique du chat sur cet appareil. En continuant, vous reconnaissez notre",
     "and": "et nos",
+    "acknowledge": "OK",
     "accept": "Accepter",
     "decline": "Refuser"
   }

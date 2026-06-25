@@ -8,8 +8,6 @@ import {
   ExternalLink,
   Pencil,
   Globe,
-  Calendar,
-  Clock,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";
@@ -18,7 +16,7 @@ import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { buildApiUrl } from "@/config/api";
-import type { DocumentSuggestion, UserRecord } from "@/services/types";
+import type { DocumentSuggestion, PublicUserRecord } from "@/services/types";
 
 function formatDate(iso: string | null, locale: string) {
   if (!iso) return "\u2014";
@@ -83,7 +81,7 @@ export function CommunityUserDetailPage() {
     );
   }
 
-  const user = userQuery.data as UserRecord;
+  const user = userQuery.data as PublicUserRecord;
   const canEdit = user.id === userId;
 
   return (
@@ -104,12 +102,7 @@ export function CommunityUserDetailPage() {
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
                 {user.avatar_url ? (
                   <img
-                    src={buildApiUrl(
-                      user.avatar_url +
-                        (user.updated_at
-                          ? `?v=${encodeURIComponent(user.updated_at)}`
-                          : ""),
-                    )}
+                    src={buildApiUrl(user.avatar_url)}
                     alt=""
                     className="h-full w-full object-cover"
                   />
@@ -136,19 +129,6 @@ export function CommunityUserDetailPage() {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {user.status === "active" ? (
-              <Badge variant="success">{t("admin.statusActive")}</Badge>
-            ) : (
-              <Badge variant="warning">{user.status}</Badge>
-            )}
-            {(user.roles || []).map((r: string) => (
-              <Badge key={r} variant={r === "admin" ? "default" : "info"}>
-                {r}
-              </Badge>
-            ))}
-          </div>
-
           <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
             {user.link && (
               <div className="flex items-center gap-2 text-sm">
@@ -166,22 +146,6 @@ export function CommunityUserDetailPage() {
                 </a>
               </div>
             )}
-            <div className="flex items-center gap-2 text-sm">
-              <Calendar className="h-4 w-4 text-text-secondary" />
-              <span className="text-text-secondary">{t("admin.joined")}:</span>
-              <span className="text-text-primary">
-                {formatDate(user.created_at, locale)}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <Clock className="h-4 w-4 text-text-secondary" />
-              <span className="text-text-secondary">
-                {t("admin.lastLogin")}:
-              </span>
-              <span className="text-text-primary">
-                {formatDate(user.last_login_at, locale)}
-              </span>
-            </div>
           </div>
         </div>
       </Card>

@@ -11,7 +11,14 @@ import { api } from "@/services/api";
 
 export function ChatPage() {
   const { t } = useTranslation();
-  const { messages, isSending, sendMessage, clearChat } = useChat();
+  const {
+    messages,
+    isSending,
+    sendMessage,
+    clearChat,
+    localHistoryEnabled,
+    setLocalHistory,
+  } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data: serverStatus } = useQuery({
     queryKey: ["server-status", "chat"],
@@ -53,12 +60,23 @@ export function ChatPage() {
             {t("home.description")}
           </p>
         </div>
-        {messages.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={clearChat}>
-            <Eraser className="h-4 w-4" />
-            {t("home.newChat")}
-          </Button>
-        )}
+        <div className="flex shrink-0 items-center gap-3">
+          <label className="flex items-center gap-2 text-sm text-text-secondary">
+            <input
+              type="checkbox"
+              className="h-4 w-4 rounded border-primary-200 text-primary"
+              checked={localHistoryEnabled}
+              onChange={(event) => setLocalHistory(event.target.checked)}
+            />
+            {t("home.saveHistory")}
+          </label>
+          {messages.length > 0 && (
+            <Button variant="ghost" size="sm" onClick={clearChat}>
+              <Eraser className="h-4 w-4" />
+              {t("home.newChat")}
+            </Button>
+          )}
+        </div>
       </div>
       <p className="text-sm text-text-secondary mb-4 flex items-center gap-1">
         <FileText className="h-3.5 w-3.5" />

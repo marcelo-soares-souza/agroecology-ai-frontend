@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Cookie } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-const STORAGE_KEY = "agroecology_consent_given";
+const STORAGE_KEY = "agroecology_storage_notice_acknowledged";
 
 export function CookieConsent() {
   const { t } = useTranslation();
@@ -19,13 +19,8 @@ export function CookieConsent() {
 
   if (!visible) return null;
 
-  const accept = () => {
-    localStorage.setItem(STORAGE_KEY, "accepted");
-    setVisible(false);
-  };
-
-  const decline = () => {
-    localStorage.setItem(STORAGE_KEY, "declined");
+  const acknowledge = () => {
+    localStorage.setItem(STORAGE_KEY, "acknowledged");
     setVisible(false);
   };
 
@@ -54,11 +49,8 @@ export function CookieConsent() {
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <Button variant="primary" size="sm" onClick={accept}>
-            {t("consent.accept")}
-          </Button>
-          <Button variant="ghost" size="sm" onClick={decline}>
-            {t("consent.decline")}
+          <Button variant="primary" size="sm" onClick={acknowledge}>
+            {t("consent.acknowledge")}
           </Button>
         </div>
       </div>

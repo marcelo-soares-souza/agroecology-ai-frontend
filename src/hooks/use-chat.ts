@@ -6,6 +6,8 @@ import {
   saveChatMessages,
   loadChatMessages,
   clearChatMessages,
+  isChatHistoryEnabled,
+  setChatHistoryEnabled,
 } from "@/lib/ChatStorage";
 
 function useTaskPolling(
@@ -56,6 +58,9 @@ export function useChat() {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChatMessages(),
+  );
+  const [localHistoryEnabled, setLocalHistoryEnabled] = useState(() =>
+    isChatHistoryEnabled(),
   );
   const [isSending, setIsSending] = useState(false);
   const [pollingTaskId, setPollingTaskId] = useState<string | null>(null);
@@ -225,5 +230,20 @@ export function useChat() {
     [t],
   );
 
-  return { messages, isSending, sendMessage, clearChat };
+  const setLocalHistory = useCallback((enabled: boolean) => {
+    setChatHistoryEnabled(enabled);
+    setLocalHistoryEnabled(enabled);
+    if (!enabled) {
+      setMessages([]);
+    }
+  }, []);
+
+  return {
+    messages,
+    isSending,
+    sendMessage,
+    clearChat,
+    localHistoryEnabled,
+    setLocalHistory,
+  };
 }

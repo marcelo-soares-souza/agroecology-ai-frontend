@@ -29,6 +29,7 @@ import type {
   ConfirmEmailRequest,
   ResetPasswordRequest,
   RefreshTokenResponse,
+  ExportedPersonalData,
 } from "./types";
 
 export interface AuthRateLimitInfo {
@@ -356,10 +357,7 @@ export const api = {
 
   getMe: () => request<UserRecord>("/api/v1/auth/me"),
 
-  exportMyData: () =>
-    request<{ user: Record<string, unknown>; suggestions: unknown[] }>(
-      "/api/v1/auth/me/export",
-    ),
+  exportMyData: () => request<ExportedPersonalData>("/api/v1/auth/me/export"),
 
   requestDeleteAccount: () =>
     request<{ message: string }>("/api/v1/auth/me/delete-request", {
@@ -373,7 +371,7 @@ export const api = {
     }),
 
   getUserBySlug: (slug: string) =>
-    request<UserRecord>(`/api/v1/auth/users/by-slug/${slug}`),
+    request<PublicUserRecord>(`/api/v1/auth/users/by-slug/${slug}`),
 
   listPublicSuggestions: (userId: string) =>
     request<DocumentSuggestion[]>(

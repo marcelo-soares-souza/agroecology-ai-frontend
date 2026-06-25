@@ -172,6 +172,7 @@
     "pollingTimeout": "Tempo de espera excedido",
     "empty": "Pergunte sobre agroecologia, agroflorestas, permacultura, agricultura orgânica, compostagem, biodiversidade, sementes e muito mais.",
     "newChat": "Nova conversa",
+    "saveHistory": "Salvar histórico local",
     "reindexingTitle": "Estamos reindexando a base agroecológica",
     "reindexingBody": "Você pode continuar perguntando, mas talvez as respostas não fiquem tão precisas até a atualização terminar.",
     "reindexingProgressDocuments": "{{processed}} de {{total}} documentos já foram processados.",
@@ -407,6 +408,7 @@
   },
   "about": {
     "title": "Sobre",
+    "betaBadge": "BETA",
     "betaNotice": "Esta plataforma está em desenvolvimento ativo e atualmente em fase BETA. Funcionalidades podem mudar, respostas devem ser verificadas nas fontes citadas e algumas operações ainda estão restritas a administradores.",
     "intro": "Sobre o Agroecology Map AI",
     "description": "O Agroecology Map AI é uma ferramenta de software livre que transforma documentos agroecológicos em uma base de consulta acessível. Em vez de procurar manualmente em artigos, cartilhas, manuais, teses e relatórios, você faz uma pergunta em linguagem natural e recebe uma resposta conectada às fontes usadas. Para materiais científicos, os registros podem ser enriquecidos com DOI, citações, dados de publicação e links de acesso aberto vindos de OpenAlex e Crossref.",
@@ -422,6 +424,9 @@
     "para3": "Nosso objetivo de longo prazo é construir uma infraestrutura de IA local e auto-hospedável para a agroecologia. A plataforma suporta backends plugáveis, de modelos locais via Ollama a APIs compatíveis quando necessário. À medida que modelos abertos amadurecem, queremos reduzir dependências externas e fortalecer a soberania tecnológica das comunidades.",
     "aboutAgroecologyMap": "Sobre o Agroecology Map",
     "agroecologyMapDescription": "O projeto nasce dentro do ecossistema Agroecology Map, uma iniciativa de ciência cidadã, dados abertos e software livre que há 8 anos mapeia experiências agroecológicas e conecta pessoas em diferentes regiões. Enquanto o Agroecology Map registra práticas e territórios, o Agroecology Map AI torna textos e documentos consultáveis por conversa, mantendo os mesmos valores de colaboração, conhecimento livre e tecnologia a serviço das comunidades.",
+    "privacyCommitmentTitle": "Privacidade e GDPR",
+    "privacyCommitmentDescription": "O Agroecology Map AI foi desenhado com controles técnicos alinhados à GDPR e à LGPD, incluindo minimização de dados, exportação, exclusão/anônimização de conta, consentimento registrado, retenção limitada e transparência sobre provedores de IA. A conformidade jurídica completa também depende da operação, contratos, políticas e configuração de cada implantação.",
+    "privacyCommitmentCta": "Ver política de privacidade",
     "knowledgeBaseTitle": "Documentos Consultados pela IA",
     "knowledgeBaseDescription": "A página de documentos mostra a base usada pelo Agroecology Map AI. Essas fontes indexadas são consultadas antes da resposta ser escrita, mantendo cada resposta conectada a materiais que podem ser abertos, lidos e verificados. Quando disponíveis, documentos científicos também exibem metadados enriquecidos a partir de OpenAlex e Crossref.",
     "principles": "Princípios",
@@ -716,8 +721,9 @@
     }
   },
   "consent": {
-    "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Usamos armazenamento local para sessão, idioma, escolha de consentimento e histórico de chat neste dispositivo. Ao continuar, você reconhece nossa",
+    "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Usamos armazenamento local para sessão, idioma, este aviso e histórico de chat neste dispositivo. Ao continuar, você reconhece nossa",
     "and": "e nossos",
+    "acknowledge": "OK",
     "accept": "Aceitar",
     "decline": "Recusar"
   }

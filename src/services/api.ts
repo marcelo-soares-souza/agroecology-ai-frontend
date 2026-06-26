@@ -211,6 +211,9 @@ export const api = {
       `/api/v1/documents${buildQueryString(params)}`,
     ),
 
+  getDocumentPublicationYears: () =>
+    request<number[]>("/api/v1/documents/publication-years"),
+
   getDocumentStats: () => request<DocumentStats>("/api/v1/documents/stats"),
 
   getMetadataExtractionStatus: () =>

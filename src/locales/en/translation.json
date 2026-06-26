@@ -277,7 +277,7 @@
     "fullMetadata": "Full Metadata",
     "fullMetadataHelp": "Show only documents with title, authors, publication year, citation count, and source link.",
     "publicationYearFilter": "Year",
-    "allPublicationYears": "All years",
+    "allPublicationYears": "All Years",
     "extractMoreMetadata": "Extract More Metadata",
     "extractMoreMetadataStarting": "Starting extraction...",
     "extractMoreMetadataProcessingShort": "Extracting...",

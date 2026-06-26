@@ -31,15 +31,6 @@ import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { DocumentRecord } from "@/services/types";
 
 const PAGE_SIZE = 50;
-const MIN_PUBLICATION_YEAR = 1985;
-
-function getPublicationYears() {
-  const currentYear = new Date().getFullYear();
-  return Array.from(
-    { length: currentYear - MIN_PUBLICATION_YEAR + 1 },
-    (_, index) => currentYear - index,
-  );
-}
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -98,7 +89,6 @@ export function DocumentListPage() {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [loadingMore, setLoadingMore] = useState(false);
-  const publicationYears = getPublicationYears();
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -128,6 +118,11 @@ export function DocumentListPage() {
   const statsQuery = useQuery({
     queryKey: ["documents", "stats"],
     queryFn: api.getDocumentStats,
+    placeholderData: keepPreviousData,
+  });
+  const publicationYearsQuery = useQuery({
+    queryKey: ["documents", "publication-years"],
+    queryFn: api.getDocumentPublicationYears,
     placeholderData: keepPreviousData,
   });
   const metadataStatusQuery = useQuery({
@@ -163,6 +158,7 @@ export function DocumentListPage() {
     : null;
   const indexPending = indexStats ? indexStats.total - indexStats.indexed : 0;
   const totalDocuments = query.data?.total ?? 0;
+  const publicationYears = publicationYearsQuery.data ?? [];
   const isSearchSettling = searchQuery !== debouncedSearchQuery;
   const hasMore = !isSearchSettling && documents.length < totalDocuments;
   const academicStatus = academicMetadataStatusQuery.data;
@@ -543,17 +539,15 @@ export function DocumentListPage() {
         </div>
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:flex lg:w-auto lg:items-center">
           <label className="flex min-h-11 w-full items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary lg:w-auto">
-            <span className="shrink-0">
-              {t("documents.publicationYearFilter")}
-            </span>
             <select
+              aria-label={t("documents.publicationYearFilter")}
               value={publicationYear ?? ""}
               onChange={(event) =>
                 setPublicationYear(
                   event.target.value ? Number(event.target.value) : null,
                 )
               }
-              className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none lg:min-w-28"
+              className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none lg:min-w-32"
             >
               <option value="">{t("documents.allPublicationYears")}</option>
               {publicationYears.map((year) => (

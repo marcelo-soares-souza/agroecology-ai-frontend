@@ -152,14 +152,34 @@ export function DocumentListPage() {
   const academicIsActive =
     academicStatus?.status === "queued" ||
     academicStatus?.status === "processing";
+  const academicProcessedTotal =
+    academicStatus?.documents_processed_total ??
+    academicStatus?.documents_processed ??
+    0;
+  const academicSkippedTotal =
+    academicStatus?.documents_skipped_total ??
+    academicStatus?.documents_skipped ??
+    0;
+  const academicWithFullMetadata =
+    academicStatus?.documents_with_full_metadata ??
+    academicStatus?.documents_enriched ??
+    0;
+  const academicEligiblePending =
+    academicStatus?.documents_eligible_pending ??
+    academicStatus?.documents_pending ??
+    0;
+  const academicCoverageTotal =
+    academicProcessedTotal + academicEligiblePending;
   const academicProgress =
-    academicStatus && academicStatus.documents_total > 0
+    academicIsActive && academicStatus && academicStatus.documents_total > 0
       ? Math.round(
           (academicStatus.documents_processed /
             academicStatus.documents_total) *
             100,
         )
-      : 0;
+      : academicCoverageTotal > 0
+        ? Math.round((academicProcessedTotal / academicCoverageTotal) * 100)
+        : 0;
   const academicHasNoDocuments = Boolean(
     documentStats && documentStats.total === 0,
   );
@@ -254,16 +274,30 @@ export function DocumentListPage() {
           total: academicStatus.documents_total,
         })
       : academicStatus?.status === "done"
-        ? t("documents.academicMetadataDone", {
-            enriched: academicStatus.documents_enriched,
-            skipped: academicStatus.documents_skipped,
-            failed: academicStatus.documents_failed,
-          })
+        ? t("documents.academicMetadataIdle")
         : academicStatus?.status === "error"
           ? academicStatus.error || t("documents.academicMetadataError")
           : academicHasNoPendingDocuments
             ? t("documents.academicMetadataNoPending")
             : t("documents.academicMetadataIdle");
+  const academicMetricItems = [
+    {
+      label: t("documents.academicMetadataProcessedTotal"),
+      value: academicProcessedTotal,
+    },
+    {
+      label: t("documents.academicMetadataSkippedTotal"),
+      value: academicSkippedTotal,
+    },
+    {
+      label: t("documents.academicMetadataFullMetadataTotal"),
+      value: academicWithFullMetadata,
+    },
+    {
+      label: t("documents.academicMetadataEligiblePending"),
+      value: academicEligiblePending,
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -415,46 +449,63 @@ export function DocumentListPage() {
 
       {isAdmin && (
         <Card padding="sm">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <Database className="h-4 w-4 text-primary shrink-0" />
-                <p className="font-semibold text-text-primary">
-                  {t("documents.academicMetadataTitle")}
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <Database className="h-4 w-4 text-primary shrink-0" />
+                  <p className="font-semibold text-text-primary">
+                    {t("documents.academicMetadataTitle")}
+                  </p>
+                  <InfoTooltip label={t("documents.academicMetadataHelp")} />
+                </div>
+                <p className="text-sm text-text-secondary mt-1">
+                  {academicStatusText}
                 </p>
-                <InfoTooltip label={t("documents.academicMetadataHelp")} />
               </div>
-              <p className="text-sm text-text-secondary mt-1">
-                {academicStatusText}
-              </p>
-              {academicStatus && academicStatus.documents_total > 0 && (
-                <div className="h-2 overflow-hidden rounded-full bg-primary-100 mt-3 max-w-xl">
+
+              <div className="flex shrink-0">
+                <Button
+                  variant="secondary"
+                  onClick={() =>
+                    extractAcademicMetadataMutation.mutate(undefined)
+                  }
+                  disabled={academicExtractionDisabled}
+                  title={academicButtonTitle}
+                >
+                  {extractAcademicMetadataMutation.isPending ||
+                  academicIsActive ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Database className="h-4 w-4" />
+                  )}
+                  {t("documents.extractMoreMetadata")}
+                </Button>
+              </div>
+            </div>
+
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-3 lg:grid-cols-4">
+              {academicMetricItems.map((item) => (
+                <div key={item.label} className="min-w-0">
+                  <dt className="text-xs font-medium uppercase tracking-wide text-text-secondary">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-1 text-lg font-semibold text-text-primary">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            {academicStatus &&
+              (academicCoverageTotal > 0 || academicIsActive) && (
+                <div className="h-2 overflow-hidden rounded-full bg-primary-50">
                   <div
-                    className="h-full rounded-full bg-info transition-all"
+                    className="h-full rounded-full bg-[#fdba74] transition-all"
                     style={{ width: `${academicProgress}%` }}
                   />
                 </div>
               )}
-            </div>
-
-            <div className="flex shrink-0">
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  extractAcademicMetadataMutation.mutate(undefined)
-                }
-                disabled={academicExtractionDisabled}
-                title={academicButtonTitle}
-              >
-                {extractAcademicMetadataMutation.isPending ||
-                academicIsActive ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Database className="h-4 w-4" />
-                )}
-                {t("documents.extractMoreMetadata")}
-              </Button>
-            </div>
           </div>
         </Card>
       )}

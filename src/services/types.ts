@@ -184,6 +184,11 @@ export interface AcademicMetadataRunStatus {
   documents_skipped: number;
   documents_failed: number;
   documents_pending: number;
+  documents_processed_total: number;
+  documents_skipped_total: number;
+  documents_failed_total: number;
+  documents_with_full_metadata: number;
+  documents_eligible_pending: number;
   delay_seconds: number;
   current_document_id: string | null;
   error: string | null;

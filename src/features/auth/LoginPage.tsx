@@ -97,24 +97,24 @@ export function LoginPage() {
             {loading ? t("auth.loggingIn") : t("auth.login")}
           </Button>
         </form>
-        <p className="text-sm text-text-secondary mt-4 text-center">
-          {t("auth.noAccount")}{" "}
-          <Link to="/register" className="text-primary hover:underline">
-            {t("auth.register")}
-          </Link>
-        </p>
-        <div className="flex justify-between mt-2 text-sm">
-          <Link
-            to="/forgot-password"
-            className="text-text-secondary hover:text-primary"
-          >
-            {t("auth.forgotPassword")}
-          </Link>
+        <div className="mt-4 space-y-2 text-center text-sm">
           <Link
             to="/resend-confirmation"
-            className="text-text-secondary hover:text-primary"
+            className="block text-text-secondary hover:text-primary"
           >
             {t("auth.resendConfirmation")}
+          </Link>
+          <p className="text-text-secondary">
+            {t("auth.noAccount")}{" "}
+            <Link to="/register" className="text-primary hover:underline">
+              {t("auth.register")}
+            </Link>
+          </p>
+          <Link
+            to="/forgot-password"
+            className="block text-text-secondary hover:text-primary"
+          >
+            {t("auth.forgotPassword")}
           </Link>
         </div>
       </Card>

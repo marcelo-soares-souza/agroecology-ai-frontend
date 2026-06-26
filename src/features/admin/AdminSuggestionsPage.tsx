@@ -177,11 +177,6 @@ export function AdminSuggestionsPage() {
                         {s.original_filename && (
                           <Badge variant="info">PDF</Badge>
                         )}
-                        {s.document_id && (
-                          <Badge variant="success">
-                            {t("suggestions.status_approved")}
-                          </Badge>
-                        )}
                         <span>{formatDate(s.created_at, locale)}</span>
                       </div>
                     </div>

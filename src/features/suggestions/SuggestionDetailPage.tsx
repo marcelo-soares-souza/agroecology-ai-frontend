@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { SuggestionPdfViewer } from "@/components/ui/SuggestionPdfViewer";
+import { getViewUrl } from "@/config/api";
 import { useAppMutation } from "@/hooks/use-app-mutation";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -87,6 +88,16 @@ export function SuggestionDetailPage() {
       </div>
     );
   }
+
+  const hasPdf =
+    suggestion.original_filename !== null && suggestion.file_type === "pdf";
+  const approvedDocumentViewUrl =
+    suggestion.status === "approved" && suggestion.document_id
+      ? getViewUrl(suggestion.document_id)
+      : null;
+  const shouldRenderPdf =
+    hasPdf &&
+    (suggestion.status !== "approved" || approvedDocumentViewUrl !== null);
 
   return (
     <div className="space-y-6">
@@ -199,12 +210,20 @@ export function SuggestionDetailPage() {
             </div>
           )}
 
-          {suggestion.original_filename && suggestion.file_type === "pdf" && (
+          {shouldRenderPdf && (
             <Card padding="none" className="overflow-hidden">
-              <SuggestionPdfViewer
-                suggestionId={suggestion.id}
-                title={suggestion.original_filename}
-              />
+              {approvedDocumentViewUrl ? (
+                <iframe
+                  src={approvedDocumentViewUrl}
+                  title={suggestion.original_filename ?? suggestion.id}
+                  className="w-full h-[80vh] border-0"
+                />
+              ) : (
+                <SuggestionPdfViewer
+                  suggestionId={suggestion.id}
+                  title={suggestion.original_filename ?? suggestion.id}
+                />
+              )}
             </Card>
           )}
 

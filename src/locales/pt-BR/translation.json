@@ -276,6 +276,8 @@
     "metadataStatusHelp": "Metadados ajudam a identificar título e autoria de PDFs na base.",
     "fullMetadata": "Full Metadata",
     "fullMetadataHelp": "Mostra apenas documentos com título, autores, ano de publicação, contagem de citações e link de origem.",
+    "publicationYearFilter": "Ano",
+    "allPublicationYears": "Todos os anos",
     "extractMoreMetadata": "Extrair mais metadados",
     "extractMoreMetadataStarting": "Iniciando extração...",
     "extractMoreMetadataProcessingShort": "Extraindo...",

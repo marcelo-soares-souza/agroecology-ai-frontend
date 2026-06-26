@@ -31,6 +31,15 @@ import { useAppMutation } from "@/hooks/use-app-mutation";
 import type { DocumentRecord } from "@/services/types";
 
 const PAGE_SIZE = 50;
+const MIN_PUBLICATION_YEAR = 1985;
+
+function getPublicationYears() {
+  const currentYear = new Date().getFullYear();
+  return Array.from(
+    { length: currentYear - MIN_PUBLICATION_YEAR + 1 },
+    (_, index) => currentYear - index,
+  );
+}
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -84,10 +93,12 @@ export function DocumentListPage() {
     type: "success" | "info";
   } | null>(null);
   const [fullMetadataOnly, setFullMetadataOnly] = useState(false);
+  const [publicationYear, setPublicationYear] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [loadingMore, setLoadingMore] = useState(false);
+  const publicationYears = getPublicationYears();
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -98,11 +109,17 @@ export function DocumentListPage() {
   }, [searchQuery]);
 
   const query = useQuery({
-    queryKey: ["documents", debouncedSearchQuery, fullMetadataOnly],
+    queryKey: [
+      "documents",
+      debouncedSearchQuery,
+      fullMetadataOnly,
+      publicationYear,
+    ],
     queryFn: () =>
       api.listDocuments({
         q: debouncedSearchQuery.trim() || undefined,
         full_metadata: fullMetadataOnly,
+        publication_year: publicationYear ?? undefined,
         limit: PAGE_SIZE,
         offset: 0,
       }),
@@ -217,6 +234,7 @@ export function DocumentListPage() {
       const nextPage = await api.listDocuments({
         q: debouncedSearchQuery.trim() || undefined,
         full_metadata: fullMetadataOnly,
+        publication_year: publicationYear ?? undefined,
         limit: PAGE_SIZE,
         offset: documents.length,
       });
@@ -513,7 +531,7 @@ export function DocumentListPage() {
         </Card>
       )}
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
           <Input
@@ -523,16 +541,39 @@ export function DocumentListPage() {
             className="pl-9"
           />
         </div>
-        <label className="flex min-h-11 w-full items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary sm:w-auto">
-          <input
-            type="checkbox"
-            checked={fullMetadataOnly}
-            onChange={(event) => setFullMetadataOnly(event.target.checked)}
-            className="h-4 w-4 rounded border-primary-300 accent-primary"
-          />
-          <span>{t("documents.fullMetadata")}</span>
-          <InfoTooltip label={t("documents.fullMetadataHelp")} />
-        </label>
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:flex lg:w-auto lg:items-center">
+          <label className="flex min-h-11 w-full items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary lg:w-auto">
+            <span className="shrink-0">
+              {t("documents.publicationYearFilter")}
+            </span>
+            <select
+              value={publicationYear ?? ""}
+              onChange={(event) =>
+                setPublicationYear(
+                  event.target.value ? Number(event.target.value) : null,
+                )
+              }
+              className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none lg:min-w-28"
+            >
+              <option value="">{t("documents.allPublicationYears")}</option>
+              {publicationYears.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="flex min-h-11 w-full items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary lg:w-auto">
+            <input
+              type="checkbox"
+              checked={fullMetadataOnly}
+              onChange={(event) => setFullMetadataOnly(event.target.checked)}
+              className="h-4 w-4 rounded border-primary-300 accent-primary"
+            />
+            <span>{t("documents.fullMetadata")}</span>
+            <InfoTooltip label={t("documents.fullMetadataHelp")} />
+          </label>
+        </div>
       </div>
 
       <QueryResult
@@ -560,7 +601,7 @@ export function DocumentListPage() {
                 <p className="text-text-secondary">
                   {debouncedSearchQuery.trim()
                     ? t("common.noResults")
-                    : fullMetadataOnly
+                    : fullMetadataOnly || publicationYear !== null
                       ? t("common.noResults")
                       : t("documents.empty")}
                 </p>

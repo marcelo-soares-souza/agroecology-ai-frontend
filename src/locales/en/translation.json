@@ -276,6 +276,8 @@
     "metadataStatusHelp": "Metadata helps identify PDF titles and authors in the knowledge base.",
     "fullMetadata": "Full Metadata",
     "fullMetadataHelp": "Show only documents with title, authors, publication year, citation count, and source link.",
+    "publicationYearFilter": "Year",
+    "allPublicationYears": "All years",
     "extractMoreMetadata": "Extract More Metadata",
     "extractMoreMetadataStarting": "Starting extraction...",
     "extractMoreMetadataProcessingShort": "Extracting...",

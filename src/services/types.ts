@@ -148,6 +148,7 @@ export interface DocumentStats {
 export interface PaginationParams {
   q?: string;
   full_metadata?: boolean;
+  publication_year?: number;
   limit?: number;
   offset?: number;
 }

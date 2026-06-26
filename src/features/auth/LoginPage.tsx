@@ -60,9 +60,9 @@ export function LoginPage() {
     <div className="max-w-md mx-auto">
       <Card>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-            <LogIn className="h-6 w-6 text-primary" />
-            {t("auth.login")}
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+            <LogIn className="h-6 w-6 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">{t("auth.login")}</span>
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("auth.loginDescription")}

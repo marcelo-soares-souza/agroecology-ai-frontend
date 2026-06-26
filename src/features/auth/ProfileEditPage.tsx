@@ -143,7 +143,7 @@ export function ProfileEditPage() {
       </Link>
 
       <Card>
-        <div className="flex items-center gap-4 mb-6 pb-6 border-b border-primary-100">
+        <div className="mb-6 flex items-start gap-4 border-b border-primary-100 pb-6">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
             {avatarUrl ? (
               <img
@@ -157,18 +157,18 @@ export function ProfileEditPage() {
               </div>
             )}
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-text-primary">
+          <div className="min-w-0">
+            <h1 className="break-words text-2xl font-bold text-text-primary">
               {t("profile.editTitle")}
             </h1>
-            <p className="text-sm text-text-secondary">
+            <p className="break-all text-sm text-text-secondary">
               {session?.slug && `@${session.slug}`}
             </p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="flex items-center gap-4 pb-4 border-b border-primary-100">
+          <div className="flex flex-col gap-3 border-b border-primary-100 pb-4 sm:flex-row sm:items-center sm:gap-4">
             <input
               ref={fileInputRef}
               type="file"
@@ -180,6 +180,7 @@ export function ProfileEditPage() {
               type="button"
               variant="secondary"
               size="sm"
+              className="w-full sm:w-auto"
               onClick={() => fileInputRef.current?.click()}
               disabled={avatarUploading}
             >
@@ -248,8 +249,12 @@ export function ProfileEditPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 pt-2">
-            <Button type="submit" disabled={saving}>
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+            <Button
+              type="submit"
+              disabled={saving}
+              className="w-full sm:w-auto"
+            >
               {saving ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -264,8 +269,9 @@ export function ProfileEditPage() {
             </Button>
             <Link
               to={session?.slug ? `/profile/${session.slug}` : "/community"}
+              className="w-full sm:w-auto"
             >
-              <Button type="button" variant="ghost">
+              <Button type="button" variant="ghost" className="w-full">
                 {t("common.cancel")}
               </Button>
             </Link>

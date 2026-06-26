@@ -84,12 +84,16 @@ function AcademicMetadataDetails({
   return (
     <Card>
       <div className="space-y-4">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="flex min-w-0 items-center gap-2 text-lg font-semibold text-text-primary">
             <Database className="h-5 w-5 text-primary" />
-            {t("documents.academicMetadataTitle")}
+            <span className="min-w-0 break-words">
+              {t("documents.academicMetadataTitle")}
+            </span>
           </h2>
-          <Badge variant="info">{metadata.provider}</Badge>
+          <Badge variant="info" className="w-fit">
+            {metadata.provider}
+          </Badge>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -138,10 +142,15 @@ function AcademicMetadataDetails({
         </div>
 
         {(metadata.source_url || metadata.open_access_url) && (
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
             {metadata.source_url && (
-              <a href={metadata.source_url} target="_blank" rel="noreferrer">
-                <Button variant="secondary" size="sm">
+              <a
+                href={metadata.source_url}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button variant="secondary" size="sm" className="w-full">
                   <ExternalLink className="h-4 w-4" />
                   {t("documents.sourceUrl")}
                 </Button>
@@ -152,8 +161,9 @@ function AcademicMetadataDetails({
                 href={metadata.open_access_url}
                 target="_blank"
                 rel="noreferrer"
+                className="w-full sm:w-auto"
               >
-                <Button variant="secondary" size="sm">
+                <Button variant="secondary" size="sm" className="w-full">
                   <ExternalLink className="h-4 w-4" />
                   {t("documents.openAccessUrl")}
                 </Button>
@@ -349,17 +359,20 @@ export function DocumentDetailPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <Link to="/documents">
-            <Button variant="ghost">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <Link to="/documents" className="w-full sm:w-auto">
+            <Button variant="ghost" className="w-full sm:w-auto">
               <ArrowLeft className="h-4 w-4" />
               {t("common.back")}
             </Button>
           </Link>
-          <div className="flex flex-wrap items-center justify-end gap-2">
+          <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:justify-end">
             {isAdmin && (
-              <Link to={`/documents/${doc.id}/edit`}>
-                <Button variant="secondary">
+              <Link
+                to={`/documents/${doc.id}/edit`}
+                className="w-full sm:w-auto"
+              >
+                <Button variant="secondary" className="w-full sm:w-auto">
                   <Pencil className="h-4 w-4" />
                   {t("common.edit")}
                 </Button>
@@ -368,6 +381,7 @@ export function DocumentDetailPage() {
             {isAdmin && doc.file_type === "pdf" && (
               <Button
                 variant="secondary"
+                className="w-full sm:w-auto"
                 onClick={() => extractMutation.mutate()}
                 disabled={extractMutation.isPending}
               >
@@ -382,6 +396,7 @@ export function DocumentDetailPage() {
             {isAdmin && (
               <Button
                 variant="secondary"
+                className="w-full sm:w-auto"
                 onClick={() => extractAcademicMutation.mutate()}
                 disabled={
                   extractAcademicMutation.isPending ||
@@ -403,8 +418,12 @@ export function DocumentDetailPage() {
               </Button>
             )}
             {doc.full_file_available && (
-              <a href={getDownloadUrl(doc.id)} download>
-                <Button variant="secondary">
+              <a
+                href={getDownloadUrl(doc.id)}
+                download
+                className="w-full sm:w-auto"
+              >
+                <Button variant="secondary" className="w-full sm:w-auto">
                   <Download className="h-4 w-4" />
                   {t("common.download")}
                 </Button>
@@ -414,7 +433,7 @@ export function DocumentDetailPage() {
         </div>
         {isAdmin && academicMetadataStatusText && (
           <p
-            className={`text-right text-sm ${
+            className={`text-left text-sm sm:text-right ${
               academicMetadataStatusIsError
                 ? "text-error"
                 : "text-text-secondary"
@@ -428,13 +447,13 @@ export function DocumentDetailPage() {
       <Card>
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <FileText className="h-8 w-8 text-primary mt-0.5" />
-            <div>
-              <h1 className="text-2xl font-bold text-text-primary">
+            <FileText className="h-8 w-8 text-primary mt-0.5 shrink-0" />
+            <div className="min-w-0">
+              <h1 className="break-words text-2xl font-bold text-text-primary">
                 {doc.title || doc.filename}
               </h1>
               {doc.title && (
-                <p className="text-text-secondary text-base mt-1">
+                <p className="break-words text-text-secondary text-base mt-1">
                   {doc.filename}
                 </p>
               )}
@@ -465,7 +484,7 @@ export function DocumentDetailPage() {
                 </span>
                 <a
                   href={doc.url}
-                  className="text-primary hover:underline"
+                  className="break-all text-primary hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >

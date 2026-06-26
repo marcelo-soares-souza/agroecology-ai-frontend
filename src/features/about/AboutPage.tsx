@@ -20,10 +20,10 @@ export function AboutPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-          <Info className="h-6 w-6 text-primary" />
-          {t("about.title")}
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+          <Info className="h-6 w-6 shrink-0 text-primary" />
+          <span className="min-w-0 break-words">{t("about.title")}</span>
         </h1>
         <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">
           {t("about.betaBadge")}
@@ -62,7 +62,7 @@ export function AboutPage() {
           </div>
           <Link
             to="/privacy"
-            className="inline-flex shrink-0 items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
+            className="inline-flex w-full items-center justify-center rounded-button bg-primary-100 px-4 py-2 text-center font-medium leading-tight text-primary-700 transition-colors hover:bg-primary-200 sm:w-auto sm:shrink-0"
           >
             {t("about.privacyCommitmentCta")}
           </Link>
@@ -84,7 +84,7 @@ export function AboutPage() {
           </div>
           <Link
             to="/documents"
-            className="inline-flex shrink-0 items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
+            className="inline-flex w-full items-center justify-center rounded-button bg-primary-100 px-4 py-2 text-center font-medium leading-tight text-primary-700 transition-colors hover:bg-primary-200 sm:w-auto sm:shrink-0"
           >
             {t("about.ctaDocuments")}
           </Link>
@@ -106,9 +106,9 @@ export function AboutPage() {
           </div>
           <Link
             to="/suggestions/new"
-            className="inline-flex shrink-0 items-center justify-center rounded-button bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+            className="inline-flex w-full items-center justify-center rounded-button bg-primary px-4 py-2 text-center font-medium leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto sm:shrink-0"
           >
-            <Send className="h-4 w-4 mr-2" />
+            <Send className="mr-2 h-4 w-4 shrink-0" />
             {t("about.suggestInviteCta")}
           </Link>
         </div>
@@ -238,9 +238,9 @@ export function AboutPage() {
                 href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+                className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4 w-4 shrink-0" />
                 {t("about.frontendRepo")}
               </a>
               <br />
@@ -248,9 +248,9 @@ export function AboutPage() {
                 href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+                className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4 w-4 shrink-0" />
                 {t("about.backendRepo")}
               </a>
               <br />
@@ -258,9 +258,9 @@ export function AboutPage() {
                 href="https://codeberg.org/agroecologymap"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
+                className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4 w-4 shrink-0" />
                 {t("about.mobileRepo")}
               </a>
             </div>
@@ -278,22 +278,22 @@ export function AboutPage() {
               {t("about.ctaDescription")}
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Link
               to="/"
-              className="inline-flex items-center justify-center rounded-button bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-dark"
+              className="inline-flex w-full items-center justify-center rounded-button bg-primary px-4 py-2 text-center font-medium leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto"
             >
               {t("about.ctaChat")}
             </Link>
             <Link
               to="/donate"
-              className="inline-flex items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
+              className="inline-flex w-full items-center justify-center rounded-button bg-primary-100 px-4 py-2 text-center font-medium leading-tight text-primary-700 transition-colors hover:bg-primary-200 sm:w-auto"
             >
               {t("about.ctaDonate")}
             </Link>
             <Link
               to="/documents"
-              className="inline-flex items-center justify-center rounded-button bg-primary-100 px-4 py-2 font-medium text-primary-700 transition-colors hover:bg-primary-200"
+              className="inline-flex w-full items-center justify-center rounded-button bg-primary-100 px-4 py-2 text-center font-medium leading-tight text-primary-700 transition-colors hover:bg-primary-200 sm:w-auto"
             >
               {t("about.ctaDocuments")}
             </Link>

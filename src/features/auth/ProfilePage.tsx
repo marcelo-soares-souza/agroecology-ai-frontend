@@ -86,9 +86,11 @@ export function ProfilePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link to="/">
-          <Button variant="ghost">{t("common.back")}</Button>
+      <div>
+        <Link to="/" className="w-full sm:w-auto">
+          <Button variant="ghost" className="w-full sm:w-auto">
+            {t("common.back")}
+          </Button>
         </Link>
       </div>
 
@@ -119,8 +121,8 @@ export function ProfilePage() {
             <>
               <Card>
                 <div className="flex flex-col gap-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex min-w-0 items-start gap-4">
                       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
                         {profile.avatar_url ? (
                           <img
@@ -141,18 +143,22 @@ export function ProfilePage() {
                           </div>
                         )}
                       </div>
-                      <div>
-                        <h1 className="text-2xl font-bold text-text-primary">
+                      <div className="min-w-0">
+                        <h1 className="break-words text-2xl font-bold text-text-primary">
                           {displayName}
                         </h1>
-                        <p className="text-text-secondary">
+                        <p className="break-all text-text-secondary">
                           {t("profile.slugPrefix", { slug: profile.slug })}
                         </p>
                       </div>
                     </div>
                     {canEdit && (
-                      <Link to="/profile/edit">
-                        <Button variant="secondary" size="sm">
+                      <Link to="/profile/edit" className="w-full sm:w-auto">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          className="w-full"
+                        >
                           <Pencil className="h-4 w-4" />
                           {t("common.edit")}
                         </Button>
@@ -186,8 +192,8 @@ export function ProfilePage() {
 
                   <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
                     {profile.link && (
-                      <div className="flex items-center gap-2 text-sm">
-                        <Globe className="h-4 w-4 text-text-secondary" />
+                      <div className="flex min-w-0 items-center gap-2 text-sm">
+                        <Globe className="h-4 w-4 shrink-0 text-text-secondary" />
                         <span className="text-text-secondary">
                           {t("profile.link")}:
                         </span>
@@ -195,7 +201,7 @@ export function ProfilePage() {
                           href={profile.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:underline truncate"
+                          className="min-w-0 break-all text-primary hover:underline"
                         >
                           {profile.link}
                         </a>
@@ -251,10 +257,11 @@ export function ProfilePage() {
                   <h2 className="text-lg font-semibold text-text-primary mb-4">
                     {t("profile.dataAndPrivacy")}
                   </h2>
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row">
                     <Button
                       variant="secondary"
                       size="sm"
+                      className="w-full sm:w-auto"
                       onClick={handleExportData}
                       disabled={exporting}
                     >
@@ -266,6 +273,7 @@ export function ProfilePage() {
                     <Button
                       variant="danger"
                       size="sm"
+                      className="w-full sm:w-auto"
                       onClick={handleRequestDelete}
                       disabled={deleting || deleteRequested}
                     >

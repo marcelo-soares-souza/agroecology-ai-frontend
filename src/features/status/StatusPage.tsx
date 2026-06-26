@@ -149,9 +149,9 @@ export function StatusPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-          <Activity className="h-6 w-6 text-primary" />
-          {t("status.title")}
+        <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+          <Activity className="h-6 w-6 shrink-0 text-primary" />
+          <span className="min-w-0 break-words">{t("status.title")}</span>
         </h1>
         <p className="text-sm text-text-secondary mt-1">
           {t("status.description")}
@@ -182,8 +182,8 @@ export function StatusPage() {
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-0.5">{card.icon}</div>
                   <div className="min-w-0">
-                    <div className="mb-1 flex items-center gap-1.5">
-                      <p className="text-sm text-text-secondary">
+                    <div className="mb-1 flex min-w-0 items-center gap-1.5">
+                      <p className="min-w-0 break-words text-sm text-text-secondary">
                         {card.label}
                       </p>
                       <InfoTooltip label={card.tooltip} />
@@ -204,29 +204,29 @@ export function StatusPage() {
                     <InfoTooltip label={t("status.help.documents")} />
                   </div>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-text-secondary flex items-center gap-1.5">
-                        <CheckCircle className="h-3.5 w-3.5 text-green-500" />
+                    <div className="flex items-center justify-between gap-3 text-sm">
+                      <span className="flex min-w-0 items-center gap-1.5 text-text-secondary">
+                        <CheckCircle className="h-3.5 w-3.5 shrink-0 text-green-500" />
                         {t("status.indexedDocs")}
                       </span>
-                      <span className="font-semibold text-text-primary">
+                      <span className="shrink-0 font-semibold text-text-primary">
                         {data.indexed_docs}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-text-secondary flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-yellow-500" />
+                    <div className="flex items-center justify-between gap-3 text-sm">
+                      <span className="flex min-w-0 items-center gap-1.5 text-text-secondary">
+                        <Clock className="h-3.5 w-3.5 shrink-0 text-yellow-500" />
                         {t("status.pendingDocs")}
                       </span>
-                      <span className="font-semibold text-text-primary">
+                      <span className="shrink-0 font-semibold text-text-primary">
                         {data.pending_docs}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between text-sm border-t border-primary-100 pt-2 mt-2">
-                      <span className="text-text-secondary">
+                    <div className="mt-2 flex items-center justify-between gap-3 border-t border-primary-100 pt-2 text-sm">
+                      <span className="min-w-0 break-words text-text-secondary">
                         {t("status.totalDocs")}
                       </span>
-                      <span className="font-semibold text-text-primary">
+                      <span className="shrink-0 font-semibold text-text-primary">
                         {data.total_docs}
                       </span>
                     </div>
@@ -239,8 +239,8 @@ export function StatusPage() {
                 <SlidersHorizontal className="h-5 w-5 text-primary mt-0.5" />
                 <div className="min-w-0 flex-1">
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-1.5">
-                      <p className="text-sm text-text-secondary">
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <p className="min-w-0 break-words text-sm text-text-secondary">
                         {t("status.ragConfig")}
                       </p>
                       <InfoTooltip label={t("status.help.ragConfig")} />
@@ -263,8 +263,8 @@ export function StatusPage() {
                         key={row.label}
                         className="min-w-0 rounded-md border border-primary-100 bg-surface px-3 py-2"
                       >
-                        <div className="mb-1 flex items-center gap-1.5">
-                          <p className="text-xs font-medium text-text-secondary">
+                        <div className="mb-1 flex min-w-0 items-center gap-1.5">
+                          <p className="min-w-0 break-words text-xs font-medium text-text-secondary">
                             {row.label}
                           </p>
                           <InfoTooltip label={row.tooltip} />

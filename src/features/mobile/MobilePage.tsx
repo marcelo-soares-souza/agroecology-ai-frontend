@@ -14,9 +14,9 @@ export function MobilePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <Smartphone className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold text-text-primary">
+      <div className="flex min-w-0 items-center gap-3">
+        <Smartphone className="h-7 w-7 shrink-0 text-primary" />
+        <h1 className="min-w-0 break-words text-2xl font-bold text-text-primary">
           {t("mobile.title")}
         </h1>
       </div>
@@ -26,29 +26,29 @@ export function MobilePage() {
           <p className="text-text-primary text-base leading-relaxed">
             {t("mobile.intro")}
           </p>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center"
+              className="inline-flex h-12 max-w-full items-center"
             >
               <img
                 src={playStoreBadgeUrl}
                 alt={t("mobile.playStoreDownloadButton")}
-                className="h-21 w-auto"
+                className="h-21 max-w-full"
               />
             </a>
             <a
               href={appStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center"
+              className="inline-flex h-12 max-w-full items-center"
             >
               <img
                 src={appStoreBadgeUrl}
                 alt={t("mobile.appStoreDownloadButton")}
-                className="h-15 w-auto"
+                className="h-15 max-w-full"
               />
             </a>
           </div>
@@ -127,29 +127,29 @@ export function MobilePage() {
           <p className="text-text-primary text-base leading-relaxed max-w-xl">
             {t("mobile.cta.description")}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
             <a
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center"
+              className="inline-flex h-12 max-w-full items-center"
             >
               <img
                 src={playStoreBadgeUrl}
                 alt={t("mobile.playStoreDownloadButton")}
-                className="h-21 w-auto"
+                className="h-21 max-w-full"
               />
             </a>
             <a
               href={appStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center"
+              className="inline-flex h-12 max-w-full items-center"
             >
               <img
                 src={appStoreBadgeUrl}
                 alt={t("mobile.appStoreDownloadButton")}
-                className="h-15 w-auto"
+                className="h-15 max-w-full"
               />
             </a>
           </div>

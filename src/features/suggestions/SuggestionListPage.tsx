@@ -80,11 +80,13 @@ export function SuggestionListPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-            <Lightbulb className="h-6 w-6 text-primary" />
-            {t("suggestions.title")}
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+            <Lightbulb className="h-6 w-6 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">
+              {t("suggestions.title")}
+            </span>
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("suggestions.description")}
@@ -95,18 +97,22 @@ export function SuggestionListPage() {
             </p>
           )}
         </div>
-        <Button onClick={() => navigate("/suggestions/new")}>
+        <Button
+          onClick={() => navigate("/suggestions/new")}
+          className="w-full sm:w-auto"
+        >
           <Plus className="h-4 w-4" />
           {t("suggestions.new")}
         </Button>
       </div>
 
-      <div className="flex gap-2 flex-wrap">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
         {statuses.map((s) => (
           <Button
             key={s.key || "all"}
             variant={filterStatus === s.key ? "primary" : "secondary"}
             size="sm"
+            className="w-full sm:w-auto"
             onClick={() => setFilterStatus(s.key)}
           >
             {s.label}
@@ -167,7 +173,7 @@ export function SuggestionListPage() {
                     padding="sm"
                     className="hover:bg-primary-50/30 transition-colors cursor-pointer"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <FileText className="h-4 w-4 text-primary shrink-0" />
@@ -186,7 +192,7 @@ export function SuggestionListPage() {
                             {t(`suggestions.status_${s.status}`)}
                           </Badge>
                           {s.original_filename && (
-                            <span className="text-xs">
+                            <span className="break-all text-xs">
                               {s.original_filename}
                             </span>
                           )}
@@ -194,7 +200,7 @@ export function SuggestionListPage() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 shrink-0">
+                      <div className="flex items-center justify-end gap-1 sm:shrink-0">
                         {s.status === "pending" && (
                           <>
                             <Button

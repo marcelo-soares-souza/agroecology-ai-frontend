@@ -7,9 +7,9 @@ export function TermsOfServicePage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-3">
-        <Scale className="h-7 w-7 text-primary" />
-        <h1 className="text-3xl font-bold text-text-primary">
+      <div className="flex min-w-0 items-center gap-3">
+        <Scale className="h-7 w-7 shrink-0 text-primary" />
+        <h1 className="min-w-0 break-words text-3xl font-bold text-text-primary">
           {t("termsOfService.title")}
         </h1>
       </div>

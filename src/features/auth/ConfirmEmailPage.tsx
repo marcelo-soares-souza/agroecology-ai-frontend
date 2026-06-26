@@ -45,8 +45,13 @@ export function ConfirmEmailPage() {
             <p className="text-text-secondary mb-4">
               {t("auth.accountActive")}
             </p>
-            <Link to="/login">
-              <Button>{t("auth.goToLogin")}</Button>
+            <Link
+              to="/login"
+              className="block w-full sm:inline-block sm:w-auto"
+            >
+              <Button className="w-full sm:w-auto">
+                {t("auth.goToLogin")}
+              </Button>
             </Link>
           </>
         )}

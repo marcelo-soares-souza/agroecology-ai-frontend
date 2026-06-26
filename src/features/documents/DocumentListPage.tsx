@@ -302,14 +302,15 @@ export function DocumentListPage() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-1">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+        <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
             <FileText className="h-6 w-6 text-primary shrink-0" />
-            {t("documents.title")}
+            <span className="min-w-0 break-words">{t("documents.title")}</span>
           </h1>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:items-center sm:justify-end">
             <Button
               variant="secondary"
+              className="w-full sm:w-auto"
               onClick={() => {
                 void query.refetch();
                 void statsQuery.refetch();
@@ -332,6 +333,7 @@ export function DocumentListPage() {
               <>
                 <Button
                   variant="secondary"
+                  className="w-full sm:w-auto"
                   onClick={() => extractAllMutation.mutate(undefined)}
                   disabled={
                     extractAllMutation.isPending ||
@@ -347,8 +349,8 @@ export function DocumentListPage() {
                   )}
                   {t("documents.extractAllMetadata")}
                 </Button>
-                <Link to="/upload">
-                  <Button>
+                <Link to="/upload" className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto">
                     <Plus className="h-4 w-4" />
                     {t("nav.upload")}
                   </Button>
@@ -452,9 +454,9 @@ export function DocumentListPage() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="min-w-0">
-                <div className="flex items-center gap-2">
+                <div className="flex min-w-0 items-center gap-2">
                   <Database className="h-4 w-4 text-primary shrink-0" />
-                  <p className="font-semibold text-text-primary">
+                  <p className="min-w-0 break-words font-semibold text-text-primary">
                     {t("documents.academicMetadataTitle")}
                   </p>
                   <InfoTooltip label={t("documents.academicMetadataHelp")} />
@@ -464,9 +466,10 @@ export function DocumentListPage() {
                 </p>
               </div>
 
-              <div className="flex shrink-0">
+              <div className="flex w-full lg:w-auto">
                 <Button
                   variant="secondary"
+                  className="w-full lg:w-auto"
                   onClick={() =>
                     extractAcademicMetadataMutation.mutate(undefined)
                   }
@@ -520,7 +523,7 @@ export function DocumentListPage() {
             className="pl-9"
           />
         </div>
-        <label className="flex min-h-11 shrink-0 items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary">
+        <label className="flex min-h-11 w-full items-center gap-2 rounded-[var(--radius-input)] border border-primary-200 bg-surface px-3 text-sm font-medium text-text-primary sm:w-auto">
           <input
             type="checkbox"
             checked={fullMetadataOnly}
@@ -588,12 +591,12 @@ export function DocumentListPage() {
                     padding="sm"
                     className="hover:bg-primary-50/30 transition-colors cursor-pointer"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-2 mb-1">
                           <FileText className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                           <div className="min-w-0">
-                            <span className="font-medium text-text-primary group-hover:text-primary transition-colors">
+                            <span className="font-medium text-text-primary break-words group-hover:text-primary transition-colors">
                               {doc.title || doc.filename}
                             </span>
                             {doc.authors && (
@@ -668,7 +671,7 @@ export function DocumentListPage() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 shrink-0">
+                      <div className="flex items-center justify-end gap-1 sm:shrink-0">
                         {doc.full_file_available && (
                           <a href={getDownloadUrl(doc.id)} download>
                             <Button variant="ghost" size="sm">
@@ -711,6 +714,7 @@ export function DocumentListPage() {
                 <div className="flex justify-center pt-2">
                   <Button
                     variant="secondary"
+                    className="w-full sm:w-auto"
                     onClick={() => void loadMore()}
                     disabled={loadingMore}
                   >

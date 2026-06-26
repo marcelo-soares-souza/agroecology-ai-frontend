@@ -112,8 +112,10 @@ export function SuggestionCreatePage() {
             >
               {file ? (
                 <div className="flex items-center justify-center gap-2">
-                  <FileText className="h-5 w-5 text-primary" />
-                  <span className="text-text-primary">{file.name}</span>
+                  <FileText className="h-5 w-5 shrink-0 text-primary" />
+                  <span className="min-w-0 break-words text-text-primary">
+                    {file.name}
+                  </span>
                   <button
                     type="button"
                     onClick={(e) => {
@@ -165,8 +167,12 @@ export function SuggestionCreatePage() {
             </p>
           </div>
 
-          <div className="flex gap-3 pt-4">
-            <Button type="submit" disabled={createMutation.isPending}>
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <Button
+              type="submit"
+              disabled={createMutation.isPending}
+              className="w-full sm:w-auto"
+            >
               {createMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -176,8 +182,8 @@ export function SuggestionCreatePage() {
                 t("common.save")
               )}
             </Button>
-            <Link to="/suggestions">
-              <Button variant="secondary" type="button">
+            <Link to="/suggestions" className="w-full sm:w-auto">
+              <Button variant="secondary" type="button" className="w-full">
                 {t("common.cancel")}
               </Button>
             </Link>

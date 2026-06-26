@@ -198,7 +198,7 @@ export function IngestionPage() {
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Button
                 size="lg"
-                className="w-full whitespace-nowrap sm:w-auto"
+                className="w-full sm:w-auto"
                 onClick={() => triggerMutation.mutate(undefined)}
                 disabled={isProcessing}
               >
@@ -217,7 +217,7 @@ export function IngestionPage() {
               <Button
                 variant="secondary"
                 size="lg"
-                className="w-full whitespace-nowrap sm:w-auto"
+                className="w-full sm:w-auto"
                 onClick={() => forceMutation.mutate(undefined)}
                 disabled={isProcessing}
               >

@@ -16,7 +16,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+        "inline-flex min-w-0 max-w-full items-center justify-center gap-2 rounded-[var(--radius-button)] text-center font-medium leading-tight transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed [&>svg]:shrink-0",
         {
           "bg-primary text-white hover:bg-primary-dark": variant === "primary",
           "bg-primary-100 text-primary-700 hover:bg-primary-200":

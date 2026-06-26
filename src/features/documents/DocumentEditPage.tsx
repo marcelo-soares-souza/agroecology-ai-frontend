@@ -88,7 +88,7 @@ export function DocumentEditPage() {
       </Link>
 
       <Card>
-        <h1 className="text-xl font-bold text-text-primary mb-6">
+        <h1 className="mb-6 break-words text-xl font-bold text-text-primary">
           {t("documents.editTitle")} — {doc.filename}
         </h1>
 
@@ -143,8 +143,12 @@ export function DocumentEditPage() {
             </p>
           </div>
 
-          <div className="flex gap-3 pt-4">
-            <Button type="submit" disabled={updateMutation.isPending}>
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <Button
+              type="submit"
+              disabled={updateMutation.isPending}
+              className="w-full sm:w-auto"
+            >
               {updateMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -154,8 +158,8 @@ export function DocumentEditPage() {
                 t("common.save")
               )}
             </Button>
-            <Link to={`/documents/${id}`}>
-              <Button variant="secondary" type="button">
+            <Link to={`/documents/${id}`} className="w-full sm:w-auto">
+              <Button variant="secondary" type="button" className="w-full">
                 {t("common.cancel")}
               </Button>
             </Link>

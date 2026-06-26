@@ -205,21 +205,29 @@ export function AdminSuggestionDetailPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link to="/admin/suggestions">
-          <Button variant="ghost">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <Link to="/admin/suggestions" className="w-full sm:w-auto">
+          <Button variant="ghost" className="w-full sm:w-auto">
             <ArrowLeft className="h-4 w-4" />
             {t("common.back")}
           </Button>
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:items-center sm:justify-end">
           {!isEditing && (
-            <Button variant="secondary" onClick={() => setIsEditing(true)}>
+            <Button
+              variant="secondary"
+              className="w-full sm:w-auto"
+              onClick={() => setIsEditing(true)}
+            >
               <Pencil className="h-4 w-4" />
               {t("common.edit")}
             </Button>
           )}
-          <Button variant="danger" onClick={handleDelete}>
+          <Button
+            variant="danger"
+            className="w-full sm:w-auto"
+            onClick={handleDelete}
+          >
             <Trash2 className="h-4 w-4" />
             {t("common.delete")}
           </Button>
@@ -243,7 +251,7 @@ export function AdminSuggestionDetailPage() {
         <form onSubmit={handleUpdate}>
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
-              <FileText className="h-8 w-8 text-primary mt-0.5" />
+              <FileText className="h-8 w-8 text-primary mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
                 {isEditing ? (
                   <Input
@@ -306,7 +314,7 @@ export function AdminSuggestionDetailPage() {
                 ) : suggestion.url ? (
                   <a
                     href={suggestion.url}
-                    className="text-primary hover:underline"
+                    className="break-all text-primary hover:underline"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -320,7 +328,7 @@ export function AdminSuggestionDetailPage() {
                 <span className="text-sm text-text-secondary block">
                   {t("suggestions.file")}
                 </span>
-                <span className="text-text-primary">
+                <span className="break-words text-text-primary">
                   {suggestion.original_filename || "—"}
                 </span>
                 {hasPdf && (
@@ -392,7 +400,11 @@ export function AdminSuggestionDetailPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Button variant="secondary" type="button">
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    className="w-full sm:w-auto"
+                  >
                     <ExternalLink className="h-4 w-4" />
                     {t("suggestions.documentLink")}
                   </Button>
@@ -401,11 +413,14 @@ export function AdminSuggestionDetailPage() {
             )}
 
             {isEditing && (
-              <div className="flex gap-3 pt-2">
-                <Button type="submit">{t("common.save")}</Button>
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                <Button type="submit" className="w-full sm:w-auto">
+                  {t("common.save")}
+                </Button>
                 <Button
                   variant="secondary"
                   type="button"
+                  className="w-full sm:w-auto"
                   onClick={() => {
                     setIsEditing(false);
                     setTitle(suggestion.title || "");
@@ -429,9 +444,10 @@ export function AdminSuggestionDetailPage() {
             {t("admin.reviewActions")}
           </h2>
           <div className="space-y-4">
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 variant="success"
+                className="w-full sm:w-auto"
                 onClick={handleApprove}
                 disabled={!hasPdf}
                 title={!hasPdf ? t("admin.cannotApproveNoPdf") : undefined}
@@ -456,9 +472,10 @@ export function AdminSuggestionDetailPage() {
                     className="w-full rounded-[var(--radius-input)] border border-primary-200 bg-white px-3 py-2 text-base text-text-primary outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-vertical"
                     placeholder={t("admin.rejectionReason")}
                   />
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-2 sm:flex-row">
                     <Button
                       variant="danger"
+                      className="w-full sm:w-auto"
                       onClick={handleReject}
                       disabled={!rejectComment.trim()}
                     >
@@ -467,6 +484,7 @@ export function AdminSuggestionDetailPage() {
                     </Button>
                     <Button
                       variant="secondary"
+                      className="w-full sm:w-auto"
                       onClick={() => {
                         setShowReject(false);
                         setRejectComment("");
@@ -477,7 +495,11 @@ export function AdminSuggestionDetailPage() {
                   </div>
                 </div>
               ) : (
-                <Button variant="danger" onClick={() => setShowReject(true)}>
+                <Button
+                  variant="danger"
+                  className="w-full sm:w-auto"
+                  onClick={() => setShowReject(true)}
+                >
                   <XCircle className="h-4 w-4" />
                   {t("admin.reject")}
                 </Button>

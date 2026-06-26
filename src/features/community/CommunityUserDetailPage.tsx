@@ -86,9 +86,9 @@ export function CommunityUserDetailPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link to="/community">
-          <Button variant="ghost">
+      <div>
+        <Link to="/community" className="w-full sm:w-auto">
+          <Button variant="ghost" className="w-full sm:w-auto">
             <ArrowLeft className="h-4 w-4" />
             {t("common.back")}
           </Button>
@@ -97,8 +97,8 @@ export function CommunityUserDetailPage() {
 
       <Card>
         <div className="flex flex-col gap-6">
-          <div className="flex items-start justify-between">
-            <div className="flex items-start gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 items-start gap-4">
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-100 overflow-hidden">
                 {user.avatar_url ? (
                   <img
@@ -112,16 +112,16 @@ export function CommunityUserDetailPage() {
                   </div>
                 )}
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-text-primary">
+              <div className="min-w-0">
+                <h1 className="break-words text-2xl font-bold text-text-primary">
                   {user.full_name}
                 </h1>
-                <p className="text-text-secondary">@{user.slug}</p>
+                <p className="break-all text-text-secondary">@{user.slug}</p>
               </div>
             </div>
             {canEdit && (
-              <Link to="/profile/edit">
-                <Button variant="secondary" size="sm">
+              <Link to="/profile/edit" className="w-full sm:w-auto">
+                <Button variant="secondary" size="sm" className="w-full">
                   <Pencil className="h-4 w-4" />
                   {t("common.edit")}
                 </Button>
@@ -131,8 +131,8 @@ export function CommunityUserDetailPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 border-t border-primary-100 pt-4">
             {user.link && (
-              <div className="flex items-center gap-2 text-sm">
-                <Globe className="h-4 w-4 text-text-secondary" />
+              <div className="flex min-w-0 items-center gap-2 text-sm">
+                <Globe className="h-4 w-4 shrink-0 text-text-secondary" />
                 <span className="text-text-secondary">
                   {t("profile.link")}:
                 </span>
@@ -140,7 +140,7 @@ export function CommunityUserDetailPage() {
                   href={user.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline truncate"
+                  className="min-w-0 break-all text-primary hover:underline"
                 >
                   {user.link}
                 </a>

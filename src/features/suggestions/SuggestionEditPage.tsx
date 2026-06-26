@@ -161,8 +161,12 @@ export function SuggestionEditPage() {
             </p>
           </div>
 
-          <div className="flex gap-3 pt-4">
-            <Button type="submit" disabled={updateMutation.isPending}>
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <Button
+              type="submit"
+              disabled={updateMutation.isPending}
+              className="w-full sm:w-auto"
+            >
               {updateMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -172,8 +176,8 @@ export function SuggestionEditPage() {
                 t("common.save")
               )}
             </Button>
-            <Link to={`/suggestions/${id}`}>
-              <Button variant="secondary" type="button">
+            <Link to={`/suggestions/${id}`} className="w-full sm:w-auto">
+              <Button variant="secondary" type="button" className="w-full">
                 {t("common.cancel")}
               </Button>
             </Link>

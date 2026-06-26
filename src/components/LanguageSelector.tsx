@@ -14,7 +14,7 @@ export function LanguageSelector({ dark }: LanguageSelectorProps) {
   const localeOptions = getLocaleOptions(t);
 
   return (
-    <div className="flex items-center gap-1.5 px-2 py-1 rounded-full border border-gray-200">
+    <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-gray-200 px-2 py-1">
       <Globe
         className={cn(
           "h-4 w-4",
@@ -25,7 +25,7 @@ export function LanguageSelector({ dark }: LanguageSelectorProps) {
         value={locale}
         onChange={(e) => setLocale(e.target.value as typeof locale)}
         className={cn(
-          "bg-transparent text-base border-none focus:outline-none cursor-pointer pr-1",
+          "min-w-0 max-w-32 cursor-pointer border-none bg-transparent pr-1 text-sm focus:outline-none sm:max-w-none sm:text-base",
           dark ? "text-white/70" : "text-text-secondary",
         )}
       >

@@ -66,14 +66,15 @@ export function CommunityListPage() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-1">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+        <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
             <Users className="h-6 w-6 text-primary shrink-0" />
-            {t("nav.community")}
+            <span className="min-w-0 break-words">{t("nav.community")}</span>
           </h1>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex w-full sm:w-auto">
             <Button
               variant="secondary"
+              className="w-full sm:w-auto"
               onClick={() => {
                 void query.refetch();
               }}
@@ -206,6 +207,7 @@ export function CommunityListPage() {
                 <div className="flex justify-center">
                   <Button
                     variant="secondary"
+                    className="w-full sm:w-auto"
                     onClick={() => void loadMore()}
                     disabled={loadingMore}
                   >

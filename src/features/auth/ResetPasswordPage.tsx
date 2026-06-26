@@ -67,8 +67,8 @@ export function ResetPasswordPage() {
           <p className="text-text-secondary mb-4">
             {t("auth.passwordChanged")}
           </p>
-          <Link to="/login">
-            <Button>{t("auth.goToLogin")}</Button>
+          <Link to="/login" className="block w-full sm:inline-block sm:w-auto">
+            <Button className="w-full sm:w-auto">{t("auth.goToLogin")}</Button>
           </Link>
         </Card>
       </div>
@@ -78,7 +78,7 @@ export function ResetPasswordPage() {
   return (
     <div className="max-w-md mx-auto">
       <Card>
-        <h1 className="text-2xl font-bold text-text-primary mb-6">
+        <h1 className="mb-6 break-words text-2xl font-bold text-text-primary">
           {t("auth.resetPassword")}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">

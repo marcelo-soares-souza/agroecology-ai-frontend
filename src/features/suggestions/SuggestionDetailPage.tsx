@@ -101,24 +101,28 @@ export function SuggestionDetailPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link to="/suggestions">
-          <Button variant="ghost">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <Link to="/suggestions" className="w-full sm:w-auto">
+          <Button variant="ghost" className="w-full sm:w-auto">
             <ArrowLeft className="h-4 w-4" />
             {t("common.back")}
           </Button>
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:items-center sm:justify-end">
           {suggestion.status === "pending" && (
             <>
-              <Link to={`/suggestions/${suggestion.id}/edit`}>
-                <Button variant="secondary">
+              <Link
+                to={`/suggestions/${suggestion.id}/edit`}
+                className="w-full sm:w-auto"
+              >
+                <Button variant="secondary" className="w-full sm:w-auto">
                   <Pencil className="h-4 w-4" />
                   {t("common.edit")}
                 </Button>
               </Link>
               <Button
                 variant="danger"
+                className="w-full sm:w-auto"
                 onClick={() => {
                   if (confirm(t("suggestions.deleteConfirm"))) {
                     deleteMutation.mutate(suggestion.id);
@@ -137,9 +141,9 @@ export function SuggestionDetailPage() {
       <Card>
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <FileText className="h-8 w-8 text-primary mt-0.5" />
+            <FileText className="h-8 w-8 text-primary mt-0.5 shrink-0" />
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-bold text-text-primary">
+              <h1 className="break-words text-2xl font-bold text-text-primary">
                 {suggestion.title ||
                   suggestion.url ||
                   suggestion.original_filename ||
@@ -170,7 +174,7 @@ export function SuggestionDetailPage() {
                 </span>
                 <a
                   href={suggestion.url}
-                  className="text-primary hover:underline"
+                  className="break-all text-primary hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -183,7 +187,7 @@ export function SuggestionDetailPage() {
                 <span className="text-sm text-text-secondary block">
                   {t("suggestions.file")}
                 </span>
-                <span className="text-text-primary">
+                <span className="break-words text-text-primary">
                   {suggestion.original_filename}
                 </span>
               </div>
@@ -234,7 +238,7 @@ export function SuggestionDetailPage() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Button variant="secondary">
+                <Button variant="secondary" className="w-full sm:w-auto">
                   <ExternalLink className="h-4 w-4" />
                   {t("suggestions.documentLink")}
                 </Button>

@@ -14,7 +14,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   const { isAuthenticated, session, logout, hasRestoredSession } = useAuth();
 
   return (
-    <header className="flex items-center gap-3 px-4 py-3 bg-surface border-b border-gray-200 sticky top-0 z-30">
+    <header className="sticky top-0 z-30 flex min-w-0 items-center gap-2 border-b border-gray-200 bg-surface px-3 py-3 sm:gap-3 sm:px-4">
       <button
         onClick={onMenuClick}
         className="text-text-primary hover:text-primary p-1 -ml-1"
@@ -22,7 +22,10 @@ export function Header({ onMenuClick }: HeaderProps) {
         <Menu className="h-6 w-6" />
       </button>
 
-      <button onClick={() => navigate("/")} className="flex items-center gap-2">
+      <button
+        onClick={() => navigate("/")}
+        className="flex min-w-0 items-center gap-2"
+      >
         <img
           src="/logo.png"
           alt={t("app.name")}
@@ -33,9 +36,9 @@ export function Header({ onMenuClick }: HeaderProps) {
         </span>
       </button>
 
-      <div className="flex-1" />
+      <div className="min-w-0 flex-1" />
 
-      <div className="flex items-center gap-2">
+      <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
         <LanguageSelector />
 
         {hasRestoredSession && isAuthenticated && session ? (
@@ -61,13 +64,13 @@ export function Header({ onMenuClick }: HeaderProps) {
         ) : hasRestoredSession ? (
           <button
             onClick={() => navigate("/login")}
-            className="px-4 py-1.5 text-sm bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors"
+            className="shrink-0 rounded-xl bg-primary px-3 py-1.5 text-sm text-white transition-colors hover:bg-primary-dark sm:px-4"
           >
             {t("auth.signIn")}
           </button>
         ) : null}
 
-        <div className="relative group">
+        <div className="relative hidden sm:block group">
           <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300 cursor-default select-none">
             BETA
           </span>

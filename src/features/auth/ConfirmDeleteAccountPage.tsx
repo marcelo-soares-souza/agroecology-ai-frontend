@@ -63,8 +63,11 @@ export function ConfirmDeleteAccountPage() {
             <p className="text-text-secondary mt-2">
               {t("profile.accountDeletedDescription")}
             </p>
-            <Link to="/">
-              <Button variant="primary" className="mt-4">
+            <Link
+              to="/"
+              className="mt-4 block w-full sm:inline-block sm:w-auto"
+            >
+              <Button variant="primary" className="w-full sm:w-auto">
                 {t("common.back")}
               </Button>
             </Link>
@@ -79,8 +82,11 @@ export function ConfirmDeleteAccountPage() {
               {t("profile.deleteAccountFailed")}
             </h1>
             <p className="text-text-secondary mt-2">{errorMsg}</p>
-            <Link to="/">
-              <Button variant="primary" className="mt-4">
+            <Link
+              to="/"
+              className="mt-4 block w-full sm:inline-block sm:w-auto"
+            >
+              <Button variant="primary" className="w-full sm:w-auto">
                 {t("common.back")}
               </Button>
             </Link>

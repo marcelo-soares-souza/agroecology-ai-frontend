@@ -9,11 +9,11 @@ export function AppShell() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden bg-background">
       <PageMeta />
       <Header onMenuClick={() => setDrawerOpen(true)} />
       <Sidebar open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-      <main className="flex-1 p-4 md:p-6 lg:p-2 max-w-7xl w-full mx-auto pb-24">
+      <main className="mx-auto w-full max-w-7xl min-w-0 flex-1 p-4 pb-24 md:p-6 lg:p-2">
         <Outlet />
       </main>
       <CookieConsent />

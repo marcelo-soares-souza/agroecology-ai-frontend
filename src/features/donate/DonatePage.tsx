@@ -22,12 +22,12 @@ export function DonatePage() {
   const { t } = useTranslation();
 
   const donateButtons = (
-    <div className="flex flex-col sm:flex-row items-center gap-3">
+    <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
       <a
         href={koFiUrl}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-primary px-6 py-3 text-center text-base font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto sm:text-lg"
       >
         {t("donate.howToHelp.koFi")}
       </a>
@@ -35,7 +35,7 @@ export function DonatePage() {
         href={patreonUrl}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-button hover:bg-primary-dark transition-colors text-base sm:text-lg"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-primary px-6 py-3 text-center text-base font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto sm:text-lg"
       >
         {t("donate.howToHelp.patreon")}
       </a>
@@ -218,7 +218,7 @@ export function DonatePage() {
             rel="noreferrer"
             className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-surface transition-colors"
           >
-            <div>
+            <div className="min-w-0">
               <p className="font-semibold text-text-primary">
                 Marcelo Soares Souza
               </p>

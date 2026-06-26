@@ -130,9 +130,9 @@ export function RegisterPage() {
     <div className="max-w-md mx-auto">
       <Card>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-            <UserPlus className="h-6 w-6 text-primary" />
-            {t("auth.register")}
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+            <UserPlus className="h-6 w-6 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">{t("auth.register")}</span>
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("auth.registerDescription")}
@@ -195,14 +195,15 @@ export function RegisterPage() {
           </div>
           {challenge && (
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-sm text-text-secondary">
+              <div className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <label className="text-sm text-text-secondary break-words">
                   {challenge.question}
                 </label>
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
+                  className="w-full sm:w-auto"
                   onClick={fetchChallenge}
                   disabled={challengeLoading}
                 >

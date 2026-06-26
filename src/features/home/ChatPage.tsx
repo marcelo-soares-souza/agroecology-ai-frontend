@@ -50,18 +50,18 @@ export function ChatPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
-      <div className="flex items-center justify-between mb-2">
+      <div className="mb-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-            <MessageCircle className="h-6 w-6 text-primary" />
-            {t("home.title")}
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+            <MessageCircle className="h-6 w-6 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">{t("home.title")}</span>
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("home.description")}
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-3">
-          <label className="flex items-center gap-2 text-sm text-text-secondary">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+          <label className="flex min-h-9 items-center gap-2 rounded-[var(--radius-input)] border border-primary-100 px-3 text-sm text-text-secondary sm:border-0 sm:px-0">
             <input
               type="checkbox"
               className="h-4 w-4 rounded border-primary-200 text-primary"
@@ -71,7 +71,12 @@ export function ChatPage() {
             {t("home.saveHistory")}
           </label>
           {messages.length > 0 && (
-            <Button variant="ghost" size="sm" onClick={clearChat}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full sm:w-auto"
+              onClick={clearChat}
+            >
               <Eraser className="h-4 w-4" />
               {t("home.newChat")}
             </Button>

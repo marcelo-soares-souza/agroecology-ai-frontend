@@ -42,11 +42,11 @@ export function AdminUsersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-            <Users className="h-6 w-6 text-primary" />
-            {t("admin.users")}
+      <div>
+        <div className="min-w-0">
+          <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
+            <Users className="h-6 w-6 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">{t("admin.users")}</span>
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("admin.usersDescription")}
@@ -81,7 +81,7 @@ export function AdminUsersPage() {
                         }`}
                         onClick={() => setSelectedUserId(user.id)}
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-start gap-3 sm:items-center sm:gap-4">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <User className="h-4 w-4 text-primary shrink-0" />
@@ -90,7 +90,7 @@ export function AdminUsersPage() {
                               </span>
                             </div>
                             <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
-                              <span>{user.email}</span>
+                              <span className="break-all">{user.email}</span>
                               <Badge
                                 variant={
                                   user.status === "active"
@@ -156,13 +156,17 @@ export function AdminUsersPage() {
                 <span className="text-text-secondary block">
                   {t("auth.email")}
                 </span>
-                <span className="text-text-primary">{selectedUser.email}</span>
+                <span className="break-all text-text-primary">
+                  {selectedUser.email}
+                </span>
               </div>
               <div>
                 <span className="text-text-secondary block">
                   {t("admin.slug")}
                 </span>
-                <span className="text-text-primary">{selectedUser.slug}</span>
+                <span className="break-all text-text-primary">
+                  {selectedUser.slug}
+                </span>
               </div>
               <div>
                 <span className="text-text-secondary block">

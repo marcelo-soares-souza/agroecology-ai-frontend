@@ -35,10 +35,10 @@ export function HomePage() {
       {/* Hero */}
       <div className="flex flex-col items-center text-center px-4">
         <img src="/logo.png" alt={t("app.name")} className="h-28 w-28 mb-8" />
-        <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-text-primary flex items-center gap-3">
-            <MessageCircle className="h-8 w-8 text-primary" />
-            {t("app.name")}
+        <div className="mb-4 flex flex-col items-center gap-3 sm:flex-row">
+          <h1 className="flex min-w-0 items-center gap-3 text-center text-4xl font-bold text-text-primary">
+            <MessageCircle className="h-8 w-8 shrink-0 text-primary" />
+            <span className="min-w-0 break-words">{t("app.name")}</span>
           </h1>
           <span className="px-3 py-1 text-sm font-bold bg-amber-100 text-amber-700 rounded-full border border-amber-300">
             BETA
@@ -55,12 +55,12 @@ export function HomePage() {
         </p>
         <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
           <Link to="/register" className="w-full sm:w-auto">
-            <button className="w-full px-8 py-3 bg-primary text-white rounded-xl font-semibold text-lg hover:bg-primary-dark transition-colors">
+            <button className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark">
               {t("landing.getStarted")}
             </button>
           </Link>
           <Link to="/chat" className="w-full sm:w-auto">
-            <button className="w-full px-8 py-3 border-2 border-primary text-primary rounded-xl font-semibold text-lg hover:bg-primary-50 transition-colors">
+            <button className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50">
               {t("landing.startConversation")}
             </button>
           </Link>
@@ -189,24 +189,24 @@ export function HomePage() {
                 href={playStoreUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-12 items-center"
+                className="inline-flex h-12 max-w-full items-center"
               >
                 <img
                   src={playStoreBadgeUrl}
                   alt={t("mobile.playStoreDownloadButton")}
-                  className="h-21 w-auto"
+                  className="h-21 max-w-full"
                 />
               </a>
               <a
                 href={appStoreUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-12 items-center"
+                className="inline-flex h-12 max-w-full items-center"
               >
                 <img
                   src={appStoreBadgeUrl}
                   alt={t("mobile.appStoreDownloadButton")}
-                  className="h-16 w-auto"
+                  className="h-16 max-w-full"
                 />
               </a>
             </div>

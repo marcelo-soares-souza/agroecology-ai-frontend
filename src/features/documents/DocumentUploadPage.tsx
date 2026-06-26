@@ -189,7 +189,7 @@ export function DocumentUploadPage() {
         }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`rounded-[var(--radius-card)] border-2 border-dashed p-12 text-center transition-colors cursor-pointer ${
+        className={`rounded-[var(--radius-card)] border-2 border-dashed p-6 text-center transition-colors cursor-pointer sm:p-12 ${
           dragOver
             ? "border-primary bg-primary-50/50"
             : "border-primary-200 hover:border-primary-400"
@@ -228,11 +228,15 @@ export function DocumentUploadPage() {
             {rejectedFiles.map((f) => (
               <div
                 key={f.name}
-                className="flex items-center justify-between gap-2 py-1 text-sm"
+                className="flex flex-col gap-1 py-1 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-2"
               >
-                <span className="text-text-secondary truncate">{f.name}</span>
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-error text-xs">{f.reason}</span>
+                <span className="min-w-0 break-words text-text-secondary">
+                  {f.name}
+                </span>
+                <div className="flex items-center gap-2 sm:shrink-0">
+                  <span className="break-words text-error text-xs">
+                    {f.reason}
+                  </span>
                   <button
                     onClick={() => removeRejected(f.name)}
                     className="text-text-secondary hover:text-error p-0.5"
@@ -302,11 +306,11 @@ export function DocumentUploadPage() {
             {files.map((file) => (
               <div
                 key={file.name}
-                className="flex items-center justify-between gap-2 py-1"
+                className="flex items-start justify-between gap-2 py-1"
               >
-                <div className="flex items-center gap-2 min-w-0">
+                <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
                   <FileText className="h-4 w-4 text-primary shrink-0" />
-                  <span className="text-text-primary truncate">
+                  <span className="min-w-0 break-words text-text-primary">
                     {file.name}
                   </span>
                   <span className="text-text-secondary text-sm shrink-0">

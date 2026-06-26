@@ -47,9 +47,9 @@ export function AuthRateLimitBlock({ info, onRetry }: AuthRateLimitBlockProps) {
         <p className="mt-2 text-sm text-text-secondary">
           {t("auth.rateLimitDescription")}
         </p>
-        <div className="mt-4 flex items-center justify-center gap-2 text-sm font-medium text-text-primary">
-          <Clock className="h-4 w-4 text-primary" />
-          <span>{retryText}</span>
+        <div className="mt-4 flex min-w-0 items-center justify-center gap-2 text-sm font-medium text-text-primary">
+          <Clock className="h-4 w-4 shrink-0 text-primary" />
+          <span className="min-w-0 break-words">{retryText}</span>
         </div>
         <Button
           type="button"

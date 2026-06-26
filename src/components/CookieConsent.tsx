@@ -33,7 +33,7 @@ export function CookieConsent() {
             {t("consent.message")}{" "}
             <Link
               to="/privacy"
-              className="text-primary hover:underline whitespace-nowrap"
+              className="text-primary hover:underline"
               onClick={() => setVisible(false)}
             >
               {t("nav.privacy")}
@@ -41,15 +41,20 @@ export function CookieConsent() {
             {t("consent.and")}{" "}
             <Link
               to="/terms"
-              className="text-primary hover:underline whitespace-nowrap"
+              className="text-primary hover:underline"
               onClick={() => setVisible(false)}
             >
               {t("nav.terms")}
             </Link>
           </p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <Button variant="primary" size="sm" onClick={acknowledge}>
+        <div className="flex w-full sm:w-auto">
+          <Button
+            variant="primary"
+            size="sm"
+            className="w-full sm:w-auto"
+            onClick={acknowledge}
+          >
             {t("consent.acknowledge")}
           </Button>
         </div>

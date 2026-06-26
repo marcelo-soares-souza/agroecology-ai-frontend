@@ -24,9 +24,9 @@ export function PrivacyPolicyPage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-3">
-        <Shield className="h-7 w-7 text-primary" />
-        <h1 className="text-3xl font-bold text-text-primary">
+      <div className="flex min-w-0 items-center gap-3">
+        <Shield className="h-7 w-7 shrink-0 text-primary" />
+        <h1 className="min-w-0 break-words text-3xl font-bold text-text-primary">
           {t("privacyPolicy.title")}
         </h1>
       </div>
@@ -44,9 +44,9 @@ export function PrivacyPolicyPage() {
 
         return (
           <Card key={section}>
-            <h2 className="text-lg font-semibold text-text-primary mb-3 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary" />
-              {title}
+            <h2 className="mb-3 flex min-w-0 items-center gap-2 text-lg font-semibold text-text-primary">
+              <FileText className="h-5 w-5 shrink-0 text-primary" />
+              <span className="min-w-0 break-words">{title}</span>
             </h2>
             <div className="text-sm text-text-primary leading-relaxed whitespace-pre-wrap space-y-2">
               {content.split("\n\n").map((paragraph, i) => (

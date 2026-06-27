@@ -47,10 +47,7 @@ function formatPercent(value: number | null) {
 
 function metadataListLabels(
   value:
-    | Array<Record<string, unknown>>
-    | Record<string, unknown>
-    | null
-    | undefined,
+    Array<Record<string, unknown>> | Record<string, unknown> | null | undefined,
 ): string[] {
   if (!value) return [];
   const items = Array.isArray(value) ? value : [value];

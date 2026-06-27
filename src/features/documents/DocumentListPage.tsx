@@ -645,10 +645,8 @@ export function DocumentListPage() {
                           <Badge
                             variant={
                               (fileTypeColors[doc.file_type] as
-                                | "default"
-                                | "success"
-                                | "error"
-                                | "info") || "default"
+                                "default" | "success" | "error" | "info") ||
+                              "default"
                             }
                           >
                             {doc.file_type.toUpperCase()}

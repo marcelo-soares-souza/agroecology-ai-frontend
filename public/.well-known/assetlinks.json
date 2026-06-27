@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.agroecologymap.agroecology_map_ai",
+      "sha256_cert_fingerprints": [
+        "DF:8A:5B:80:08:FD:42:A3:41:18:68:D8:A9:1D:6E:47:61:9C:0F:64:9A:7B:54:22:08:40:D0:EF:5D:F4:95:0D"
+      ]
+    }
+  }
+]

@@ -14,8 +14,7 @@ export function PageMeta() {
   const { t, i18n } = useTranslation();
 
   const handle = matches[matches.length - 1]?.handle as
-    | PageMetaHandle
-    | undefined;
+    PageMetaHandle | undefined;
 
   const title = handle?.titleKey ? t(handle.titleKey) : "";
   const description =

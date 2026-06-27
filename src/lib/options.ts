@@ -8,7 +8,7 @@ const localeLabelKeys: Record<SupportedLocale, string> = {
   fr: "fr",
 };
 
-export function getLocaleLabel(locale: SupportedLocale, t: TFunction): string {
+function getLocaleLabel(locale: SupportedLocale, t: TFunction): string {
   return t(`common.locales.${localeLabelKeys[locale]}`);
 }
 

@@ -234,6 +234,7 @@
     "fileType": "Type",
     "fileSize": "Size",
     "createdAt": "Created at",
+    "uploadedAt": "Uploaded at",
     "updatedAt": "Updated at",
     "actions": "Actions",
     "deleteConfirm": "Are you sure you want to delete this document?",

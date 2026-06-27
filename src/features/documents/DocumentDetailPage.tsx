@@ -506,7 +506,7 @@ export function DocumentDetailPage() {
             )}
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Calendar className="h-4 w-4" />
-              {t("documents.createdAt")}: {formatDate(doc.created_at, locale)}
+              {t("documents.uploadedAt")}: {formatDate(doc.created_at, locale)}
             </div>
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Clock className="h-4 w-4" />

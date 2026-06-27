@@ -18,7 +18,15 @@ import {
   RefreshCw,
   Search,
   Database,
+  CalendarDays,
+  Quote,
+  BookOpen,
+  Building2,
+  Hash,
+  ExternalLink,
+  HardDrive,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { api } from "@/services/api";
 import { getDownloadUrl } from "@/config/api";
 import { Card } from "@/components/ui/Card";
@@ -70,6 +78,86 @@ function hasFullMetadata(doc: DocumentRecord) {
     metadata.citation_count !== null &&
     metadata.citation_count !== undefined &&
     hasText(metadata.source_url),
+  );
+}
+
+function formatCount(value: number, locale: string) {
+  return new Intl.NumberFormat(locale).format(value);
+}
+
+function sourceHost(value: string | null | undefined) {
+  if (!value) return null;
+  try {
+    return new URL(value).hostname.replace(/^www\./, "");
+  } catch {
+    return value;
+  }
+}
+
+function externalUrl(value: string | null | undefined) {
+  if (!value || !/^https?:\/\//i.test(value)) return undefined;
+  return value;
+}
+
+function doiUrl(value: string | null | undefined) {
+  const doi = value?.trim();
+  if (!doi) return undefined;
+  if (/^https?:\/\//i.test(doi)) return doi;
+  return `https://doi.org/${doi.replace(/^doi:\s*/i, "")}`;
+}
+
+function providerLabel(value: string | null | undefined) {
+  if (!value) return null;
+  return value
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function DocumentMetaItem({
+  icon: Icon,
+  label,
+  value,
+  href,
+  title,
+  wide = false,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string | number | null | undefined;
+  href?: string;
+  title?: string;
+  wide?: boolean;
+}) {
+  if (value === null || value === undefined || value === "") return null;
+
+  const valueNode = href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      title={title || String(value)}
+      className="block truncate text-primary hover:text-primary-dark hover:underline"
+    >
+      {value}
+    </a>
+  ) : (
+    <span className="block truncate" title={title || String(value)}>
+      {value}
+    </span>
+  );
+
+  return (
+    <div className={`min-w-0 ${wide ? "sm:col-span-2" : ""}`}>
+      <dt className="flex items-center gap-1.5 text-[11px] font-semibold uppercase text-text-secondary">
+        <Icon className="h-3.5 w-3.5 shrink-0" />
+        <span className="truncate">{label}</span>
+      </dt>
+      <dd className="mt-1 min-w-0 text-sm font-medium text-text-primary">
+        {valueNode}
+      </dd>
+    </div>
   );
 }
 
@@ -604,145 +692,247 @@ export function DocumentListPage() {
           }
           return (
             <div className="space-y-3">
-              {documents.map((doc) => (
-                <div
-                  key={doc.id}
-                  className="block group"
-                  onClick={(e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest("button, a")) return;
-                    navigate(`/documents/${doc.id}`);
-                  }}
-                  role="link"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
+              {documents.map((doc) => {
+                const metadata = doc.academic_metadata;
+                const sourceUrl =
+                  metadata?.source_url || metadata?.open_access_url || doc.url;
+                const sourceLabel = sourceHost(sourceUrl);
+                const provider = providerLabel(metadata?.provider);
+
+                return (
+                  <div
+                    key={doc.id}
+                    className="block group"
+                    onClick={(e) => {
+                      const target = e.target as HTMLElement;
+                      if (target.closest("button, a")) return;
                       navigate(`/documents/${doc.id}`);
-                    }
-                  }}
-                >
-                  <Card
-                    padding="sm"
-                    className="hover:bg-primary-50/30 transition-colors cursor-pointer"
+                    }}
+                    role="link"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        navigate(`/documents/${doc.id}`);
+                      }
+                    }}
                   >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start gap-2 mb-1">
-                          <FileText className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                          <div className="min-w-0">
-                            <span className="font-medium text-text-primary break-words group-hover:text-primary transition-colors">
-                              {doc.title || doc.filename}
-                            </span>
-                            {doc.authors && (
-                              <p className="text-xs text-text-secondary truncate">
-                                {doc.authors}
-                              </p>
-                            )}
+                    <Card
+                      padding="sm"
+                      className="cursor-pointer overflow-hidden p-3 transition-colors hover:border-primary-200 hover:bg-primary-50/30 sm:p-4"
+                    >
+                      <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+                        <div className="flex min-w-0 flex-1 gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-button)] bg-primary-100 text-primary">
+                            <FileText className="h-5 w-5" />
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-col gap-2 xl:flex-row xl:items-start xl:justify-between">
+                              <div className="min-w-0">
+                                <h2 className="text-base font-semibold leading-snug text-text-primary transition-colors group-hover:text-primary">
+                                  <span className="break-words [overflow-wrap:anywhere]">
+                                    {doc.title || doc.filename}
+                                  </span>
+                                </h2>
+                                {doc.authors && (
+                                  <p className="mt-1 line-clamp-2 break-words text-sm text-text-secondary [overflow-wrap:anywhere]">
+                                    {doc.authors}
+                                  </p>
+                                )}
+                              </div>
+
+                              <div className="flex min-w-0 flex-wrap items-center gap-2 xl:justify-end">
+                                <Badge
+                                  className="max-w-full whitespace-normal text-left leading-tight"
+                                  variant={
+                                    (fileTypeColors[doc.file_type] as
+                                      | "default"
+                                      | "success"
+                                      | "error"
+                                      | "info") || "default"
+                                  }
+                                >
+                                  {doc.file_type.toUpperCase()}
+                                </Badge>
+                                <Badge
+                                  className="max-w-full whitespace-normal text-left leading-tight"
+                                  variant={doc.ingested ? "success" : "warning"}
+                                  title={
+                                    doc.ingested
+                                      ? t("documents.indexStatusHelp")
+                                      : t("documents.pendingStatusHelp")
+                                  }
+                                >
+                                  {doc.ingested
+                                    ? t("documents.indexed")
+                                    : t("documents.pending")}
+                                </Badge>
+                                {doc.file_type === "pdf" && (
+                                  <Badge
+                                    className="max-w-full whitespace-normal text-left leading-tight"
+                                    title={t("documents.metadataStatusHelp")}
+                                    variant={
+                                      doc.title?.trim() && doc.authors?.trim()
+                                        ? "success"
+                                        : "warning"
+                                    }
+                                  >
+                                    {doc.title?.trim() && doc.authors?.trim()
+                                      ? t("documents.metadataExtracted")
+                                      : t("documents.metadataQueued")}
+                                  </Badge>
+                                )}
+                                {provider && (
+                                  <Badge
+                                    className="max-w-full whitespace-normal text-left leading-tight"
+                                    variant="info"
+                                  >
+                                    {provider}
+                                  </Badge>
+                                )}
+                                {hasFullMetadata(doc) && (
+                                  <Badge
+                                    className="max-w-full whitespace-normal text-left leading-tight"
+                                    title={t("documents.fullMetadataHelp")}
+                                    variant="info"
+                                  >
+                                    {t("documents.fullMetadata")}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+
+                            <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-primary-100 pt-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                              <DocumentMetaItem
+                                icon={CalendarDays}
+                                label={t("documents.publicationYear")}
+                                value={metadata?.publication_year}
+                              />
+                              <DocumentMetaItem
+                                icon={Quote}
+                                label={t("documents.citations")}
+                                value={
+                                  metadata?.citation_count !== null &&
+                                  metadata?.citation_count !== undefined
+                                    ? formatCount(
+                                        metadata.citation_count,
+                                        locale,
+                                      )
+                                    : null
+                                }
+                              />
+                              <DocumentMetaItem
+                                icon={BookOpen}
+                                label={t("documents.references")}
+                                value={
+                                  metadata?.reference_count !== null &&
+                                  metadata?.reference_count !== undefined
+                                    ? formatCount(
+                                        metadata.reference_count,
+                                        locale,
+                                      )
+                                    : null
+                                }
+                              />
+                              <DocumentMetaItem
+                                icon={Building2}
+                                label={t("documents.venue")}
+                                value={metadata?.venue}
+                                wide
+                              />
+                              <DocumentMetaItem
+                                icon={Hash}
+                                label={t("documents.doiField")}
+                                value={metadata?.doi}
+                                href={doiUrl(metadata?.doi)}
+                                title={metadata?.doi || undefined}
+                                wide
+                              />
+                              <DocumentMetaItem
+                                icon={ExternalLink}
+                                label={t("documents.sourceUrl")}
+                                value={sourceLabel}
+                                href={externalUrl(sourceUrl)}
+                                title={sourceUrl || undefined}
+                                wide
+                              />
+                            </dl>
+                            <div className="mt-3 flex min-w-0 flex-col gap-2 border-t border-primary-50 pt-3 text-xs text-text-secondary sm:flex-row sm:items-center sm:gap-4">
+                              <span className="flex min-w-0 max-w-full flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                                <HardDrive className="h-3.5 w-3.5 shrink-0" />
+                                <span className="shrink-0 font-medium">
+                                  {t("documents.fileSize")}:
+                                </span>
+                                <span className="whitespace-nowrap">
+                                  {formatFileSize(doc.file_size)}
+                                </span>
+                              </span>
+                              <span className="flex min-w-0 max-w-full flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                                <CalendarDays className="h-3.5 w-3.5 shrink-0" />
+                                <span className="shrink-0 font-medium">
+                                  {t("documents.uploadedAt")}:
+                                </span>
+                                <span
+                                  className="whitespace-nowrap"
+                                  title={formatDate(doc.created_at, locale)}
+                                >
+                                  {formatDate(doc.created_at, locale)}
+                                </span>
+                              </span>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
-                          <Badge
-                            variant={
-                              (fileTypeColors[doc.file_type] as
-                                "default" | "success" | "error" | "info") ||
-                              "default"
-                            }
-                          >
-                            {doc.file_type.toUpperCase()}
-                          </Badge>
-                          <Badge
-                            variant={doc.ingested ? "success" : "warning"}
-                            title={
-                              doc.ingested
-                                ? t("documents.indexStatusHelp")
-                                : t("documents.pendingStatusHelp")
-                            }
-                          >
-                            {doc.ingested
-                              ? t("documents.indexed")
-                              : t("documents.pending")}
-                          </Badge>
-                          {doc.file_type === "pdf" && (
-                            <Badge
-                              title={t("documents.metadataStatusHelp")}
-                              variant={
-                                doc.title?.trim() && doc.authors?.trim()
-                                  ? "success"
-                                  : "warning"
-                              }
-                            >
-                              {doc.title?.trim() && doc.authors?.trim()
-                                ? t("documents.metadataExtracted")
-                                : t("documents.metadataQueued")}
-                            </Badge>
+
+                        <div className="flex items-center justify-end gap-1 lg:shrink-0">
+                          {doc.full_file_available && (
+                            <a href={getDownloadUrl(doc.id)} download>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                title={t("common.download")}
+                              >
+                                <Download className="h-4 w-4" />
+                              </Button>
+                            </a>
                           )}
-                          {hasFullMetadata(doc) && (
-                            <Badge
-                              title={t("documents.fullMetadataHelp")}
-                              variant="info"
-                            >
-                              {t("documents.fullMetadata")}
-                            </Badge>
+                          {isAdmin && (
+                            <>
+                              <Link to={`/documents/${doc.id}/edit`}>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  title={t("common.edit")}
+                                >
+                                  <Pencil className="h-4 w-4" />
+                                </Button>
+                              </Link>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                title={t("common.delete")}
+                                onClick={() => {
+                                  if (confirm(t("documents.deleteConfirm"))) {
+                                    deleteMutation.mutate(doc.id);
+                                  }
+                                }}
+                                disabled={deleteMutation.isPending}
+                              >
+                                {deleteMutation.isPending &&
+                                deleteMutation.variables === doc.id ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <Trash2 className="h-4 w-4 text-error" />
+                                )}
+                              </Button>
+                            </>
                           )}
-                          {doc.academic_metadata?.citation_count !== null &&
-                            doc.academic_metadata?.citation_count !==
-                              undefined && (
-                              <span>
-                                {t("documents.citationsShort", {
-                                  count: doc.academic_metadata.citation_count,
-                                })}
-                              </span>
-                            )}
-                          {doc.academic_metadata?.publication_year && (
-                            <span>
-                              {doc.academic_metadata.publication_year}
-                            </span>
-                          )}
-                          <span>{formatFileSize(doc.file_size)}</span>
-                          <span>{formatDate(doc.created_at, locale)}</span>
                         </div>
                       </div>
-
-                      <div className="flex items-center justify-end gap-1 sm:shrink-0">
-                        {doc.full_file_available && (
-                          <a href={getDownloadUrl(doc.id)} download>
-                            <Button variant="ghost" size="sm">
-                              <Download className="h-4 w-4" />
-                            </Button>
-                          </a>
-                        )}
-                        {isAdmin && (
-                          <>
-                            <Link to={`/documents/${doc.id}/edit`}>
-                              <Button variant="ghost" size="sm">
-                                <Pencil className="h-4 w-4" />
-                              </Button>
-                            </Link>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
-                                if (confirm(t("documents.deleteConfirm"))) {
-                                  deleteMutation.mutate(doc.id);
-                                }
-                              }}
-                              disabled={deleteMutation.isPending}
-                            >
-                              {deleteMutation.isPending &&
-                              deleteMutation.variables === doc.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Trash2 className="h-4 w-4 text-error" />
-                              )}
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              ))}
+                    </Card>
+                  </div>
+                );
+              })}
               {hasMore && (
                 <div className="flex justify-center pt-2">
                   <Button

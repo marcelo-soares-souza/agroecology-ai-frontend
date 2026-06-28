@@ -2,6 +2,7 @@ export interface AskRequest {
   question: string;
   top_k?: number;
   history?: { role: string; content: string }[];
+  locale?: string;
 }
 
 export interface AskResponse {

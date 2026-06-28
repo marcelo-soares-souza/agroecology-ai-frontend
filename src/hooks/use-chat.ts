@@ -55,7 +55,7 @@ function useTaskPolling(
 }
 
 export function useChat() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChatMessages(),
   );
@@ -201,6 +201,7 @@ export function useChat() {
         const { task_id } = await api.ask({
           question,
           history: recentMessages,
+          locale: i18n.resolvedLanguage || i18n.language || "en",
         });
 
         if (currentRequestId !== requestIdRef.current) return;
@@ -227,7 +228,7 @@ export function useChat() {
         setIsSending(false);
       }
     },
-    [t],
+    [i18n.language, i18n.resolvedLanguage, t],
   );
 
   const setLocalHistory = useCallback((enabled: boolean) => {

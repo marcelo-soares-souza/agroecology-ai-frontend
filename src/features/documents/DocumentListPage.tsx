@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
@@ -175,7 +175,9 @@ export function DocumentListPage() {
   const [publicationYear, setPublicationYear] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
-  const [documents, setDocuments] = useState<DocumentRecord[]>([]);
+  const [additionalDocuments, setAdditionalDocuments] = useState<
+    DocumentRecord[]
+  >([]);
   const [loadingMore, setLoadingMore] = useState(false);
   const listRequestKey = [
     debouncedSearchQuery.trim(),
@@ -207,6 +209,7 @@ export function DocumentListPage() {
         limit: PAGE_SIZE,
         offset: 0,
       }),
+    placeholderData: keepPreviousData,
   });
   const statsQuery = useQuery({
     queryKey: ["documents", "stats"],
@@ -253,6 +256,10 @@ export function DocumentListPage() {
   const totalDocuments = query.data?.total ?? 0;
   const publicationYears = publicationYearsQuery.data ?? [];
   const isSearchSettling = searchQuery !== debouncedSearchQuery;
+  const documents = useMemo(
+    () => [...(query.data?.data ?? []), ...additionalDocuments],
+    [additionalDocuments, query.data?.data],
+  );
   const hasMore =
     !isSearchSettling && !query.isFetching && documents.length < totalDocuments;
   const academicStatus = academicMetadataStatusQuery.data;
@@ -297,13 +304,8 @@ export function DocumentListPage() {
   );
 
   useEffect(() => {
-    if (query.data) {
-      setDocuments(query.data.data);
-    }
-  }, [query.data]);
-
-  useEffect(() => {
     listRequestKeyRef.current = listRequestKey;
+    setAdditionalDocuments([]);
     setLoadingMore(false);
   }, [listRequestKey]);
 
@@ -335,7 +337,7 @@ export function DocumentListPage() {
         offset: documents.length,
       });
       if (listRequestKeyRef.current !== requestKey) return;
-      setDocuments((current) => [...current, ...nextPage.data]);
+      setAdditionalDocuments((current) => [...current, ...nextPage.data]);
     } finally {
       if (listRequestKeyRef.current === requestKey) {
         setLoadingMore(false);
@@ -429,6 +431,7 @@ export function DocumentListPage() {
               variant="secondary"
               className="w-full sm:w-auto"
               onClick={() => {
+                setAdditionalDocuments([]);
                 void query.refetch();
                 void statsQuery.refetch();
                 if (isAdmin) void metadataStatusQuery.refetch();
@@ -635,7 +638,10 @@ export function DocumentListPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary/50" />
           <Input
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setAdditionalDocuments([]);
+              setSearchQuery(e.target.value);
+            }}
             placeholder={t("common.search")}
             className="pl-9"
           />
@@ -645,11 +651,12 @@ export function DocumentListPage() {
             <select
               aria-label={t("documents.publicationYearFilter")}
               value={publicationYear ?? ""}
-              onChange={(event) =>
+              onChange={(event) => {
+                setAdditionalDocuments([]);
                 setPublicationYear(
                   event.target.value ? Number(event.target.value) : null,
-                )
-              }
+                );
+              }}
               className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none lg:min-w-32"
             >
               <option value="">{t("documents.allPublicationYears")}</option>
@@ -664,7 +671,10 @@ export function DocumentListPage() {
             <input
               type="checkbox"
               checked={fullMetadataOnly}
-              onChange={(event) => setFullMetadataOnly(event.target.checked)}
+              onChange={(event) => {
+                setAdditionalDocuments([]);
+                setFullMetadataOnly(event.target.checked);
+              }}
               className="h-4 w-4 rounded border-primary-300 accent-primary"
             />
             <span>{t("documents.fullMetadata")}</span>

@@ -5,7 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   FileText,
@@ -177,6 +177,12 @@ export function DocumentListPage() {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [loadingMore, setLoadingMore] = useState(false);
+  const listRequestKey = [
+    debouncedSearchQuery.trim(),
+    String(fullMetadataOnly),
+    String(publicationYear ?? ""),
+  ].join("|");
+  const listRequestKeyRef = useRef(listRequestKey);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -201,7 +207,6 @@ export function DocumentListPage() {
         limit: PAGE_SIZE,
         offset: 0,
       }),
-    placeholderData: keepPreviousData,
   });
   const statsQuery = useQuery({
     queryKey: ["documents", "stats"],
@@ -248,7 +253,8 @@ export function DocumentListPage() {
   const totalDocuments = query.data?.total ?? 0;
   const publicationYears = publicationYearsQuery.data ?? [];
   const isSearchSettling = searchQuery !== debouncedSearchQuery;
-  const hasMore = !isSearchSettling && documents.length < totalDocuments;
+  const hasMore =
+    !isSearchSettling && !query.isFetching && documents.length < totalDocuments;
   const academicStatus = academicMetadataStatusQuery.data;
   const academicIsActive =
     academicStatus?.status === "queued" ||
@@ -297,6 +303,11 @@ export function DocumentListPage() {
   }, [query.data]);
 
   useEffect(() => {
+    listRequestKeyRef.current = listRequestKey;
+    setLoadingMore(false);
+  }, [listRequestKey]);
+
+  useEffect(() => {
     if (!isAdmin) return;
     if (
       academicStatus?.status === "done" ||
@@ -313,6 +324,7 @@ export function DocumentListPage() {
 
   async function loadMore(): Promise<void> {
     if (loadingMore || !hasMore) return;
+    const requestKey = listRequestKeyRef.current;
     setLoadingMore(true);
     try {
       const nextPage = await api.listDocuments({
@@ -322,9 +334,12 @@ export function DocumentListPage() {
         limit: PAGE_SIZE,
         offset: documents.length,
       });
+      if (listRequestKeyRef.current !== requestKey) return;
       setDocuments((current) => [...current, ...nextPage.data]);
     } finally {
-      setLoadingMore(false);
+      if (listRequestKeyRef.current === requestKey) {
+        setLoadingMore(false);
+      }
     }
   }
 

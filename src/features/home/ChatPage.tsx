@@ -50,7 +50,7 @@ export function ChatPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
-      <div className="mb-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="mb-2 hidden flex-col gap-3 md:flex md:flex-row md:items-start md:justify-between">
         <div className="min-w-0">
           <h1 className="flex min-w-0 items-center gap-2 text-2xl font-bold text-text-primary">
             <MessageCircle className="h-6 w-6 shrink-0 text-primary" />
@@ -60,7 +60,7 @@ export function ChatPage() {
             {t("home.description")}
           </p>
         </div>
-        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+        <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-center md:justify-end md:gap-3">
           <label className="flex min-h-9 items-center gap-2 rounded-[var(--radius-input)] border border-primary-100 px-3 text-sm text-text-secondary sm:border-0 sm:px-0">
             <input
               type="checkbox"
@@ -74,7 +74,7 @@ export function ChatPage() {
             <Button
               variant="ghost"
               size="sm"
-              className="w-full sm:w-auto"
+              className="w-full md:w-auto"
               onClick={clearChat}
             >
               <Eraser className="h-4 w-4" />
@@ -83,7 +83,7 @@ export function ChatPage() {
           )}
         </div>
       </div>
-      <p className="text-sm text-text-secondary mb-4 flex items-center gap-1">
+      <p className="mb-4 hidden items-center gap-1 text-sm text-text-secondary md:flex">
         <FileText className="h-3.5 w-3.5" />
         {t("home.knowledgeBase")}{" "}
         <Link

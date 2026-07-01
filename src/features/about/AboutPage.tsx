@@ -241,27 +241,7 @@ export function AboutPage() {
                 className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
               >
                 <ExternalLink className="h-4 w-4 shrink-0" />
-                {t("about.frontendRepo")}
-              </a>
-              <br />
-              <a
-                href="https://codeberg.org/agroecologymap"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
-              >
-                <ExternalLink className="h-4 w-4 shrink-0" />
-                {t("about.backendRepo")}
-              </a>
-              <br />
-              <a
-                href="https://codeberg.org/agroecologymap"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex max-w-full items-center gap-1.5 break-words font-medium text-primary hover:underline"
-              >
-                <ExternalLink className="h-4 w-4 shrink-0" />
-                {t("about.mobileRepo")}
+                {t("about.sourceCodeRepo")}
               </a>
             </div>
           </div>

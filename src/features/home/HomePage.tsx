@@ -213,21 +213,6 @@ export function HomePage() {
           </div>
         </Card>
       </div>
-
-      {/* Footer */}
-      <div className="text-center px-4">
-        <p className="text-sm text-text-secondary">
-          {t("landing.footerPrefix")}{" "}
-          <a
-            href="https://agroecologymap.org"
-            target="_blank"
-            rel="noreferrer"
-            className="text-primary hover:underline"
-          >
-            Agroecology Map
-          </a>
-        </p>
-      </div>
     </div>
   );
 }

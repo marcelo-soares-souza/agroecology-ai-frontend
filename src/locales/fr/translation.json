@@ -53,6 +53,15 @@
       "fr": "Français"
     }
   },
+  "footer": {
+    "project": "Projet",
+    "knowledge": "Connaissance",
+    "support": "Soutien",
+    "legal": "Légal",
+    "sourceCode": "Code source",
+    "freeSoftware": "Logiciel Libre (GPLv3)",
+    "maintainedBy": "Maintenu par"
+  },
   "auth": {
     "login": "Connexion",
     "loginDescription": "Entrez vos identifiants pour accéder à votre compte.",
@@ -454,7 +463,8 @@
     "vectorStore": "Recherche Vectorielle : LanceDB (cosinus) + recherche par mots-clés BM25 + Reciprocal Rank Fusion",
     "llm": "LLM : backend configurable, avec modèles locaux via Ollama ou APIs compatibles selon le déploiement",
     "version": "Version 1.0.0",
-    "repositories": "Dépôts",
+    "repositories": "Dépôt",
+    "sourceCodeRepo": "Code source",
     "frontendRepo": "Frontend",
     "backendRepo": "Backend",
     "mobileRepo": "App mobile (Flutter)",

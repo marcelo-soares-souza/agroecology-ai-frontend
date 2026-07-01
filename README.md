@@ -91,26 +91,26 @@ frontend/src/
 
 ## Pages
 
-| Route | Page |
-| ----- | ---- |
-| `/` | Public landing page |
-| `/chat` | Authenticated chat |
-| `/login`, `/register` | Authentication |
-| `/confirm-email`, `/resend-confirmation` | Email confirmation |
-| `/forgot-password`, `/reset-password` | Password recovery |
-| `/confirm-delete-account` | Account deletion confirmation |
-| `/profile/:slug`, `/profile/edit` | Public profile and profile editor |
-| `/community`, `/community/:slug` | Community directory and member profile |
-| `/documents`, `/documents/:id` | Public document browser |
-| `/documents/:id/edit`, `/upload` | Admin document metadata and upload |
-| `/suggestions`, `/suggestions/new` | Authenticated document suggestions |
-| `/suggestions/:id`, `/suggestions/:id/edit` | Suggestion detail and edit |
-| `/admin/users` | Admin user management |
-| `/admin/suggestions`, `/admin/suggestions/:id` | Admin suggestion moderation |
-| `/status` | Authenticated server status |
-| `/ingestion` | Admin ingestion control |
-| `/about`, `/privacy`, `/terms` | Static project/legal pages |
-| `/donate`, `/mobile` | Donation and mobile app pages |
+| Route                                          | Page                                   |
+| ---------------------------------------------- | -------------------------------------- |
+| `/`                                            | Public landing page                    |
+| `/chat`                                        | Authenticated chat                     |
+| `/login`, `/register`                          | Authentication                         |
+| `/confirm-email`, `/resend-confirmation`       | Email confirmation                     |
+| `/forgot-password`, `/reset-password`          | Password recovery                      |
+| `/confirm-delete-account`                      | Account deletion confirmation          |
+| `/profile/:slug`, `/profile/edit`              | Public profile and profile editor      |
+| `/community`, `/community/:slug`               | Community directory and member profile |
+| `/documents`, `/documents/:id`                 | Public document browser                |
+| `/documents/:id/edit`, `/upload`               | Admin document metadata and upload     |
+| `/suggestions`, `/suggestions/new`             | Authenticated document suggestions     |
+| `/suggestions/:id`, `/suggestions/:id/edit`    | Suggestion detail and edit             |
+| `/admin/users`                                 | Admin user management                  |
+| `/admin/suggestions`, `/admin/suggestions/:id` | Admin suggestion moderation            |
+| `/status`                                      | Authenticated server status            |
+| `/ingestion`                                   | Admin ingestion control                |
+| `/about`, `/privacy`, `/terms`                 | Static project/legal pages             |
+| `/donate`, `/mobile`                           | Donation and mobile app pages          |
 
 Protected routes use `AuthGuard`; admin-only routes additionally require the
 `admin` role returned by the backend.

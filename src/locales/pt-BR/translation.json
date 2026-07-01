@@ -53,6 +53,15 @@
       "fr": "Français"
     }
   },
+  "footer": {
+    "project": "Projeto",
+    "knowledge": "Conhecimento",
+    "support": "Apoio",
+    "legal": "Legal",
+    "sourceCode": "Código-fonte",
+    "freeSoftware": "Software Livre (GPLv3)",
+    "maintainedBy": "Mantido por"
+  },
   "auth": {
     "login": "Entrar",
     "loginDescription": "Entre com suas credenciais para acessar sua conta.",
@@ -454,7 +463,8 @@
     "vectorStore": "Busca Vetorial: LanceDB (cosseno) + BM25 palavras-chave + Reciprocal Rank Fusion",
     "llm": "LLM: backend configurável, com modelos locais via Ollama ou APIs compatíveis conforme a implantação",
     "version": "Versão 1.0.0",
-    "repositories": "Repositórios",
+    "repositories": "Repositório",
+    "sourceCodeRepo": "Código-fonte",
     "frontendRepo": "Frontend",
     "backendRepo": "Backend",
     "suggestInviteTitle": "Ajude a Crescer a Base de Conhecimento",

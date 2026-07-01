@@ -1,14 +1,16 @@
 # Agroecology Map AI — Frontend
 
-Web interface for the Agroecology Map AI platform. RAG-powered chat for agroecological knowledge, document management, and ingestion monitoring.
+Web client for the Agroecology Map AI platform. It includes the public landing
+pages, authenticated RAG chat, document browsing, document suggestions,
+community profiles, admin tooling, and ingestion/status dashboards.
 
 ## Stack
 
-- **React 19.2** + **TypeScript** + **Vite**
+- **React 19.2.7** + **TypeScript 6** + **Vite 8**
 - **Tailwind CSS v4** (CSS-first `@theme` config)
-- **React Router v7** (`createBrowserRouter`)
+- **React Router v7** (`createBrowserRouter`, lazy route modules)
 - **TanStack Query** (server state + caching)
-- **i18next** (pt-BR + en + es + fr)
+- **i18next** + browser language detection (pt-BR + en + es + fr)
 - **react-markdown** + **remark-gfm** (formatted AI responses)
 
 ## Quick Start
@@ -50,21 +52,37 @@ bash ../scripts/check-frontend.sh
 
 Runs: install, audit, outdated, format, lint, typecheck, test, build, bundle secrets scan.
 
+Useful individual commands:
+
+```bash
+bun run format
+bun run lint
+bun run typecheck
+bun run build              # also regenerates public/sitemap.xml
+bun run scan:bundle-secrets
+```
+
 ## Structure
 
 ```
 frontend/src/
 ├── components/
 │   ├── chat/          ChatBox, ChatMessage, SourceCard
-│   ├── layout/        AppShell, Sidebar (drawer), Header
-│   └── ui/            Button, Card, Input, Badge, Skeleton
+│   ├── layout/        AppShell, Sidebar, Header
+│   └── ui/            Button, Card, Input, Badge, Skeleton, InfoTooltip
 ├── features/
-│   ├── home/          Chat page (Q&A, Markdown rendering)
-│   ├── documents/     List, Detail, Edit, Upload (SHA256-based dedup)
+│   ├── admin/         User and suggestion moderation
+│   ├── auth/          Login, register, email confirmation, password reset
+│   ├── community/     Public user/community profiles
+│   ├── documents/     List, detail, edit, upload, inline PDF viewing
+│   ├── donate/        Donation page
+│   ├── home/          Landing page and authenticated chat page
 │   ├── ingestion/     Trigger + history table
+│   ├── mobile/        Mobile app page
 │   ├── status/        Server health dashboard
-│   └── about/         Project info
-├── hooks/             usePolling, useChat, useLocale
+│   ├── suggestions/   User document suggestions
+│   └── about/         About, privacy policy, terms
+├── hooks/             use-app-mutation, use-auth, use-chat, use-locale
 ├── services/          api.ts (all endpoints), types.ts
 ├── lib/               cn.ts (clsx + tailwind-merge), options.ts
 ├── config/            api.ts (base URL), i18n.ts
@@ -73,16 +91,29 @@ frontend/src/
 
 ## Pages
 
-| Route                 | Page                                |
-| --------------------- | ----------------------------------- |
-| `/`                   | Chat                                |
-| `/status`             | Server Status                       |
-| `/documents`          | Document List                       |
-| `/documents/:id`      | Document Detail                     |
-| `/documents/:id/edit` | Edit Metadata                       |
-| `/upload`             | Upload (drag-and-drop + file input) |
-| `/ingestion`          | Ingestion Control                   |
-| `/about`              | About                               |
+| Route | Page |
+| ----- | ---- |
+| `/` | Public landing page |
+| `/chat` | Authenticated chat |
+| `/login`, `/register` | Authentication |
+| `/confirm-email`, `/resend-confirmation` | Email confirmation |
+| `/forgot-password`, `/reset-password` | Password recovery |
+| `/confirm-delete-account` | Account deletion confirmation |
+| `/profile/:slug`, `/profile/edit` | Public profile and profile editor |
+| `/community`, `/community/:slug` | Community directory and member profile |
+| `/documents`, `/documents/:id` | Public document browser |
+| `/documents/:id/edit`, `/upload` | Admin document metadata and upload |
+| `/suggestions`, `/suggestions/new` | Authenticated document suggestions |
+| `/suggestions/:id`, `/suggestions/:id/edit` | Suggestion detail and edit |
+| `/admin/users` | Admin user management |
+| `/admin/suggestions`, `/admin/suggestions/:id` | Admin suggestion moderation |
+| `/status` | Authenticated server status |
+| `/ingestion` | Admin ingestion control |
+| `/about`, `/privacy`, `/terms` | Static project/legal pages |
+| `/donate`, `/mobile` | Donation and mobile app pages |
+
+Protected routes use `AuthGuard`; admin-only routes additionally require the
+`admin` role returned by the backend.
 
 ## License
 

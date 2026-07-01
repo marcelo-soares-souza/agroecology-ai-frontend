@@ -63,24 +63,6 @@ const fileTypeColors: Record<string, "default" | "success" | "error" | "info"> =
     txt: "info",
   };
 
-function hasText(value: string | null | undefined) {
-  return Boolean(value?.trim());
-}
-
-function hasFullMetadata(doc: DocumentRecord) {
-  const metadata = doc.academic_metadata;
-  return Boolean(
-    metadata &&
-    hasText(doc.title) &&
-    hasText(doc.authors) &&
-    metadata.publication_year !== null &&
-    metadata.publication_year !== undefined &&
-    metadata.citation_count !== null &&
-    metadata.citation_count !== undefined &&
-    hasText(metadata.source_url),
-  );
-}
-
 function formatCount(value: number, locale: string) {
   return new Intl.NumberFormat(locale).format(value);
 }
@@ -753,79 +735,17 @@ export function DocumentListPage() {
                           </div>
 
                           <div className="min-w-0 flex-1">
-                            <div className="flex flex-col gap-2 xl:flex-row xl:items-start xl:justify-between">
-                              <div className="min-w-0">
-                                <h2 className="text-base font-semibold leading-snug text-text-primary transition-colors group-hover:text-primary">
-                                  <span className="break-words [overflow-wrap:anywhere]">
-                                    {doc.title || doc.filename}
-                                  </span>
-                                </h2>
-                                {doc.authors && (
-                                  <p className="mt-1 line-clamp-2 break-words text-sm text-text-secondary [overflow-wrap:anywhere]">
-                                    {doc.authors}
-                                  </p>
-                                )}
-                              </div>
-
-                              <div className="flex min-w-0 flex-wrap items-center gap-2 xl:justify-end">
-                                <Badge
-                                  className="max-w-full whitespace-normal text-left leading-tight"
-                                  variant={
-                                    (fileTypeColors[doc.file_type] as
-                                      | "default"
-                                      | "success"
-                                      | "error"
-                                      | "info") || "default"
-                                  }
-                                >
-                                  {doc.file_type.toUpperCase()}
-                                </Badge>
-                                <Badge
-                                  className="max-w-full whitespace-normal text-left leading-tight"
-                                  variant={doc.ingested ? "success" : "warning"}
-                                  title={
-                                    doc.ingested
-                                      ? t("documents.indexStatusHelp")
-                                      : t("documents.pendingStatusHelp")
-                                  }
-                                >
-                                  {doc.ingested
-                                    ? t("documents.indexed")
-                                    : t("documents.pending")}
-                                </Badge>
-                                {doc.file_type === "pdf" && (
-                                  <Badge
-                                    className="max-w-full whitespace-normal text-left leading-tight"
-                                    title={t("documents.metadataStatusHelp")}
-                                    variant={
-                                      doc.title?.trim() && doc.authors?.trim()
-                                        ? "success"
-                                        : "warning"
-                                    }
-                                  >
-                                    {doc.title?.trim() && doc.authors?.trim()
-                                      ? t("documents.metadataExtracted")
-                                      : t("documents.metadataQueued")}
-                                  </Badge>
-                                )}
-                                {provider && (
-                                  <Badge
-                                    className="max-w-full whitespace-normal text-left leading-tight"
-                                    variant="info"
-                                  >
-                                    {provider}
-                                  </Badge>
-                                )}
-                                {hasFullMetadata(doc) && (
-                                  <Badge
-                                    className="max-w-full whitespace-normal text-left leading-tight"
-                                    title={t("documents.fullMetadataHelp")}
-                                    variant="info"
-                                  >
-                                    {t("documents.fullMetadata")}
-                                  </Badge>
-                                )}
-                              </div>
+                            <div className="min-w-0">
+                              <h2 className="text-base font-semibold leading-snug text-text-primary transition-colors group-hover:text-primary">
+                                <span className="break-words [overflow-wrap:anywhere]">
+                                  {doc.title || doc.filename}
+                                </span>
+                              </h2>
+                              {doc.authors && (
+                                <p className="mt-1 line-clamp-2 break-words text-sm text-text-secondary [overflow-wrap:anywhere]">
+                                  {doc.authors}
+                                </p>
+                              )}
                             </div>
 
                             <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-primary-100 pt-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
@@ -883,7 +803,7 @@ export function DocumentListPage() {
                                 wide
                               />
                             </dl>
-                            <div className="mt-3 flex min-w-0 flex-col gap-2 border-t border-primary-50 pt-3 text-xs text-text-secondary sm:flex-row sm:items-center sm:gap-4">
+                            <div className="mt-3 flex min-w-0 flex-col gap-2 border-t border-primary-50 pt-3 text-xs text-text-secondary sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                               <span className="flex min-w-0 max-w-full flex-wrap items-center gap-x-1.5 gap-y-0.5">
                                 <HardDrive className="h-3.5 w-3.5 shrink-0" />
                                 <span className="shrink-0 font-medium">
@@ -905,6 +825,57 @@ export function DocumentListPage() {
                                   {formatDate(doc.created_at, locale)}
                                 </span>
                               </span>
+
+                              <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
+                                <Badge
+                                  className="max-w-full whitespace-normal text-left leading-tight"
+                                  variant={
+                                    (fileTypeColors[doc.file_type] as
+                                      | "default"
+                                      | "success"
+                                      | "error"
+                                      | "info") || "default"
+                                  }
+                                >
+                                  {doc.file_type.toUpperCase()}
+                                </Badge>
+                                <Badge
+                                  className="max-w-full whitespace-normal text-left leading-tight"
+                                  variant={doc.ingested ? "success" : "warning"}
+                                  title={
+                                    doc.ingested
+                                      ? t("documents.indexStatusHelp")
+                                      : t("documents.pendingStatusHelp")
+                                  }
+                                >
+                                  {doc.ingested
+                                    ? t("documents.indexed")
+                                    : t("documents.pending")}
+                                </Badge>
+                                {doc.file_type === "pdf" && (
+                                  <Badge
+                                    className="max-w-full whitespace-normal text-left leading-tight"
+                                    title={t("documents.metadataStatusHelp")}
+                                    variant={
+                                      doc.title?.trim() && doc.authors?.trim()
+                                        ? "success"
+                                        : "warning"
+                                    }
+                                  >
+                                    {doc.title?.trim() && doc.authors?.trim()
+                                      ? t("documents.metadataExtracted")
+                                      : t("documents.metadataQueued")}
+                                  </Badge>
+                                )}
+                                {provider && (
+                                  <Badge
+                                    className="max-w-full whitespace-normal text-left leading-tight"
+                                    variant="info"
+                                  >
+                                    {provider}
+                                  </Badge>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>

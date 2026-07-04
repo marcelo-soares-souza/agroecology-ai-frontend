@@ -10,6 +10,39 @@ import {
   setChatHistoryEnabled,
 } from "@/lib/ChatStorage";
 
+const MAX_HISTORY_MESSAGES = 6;
+const MAX_HISTORY_MESSAGE_CHARS = 1000;
+const MAX_HISTORY_TOTAL_CHARS = 2200;
+
+function buildRequestHistory(messages: ChatMessage[]) {
+  const recentMessages = messages
+    .filter((m) => m.status === "done" && m.content)
+    .slice(-MAX_HISTORY_MESSAGES);
+  const selected: Array<{ role: ChatMessage["role"]; content: string }> = [];
+  let totalChars = 0;
+
+  for (let i = recentMessages.length - 1; i >= 0; i -= 1) {
+    const message = recentMessages[i];
+    const content = message.content
+      .slice(0, MAX_HISTORY_MESSAGE_CHARS)
+      .trim();
+
+    if (!content) continue;
+
+    if (
+      selected.length > 0 &&
+      totalChars + content.length > MAX_HISTORY_TOTAL_CHARS
+    ) {
+      break;
+    }
+
+    selected.unshift({ role: message.role, content });
+    totalChars += content.length;
+  }
+
+  return selected;
+}
+
 function useTaskPolling(
   taskId: string | null,
   enabled: boolean,
@@ -193,10 +226,7 @@ export function useChat() {
       setMessages((prev) => [...prev, userMsg, assistantMsg]);
 
       try {
-        const recentMessages = messagesRef.current
-          .filter((m) => m.status === "done" && m.content)
-          .slice(-6)
-          .map((m) => ({ role: m.role, content: m.content }));
+        const recentMessages = buildRequestHistory(messagesRef.current);
 
         const { task_id } = await api.ask({
           question,

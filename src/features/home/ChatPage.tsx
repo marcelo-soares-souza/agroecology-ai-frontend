@@ -16,8 +16,9 @@ import { ChatBox } from "@/components/chat/ChatBox";
 import { ChatMessage } from "@/components/chat/ChatMessage";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import { api } from "@/services/api";
+import { ApiError, api } from "@/services/api";
 import type {
+  ChatConversationDetail,
   ChatConversationListResponse,
   ChatConversationSummary,
 } from "@/services/types";
@@ -43,6 +44,31 @@ function formatConversationDate(value: string, locale: string): string {
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(value));
+}
+
+function titleFromQuestion(question: string): string {
+  const normalized = question.trim().replace(/\s+/g, " ");
+  if (normalized.length <= 80) return normalized;
+  return `${normalized.slice(0, 77).trimEnd()}...`;
+}
+
+const DEFAULT_CONVERSATION_TITLES = new Set([
+  "new chat",
+  "nova conversa",
+  "nueva conversacion",
+  "nouvelle conversation",
+]);
+
+function normalizeConversationTitle(title: string): string {
+  return title
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function isDefaultConversationTitle(title: string): boolean {
+  return DEFAULT_CONVERSATION_TITLES.has(normalizeConversationTitle(title));
 }
 
 function ConversationPanel({
@@ -191,6 +217,7 @@ export function ChatPage() {
   const [deletingConversationId, setDeletingConversationId] = useState<
     string | null
   >(null);
+  const [chatNotice, setChatNotice] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const conversationsQuery = useQuery({
@@ -260,13 +287,131 @@ export function ChatPage() {
     activeConversationQuery.isLoading &&
     messages.length === 0;
 
+  const applyConversationSummary = useCallback(
+    (conversation: ChatConversationSummary) => {
+      queryClient.setQueryData<ChatConversationListResponse>(
+        ["chat-conversations"],
+        (current) => {
+          if (!current) return current;
+          return {
+            ...current,
+            data: current.data.map((item) =>
+              item.id === conversation.id ? conversation : item,
+            ),
+          };
+        },
+      );
+      queryClient.setQueryData<ChatConversationDetail>(
+        ["chat-conversation", conversation.id],
+        (current) => {
+          if (!current) return current;
+          return {
+            ...current,
+            conversation,
+          };
+        },
+      );
+    },
+    [queryClient],
+  );
+
+  const updateConversationTitle = useCallback(
+    (conversationId: string, title: string) => {
+      queryClient.setQueryData<ChatConversationListResponse>(
+        ["chat-conversations"],
+        (current) => {
+          if (!current) return current;
+          return {
+            ...current,
+            data: current.data.map((conversation) =>
+              conversation.id === conversationId
+                ? { ...conversation, title }
+                : conversation,
+            ),
+          };
+        },
+      );
+      queryClient.setQueryData<ChatConversationDetail>(
+        ["chat-conversation", conversationId],
+        (current) => {
+          if (!current) return current;
+          return {
+            ...current,
+            conversation: {
+              ...current.conversation,
+              title,
+            },
+          };
+        },
+      );
+    },
+    [queryClient],
+  );
+
+  const renameConversationFromQuestion = useCallback(
+    async (conversationId: string, question: string) => {
+      const title = titleFromQuestion(question);
+      updateConversationTitle(conversationId, title);
+
+      try {
+        const conversation = await api.renameChatConversation(
+          conversationId,
+          title,
+        );
+        applyConversationSummary(conversation);
+      } catch {
+        void queryClient.invalidateQueries({
+          queryKey: ["chat-conversations"],
+        });
+        void queryClient.invalidateQueries({
+          queryKey: ["chat-conversation", conversationId],
+        });
+      }
+    },
+    [applyConversationSummary, queryClient, updateConversationTitle],
+  );
+
+  const handleSendMessage = useCallback(
+    (question: string) => {
+      if (
+        activeConversationId &&
+        messages.length === 0 &&
+        activeConversation?.message_count === 0
+      ) {
+        void renameConversationFromQuestion(activeConversationId, question);
+      }
+
+      sendMessage(question);
+    },
+    [
+      activeConversation?.message_count,
+      activeConversationId,
+      messages.length,
+      renameConversationFromQuestion,
+      sendMessage,
+    ],
+  );
+
   useEffect(() => {
     if (!activeConversationId || !activeConversationQuery.data) return;
-    loadConversationMessages(activeConversationQuery.data.messages);
+    const { conversation, messages: conversationMessages } =
+      activeConversationQuery.data;
+    loadConversationMessages(conversationMessages);
+
+    const firstUserMessage = conversationMessages.find(
+      (message) => message.role === "user" && message.content.trim(),
+    );
+    if (firstUserMessage && isDefaultConversationTitle(conversation.title)) {
+      void renameConversationFromQuestion(
+        conversation.id,
+        firstUserMessage.content,
+      );
+    }
   }, [
     activeConversationId,
     activeConversationQuery.data,
     loadConversationMessages,
+    renameConversationFromQuestion,
   ]);
 
   useEffect(() => {
@@ -276,6 +421,7 @@ export function ChatPage() {
   }, [messages]);
 
   const handleNewChat = useCallback(async () => {
+    setChatNotice(null);
     if (
       activeConversationId &&
       messages.length === 0 &&
@@ -314,6 +460,17 @@ export function ChatPage() {
       setMobilePanelOpen(false);
       clearChat();
       void queryClient.invalidateQueries({ queryKey: ["chat-conversations"] });
+    } catch (error) {
+      if (
+        error instanceof ApiError &&
+        error.code === "chat_conversation_limit_reached"
+      ) {
+        setChatNotice(t("home.chatConversationLimitReached"));
+      } else {
+        setChatNotice(
+          error instanceof Error ? error.message : t("common.unknownError"),
+        );
+      }
     } finally {
       setIsCreatingConversation(false);
     }
@@ -332,6 +489,7 @@ export function ChatPage() {
         setMobilePanelOpen(false);
         return;
       }
+      setChatNotice(null);
       setActiveConversationId(conversationId);
       setMobilePanelOpen(false);
       clearChat();
@@ -343,6 +501,7 @@ export function ChatPage() {
     async (conversationId: string) => {
       if (!window.confirm(t("home.deleteConversationConfirm"))) return;
 
+      setChatNotice(null);
       setDeletingConversationId(conversationId);
       try {
         await api.deleteChatConversation(conversationId);
@@ -530,6 +689,12 @@ export function ChatPage() {
             </div>
           )}
 
+          {chatNotice && (
+            <div className="mb-4 rounded-[var(--radius-card)] border border-error/30 bg-error/10 px-4 py-3 text-sm font-medium text-error">
+              {chatNotice}
+            </div>
+          )}
+
           <div
             ref={scrollRef}
             className="mb-4 flex-1 overflow-y-auto rounded-[var(--radius-card)] border border-primary-100"
@@ -555,7 +720,7 @@ export function ChatPage() {
           </div>
 
           <ChatBox
-            onSend={sendMessage}
+            onSend={handleSendMessage}
             disabled={
               isSending ||
               isConversationLoading ||

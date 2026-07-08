@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { api } from "@/services/api";
+import { ApiError, api } from "@/services/api";
 import type {
   AnswerResponse,
   ChatConversationMessage,
@@ -23,6 +23,20 @@ function toUiMessage(message: ChatConversationMessage): ChatMessage {
     error: message.error || undefined,
     durationMs: message.duration_ms ?? undefined,
   };
+}
+
+function resolveChatError(
+  error: unknown,
+  fallback: string,
+  limitMessage: string,
+) {
+  if (
+    error instanceof ApiError &&
+    error.code === "chat_conversation_limit_reached"
+  ) {
+    return limitMessage;
+  }
+  return error instanceof Error ? error.message : fallback;
 }
 
 function useTaskPolling(
@@ -288,10 +302,11 @@ export function useChat({
               ? {
                   ...m,
                   status: "error",
-                  error:
-                    err instanceof Error
-                      ? err.message
-                      : t("common.unknownError"),
+                  error: resolveChatError(
+                    err,
+                    t("common.unknownError"),
+                    t("home.chatConversationLimitReached"),
+                  ),
                 }
               : m,
           ),

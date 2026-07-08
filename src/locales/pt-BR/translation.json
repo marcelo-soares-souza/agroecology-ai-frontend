@@ -190,6 +190,7 @@
     "deleteCurrentConversation": "Excluir conversa atual",
     "deleteConversationConfirm": "Excluir esta conversa? Todo o histórico de mensagens dela será removido.",
     "loadConversationError": "Não foi possível carregar esta conversa.",
+    "chatConversationLimitReached": "Você atingiu o limite de 10 conversas salvas. Exclua uma conversa para iniciar outra.",
     "saveHistory": "Salvar na conta",
     "reindexingTitle": "Estamos reindexando a base agroecológica",
     "reindexingBody": "Você pode continuar perguntando, mas talvez as respostas não fiquem tão precisas até a atualização terminar.",

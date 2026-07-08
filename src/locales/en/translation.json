@@ -190,6 +190,7 @@
     "deleteCurrentConversation": "Delete current conversation",
     "deleteConversationConfirm": "Delete this conversation? This removes its full message history.",
     "loadConversationError": "Could not load this conversation.",
+    "chatConversationLimitReached": "You have reached the limit of 10 saved conversations. Delete one to start a new chat.",
     "saveHistory": "Save to account",
     "reindexingTitle": "We are reindexing the agroecology base",
     "reindexingBody": "You can keep asking questions, but answers may be less precise until the update finishes.",

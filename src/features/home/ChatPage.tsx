@@ -277,8 +277,10 @@ export function ChatPage() {
     : 0;
   const chunksIndexed = lastIngestion?.chunks_indexed ?? 0;
   const locale = i18n.resolvedLanguage || i18n.language || "en";
+  const activeConversationSummary = activeConversationQuery.data?.conversation;
+  const activeConversationMessages = activeConversationQuery.data?.messages;
   const activeConversation =
-    activeConversationQuery.data?.conversation ??
+    activeConversationSummary ??
     conversations.find(
       (conversation) => conversation.id === activeConversationId,
     );
@@ -286,6 +288,11 @@ export function ChatPage() {
     activeConversationId !== null &&
     activeConversationQuery.isLoading &&
     messages.length === 0;
+  const activeConversationIsLoadedEmpty =
+    activeConversationId !== null &&
+    activeConversationSummary?.id === activeConversationId &&
+    activeConversationMessages?.length === 0 &&
+    activeConversationSummary.message_count === 0;
 
   const applyConversationSummary = useCallback(
     (conversation: ChatConversationSummary) => {
@@ -393,24 +400,31 @@ export function ChatPage() {
   );
 
   useEffect(() => {
-    if (!activeConversationId || !activeConversationQuery.data) return;
-    const { conversation, messages: conversationMessages } =
-      activeConversationQuery.data;
-    loadConversationMessages(conversationMessages);
+    if (!activeConversationId || !activeConversationMessages) return;
+    loadConversationMessages(activeConversationMessages);
+  }, [
+    activeConversationId,
+    activeConversationMessages,
+    loadConversationMessages,
+  ]);
 
-    const firstUserMessage = conversationMessages.find(
+  useEffect(() => {
+    if (!activeConversationSummary || !activeConversationMessages) return;
+    const firstUserMessage = activeConversationMessages.find(
       (message) => message.role === "user" && message.content.trim(),
     );
-    if (firstUserMessage && isDefaultConversationTitle(conversation.title)) {
+    if (
+      firstUserMessage &&
+      isDefaultConversationTitle(activeConversationSummary.title)
+    ) {
       void renameConversationFromQuestion(
-        conversation.id,
+        activeConversationSummary.id,
         firstUserMessage.content,
       );
     }
   }, [
-    activeConversationId,
-    activeConversationQuery.data,
-    loadConversationMessages,
+    activeConversationMessages,
+    activeConversationSummary,
     renameConversationFromQuestion,
   ]);
 
@@ -422,11 +436,7 @@ export function ChatPage() {
 
   const handleNewChat = useCallback(async () => {
     setChatNotice(null);
-    if (
-      activeConversationId &&
-      messages.length === 0 &&
-      activeConversation?.message_count === 0
-    ) {
+    if (activeConversationIsLoadedEmpty) {
       setMobilePanelOpen(false);
       clearChat();
       return;
@@ -474,14 +484,7 @@ export function ChatPage() {
     } finally {
       setIsCreatingConversation(false);
     }
-  }, [
-    activeConversation?.message_count,
-    activeConversationId,
-    clearChat,
-    messages.length,
-    queryClient,
-    t,
-  ]);
+  }, [activeConversationIsLoadedEmpty, clearChat, queryClient, t]);
 
   const handleSelectConversation = useCallback(
     (conversationId: string) => {

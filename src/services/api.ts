@@ -30,6 +30,9 @@ import type {
   ResetPasswordRequest,
   RefreshTokenResponse,
   ExportedPersonalData,
+  ChatConversationDetail,
+  ChatConversationListResponse,
+  ChatConversationSummary,
 } from "./types";
 
 export interface AuthRateLimitInfo {
@@ -180,6 +183,46 @@ export const api = {
 
   getAnswer: (taskId: string) =>
     request<AnswerResponse>(`/api/v1/answer/${taskId}`),
+
+  listChatConversations: (params?: { limit?: number; offset?: number }) => {
+    const searchParams = new URLSearchParams();
+    if (params?.limit !== undefined) {
+      searchParams.set("limit", String(params.limit));
+    }
+    if (params?.offset !== undefined) {
+      searchParams.set("offset", String(params.offset));
+    }
+    const query = searchParams.toString();
+    return request<ChatConversationListResponse>(
+      `/api/v1/chat/conversations${query ? `?${query}` : ""}`,
+    );
+  },
+
+  createChatConversation: (title?: string) =>
+    request<ChatConversationSummary>("/api/v1/chat/conversations", {
+      method: "POST",
+      body: JSON.stringify({ title }),
+    }),
+
+  getChatConversation: (conversationId: string) =>
+    request<ChatConversationDetail>(
+      `/api/v1/chat/conversations/${conversationId}`,
+    ),
+
+  renameChatConversation: (conversationId: string, title: string) =>
+    request<ChatConversationSummary>(
+      `/api/v1/chat/conversations/${conversationId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ title }),
+      },
+    ),
+
+  deleteChatConversation: (conversationId: string) =>
+    request<{ message: string }>(
+      `/api/v1/chat/conversations/${conversationId}`,
+      { method: "DELETE" },
+    ),
 
   getStatus: () => request<ServerStatus>("/api/v1/status"),
 

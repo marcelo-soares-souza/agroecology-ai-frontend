@@ -181,7 +181,16 @@
     "pollingTimeout": "Tempo de espera excedido",
     "empty": "Pergunte sobre agroecologia, agroflorestas, permacultura, agricultura orgânica, compostagem, biodiversidade, sementes e muito mais.",
     "newChat": "Nova conversa",
-    "saveHistory": "Salvar histórico local",
+    "conversations": "Conversas",
+    "registeredHistoryNotice": "As conversas ficam registradas na sua conta para você continuar a pesquisa depois.",
+    "loadingConversations": "Carregando conversas...",
+    "loadingConversation": "Carregando conversa...",
+    "emptyConversations": "Nenhuma conversa registrada ainda.",
+    "deleteConversation": "Excluir conversa",
+    "deleteCurrentConversation": "Excluir conversa atual",
+    "deleteConversationConfirm": "Excluir esta conversa? Todo o histórico de mensagens dela será removido.",
+    "loadConversationError": "Não foi possível carregar esta conversa.",
+    "saveHistory": "Salvar na conta",
     "reindexingTitle": "Estamos reindexando a base agroecológica",
     "reindexingBody": "Você pode continuar perguntando, mas talvez as respostas não fiquem tão precisas até a atualização terminar.",
     "reindexingProgressDocuments": "{{processed}} de {{total}} documentos já foram processados.",
@@ -653,11 +662,11 @@
       },
       "whatWeCollect": {
         "title": "O Que Coletamos",
-        "content": "Quando você cria uma conta, coletamos:\n\n- Nome completo (obrigatório para exibição e interação na comunidade)\n- Endereço de email (obrigatório para verificação da conta, recuperação e notificações)\n- Senha (armazenada apenas como hash bcrypt com pepper secreto - nunca em texto plano)\n- Idioma/localidade de preferência (para apresentar a interface no seu idioma)\n\nDados de perfil opcionais que você pode fornecer após o registro:\n\n- Texto \"Sobre\" (até 4096 caracteres)\n- Link externo (URL do seu site ou perfil)\n- Avatar de perfil (imagem processada para 256x256 WebP)\n\nQuando você envia sugestões de documentos:\n\n- Seu comentário sobre o documento sugerido\n- O arquivo PDF enviado (se aplicável)\n\nO histórico do chat pode ser armazenado localmente no navegador ou no armazenamento do app mobile para permitir continuar conversas recentes no mesmo dispositivo."
+        "content": "Quando você cria uma conta, coletamos:\n\n- Nome completo (obrigatório para exibição e interação na comunidade)\n- Endereço de email (obrigatório para verificação da conta, recuperação e notificações)\n- Senha (armazenada apenas como hash bcrypt com pepper secreto - nunca em texto plano)\n- Idioma/localidade de preferência (para apresentar a interface no seu idioma)\n\nDados de perfil opcionais que você pode fornecer após o registro:\n\n- Texto \"Sobre\" (até 4096 caracteres)\n- Link externo (URL do seu site ou perfil)\n- Avatar de perfil (imagem processada para 256x256 WebP)\n\nQuando você envia sugestões de documentos:\n\n- Seu comentário sobre o documento sugerido\n- O arquivo PDF enviado (se aplicável)\n\nQuando você usa o chat, as mensagens da conversa e as fontes recuperadas ficam registradas na sua conta para permitir continuar a pesquisa depois."
       },
       "automaticallyCollected": {
         "title": "Dados Coletados Automaticamente",
-        "content": "Quando você usa a plataforma, registramos automaticamente:\n\n- Seu endereço IP (em logs de requisição para segurança e depuração, armazenado apenas nos logs stdout - nunca no banco de dados)\n- Carimbos de data/hora de ações (criação de conta, login, atualizações de perfil)\n- Contagem de caracteres das perguntas e métricas de desempenho ao usar o Chat (o texto completo das suas perguntas NÃO é armazenado nos logs do servidor)\n\nNÃO usamos cookies de publicidade, fingerprinting de navegador, pixels de rastreamento ou serviços de analytics de terceiros. O site e o app usam armazenamento local apenas para sessão, preferência de idioma, escolha de consentimento e histórico local do chat."
+        "content": "Quando você usa a plataforma, registramos automaticamente:\n\n- Seu endereço IP (em logs de requisição para segurança e depuração, armazenado apenas nos logs stdout - nunca no banco de dados)\n- Carimbos de data/hora de ações (criação de conta, login, atualizações de perfil)\n- Contagem de caracteres das perguntas e métricas de desempenho ao usar o Chat (o texto completo das suas perguntas NÃO é armazenado nos logs do servidor)\n\nNÃO usamos cookies de publicidade, fingerprinting de navegador, pixels de rastreamento ou serviços de analytics de terceiros. O site e o app usam armazenamento local apenas para sessão, preferência de idioma e escolha de consentimento."
       },
       "whatWeDontCollect": {
         "title": "O Que NÃO Coletamos",
@@ -669,7 +678,7 @@
       },
       "dataStorage": {
         "title": "Armazenamento e Segurança dos Dados",
-        "content": "Seus dados pessoais são armazenados em:\n\n- Banco de dados PostgreSQL (tabela users) - email, nome, senha hash, campos de perfil, carimbos de data/hora\n- Sistema de arquivos local do servidor - avatares enviados (como imagens WebP), PDFs de documentos\n- LanceDB (banco vetorial) - pedaços de texto de documentos indexados (sem dados pessoais, apenas conteúdo da base de conhecimento)\n- Armazenamento local do navegador ou do app mobile - estado de sessão, preferência de idioma, escolha de consentimento e histórico recente do chat no seu próprio dispositivo\n- Confirmações de email, tokens de redefinição de senha e refresh tokens são armazenados com hash SHA-256 e expiração automática\n\nO processamento de IA depende da configuração da implantação. Pode rodar em modelos locais ou em infraestrutura/provedores configurados pelo projeto; quando uma API externa de IA é usada, apenas os dados necessários para gerar respostas ou metadados são enviados conforme esta política e a configuração da instância.\n\nImplementamos as seguintes medidas de segurança:\n\n- Senhas são hashadas com bcrypt (12 rounds) mais pepper secreto configurável\n- Autenticação usa tokens JWT (TTL de 15 minutos) com rotação de refresh token\n- Endereços de email nos logs são mascarados (ex: j***e@exemplo.com)\n- Todas as APIs usam HTTPS em produção"
+        "content": "Seus dados pessoais são armazenados em:\n\n- Banco de dados PostgreSQL (tabela users) - email, nome, senha hash, campos de perfil, carimbos de data/hora, conversas do chat e mensagens do chat\n- Sistema de arquivos local do servidor - avatares enviados (como imagens WebP), PDFs de documentos\n- LanceDB (banco vetorial) - pedaços de texto de documentos indexados (sem dados pessoais, apenas conteúdo da base de conhecimento)\n- Armazenamento local do navegador ou do app mobile - estado de sessão, preferência de idioma e escolha de consentimento\n- Confirmações de email, tokens de redefinição de senha e refresh tokens são armazenados com hash SHA-256 e expiração automática\n\nO processamento de IA depende da configuração da implantação. Pode rodar em modelos locais ou em infraestrutura/provedores configurados pelo projeto; quando uma API externa de IA é usada, apenas os dados necessários para gerar respostas ou metadados são enviados conforme esta política e a configuração da instância.\n\nImplementamos as seguintes medidas de segurança:\n\n- Senhas são hashadas com bcrypt (12 rounds) mais pepper secreto configurável\n- Autenticação usa tokens JWT (TTL de 15 minutos) com rotação de refresh token\n- Endereços de email nos logs são mascarados (ex: j***e@exemplo.com)\n- Todas as APIs usam HTTPS em produção"
       },
       "dataSharing": {
         "title": "Compartilhamento de Dados",
@@ -677,7 +686,7 @@
       },
       "dataRetention": {
         "title": "Retenção de Dados",
-        "content": "Retemos seus dados pessoais enquanto sua conta permanecer ativa. Quando você exclui sua conta:\n\n- Seu nome, email, texto \"sobre\", link externo e avatar são permanentemente anonimizados ou excluídos\n- O status da sua conta muda para \"deleted\"\n- Todas as sessões ativas e refresh tokens são revogados\n- Contribuições feitas à base de conhecimento (sugestões de documentos, documentos aprovados) são mantidas de forma anonimizada para preservar a integridade da plataforma\n- Logs temporários contendo endereços IP são eliminados nos ciclos de retenção de logs do sistema (tipicamente dias a semanas)"
+        "content": "Retemos seus dados pessoais enquanto sua conta permanecer ativa. Quando você exclui sua conta:\n\n- Seu nome, email, texto \"sobre\", link externo e avatar são permanentemente anonimizados ou excluídos\n- Suas conversas e mensagens salvas do chat são excluídas\n- O status da sua conta muda para \"deleted\"\n- Todas as sessões ativas e refresh tokens são revogados\n- Contribuições feitas à base de conhecimento (sugestões de documentos, documentos aprovados) são mantidas de forma anonimizada para preservar a integridade da plataforma\n- Logs temporários contendo endereços IP são eliminados nos ciclos de retenção de logs do sistema (tipicamente dias a semanas)"
       },
       "userRights": {
         "title": "Seus Direitos",
@@ -739,7 +748,7 @@
     }
   },
   "consent": {
-    "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Usamos armazenamento local para sessão, idioma, este aviso e histórico de chat neste dispositivo. Ao continuar, você reconhece nossa",
+    "message": "Este site não utiliza cookies de publicidade ou rastreadores de terceiros. Usamos armazenamento local para sessão, idioma e este aviso. Conversas do chat ficam registradas na sua conta. Ao continuar, você reconhece nossa",
     "and": "e nossos",
     "acknowledge": "OK",
     "accept": "Aceitar",

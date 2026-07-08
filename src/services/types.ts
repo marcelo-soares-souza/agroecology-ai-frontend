@@ -2,12 +2,16 @@ export interface AskRequest {
   question: string;
   top_k?: number;
   history?: { role: string; content: string }[];
+  conversation_id?: string;
   locale?: string;
 }
 
 export interface AskResponse {
   task_id: string;
   status: string;
+  conversation_id: string | null;
+  user_message_id: string | null;
+  assistant_message_id: string | null;
 }
 
 export interface SourceChunk {
@@ -29,6 +33,45 @@ export interface AnswerResponse {
   answer: string | null;
   sources: SourceChunk[] | null;
   error: string | null;
+  conversation_id: string | null;
+  user_message_id: string | null;
+  assistant_message_id: string | null;
+}
+
+export interface ChatConversationSummary {
+  id: string;
+  title: string;
+  status: string;
+  message_count: number;
+  last_message_preview: string | null;
+  created_at: string;
+  updated_at: string;
+  last_message_at: string;
+}
+
+export interface ChatConversationMessage {
+  id: string;
+  conversation_id: string;
+  role: "user" | "assistant";
+  content: string;
+  status: "thinking" | "done" | "error";
+  task_id: string | null;
+  sources: SourceChunk[] | null;
+  error: string | null;
+  duration_ms: number | null;
+  created_at: string;
+}
+
+export interface ChatConversationDetail {
+  conversation: ChatConversationSummary;
+  messages: ChatConversationMessage[];
+}
+
+export interface ChatConversationListResponse {
+  data: ChatConversationSummary[];
+  total: number;
+  limit: number;
+  offset: number;
 }
 
 export interface ServerStatus {
@@ -261,6 +304,7 @@ export interface ExportedPersonalData {
   user: Record<string, unknown>;
   suggestions: unknown[];
   external_identities: unknown[];
+  chat_conversations: unknown[];
 }
 
 export interface HumanChallenge {

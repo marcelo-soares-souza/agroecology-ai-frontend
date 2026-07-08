@@ -1,46 +1,28 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "@/services/api";
-import type { ChatMessage, AnswerResponse } from "@/services/types";
-import {
-  saveChatMessages,
-  loadChatMessages,
-  clearChatMessages,
-  isChatHistoryEnabled,
-  setChatHistoryEnabled,
-} from "@/lib/ChatStorage";
+import type {
+  AnswerResponse,
+  ChatConversationMessage,
+  ChatMessage,
+} from "@/services/types";
 
-const MAX_HISTORY_MESSAGES = 6;
-const MAX_HISTORY_MESSAGE_CHARS = 1000;
-const MAX_HISTORY_TOTAL_CHARS = 2200;
+interface UseChatOptions {
+  activeConversationId: string | null;
+  onConversationCreated?: (conversationId: string) => void;
+  onConversationChanged?: (conversationId: string) => void;
+}
 
-function buildRequestHistory(messages: ChatMessage[]) {
-  const recentMessages = messages
-    .filter((m) => m.status === "done" && m.content)
-    .slice(-MAX_HISTORY_MESSAGES);
-  const selected: Array<{ role: ChatMessage["role"]; content: string }> = [];
-  let totalChars = 0;
-
-  for (let i = recentMessages.length - 1; i >= 0; i -= 1) {
-    const message = recentMessages[i];
-    const content = message.content
-      .slice(0, MAX_HISTORY_MESSAGE_CHARS)
-      .trim();
-
-    if (!content) continue;
-
-    if (
-      selected.length > 0 &&
-      totalChars + content.length > MAX_HISTORY_TOTAL_CHARS
-    ) {
-      break;
-    }
-
-    selected.unshift({ role: message.role, content });
-    totalChars += content.length;
-  }
-
-  return selected;
+function toUiMessage(message: ChatConversationMessage): ChatMessage {
+  return {
+    id: message.id,
+    role: message.role,
+    content: message.content,
+    status: message.status,
+    sources: message.sources || undefined,
+    error: message.error || undefined,
+    durationMs: message.duration_ms ?? undefined,
+  };
 }
 
 function useTaskPolling(
@@ -58,7 +40,7 @@ function useTaskPolling(
     setPollError(null);
 
     let cancelled = false;
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
     const poll = async () => {
       if (cancelled) return;
@@ -80,34 +62,34 @@ function useTaskPolling(
 
     return () => {
       cancelled = true;
-      if (timer!) clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
   }, [taskId, enabled, unknownError]);
 
   return { result, error: pollError };
 }
 
-export function useChat() {
+export function useChat({
+  activeConversationId,
+  onConversationCreated,
+  onConversationChanged,
+}: UseChatOptions) {
   const { t, i18n } = useTranslation();
-  const [messages, setMessages] = useState<ChatMessage[]>(() =>
-    loadChatMessages(),
-  );
-  const [localHistoryEnabled, setLocalHistoryEnabled] = useState(() =>
-    isChatHistoryEnabled(),
-  );
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isSending, setIsSending] = useState(false);
   const [pollingTaskId, setPollingTaskId] = useState<string | null>(null);
   const [pendingAssistantId, setPendingAssistantId] = useState<string | null>(
     null,
   );
+  const activeConversationIdRef = useRef<string | null>(activeConversationId);
   const pollRetriesRef = useRef(0);
   const requestIdRef = useRef(0);
-  const messagesRef = useRef<ChatMessage[]>([]);
   const startedAtRef = useRef(0);
   const MAX_POLL_RETRIES = 300;
 
-  // Keep messagesRef in sync
-  messagesRef.current = messages;
+  useEffect(() => {
+    activeConversationIdRef.current = activeConversationId;
+  }, [activeConversationId]);
 
   const { result: pollResult, error: pollError } = useTaskPolling(
     pollingTaskId,
@@ -139,6 +121,17 @@ export function useChat() {
     setPollingTaskId(null);
     setPendingAssistantId(null);
     pollRetriesRef.current = 0;
+    setIsSending(false);
+
+    const resultConversationId = pollResult.conversation_id;
+    if (resultConversationId) {
+      onConversationChanged?.(resultConversationId);
+    }
+
+    const isActiveConversation =
+      !resultConversationId ||
+      activeConversationIdRef.current === resultConversationId;
+    if (!isActiveConversation) return;
 
     if (pollResult.status === "done") {
       const durationMs = Date.now() - startedAtRef.current;
@@ -168,8 +161,7 @@ export function useChat() {
         ),
       );
     }
-    setIsSending(false);
-  }, [pollResult, pendingAssistantId, pollingTaskId, t]);
+  }, [onConversationChanged, pendingAssistantId, pollResult, pollingTaskId, t]);
 
   useEffect(() => {
     if (!pollError || !pendingAssistantId) return;
@@ -185,22 +177,47 @@ export function useChat() {
     setIsSending(false);
   }, [pollError, pendingAssistantId]);
 
-  // Persist messages to localStorage on every change
-  useEffect(() => {
-    saveChatMessages(messages);
-  }, [messages]);
-
   const clearChat = useCallback(() => {
+    requestIdRef.current += 1;
     setMessages([]);
     setPollingTaskId(null);
     setPendingAssistantId(null);
     setIsSending(false);
-    clearChatMessages();
   }, []);
+
+  const loadConversationMessages = useCallback(
+    (conversationMessages: ChatConversationMessage[]) => {
+      requestIdRef.current += 1;
+      const nextMessages = conversationMessages.map(toUiMessage);
+      setMessages(nextMessages);
+
+      const pendingMessage = [...conversationMessages]
+        .reverse()
+        .find(
+          (message) =>
+            message.role === "assistant" &&
+            message.status === "thinking" &&
+            message.task_id,
+        );
+
+      if (pendingMessage?.task_id) {
+        setPendingAssistantId(pendingMessage.id);
+        setPollingTaskId(pendingMessage.task_id);
+        setIsSending(true);
+        startedAtRef.current = Date.now();
+      } else {
+        setPendingAssistantId(null);
+        setPollingTaskId(null);
+        setIsSending(false);
+      }
+    },
+    [],
+  );
 
   const sendMessage = useCallback(
     async (question: string) => {
       const currentRequestId = ++requestIdRef.current;
+      const requestConversationId = activeConversationIdRef.current;
       startedAtRef.current = Date.now();
 
       setPollingTaskId(null);
@@ -226,18 +243,42 @@ export function useChat() {
       setMessages((prev) => [...prev, userMsg, assistantMsg]);
 
       try {
-        const recentMessages = buildRequestHistory(messagesRef.current);
-
-        const { task_id } = await api.ask({
+        const response = await api.ask({
           question,
-          history: recentMessages,
+          conversation_id: requestConversationId || undefined,
           locale: i18n.resolvedLanguage || i18n.language || "en",
         });
 
         if (currentRequestId !== requestIdRef.current) return;
 
-        setPendingAssistantId(assistantId);
-        setPollingTaskId(task_id);
+        const responseConversationId =
+          response.conversation_id || requestConversationId;
+        const responseUserMessageId = response.user_message_id || userMsg.id;
+        const responseAssistantMessageId =
+          response.assistant_message_id || assistantId;
+
+        if (responseConversationId) {
+          activeConversationIdRef.current = responseConversationId;
+          if (!requestConversationId) {
+            onConversationCreated?.(responseConversationId);
+          }
+          onConversationChanged?.(responseConversationId);
+        }
+
+        setMessages((prev) =>
+          prev.map((message) => {
+            if (message.id === userMsg.id) {
+              return { ...message, id: responseUserMessageId };
+            }
+            if (message.id === assistantId) {
+              return { ...message, id: responseAssistantMessageId };
+            }
+            return message;
+          }),
+        );
+
+        setPendingAssistantId(responseAssistantMessageId);
+        setPollingTaskId(response.task_id);
       } catch (err) {
         if (currentRequestId !== requestIdRef.current) return;
 
@@ -258,23 +299,20 @@ export function useChat() {
         setIsSending(false);
       }
     },
-    [i18n.language, i18n.resolvedLanguage, t],
+    [
+      i18n.language,
+      i18n.resolvedLanguage,
+      onConversationChanged,
+      onConversationCreated,
+      t,
+    ],
   );
-
-  const setLocalHistory = useCallback((enabled: boolean) => {
-    setChatHistoryEnabled(enabled);
-    setLocalHistoryEnabled(enabled);
-    if (!enabled) {
-      setMessages([]);
-    }
-  }, []);
 
   return {
     messages,
     isSending,
     sendMessage,
     clearChat,
-    localHistoryEnabled,
-    setLocalHistory,
+    loadConversationMessages,
   };
 }

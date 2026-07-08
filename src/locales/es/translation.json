@@ -181,7 +181,16 @@
     "pollingTimeout": "Tiempo de espera agotado",
     "empty": "Pregunta sobre agroecología, agroforestería, permacultura, agricultura orgánica, compostaje, biodiversidad, semillas y mucho más.",
     "newChat": "Nueva conversación",
-    "saveHistory": "Guardar historial local",
+    "conversations": "Conversaciones",
+    "registeredHistoryNotice": "Las conversaciones se guardan en tu cuenta para que puedas continuar tu investigación después.",
+    "loadingConversations": "Cargando conversaciones...",
+    "loadingConversation": "Cargando conversación...",
+    "emptyConversations": "Aún no hay conversaciones registradas.",
+    "deleteConversation": "Eliminar conversación",
+    "deleteCurrentConversation": "Eliminar conversación actual",
+    "deleteConversationConfirm": "¿Eliminar esta conversación? Se quitará todo su historial de mensajes.",
+    "loadConversationError": "No se pudo cargar esta conversación.",
+    "saveHistory": "Guardar historial en la cuenta",
     "reindexingTitle": "Estamos reindexando la base agroecológica",
     "reindexingBody": "Puedes seguir preguntando, pero las respuestas pueden ser menos precisas hasta que termine la actualización.",
     "reindexingProgressDocuments": "{{processed}} de {{total}} documentos ya fueron procesados.",
@@ -653,11 +662,11 @@
       },
       "whatWeCollect": {
         "title": "Qué recopilamos",
-        "content": "Cuando creas una cuenta, recopilamos:\n\n- Nombre completo\n- Dirección de email\n- Contraseña almacenada solo como hash\n- Idioma o configuración regional preferida\n\nTambién puedes proporcionar datos opcionales de perfil: texto de presentación, enlace externo y avatar.\n\nCuando sugieres un documento, recopilamos tu comentario y el archivo enviado, si corresponde.\n\nEl historial del chat puede almacenarse localmente en tu navegador o en la app móvil para continuar conversaciones recientes en el mismo dispositivo."
+        "content": "Cuando creas una cuenta, recopilamos:\n\n- Nombre completo\n- Dirección de email\n- Contraseña almacenada solo como hash\n- Idioma o configuración regional preferida\n\nTambién puedes proporcionar datos opcionales de perfil: texto de presentación, enlace externo y avatar.\n\nCuando sugieres un documento, recopilamos tu comentario y el archivo enviado, si corresponde.\n\nCuando usas el chat, los mensajes de la conversación y las fuentes recuperadas se guardan en tu cuenta para continuar la investigación después."
       },
       "automaticallyCollected": {
         "title": "Datos recopilados automáticamente",
-        "content": "Cuando usas la plataforma, podemos registrar:\n\n- Dirección IP en logs de solicitudes, para seguridad y depuración\n- Marcas de tiempo de acciones como creación de cuenta, inicio de sesión y actualización del perfil\n- Conteo de caracteres de preguntas y métricas de rendimiento del chat\n\nNo usamos cookies publicitarios, fingerprinting, píxeles de seguimiento ni servicios externos de analytics. El sitio y la app usan almacenamiento local solo para sesión, idioma, elección de consentimiento e historial local del chat."
+        "content": "Cuando usas la plataforma, podemos registrar:\n\n- Dirección IP en logs de solicitudes, para seguridad y depuración\n- Marcas de tiempo de acciones como creación de cuenta, inicio de sesión y actualización del perfil\n- Conteo de caracteres de preguntas y métricas de rendimiento del chat\n\nNo usamos cookies publicitarios, fingerprinting, píxeles de seguimiento ni servicios externos de analytics. El sitio y la app usan almacenamiento local solo para sesión, idioma y elección de consentimiento."
       },
       "whatWeDontCollect": {
         "title": "Qué no recopilamos",
@@ -669,7 +678,7 @@
       },
       "dataStorage": {
         "title": "Almacenamiento y seguridad",
-        "content": "Los datos pueden almacenarse en PostgreSQL, el sistema de archivos local del servidor, LanceDB para el índice de documentos y el almacenamiento local de tu navegador o app.\n\nEl procesamiento de IA depende de la configuración de la implementación. Puede ejecutarse en modelos locales o en infraestructura/proveedores configurados por el proyecto; cuando se usa una API externa de IA, solo se envían los datos necesarios para generar respuestas o metadatos según esta política y la configuración de la instancia.\n\nLas contraseñas se almacenan con hash, los tokens tienen expiración, los emails se enmascaran en logs y las APIs usan HTTPS en producción."
+        "content": "Los datos pueden almacenarse en PostgreSQL, incluido el perfil de usuario, conversaciones del chat y mensajes del chat; en el sistema de archivos local del servidor; en LanceDB para el índice de documentos; y en el almacenamiento local de tu navegador o app para sesión, idioma y consentimiento.\n\nEl procesamiento de IA depende de la configuración de la implementación. Puede ejecutarse en modelos locales o en infraestructura/proveedores configurados por el proyecto; cuando se usa una API externa de IA, solo se envían los datos necesarios para generar respuestas o metadatos según esta política y la configuración de la instancia.\n\nLas contraseñas se almacenan con hash, los tokens tienen expiración, los emails se enmascaran en logs y las APIs usan HTTPS en producción."
       },
       "dataSharing": {
         "title": "Compartición de datos",
@@ -677,7 +686,7 @@
       },
       "dataRetention": {
         "title": "Conservación",
-        "content": "Conservamos tus datos mientras tu cuenta esté activa. Cuando eliminas tu cuenta, tus datos personales se anonimizan o eliminan, las sesiones se revocan y las contribuciones pueden permanecer en la base de conocimiento de forma anonimizada."
+        "content": "Conservamos tus datos mientras tu cuenta esté activa. Cuando eliminas tu cuenta, tus datos personales se anonimizan o eliminan, tus conversaciones guardadas del chat se eliminan, las sesiones se revocan y las contribuciones pueden permanecer en la base de conocimiento de forma anonimizada."
       },
       "userRights": {
         "title": "Tus derechos",
@@ -685,7 +694,7 @@
       },
       "rightToBeForgotten": {
         "title": "Eliminación de cuenta",
-        "content": "Puedes solicitar la eliminación de tu cuenta desde tu perfil. Se envía un email de confirmación. Después de confirmar, tus datos personales se anonimizan permanentemente y tus sesiones se terminan."
+        "content": "Puedes solicitar la eliminación de tu cuenta desde tu perfil. Se envía un email de confirmación. Después de confirmar, tus datos personales se anonimizan permanentemente, tus conversaciones guardadas del chat se eliminan y tus sesiones se terminan."
       },
       "appStoreCompliance": {
         "title": "Cumplimiento móvil",
@@ -739,7 +748,7 @@
     }
   },
   "consent": {
-    "message": "Este sitio no utiliza cookies publicitarios ni rastreadores de terceros. Usamos almacenamiento local para sesión, idioma, este aviso e historial de chat en este dispositivo. Al continuar, reconoces nuestra",
+    "message": "Este sitio no utiliza cookies publicitarios ni rastreadores de terceros. Usamos almacenamiento local para sesión, idioma y este aviso. Las conversaciones del chat se guardan en tu cuenta. Al continuar, reconoces nuestra",
     "and": "y nuestros",
     "acknowledge": "OK",
     "accept": "Aceptar",

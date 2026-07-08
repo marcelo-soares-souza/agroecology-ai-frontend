@@ -181,7 +181,16 @@
     "pollingTimeout": "Délai d'attente dépassé",
     "empty": "Posez une question sur l'agroécologie, l'agroforesterie, la permaculture, l'agriculture biologique, le compostage, la biodiversité, les semences et bien plus encore.",
     "newChat": "Nouvelle conversation",
-    "saveHistory": "Enregistrer l'historique local",
+    "conversations": "Conversations",
+    "registeredHistoryNotice": "Les conversations sont enregistrées dans votre compte pour reprendre vos recherches plus tard.",
+    "loadingConversations": "Chargement des conversations...",
+    "loadingConversation": "Chargement de la conversation...",
+    "emptyConversations": "Aucune conversation enregistrée pour le moment.",
+    "deleteConversation": "Supprimer la conversation",
+    "deleteCurrentConversation": "Supprimer la conversation actuelle",
+    "deleteConversationConfirm": "Supprimer cette conversation ? Tout son historique de messages sera retiré.",
+    "loadConversationError": "Impossible de charger cette conversation.",
+    "saveHistory": "Enregistrer dans le compte",
     "reindexingTitle": "Nous réindexons la base agroécologique",
     "reindexingBody": "Vous pouvez continuer à poser des questions, mais les réponses peuvent être moins précises jusqu'à la fin de la mise à jour.",
     "reindexingProgressDocuments": "{{processed}} document(s) sur {{total}} ont déjà été traités.",
@@ -653,11 +662,11 @@
       },
       "whatWeCollect": {
         "title": "Ce que nous collectons",
-        "content": "Lorsque vous créez un compte, nous collectons :\n\n- Nom complet\n- Adresse email\n- Mot de passe stocké uniquement sous forme de hash\n- Langue ou locale préférée\n\nVous pouvez aussi fournir des données de profil facultatives : texte de présentation, lien externe et avatar.\n\nLorsque vous suggérez un document, nous collectons votre commentaire et le fichier envoyé, le cas échéant.\n\nL'historique du chat peut être stocké localement dans votre navigateur ou dans l'app mobile pour continuer les conversations récentes sur le même appareil."
+        "content": "Lorsque vous créez un compte, nous collectons :\n\n- Nom complet\n- Adresse email\n- Mot de passe stocké uniquement sous forme de hash\n- Langue ou locale préférée\n\nVous pouvez aussi fournir des données de profil facultatives : texte de présentation, lien externe et avatar.\n\nLorsque vous suggérez un document, nous collectons votre commentaire et le fichier envoyé, le cas échéant.\n\nLorsque vous utilisez le chat, les messages de conversation et les sources retrouvées sont enregistrés dans votre compte pour reprendre vos recherches plus tard."
       },
       "automaticallyCollected": {
         "title": "Données collectées automatiquement",
-        "content": "Lorsque vous utilisez la plateforme, nous pouvons enregistrer :\n\n- Adresse IP dans les logs de requêtes, à des fins de sécurité et de débogage\n- Horodatages des actions comme création de compte, connexion et mise à jour du profil\n- Nombre de caractères des questions et métriques de performance du chat\n\nNous n'utilisons pas de cookies publicitaires, fingerprinting, pixels de suivi ni services d'analytics tiers. Le site et l'app utilisent le stockage local seulement pour la session, la langue, le choix de consentement et l'historique local du chat."
+        "content": "Lorsque vous utilisez la plateforme, nous pouvons enregistrer :\n\n- Adresse IP dans les logs de requêtes, à des fins de sécurité et de débogage\n- Horodatages des actions comme création de compte, connexion et mise à jour du profil\n- Nombre de caractères des questions et métriques de performance du chat\n\nNous n'utilisons pas de cookies publicitaires, fingerprinting, pixels de suivi ni services d'analytics tiers. Le site et l'app utilisent le stockage local seulement pour la session, la langue et le choix de consentement."
       },
       "whatWeDontCollect": {
         "title": "Ce que nous ne collectons pas",
@@ -669,7 +678,7 @@
       },
       "dataStorage": {
         "title": "Stockage et sécurité",
-        "content": "Les données peuvent être stockées dans PostgreSQL, le système de fichiers local du serveur, LanceDB pour l'index de documents, et le stockage local de votre navigateur ou app.\n\nLe traitement IA dépend de la configuration du déploiement. Il peut s'exécuter sur des modèles locaux ou sur une infrastructure/des fournisseurs configurés par le projet ; lorsqu'une API externe d'IA est utilisée, seules les données nécessaires pour générer des réponses ou des métadonnées sont envoyées selon cette politique et la configuration de l'instance.\n\nLes mots de passe sont hashés, les tokens ont une expiration, les emails sont masqués dans les logs et les API utilisent HTTPS en production."
+        "content": "Les données peuvent être stockées dans PostgreSQL, y compris le profil utilisateur, les conversations du chat et les messages du chat ; dans le système de fichiers local du serveur ; dans LanceDB pour l'index de documents ; et dans le stockage local de votre navigateur ou app pour la session, la langue et le consentement.\n\nLe traitement IA dépend de la configuration du déploiement. Il peut s'exécuter sur des modèles locaux ou sur une infrastructure/des fournisseurs configurés par le projet ; lorsqu'une API externe d'IA est utilisée, seules les données nécessaires pour générer des réponses ou des métadonnées sont envoyées selon cette politique et la configuration de l'instance.\n\nLes mots de passe sont hashés, les tokens ont une expiration, les emails sont masqués dans les logs et les API utilisent HTTPS en production."
       },
       "dataSharing": {
         "title": "Partage des données",
@@ -677,7 +686,7 @@
       },
       "dataRetention": {
         "title": "Conservation",
-        "content": "Nous conservons vos données tant que votre compte est actif. Lorsque vous supprimez votre compte, vos données personnelles sont anonymisées ou supprimées, les sessions sont révoquées et les contributions peuvent rester dans la base de connaissances sous forme anonymisée."
+        "content": "Nous conservons vos données tant que votre compte est actif. Lorsque vous supprimez votre compte, vos données personnelles sont anonymisées ou supprimées, vos conversations de chat enregistrées sont supprimées, les sessions sont révoquées et les contributions peuvent rester dans la base de connaissances sous forme anonymisée."
       },
       "userRights": {
         "title": "Vos droits",
@@ -685,7 +694,7 @@
       },
       "rightToBeForgotten": {
         "title": "Suppression du compte",
-        "content": "Vous pouvez demander la suppression de votre compte depuis votre profil. Un email de confirmation est envoyé. Après confirmation, vos données personnelles sont anonymisées de façon permanente et vos sessions sont terminées."
+        "content": "Vous pouvez demander la suppression de votre compte depuis votre profil. Un email de confirmation est envoyé. Après confirmation, vos données personnelles sont anonymisées de façon permanente, vos conversations de chat enregistrées sont supprimées et vos sessions sont terminées."
       },
       "appStoreCompliance": {
         "title": "Conformité mobile",
@@ -739,7 +748,7 @@
     }
   },
   "consent": {
-    "message": "Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Nous utilisons le stockage local pour la session, la langue, cet avis et l'historique du chat sur cet appareil. En continuant, vous reconnaissez notre",
+    "message": "Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Nous utilisons le stockage local pour la session, la langue et cet avis. Les conversations du chat sont enregistrées dans votre compte. En continuant, vous reconnaissez notre",
     "and": "et nos",
     "acknowledge": "OK",
     "accept": "Accepter",

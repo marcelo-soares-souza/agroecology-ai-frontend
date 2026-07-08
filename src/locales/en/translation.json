@@ -181,7 +181,16 @@
     "pollingTimeout": "Polling timeout",
     "empty": "Ask about agroecology, agroforestry, permaculture, organic farming, composting, biodiversity, seeds, and much more.",
     "newChat": "New chat",
-    "saveHistory": "Save local history",
+    "conversations": "Conversations",
+    "registeredHistoryNotice": "Conversations are saved to your account so you can continue your research later.",
+    "loadingConversations": "Loading conversations...",
+    "loadingConversation": "Loading conversation...",
+    "emptyConversations": "No registered conversations yet.",
+    "deleteConversation": "Delete conversation",
+    "deleteCurrentConversation": "Delete current conversation",
+    "deleteConversationConfirm": "Delete this conversation? This removes its full message history.",
+    "loadConversationError": "Could not load this conversation.",
+    "saveHistory": "Save to account",
     "reindexingTitle": "We are reindexing the agroecology base",
     "reindexingBody": "You can keep asking questions, but answers may be less precise until the update finishes.",
     "reindexingProgressDocuments": "{{processed}} of {{total}} documents have been processed.",
@@ -653,11 +662,11 @@
       },
       "whatWeCollect": {
         "title": "What We Collect",
-        "content": "When you register an account, we collect:\n\n- Full name (required for display and community interaction)\n- Email address (required for account verification, recovery, and notifications)\n- Password (stored only as a bcrypt hash with a secret pepper - never stored in plain text)\n- Preferred locale/language (to present the interface in your language)\n\nOptional profile data you may provide after registration:\n\n- Bio/About text (up to 4096 characters)\n- External link (URL to your website or profile)\n- Profile avatar image (processed to 256x256 WebP)\n\nWhen you submit document suggestions:\n\n- Your user comment about the suggested document\n- The PDF file you upload (if applicable)\n\nChat history may be stored locally in your browser or mobile app storage so you can continue recent conversations on the same device."
+        "content": "When you register an account, we collect:\n\n- Full name (required for display and community interaction)\n- Email address (required for account verification, recovery, and notifications)\n- Password (stored only as a bcrypt hash with a secret pepper - never stored in plain text)\n- Preferred locale/language (to present the interface in your language)\n\nOptional profile data you may provide after registration:\n\n- Bio/About text (up to 4096 characters)\n- External link (URL to your website or profile)\n- Profile avatar image (processed to 256x256 WebP)\n\nWhen you submit document suggestions:\n\n- Your user comment about the suggested document\n- The PDF file you upload (if applicable)\n\nWhen you use the chat, your conversation messages and retrieved sources are stored in your account so you can resume research later."
       },
       "automaticallyCollected": {
         "title": "Automatically Collected Data",
-        "content": "When you use the platform, we automatically log:\n\n- Your IP address (in request logs for security and debugging purposes, stored in stdout logs only - not in the database)\n- Timestamps of actions (account creation, login, profile updates)\n- Question character counts and performance metrics when using the Chat feature (the full text of your questions is NOT stored in server logs)\n\nWe DO NOT use advertising cookies, browser fingerprinting, tracking pixels, or third-party analytics services. The web and mobile apps use local storage only for session data, language preference, consent choice, and local chat history."
+        "content": "When you use the platform, we automatically log:\n\n- Your IP address (in request logs for security and debugging purposes, stored in stdout logs only - not in the database)\n- Timestamps of actions (account creation, login, profile updates)\n- Question character counts and performance metrics when using the Chat feature (the full text of your questions is NOT stored in server logs)\n\nWe DO NOT use advertising cookies, browser fingerprinting, tracking pixels, or third-party analytics services. The web and mobile apps use local storage only for session data, language preference, and consent choice."
       },
       "whatWeDontCollect": {
         "title": "What We DON'T Collect",
@@ -669,7 +678,7 @@
       },
       "dataStorage": {
         "title": "Data Storage and Security",
-        "content": "Your personal data is stored in:\n\n- PostgreSQL database (users table) - email, name, hashed password, profile fields, timestamps\n- Local server filesystem - uploaded avatars (as WebP images), document PDFs\n- LanceDB vector store - text chunks from ingested documents (no personal data, only knowledge base content)\n- Local browser or mobile app storage - session state, language preference, consent choice, and recent chat history on your own device\n- Email confirmations, password reset tokens, and refresh tokens are stored with SHA-256 hashing and automatic expiration\n\nAI processing depends on the deployment configuration. It may run on local models or on infrastructure/providers configured by the project; when an external AI API is used, only the data needed to generate answers or metadata is sent according to this policy and the instance configuration.\n\nWe implement the following security measures:\n\n- Passwords are hashed with bcrypt (12 rounds) plus a configurable secret pepper\n- Authentication uses JWT access tokens (15-minute TTL) with refresh token rotation\n- Email addresses in logs are masked (e.g., j***e@example.com)\n- All APIs use HTTPS in production"
+        "content": "Your personal data is stored in:\n\n- PostgreSQL database (users table) - email, name, hashed password, profile fields, timestamps, chat conversations, and chat messages\n- Local server filesystem - uploaded avatars (as WebP images), document PDFs\n- LanceDB vector store - text chunks from ingested documents (no personal data, only knowledge base content)\n- Local browser or mobile app storage - session state, language preference, and consent choice\n- Email confirmations, password reset tokens, and refresh tokens are stored with SHA-256 hashing and automatic expiration\n\nAI processing depends on the deployment configuration. It may run on local models or on infrastructure/providers configured by the project; when an external AI API is used, only the data needed to generate answers or metadata is sent according to this policy and the instance configuration.\n\nWe implement the following security measures:\n\n- Passwords are hashed with bcrypt (12 rounds) plus a configurable secret pepper\n- Authentication uses JWT access tokens (15-minute TTL) with refresh token rotation\n- Email addresses in logs are masked (e.g., j***e@example.com)\n- All APIs use HTTPS in production"
       },
       "dataSharing": {
         "title": "Data Sharing",
@@ -677,7 +686,7 @@
       },
       "dataRetention": {
         "title": "Data Retention",
-        "content": "We retain your personal data for as long as your account remains active. When you delete your account:\n\n- Your name, email, about text, external link, and avatar are permanently anonymized or deleted\n- Your account status changes to \"deleted\"\n- All active sessions and refresh tokens are revoked\n- Contributions you made to the knowledge base (document suggestions, approved documents) are retained in anonymized form to preserve the integrity of the platform\n- Temporary logs containing IP addresses rotate out within system log retention cycles (typically days to weeks)"
+        "content": "We retain your personal data for as long as your account remains active. When you delete your account:\n\n- Your name, email, about text, external link, and avatar are permanently anonymized or deleted\n- Your saved chat conversations and messages are deleted\n- Your account status changes to \"deleted\"\n- All active sessions and refresh tokens are revoked\n- Contributions you made to the knowledge base (document suggestions, approved documents) are retained in anonymized form to preserve the integrity of the platform\n- Temporary logs containing IP addresses rotate out within system log retention cycles (typically days to weeks)"
       },
       "userRights": {
         "title": "Your Rights",
@@ -739,7 +748,7 @@
     }
   },
   "consent": {
-    "message": "This site does not use advertising cookies or third-party trackers. We use local storage for session, language, this notice, and chat history on this device. By continuing, you acknowledge our",
+    "message": "This site does not use advertising cookies or third-party trackers. We use local storage for session, language, and this notice. Chat conversations are saved to your account. By continuing, you acknowledge our",
     "and": "and",
     "acknowledge": "OK",
     "accept": "Accept",

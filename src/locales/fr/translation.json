@@ -12,7 +12,7 @@
     "upload": "Importer des Fichiers",
     "ingestion": "Ingestion",
     "about": "À propos",
-    "rag": "Ce que c'est et comment ça marche",
+    "rag": "Comment ça marche",
     "donate": "Soutenir",
     "mobile": "App",
     "social": "Réseaux Sociaux",
@@ -490,7 +490,7 @@
     "ctaDocuments": "Voir la base de connaissances"
   },
   "rag": {
-    "title": "Ce que c'est et comment ça marche",
+    "title": "Comment ça marche",
     "metaDescription": "Découvrez comment Agroecology Map AI utilise la Retrieval-Augmented Generation pour répondre à partir de vrais documents agroécologiques avec des sources vérifiables.",
     "infographicAlt": "Infographie expliquant comment Agroecology Map AI fonctionne comme un système de Retrieval-Augmented Generation.",
     "openInfographic": "Ouvrir l'infographie complète",

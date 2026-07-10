@@ -12,7 +12,7 @@
     "upload": "Enviar Arquivos",
     "ingestion": "Ingestão",
     "about": "Sobre",
-    "rag": "O que é e como funciona",
+    "rag": "Como funciona",
     "donate": "Apoiar",
     "mobile": "App",
     "social": "Redes Sociais",
@@ -490,7 +490,7 @@
     "mobile": "Mobile: Flutter 3.44 + Dart + Clean Architecture"
   },
   "rag": {
-    "title": "O que é e como funciona",
+    "title": "Como funciona",
     "metaDescription": "Entenda como o Agroecology Map AI usa Retrieval-Augmented Generation para responder a partir de documentos agroecológicos reais, com fontes verificáveis.",
     "infographicAlt": "Infográfico explicando como o Agroecology Map AI funciona como um sistema de Retrieval-Augmented Generation.",
     "openInfographic": "Abrir infográfico completo",

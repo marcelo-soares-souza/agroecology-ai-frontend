@@ -12,7 +12,7 @@
     "upload": "Subir Archivos",
     "ingestion": "Ingesta",
     "about": "Acerca de",
-    "rag": "Qué es y cómo funciona",
+    "rag": "Cómo funciona",
     "donate": "Apoyar",
     "mobile": "App",
     "social": "Redes Sociales",
@@ -490,7 +490,7 @@
     "ctaDocuments": "Ver base de conocimiento"
   },
   "rag": {
-    "title": "Qué es y cómo funciona",
+    "title": "Cómo funciona",
     "metaDescription": "Conoce cómo Agroecology Map AI usa Retrieval-Augmented Generation para responder desde documentos agroecológicos reales con fuentes verificables.",
     "infographicAlt": "Infografía que explica cómo Agroecology Map AI funciona como un sistema de Retrieval-Augmented Generation.",
     "openInfographic": "Abrir infografía completa",

@@ -12,6 +12,7 @@
     "upload": "Importer des Fichiers",
     "ingestion": "Ingestion",
     "about": "À propos",
+    "rag": "Ce que c'est et comment ça marche",
     "donate": "Soutenir",
     "mobile": "App",
     "social": "Réseaux Sociaux",
@@ -487,6 +488,84 @@
     "ctaChat": "Utiliser le chat",
     "ctaDonate": "Soutenir le projet",
     "ctaDocuments": "Voir la base de connaissances"
+  },
+  "rag": {
+    "title": "Ce que c'est et comment ça marche",
+    "metaDescription": "Découvrez comment Agroecology Map AI utilise la Retrieval-Augmented Generation pour répondre à partir de vrais documents agroécologiques avec des sources vérifiables.",
+    "infographicAlt": "Infographie expliquant comment Agroecology Map AI fonctionne comme un système de Retrieval-Augmented Generation.",
+    "openInfographic": "Ouvrir l'infographie complète",
+    "intro": "Agroecology Map AI n'est pas seulement un chatbot qui répond depuis la mémoire du modèle. Il recherche dans une base de documents agroécologiques, récupère des passages pertinents et génère des réponses liées à des sources que vous pouvez vérifier.",
+    "llm": {
+      "title": "Ce que fait un LLM générique",
+      "description": "Un modèle de langage génère du texte à partir de modèles appris pendant l'entraînement. Il peut être utile, mais les réponses peuvent être incomplètes, obsolètes, déconnectées de vos documents ou sans sources."
+    },
+    "rag": {
+      "title": "Ce que RAG ajoute",
+      "description": "La Retrieval-Augmented Generation ajoute une étape de recherche avant la réponse. Le système consulte les documents indexés, sélectionne les passages pertinents et demande à l'IA d'écrire à partir de ces preuves récupérées."
+    },
+    "workflow": {
+      "title": "Comment fonctionne notre flux RAG",
+      "description": "Chaque réponse passe par une pipeline simple qui maintient le texte connecté à la base de connaissances.",
+      "ask": {
+        "title": "Vous demandez",
+        "description": "Une question de recherche, d'étude, d'enseignement ou de terrain lance le processus."
+      },
+      "search": {
+        "title": "Nous recherchons",
+        "description": "La plateforme consulte la base de connaissances agroécologiques indexée."
+      },
+      "retrieve": {
+        "title": "Nous récupérons",
+        "description": "Les documents et passages les plus pertinents sont sélectionnés pour la réponse."
+      },
+      "generate": {
+        "title": "L'IA écrit",
+        "description": "Le modèle de langage rédige une réponse claire à partir des informations récupérées."
+      },
+      "sources": {
+        "title": "Vous vérifiez",
+        "description": "La réponse inclut des sources pour lire, comparer, citer et questionner."
+      }
+    },
+    "benefits": {
+      "title": "Pourquoi c'est important",
+      "transparent": {
+        "title": "Transparent",
+        "description": "Les réponses restent liées à des documents, au lieu d'apparaître comme des affirmations isolées."
+      },
+      "verifiable": {
+        "title": "Vérifiable",
+        "description": "Vous pouvez ouvrir les sources, comparer le contexte et poursuivre la lecture."
+      },
+      "reliable": {
+        "title": "Plus fiable",
+        "description": "Le système s'appuie sur des matériaux agroécologiques fiables sélectionnés dans la base de connaissances."
+      },
+      "useful": {
+        "title": "Utile en pratique",
+        "description": "Il soutient l'étude, la planification de terrain, l'enseignement, la recherche, la vulgarisation et l'apprentissage communautaire."
+      }
+    },
+    "knowledgeBase": {
+      "title": "Construit sur une base diversifiée",
+      "description": "La base de connaissances peut inclure des matériaux scientifiques, techniques, éducatifs et communautaires.",
+      "technicalGuides": "Guides techniques",
+      "academicPapers": "Articles académiques",
+      "communityMaterials": "Matériaux communautaires",
+      "reports": "Rapports et évaluations",
+      "manuals": "Manuels et guides",
+      "otherResources": "Autres ressources indexées"
+    },
+    "cta": {
+      "title": "Explorez les sources derrière les réponses",
+      "description": "Posez des questions, consultez les documents, suggérez de nouveaux matériaux, utilisez l'app mobile, révisez le code source ou soutenez le projet.",
+      "chat": "Demander à l'IA",
+      "documents": "Voir les documents",
+      "suggest": "Suggérer un contenu",
+      "mobile": "App mobile",
+      "source": "Code source",
+      "support": "Soutenir"
+    }
   },
   "profile": {
     "title": "Profil",

@@ -17,6 +17,7 @@ import {
   Shield,
   Scale,
   Smartphone,
+  Database,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
@@ -241,6 +242,14 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <NavLink to="/about" className={linkClass} onClick={onClose}>
             <Info className="h-4 w-4" />
             {t("nav.about")}
+          </NavLink>
+          <NavLink
+            to="/how-it-works"
+            className={linkClass}
+            onClick={onClose}
+          >
+            <Database className="h-4 w-4" />
+            {t("nav.rag")}
           </NavLink>
           <NavLink to="/mobile" className={linkClass} onClick={onClose}>
             <Smartphone className="h-4 w-4" />

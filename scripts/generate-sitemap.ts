@@ -19,6 +19,7 @@ interface SitemapEntry {
 const staticRoutes: SitemapEntry[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
   { loc: "/about", changefreq: "monthly", priority: "0.8" },
+  { loc: "/how-it-works", changefreq: "monthly", priority: "0.8" },
   { loc: "/donate", changefreq: "monthly", priority: "0.7" },
   { loc: "/documents", changefreq: "daily", priority: "0.9" },
   { loc: "/community", changefreq: "daily", priority: "0.8" },

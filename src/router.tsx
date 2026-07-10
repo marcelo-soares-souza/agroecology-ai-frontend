@@ -68,6 +68,7 @@ const AboutPage = lazyPage(
   () => import("./features/about/AboutPage"),
   "AboutPage",
 );
+const RagPage = lazyPage(() => import("./features/about/RagPage"), "RagPage");
 const DonatePage = lazyPage(
   () => import("./features/donate/DonatePage"),
   "DonatePage",
@@ -356,6 +357,14 @@ export const router = createBrowserRouter(
           handle: {
             titleKey: "about.title",
             descriptionKey: "about.description",
+          },
+        },
+        {
+          path: "/how-it-works",
+          element: <RagPage />,
+          handle: {
+            titleKey: "rag.title",
+            descriptionKey: "rag.metaDescription",
           },
         },
         {

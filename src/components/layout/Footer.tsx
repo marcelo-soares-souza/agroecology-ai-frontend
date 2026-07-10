@@ -36,6 +36,9 @@ export function Footer() {
                 <FooterLink to="/chat">{t("nav.home")}</FooterLink>
               </li>
               <li>
+                <FooterLink to="/how-it-works">{t("nav.rag")}</FooterLink>
+              </li>
+              <li>
                 <FooterLink to="/documents">{t("nav.documents")}</FooterLink>
               </li>
               <li>

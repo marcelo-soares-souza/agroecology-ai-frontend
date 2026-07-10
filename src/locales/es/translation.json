@@ -12,6 +12,7 @@
     "upload": "Subir Archivos",
     "ingestion": "Ingesta",
     "about": "Acerca de",
+    "rag": "Qué es y cómo funciona",
     "donate": "Apoyar",
     "mobile": "App",
     "social": "Redes Sociales",
@@ -487,6 +488,84 @@
     "ctaChat": "Usar el chat",
     "ctaDonate": "Apoyar el proyecto",
     "ctaDocuments": "Ver base de conocimiento"
+  },
+  "rag": {
+    "title": "Qué es y cómo funciona",
+    "metaDescription": "Conoce cómo Agroecology Map AI usa Retrieval-Augmented Generation para responder desde documentos agroecológicos reales con fuentes verificables.",
+    "infographicAlt": "Infografía que explica cómo Agroecology Map AI funciona como un sistema de Retrieval-Augmented Generation.",
+    "openInfographic": "Abrir infografía completa",
+    "intro": "Agroecology Map AI no es solo un chatbot que responde desde la memoria del modelo. Busca en una base de documentos agroecológicos, recupera fragmentos relevantes y genera respuestas conectadas a fuentes que puedes revisar.",
+    "llm": {
+      "title": "Qué hace un LLM genérico",
+      "description": "Un modelo de lenguaje genera texto a partir de patrones aprendidos durante el entrenamiento. Puede ser útil, pero las respuestas pueden estar incompletas, desactualizadas, desconectadas de tus documentos o sin fuentes."
+    },
+    "rag": {
+      "title": "Qué agrega RAG",
+      "description": "Retrieval-Augmented Generation agrega una etapa de búsqueda antes de la respuesta. El sistema revisa documentos indexados, selecciona fragmentos relevantes y pide a la IA que escriba usando esa evidencia recuperada."
+    },
+    "workflow": {
+      "title": "Cómo funciona nuestro flujo RAG",
+      "description": "Cada respuesta pasa por una pipeline simple que mantiene el texto conectado a la base de conocimiento.",
+      "ask": {
+        "title": "Tú preguntas",
+        "description": "Una pregunta de investigación, estudio, enseñanza o trabajo de campo inicia el proceso."
+      },
+      "search": {
+        "title": "Buscamos",
+        "description": "La plataforma consulta la base de conocimiento agroecológico indexada."
+      },
+      "retrieve": {
+        "title": "Recuperamos",
+        "description": "Se seleccionan los documentos y fragmentos más relevantes para la respuesta."
+      },
+      "generate": {
+        "title": "La IA escribe",
+        "description": "El modelo de lenguaje escribe una respuesta clara usando la información recuperada."
+      },
+      "sources": {
+        "title": "Tú verificas",
+        "description": "La respuesta incluye fuentes para leer, comparar, citar y cuestionar."
+      }
+    },
+    "benefits": {
+      "title": "Por qué importa",
+      "transparent": {
+        "title": "Transparente",
+        "description": "Las respuestas quedan conectadas a documentos, en lugar de aparecer como afirmaciones aisladas."
+      },
+      "verifiable": {
+        "title": "Verificable",
+        "description": "Puedes abrir las fuentes, comparar el contexto y seguir leyendo."
+      },
+      "reliable": {
+        "title": "Más confiable",
+        "description": "El sistema se apoya en materiales agroecológicos confiables seleccionados desde la base de conocimiento."
+      },
+      "useful": {
+        "title": "Útil en la práctica",
+        "description": "Apoya estudio, planificación de campo, enseñanza, investigación, extensión y aprendizaje comunitario."
+      }
+    },
+    "knowledgeBase": {
+      "title": "Construido sobre una base diversa",
+      "description": "La base de conocimiento puede incluir materiales científicos, técnicos, educativos y comunitarios.",
+      "technicalGuides": "Guías técnicas",
+      "academicPapers": "Artículos académicos",
+      "communityMaterials": "Materiales comunitarios",
+      "reports": "Informes y evaluaciones",
+      "manuals": "Manuales y cartillas",
+      "otherResources": "Otros recursos indexados"
+    },
+    "cta": {
+      "title": "Explora las fuentes detrás de las respuestas",
+      "description": "Haz preguntas, revisa los documentos, sugiere nuevos materiales, usa la app móvil, revisa el código fuente o apoya el proyecto.",
+      "chat": "Preguntar a la IA",
+      "documents": "Ver documentos",
+      "suggest": "Sugerir material",
+      "mobile": "App móvil",
+      "source": "Código fuente",
+      "support": "Apoyar"
+    }
   },
   "profile": {
     "title": "Perfil",

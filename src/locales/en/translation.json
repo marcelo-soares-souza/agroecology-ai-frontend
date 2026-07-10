@@ -12,6 +12,7 @@
     "upload": "Upload Files",
     "ingestion": "Ingestion",
     "about": "About",
+    "rag": "What it is and how it works",
     "donate": "Donate",
     "mobile": "App",
     "suggestions": "My Suggestions",
@@ -487,6 +488,84 @@
     "ctaDocuments": "View knowledge base",
     "mobileRepo": "Mobile App (Flutter)",
     "mobile": "Mobile: Flutter 3.44 + Dart + Clean Architecture"
+  },
+  "rag": {
+    "title": "What it is and how it works",
+    "metaDescription": "Learn how Agroecology Map AI uses Retrieval-Augmented Generation to answer from real agroecological documents with verifiable sources.",
+    "infographicAlt": "Infographic explaining how Agroecology Map AI works as a Retrieval-Augmented Generation system.",
+    "openInfographic": "Open full infographic",
+    "intro": "Agroecology Map AI is not just a chatbot answering from model memory. It searches a knowledge base of agroecological documents, retrieves relevant passages, and generates answers connected to sources you can inspect.",
+    "llm": {
+      "title": "What a generic LLM does",
+      "description": "A language model generates text from patterns learned during training. It can be useful, but answers may be incomplete, outdated, disconnected from your documents, or unsupported by sources."
+    },
+    "rag": {
+      "title": "What RAG adds",
+      "description": "Retrieval-Augmented Generation adds a search step before the answer. The system looks through indexed documents, selects relevant passages, and asks the AI to write from that retrieved evidence."
+    },
+    "workflow": {
+      "title": "How our RAG workflow works",
+      "description": "Each answer is built through a simple pipeline that keeps the response tied to the knowledge base.",
+      "ask": {
+        "title": "You ask",
+        "description": "A research, study, teaching, or field question starts the process."
+      },
+      "search": {
+        "title": "We search",
+        "description": "The platform checks the indexed agroecology knowledge base."
+      },
+      "retrieve": {
+        "title": "We retrieve",
+        "description": "The most relevant documents and passages are selected for the answer."
+      },
+      "generate": {
+        "title": "AI writes",
+        "description": "The language model writes a clear response using the retrieved information."
+      },
+      "sources": {
+        "title": "You verify",
+        "description": "The answer includes sources so you can read, compare, cite, and question."
+      }
+    },
+    "benefits": {
+      "title": "Why this matters",
+      "transparent": {
+        "title": "Transparent",
+        "description": "Answers are connected to documents instead of appearing as isolated claims."
+      },
+      "verifiable": {
+        "title": "Verifiable",
+        "description": "You can open the sources, compare context, and continue reading."
+      },
+      "reliable": {
+        "title": "More reliable",
+        "description": "The system is grounded in trusted agroecological materials selected from the knowledge base."
+      },
+      "useful": {
+        "title": "Useful in practice",
+        "description": "It supports study, field planning, teaching, research, extension work, and community learning."
+      }
+    },
+    "knowledgeBase": {
+      "title": "Built on a diverse knowledge base",
+      "description": "The knowledge base can include scientific, technical, educational, and community materials.",
+      "technicalGuides": "Technical guides",
+      "academicPapers": "Academic papers",
+      "communityMaterials": "Community materials",
+      "reports": "Reports and assessments",
+      "manuals": "Manuals and handbooks",
+      "otherResources": "Other indexed resources"
+    },
+    "cta": {
+      "title": "Explore the sources behind the answers",
+      "description": "Ask questions, inspect the documents, suggest new materials, use the mobile app, review the source code, or support the project.",
+      "chat": "Ask the AI",
+      "documents": "View documents",
+      "suggest": "Suggest material",
+      "mobile": "Mobile app",
+      "source": "Source code",
+      "support": "Support"
+    }
   },
   "profile": {
     "title": "Profile",

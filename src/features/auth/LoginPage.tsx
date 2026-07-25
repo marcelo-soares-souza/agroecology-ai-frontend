@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { isAuthRateLimitError, type AuthRateLimitInfo } from "@/services/api";
 import { AuthRateLimitBlock } from "./AuthRateLimitBlock";
+import { OrcidSignInButton } from "./OrcidSignInButton";
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -97,6 +98,9 @@ export function LoginPage() {
             {loading ? t("auth.loggingIn") : t("auth.login")}
           </Button>
         </form>
+        <div className="mt-6">
+          <OrcidSignInButton returnTo={from} />
+        </div>
         <div className="mt-4 space-y-2 text-center text-sm">
           <Link
             to="/resend-confirmation"

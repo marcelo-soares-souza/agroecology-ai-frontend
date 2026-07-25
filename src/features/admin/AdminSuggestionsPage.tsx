@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
+  CheckCheck,
   FileText,
   Lightbulb,
   Search,
@@ -40,10 +41,15 @@ export function AdminSuggestionsPage() {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage || i18n.language || "en";
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [hasPdfFilter, setHasPdfFilter] = useState<boolean | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [actionMsg, setActionMsg] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
 
   const query = useQuery({
     queryKey: ["admin-suggestions", statusFilter, hasPdfFilter, searchQuery],
@@ -55,6 +61,59 @@ export function AdminSuggestionsPage() {
         limit: 100,
       }),
   });
+
+  const approveAllMutation = useMutation({
+    mutationFn: () => api.adminApproveAllPendingSuggestions(),
+    onSuccess: (result) => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin-suggestions"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["documents"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["my-suggestions"],
+        refetchType: "all",
+      });
+
+      if (result.total_pending === 0) {
+        setActionMsg({
+          text: t("admin.approveAllPendingNone"),
+          type: "success",
+        });
+        return;
+      }
+
+      setActionMsg({
+        text:
+          result.failed_count > 0
+            ? t("admin.approveAllPendingPartial", {
+                approved: result.approved_count,
+                failed: result.failed_count,
+                total: result.total_pending,
+              })
+            : t("admin.approveAllPendingSuccess", {
+                approved: result.approved_count,
+                total: result.total_pending,
+              }),
+        type: result.failed_count > 0 ? "error" : "success",
+      });
+    },
+    onError: (err) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      setActionMsg({ text: msg, type: "error" });
+    },
+  });
+
+  const handleApproveAllPending = () => {
+    if (!confirm(t("admin.approveAllPendingConfirm"))) {
+      return;
+    }
+    setActionMsg(null);
+    approveAllMutation.mutate();
+  };
 
   const statuses = [
     { key: null, label: t("suggestions.all") },
@@ -82,18 +141,44 @@ export function AdminSuggestionsPage() {
             </p>
           )}
         </div>
-        <Button
-          variant="secondary"
-          className="w-full sm:w-auto"
-          onClick={() => query.refetch()}
-          disabled={query.isFetching}
-        >
-          <RefreshCw
-            className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`}
-          />
-          {t("documents.refresh")}
-        </Button>
+        <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:items-center sm:justify-end">
+          <Button
+            variant="success"
+            className="w-full sm:w-auto"
+            onClick={handleApproveAllPending}
+            disabled={approveAllMutation.isPending}
+          >
+            <CheckCheck className="h-4 w-4" />
+            {approveAllMutation.isPending
+              ? t("admin.approvingAllPending")
+              : t("admin.approveAllPending")}
+          </Button>
+          <Button
+            variant="secondary"
+            className="w-full sm:w-auto"
+            onClick={() => query.refetch()}
+            disabled={query.isFetching}
+          >
+            <RefreshCw
+              className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`}
+            />
+            {t("documents.refresh")}
+          </Button>
+        </div>
       </div>
+
+      {actionMsg && (
+        <Card
+          padding="sm"
+          className={
+            actionMsg.type === "success"
+              ? "text-success text-sm"
+              : "text-error text-sm"
+          }
+        >
+          {actionMsg.text}
+        </Card>
+      )}
 
       <Card padding="sm">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">

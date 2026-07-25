@@ -99,6 +99,18 @@ const ConfirmEmailPage = lazyPage(
   () => import("./features/auth/ConfirmEmailPage"),
   "ConfirmEmailPage",
 );
+const OrcidCallbackPage = lazyPage(
+  () => import("./features/auth/OrcidCallbackPage"),
+  "OrcidCallbackPage",
+);
+const OrcidCompleteEmailPage = lazyPage(
+  () => import("./features/auth/OrcidCompleteEmailPage"),
+  "OrcidCompleteEmailPage",
+);
+const OrcidConfirmLinkPage = lazyPage(
+  () => import("./features/auth/OrcidConfirmLinkPage"),
+  "OrcidConfirmLinkPage",
+);
 const ConfirmDeleteAccountPage = lazyPage(
   () => import("./features/auth/ConfirmDeleteAccountPage"),
   "ConfirmDeleteAccountPage",
@@ -420,6 +432,27 @@ export const router = createBrowserRouter(
           element: <ConfirmEmailPage />,
           handle: {
             titleKey: "auth.confirmingEmail",
+          },
+        },
+        {
+          path: "/auth/orcid/callback",
+          element: <OrcidCallbackPage />,
+          handle: {
+            titleKey: "auth.orcidCompletingTitle",
+          },
+        },
+        {
+          path: "/auth/orcid/complete-email",
+          element: <OrcidCompleteEmailPage />,
+          handle: {
+            titleKey: "auth.orcidEmailRequiredTitle",
+          },
+        },
+        {
+          path: "/auth/orcid/confirm-link",
+          element: <OrcidConfirmLinkPage />,
+          handle: {
+            titleKey: "auth.orcidConfirmingLink",
           },
         },
         {

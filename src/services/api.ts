@@ -23,8 +23,13 @@ import type {
   HumanChallenge,
   DocumentSuggestion,
   DocumentSuggestionUpdate,
+  AdminBulkApproveSuggestionsResponse,
+  AuthProvidersResponse,
   LoginRequest,
   LoginResponse,
+  OrcidCompleteEmailRequest,
+  OrcidCompletionResponse,
+  OrcidExchangeRequest,
   RegisterRequest,
   ConfirmEmailRequest,
   ResetPasswordRequest,
@@ -362,6 +367,27 @@ export const api = {
       body: JSON.stringify(data),
     }),
 
+  getAuthProviders: () =>
+    request<AuthProvidersResponse>("/api/v1/auth/providers"),
+
+  exchangeOrcidAuthCode: (data: OrcidExchangeRequest) =>
+    request<LoginResponse>("/api/v1/auth/orcid/exchange", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  completeOrcidEmail: (data: OrcidCompleteEmailRequest) =>
+    request<OrcidCompletionResponse>("/api/v1/auth/orcid/complete-email", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  confirmOrcidLink: (token: string) =>
+    request<OrcidCompletionResponse>("/api/v1/auth/orcid/confirm-link", {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    }),
+
   register: (data: RegisterRequest) =>
     request<{ message: string }>("/api/v1/auth/register", {
       method: "POST",
@@ -552,6 +578,15 @@ export const api = {
       method: "POST",
       body: JSON.stringify(data || {}),
     }),
+
+  adminApproveAllPendingSuggestions: () =>
+    request<AdminBulkApproveSuggestionsResponse>(
+      "/api/v1/admin/suggestions/approve-pending",
+      {
+        method: "POST",
+        body: JSON.stringify({}),
+      },
+    ),
 
   adminRejectSuggestion: (id: string, data: { admin_comment: string }) =>
     request<DocumentSuggestion>(`/api/v1/admin/suggestions/${id}/reject`, {

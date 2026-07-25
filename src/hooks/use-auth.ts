@@ -22,6 +22,7 @@ export function useAuth() {
     roles: authStore.session?.roles ?? [],
     login: authStore.login,
     register: authStore.register,
+    applyLoginResponse: authStore.applyLoginResponse,
     confirmEmail: authStore.confirmEmail,
     logout: authStore.logout,
     hasRole: authStore.hasRole,

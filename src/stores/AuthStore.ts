@@ -1,7 +1,7 @@
 import i18n from "@/config/i18n";
 import { queryClient } from "@/services/QueryClient";
 import { api, isAuthRateLimitError } from "@/services/api";
-import type { UserRecord } from "@/services/types";
+import type { LoginResponse, UserRecord } from "@/services/types";
 
 interface AuthSession {
   userId: string;
@@ -65,27 +65,32 @@ function createAuthStore() {
     notify();
   }
 
+  function applyLoginResponse(data: LoginResponse, emailFallback = "") {
+    localStorage.setItem(TOKEN_KEY, data.access_token);
+    localStorage.setItem(REFRESH_KEY, data.refresh_token);
+
+    const payload = decodeJwt(data.access_token);
+    const email = payload.email || emailFallback;
+    const fullName = payload.full_name || email || payload.sub;
+    session = {
+      userId: payload.sub,
+      email,
+      fullName,
+      slug: payload.sub,
+      roles: payload.roles || [],
+      accessToken: data.access_token,
+      refreshToken: data.refresh_token,
+      expiresAt: payload.exp * 1000,
+    };
+    queryClient.invalidateQueries({ queryKey: ["community-users"] });
+    fetchProfile();
+    notify();
+  }
+
   async function login(email: string, password: string) {
     try {
       const data = await api.login({ email, password });
-      localStorage.setItem(TOKEN_KEY, data.access_token);
-      localStorage.setItem(REFRESH_KEY, data.refresh_token);
-
-      const payload = decodeJwt(data.access_token);
-      const fullName = payload.full_name || email;
-      session = {
-        userId: payload.sub,
-        email: email,
-        fullName,
-        slug: payload.sub,
-        roles: payload.roles || [],
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        expiresAt: payload.exp * 1000,
-      };
-      queryClient.invalidateQueries({ queryKey: ["community-users"] });
-      fetchProfile();
-      notify();
+      applyLoginResponse(data, email);
     } catch (err) {
       if (isAuthRateLimitError(err)) {
         throw err;
@@ -240,6 +245,7 @@ function createAuthStore() {
     },
     login,
     register,
+    applyLoginResponse,
     confirmEmail,
     logout,
     clearSession,

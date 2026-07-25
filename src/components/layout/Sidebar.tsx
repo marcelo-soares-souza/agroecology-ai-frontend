@@ -243,11 +243,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <Info className="h-4 w-4" />
             {t("nav.about")}
           </NavLink>
-          <NavLink
-            to="/how-it-works"
-            className={linkClass}
-            onClick={onClose}
-          >
+          <NavLink to="/how-it-works" className={linkClass} onClick={onClose}>
             <Database className="h-4 w-4" />
             {t("nav.rag")}
           </NavLink>

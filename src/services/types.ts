@@ -340,6 +340,16 @@ export interface DocumentSuggestionUpdate {
   user_comment?: string | null;
 }
 
+export interface AdminBulkApproveSuggestionsResponse {
+  total_pending: number;
+  approved_count: number;
+  failed_count: number;
+  failures: Array<{
+    suggestion_id: string;
+    error: string;
+  }>;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -348,6 +358,29 @@ export interface LoginRequest {
 export interface LoginResponse {
   access_token: string;
   refresh_token: string;
+  token_type?: string;
+}
+
+export interface AuthProvidersResponse {
+  orcid_enabled: boolean;
+}
+
+export interface OrcidExchangeRequest {
+  auth_code: string;
+}
+
+export interface OrcidCompleteEmailRequest {
+  completion_token: string;
+  email: string;
+  full_name: string;
+  locale?: string;
+  privacy_policy_accepted: boolean;
+  tos_accepted: boolean;
+}
+
+export interface OrcidCompletionResponse {
+  status: string;
+  message: string;
 }
 
 export interface RegisterRequest {

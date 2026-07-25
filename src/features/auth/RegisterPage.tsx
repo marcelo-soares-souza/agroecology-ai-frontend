@@ -12,6 +12,7 @@ import {
   type AuthRateLimitInfo,
 } from "@/services/api";
 import { AuthRateLimitBlock } from "./AuthRateLimitBlock";
+import { OrcidSignInButton } from "./OrcidSignInButton";
 
 export function RegisterPage() {
   const { register } = useAuth();
@@ -275,6 +276,9 @@ export function RegisterPage() {
             {t("auth.login")}
           </Link>
         </p>
+        <div className="mt-6">
+          <OrcidSignInButton returnTo="/chat" />
+        </div>
       </Card>
     </div>
   );

@@ -698,8 +698,8 @@
     "whatIs": "O Agroecology Map AI é uma plataforma de inteligência artificial especializada em agroecologia. Ela transforma artigos científicos, manuais de campo, cartilhas técnicas, teses e relatórios em uma base pesquisável, permitindo fazer perguntas em linguagem natural e receber respostas com fontes para verificar. Diferente de chatbots genéricos, a plataforma responde a partir de documentos recuperados, reduzindo o risco de respostas sem base e mostrando de onde a informação veio. Registros científicos também podem ser enriquecidos com metadados de OpenAlex e Crossref, como DOI, citações, ano de publicação, venue e links de acesso aberto. Nosso objetivo é democratizar o acesso ao conhecimento agroecológico para agricultores, pesquisadores, extensionistas, educadores e comunidades, com uma ferramenta livre, verificável e preparada para infraestrutura local.",
     "intro": "O Agroecology Map AI é o próximo passo de 8 anos de trabalho voluntário no Agroecology Map: uma IA livre que transforma documentos agroecológicos em respostas acessíveis, com fontes para verificar.",
     "goal": {
-      "label": "Meta da campanha",
-      "amount": "USD 0 / USD 3.000"
+      "label": "Campanha 2026",
+      "amount": "Arrecadado: USD {{raised}} de USD {{goal}} em 2026"
     },
     "history": {
       "title": "8 Anos de História",
@@ -716,24 +716,31 @@
       "content": "O Agroecology Map é mantido por uma pequena equipe de voluntários - desenvolvedores, pesquisadores e ativistas - que dedicam seu tempo livre para construir e melhorar a plataforma. Não temos investidores, patrocinadores corporativos ou financiamento externo significativo. Fazemos isso porque acreditamos profundamente na agroecologia, no software livre e no poder transformador do conhecimento compartilhado.",
       "body": "Mas há limites para o que o trabalho voluntário consegue sustentar sozinho. À medida que o Agroecology Map AI cresce, os custos de processamento, armazenamento e desenvolvimento aumentam. A campanha tem uma meta concreta: adquirir equipamento local dedicado para acelerar a indexação de documentos, testar modelos abertos e reduzir a dependência de serviços de nuvem."
     },
-    "aiNeeds": {
-      "title": "A Necessidade de Poder de Processamento para IA",
-      "content": "Para transformar documentos em uma base de conhecimento pesquisável, o Agroecology Map AI precisa processar grandes volumes de texto, gerar embeddings, indexar arquivos e consultar modelos de linguagem. Isso exige muito mais poder de processamento do que um servidor web comum.",
-      "body": "Hoje esse trabalho roda em hardware pessoal e limitado, o que reduz a velocidade de indexação, restringe experimentos com modelos abertos e dificulta atender mais pessoas. Uma workstation com GPU dedicada permitirá processar documentos com mais rapidez, testar modelos locais via Ollama, avançar em fine-tuning e manter o projeto mais independente de grandes provedores de nuvem."
+    "infrastructure": {
+      "title": "Infraestrutura e evolução da plataforma",
+      "content": "Manter e evoluir uma plataforma como o Agroecology Map exige recursos contínuos de hospedagem, armazenamento, processamento e desenvolvimento de novas funcionalidades.",
+      "body": "Sua contribuição ajuda a manter o mapa, perfis, mídias, documentos, integrações parceiras, ferramentas de IA e análises ambientais funcionando."
     },
     "costs": {
-      "title": "Equipamento de Desenvolvimento Local",
+      "title": "Custos de manutenção",
       "equipment": {
-        "title": "Meta: USD 3.000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1.500",
-        "memory": "64GB DDR4 3200 - USD 900",
-        "storage": "SSD NVMe 2TB - USD 600",
-        "description": "Este equipamento será dedicado ao Agroecology Map AI para processamento de dados, indexação de documentos, testes com modelos locais, fine-tuning de modelos abertos e melhorias contínuas na plataforma. Ele também nos aproxima de uma infraestrutura auto-hospedável, com menos dependência de nuvem e mais soberania tecnológica para a comunidade."
+        "title": "O que precisamos manter",
+        "gpu": "Processamento GPU para modelos de IA e análise de dados geoespaciais",
+        "memory": "Servidores e bancos de dados para armazenar e processar informações",
+        "storage": "Armazenamento para imagens, documentos e backups da plataforma",
+        "description": "Esses recursos mantêm a plataforma online, segura, aberta e útil para quem registra, encontra e compartilha experiências agroecológicas."
+      },
+      "operational": {
+        "title": "Custos da campanha 2026",
+        "domains": "Domínios e serviços relacionados para manter os endereços públicos do Agroecology Map acessíveis.",
+        "appStore": "Taxas da App Store e da conta de desenvolvedor necessárias para manter o aplicativo disponível para iPhone e iPad.",
+        "energy": "Energia elétrica para manter a infraestrutura própria do Agroecology Map AI em funcionamento.",
+        "description": "Meta da campanha 2026: USD 500 para ajudar a manter domínios, aplicativo móvel, serviços essenciais e infraestrutura própria funcionando ao longo do ano."
       }
     },
     "howToHelp": {
       "title": "Como Você Pode Ajudar",
-      "description": "Sua contribuição, de qualquer valor, nos aproxima da meta de USD 3.000 para adquirir equipamento local dedicado. Com sua ajuda, poderemos processar mais documentos, testar modelos abertos, reduzir dependências externas e manter a plataforma livre e gratuita. Cada contribuição se transforma em mais conhecimento agroecológico verificável disponível para quem precisa dele.",
+      "description": "Escolha a plataforma que preferir para fazer sua contribuição. Toda ajuda é bem-vinda!",
       "koFi": "Apoiar via Ko-fi ❤️",
       "patreon": "Apoiar via Patreon",
       "qrAlt": "QR code para apoiar o Agroecology Map AI no Ko-fi",

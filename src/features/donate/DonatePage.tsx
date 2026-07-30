@@ -1,33 +1,54 @@
+import type { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  Cpu,
+  ExternalLink,
+  Globe,
+  Heart,
   HeartHandshake,
   History,
-  Globe,
-  Users,
-  Cpu,
   Server,
-  Heart,
   Sparkles,
-  ExternalLink,
+  Users,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
 const koFiUrl = "https://ko-fi.com/agroecologymap";
-const koFiQrUrl =
-  "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=https%3A%2F%2Fko-fi.com%2Fagroecologymap";
 const patreonUrl = "https://www.patreon.com/c/agroecologymap";
-const goalProgress = 0;
+const raisedUsd = 185;
+const campaignGoalUsd = 500;
+const goalProgress = (raisedUsd / campaignGoalUsd) * 100;
 
-export function DonatePage() {
+type Supporter = {
+  name: string;
+  url?: string;
+};
+
+const supporters: Supporter[] = [
+  { name: "Aimee Fenech" },
+  {
+    name: "Michael P. Totten",
+    url: "https://independent.academia.edu/MichaelTotten/CurriculumVitae",
+  },
+  { name: "Sam Rossiter" },
+  { name: "Tom Watson" },
+  { name: "Dominik Jais" },
+  {
+    name: "Marcelo Soares Souza",
+    url: "https://agroecologymap.org/accounts/marcelo-soares-souza",
+  },
+];
+
+export function DonatePage(): ReactElement {
   const { t } = useTranslation();
 
   const donateButtons = (
-    <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+    <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
       <a
         href={koFiUrl}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-primary px-6 py-3 text-center text-base font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto sm:text-lg"
+        className="inline-flex min-w-0 items-center justify-center gap-2 rounded-[var(--radius-button)] bg-primary px-6 py-3 text-center text-base font-semibold leading-snug text-white transition-colors hover:bg-primary-dark sm:text-lg"
       >
         {t("donate.howToHelp.koFi")}
       </a>
@@ -35,7 +56,7 @@ export function DonatePage() {
         href={patreonUrl}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-primary px-6 py-3 text-center text-base font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto sm:text-lg"
+        className="inline-flex min-w-0 items-center justify-center gap-2 rounded-[var(--radius-button)] bg-primary px-6 py-3 text-center text-base font-semibold leading-snug text-white transition-colors hover:bg-primary-dark sm:text-lg"
       >
         {t("donate.howToHelp.patreon")}
       </a>
@@ -43,8 +64,8 @@ export function DonatePage() {
   );
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+    <div className="mx-auto max-w-7xl space-y-6 py-8">
+      <h1 className="flex items-center gap-2 text-2xl font-bold text-text-primary">
         <Heart className="h-6 w-6 text-primary" />
         {t("donate.title")}
       </h1>
@@ -52,8 +73,8 @@ export function DonatePage() {
       <Card>
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <HeartHandshake className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-            <p className="text-text-primary text-base leading-relaxed">
+            <HeartHandshake className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
+            <p className="text-base leading-relaxed text-text-primary">
               {t("donate.intro")}
             </p>
           </div>
@@ -65,7 +86,10 @@ export function DonatePage() {
                   {t("donate.goal.label")}
                 </span>
                 <span className="text-text-secondary">
-                  {t("donate.goal.amount")}
+                  {t("donate.goal.amount", {
+                    raised: raisedUsd,
+                    goal: campaignGoalUsd,
+                  })}
                 </span>
               </div>
               <div className="h-3 overflow-hidden rounded-full bg-primary-100">
@@ -81,170 +105,186 @@ export function DonatePage() {
 
       <Card>
         <div className="flex items-start gap-3">
-          <Sparkles className="h-6 w-6 text-primary mt-0.5 shrink-0" />
+          <Sparkles className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
           <div>
-            <h2 className="font-semibold text-text-primary mb-2">
+            <h2 className="mb-2 font-semibold text-text-primary">
               {t("donate.whatIsTitle")}
             </h2>
-            <p className="text-text-primary text-base leading-relaxed">
+            <p className="text-base leading-relaxed text-text-primary">
               {t("donate.whatIs")}
             </p>
           </div>
         </div>
       </Card>
 
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <History className="h-5 w-5 text-primary" />
-        {t("donate.history.title")}
-      </h2>
-
-      <Card>
-        <div className="space-y-4 text-text-primary text-base leading-relaxed">
-          <p>{t("donate.history.content")}</p>
-          <p>{t("donate.history.body")}</p>
-        </div>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <Globe className="h-5 w-5 text-primary" />
-        {t("donate.importance.title")}
-      </h2>
-
-      <Card>
-        <div className="space-y-4 text-text-primary text-base leading-relaxed">
-          <p>{t("donate.importance.content")}</p>
-          <p>{t("donate.importance.body")}</p>
-        </div>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <Users className="h-5 w-5 text-primary" />
-        {t("donate.voluntary.title")}
-      </h2>
-
-      <Card>
-        <div className="space-y-4 text-text-primary text-base leading-relaxed">
-          <p>{t("donate.voluntary.content")}</p>
-          <p>{t("donate.voluntary.body")}</p>
-        </div>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <Cpu className="h-5 w-5 text-primary" />
-        {t("donate.aiNeeds.title")}
-      </h2>
-
-      <Card>
-        <div className="space-y-4 text-text-primary text-base leading-relaxed">
-          <p>{t("donate.aiNeeds.content")}</p>
-          <p>{t("donate.aiNeeds.body")}</p>
-        </div>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <Server className="h-5 w-5 text-primary" />
-        {t("donate.costs.title")}
-      </h2>
-
-      <Card>
-        <div className="flex items-start gap-3">
-          <Cpu className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-          <div>
-            <h3 className="font-semibold text-text-primary mb-3">
-              {t("donate.costs.equipment.title")}
-            </h3>
-            <div className="space-y-3 text-text-primary text-base leading-relaxed mb-4">
-              <div className="flex items-start gap-2">
-                <span className="text-primary font-bold mt-0.5">•</span>
-                <p>{t("donate.costs.equipment.gpu")}</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-primary font-bold mt-0.5">•</span>
-                <p>{t("donate.costs.equipment.memory")}</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-primary font-bold mt-0.5">•</span>
-                <p>{t("donate.costs.equipment.storage")}</p>
-              </div>
-            </div>
-            <p className="text-text-secondary text-sm leading-relaxed">
-              {t("donate.costs.equipment.description")}
-            </p>
-          </div>
-        </div>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
-        <Heart className="h-5 w-5 text-primary" />
-        {t("donate.howToHelp.title")}
-      </h2>
-
-      <Card>
-        <p className="text-text-primary text-base leading-relaxed mb-4">
-          {t("donate.howToHelp.description")}
-        </p>
-        <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
-          {donateButtons}
-          <div className="flex flex-col items-center gap-2">
-            <img
-              src={koFiQrUrl}
-              alt={t("donate.howToHelp.qrAlt")}
-              className="h-36 w-36 rounded-lg border border-border bg-white p-2"
-              loading="lazy"
-            />
-            <p className="text-xs text-text-secondary">
-              {t("donate.howToHelp.qrLabel")}
-            </p>
-          </div>
-        </div>
-        <p className="text-text-secondary text-sm mt-4">
-          {t("donate.howToHelp.other")}
-        </p>
-      </Card>
-
-      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2 pt-4">
+      <h2 className="flex items-center gap-2 pt-1 text-xl font-bold text-text-primary">
         <HeartHandshake className="h-5 w-5 text-primary" />
         {t("donate.supporters.title")}
       </h2>
 
       <Card>
-        <p className="text-text-primary text-base leading-relaxed mb-4">
+        <p className="mb-4 text-base leading-relaxed text-text-primary">
           {t("donate.supporters.description")}
         </p>
-        <div className="divide-y divide-border rounded-lg border border-border">
-          <a
-            href="https://agroecologymap.org/en/accounts/marcelo-soares-souza"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-surface transition-colors"
-          >
-            <div className="min-w-0">
-              <p className="font-semibold text-text-primary">
-                Marcelo Soares Souza
-              </p>
-              <p className="text-sm text-text-secondary">
-                {t("donate.supporters.role")}
-              </p>
-            </div>
-            <ExternalLink className="h-4 w-4 text-primary shrink-0" />
-          </a>
+        <div className="divide-y divide-primary-100 rounded-lg border border-primary-100 bg-primary-50">
+          {supporters.map((supporter) => {
+            const content = (
+              <div className="min-w-0">
+                <p className="font-semibold text-text-primary">
+                  {supporter.name}
+                </p>
+                <p className="text-sm text-text-secondary">
+                  {t("donate.supporters.role")}
+                </p>
+              </div>
+            );
+
+            return supporter.url ? (
+              <a
+                key={supporter.name}
+                href={supporter.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-primary-100"
+              >
+                {content}
+                <ExternalLink className="h-4 w-4 shrink-0 text-primary" />
+              </a>
+            ) : (
+              <div
+                key={supporter.name}
+                className="flex items-center justify-between gap-3 px-4 py-3"
+              >
+                {content}
+              </div>
+            );
+          })}
         </div>
       </Card>
 
+      <SectionTitle icon={History} title={t("donate.history.title")} />
+      <TextCard
+        content={t("donate.history.content")}
+        body={t("donate.history.body")}
+      />
+
+      <SectionTitle icon={Globe} title={t("donate.importance.title")} />
+      <TextCard
+        content={t("donate.importance.content")}
+        body={t("donate.importance.body")}
+      />
+
+      <SectionTitle icon={Users} title={t("donate.voluntary.title")} />
+      <TextCard
+        content={t("donate.voluntary.content")}
+        body={t("donate.voluntary.body")}
+      />
+
+      <SectionTitle icon={Server} title={t("donate.infrastructure.title")} />
+      <TextCard
+        content={t("donate.infrastructure.content")}
+        body={t("donate.infrastructure.body")}
+      />
+
+      <SectionTitle icon={Cpu} title={t("donate.costs.title")} />
       <Card>
-        <div className="flex flex-col gap-4 items-center text-center">
+        <h3 className="mb-3 font-semibold text-text-primary">
+          {t("donate.costs.equipment.title")}
+        </h3>
+        <BulletList
+          items={[
+            t("donate.costs.equipment.gpu"),
+            t("donate.costs.equipment.memory"),
+            t("donate.costs.equipment.storage"),
+          ]}
+        />
+        <p className="text-sm leading-relaxed text-text-secondary">
+          {t("donate.costs.equipment.description")}
+        </p>
+
+        <h3 className="mb-3 mt-6 font-semibold text-text-primary">
+          {t("donate.costs.operational.title")}
+        </h3>
+        <BulletList
+          items={[
+            t("donate.costs.operational.domains"),
+            t("donate.costs.operational.appStore"),
+            t("donate.costs.operational.energy"),
+          ]}
+        />
+        <p className="text-sm leading-relaxed text-text-secondary">
+          {t("donate.costs.operational.description")}
+        </p>
+      </Card>
+
+      <SectionTitle icon={Heart} title={t("donate.howToHelp.title")} />
+      <Card>
+        <p className="mb-4 text-base leading-relaxed text-text-primary">
+          {t("donate.howToHelp.description")}
+        </p>
+        <div className="flex flex-col items-center gap-5">{donateButtons}</div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-col items-center gap-4 text-center">
           <Heart className="h-10 w-10 text-primary" />
           <h3 className="text-xl font-bold text-text-primary">
             {t("donate.gratitude.title")}
           </h3>
-          <p className="text-text-primary text-base leading-relaxed max-w-xl">
+          <p className="max-w-xl text-base leading-relaxed text-text-primary">
             {t("donate.gratitude.content")}
           </p>
-          <p className="text-text-secondary text-sm italic">
+          <p className="text-sm italic text-text-secondary">
             {t("donate.gratitude.closing")}
           </p>
         </div>
       </Card>
+    </div>
+  );
+}
+
+type SectionTitleProps = {
+  icon: typeof Heart;
+  title: string;
+};
+
+function SectionTitle({
+  icon: Icon,
+  title,
+}: SectionTitleProps): ReactElement {
+  return (
+    <h2 className="flex items-center gap-2 pt-4 text-xl font-bold text-text-primary">
+      <Icon className="h-5 w-5 text-primary" />
+      {title}
+    </h2>
+  );
+}
+
+type TextCardProps = {
+  content: string;
+  body: string;
+};
+
+function TextCard({ content, body }: TextCardProps): ReactElement {
+  return (
+    <Card>
+      <div className="space-y-4 text-base leading-relaxed text-text-primary">
+        <p>{content}</p>
+        <p>{body}</p>
+      </div>
+    </Card>
+  );
+}
+
+function BulletList({ items }: { items: string[] }): ReactElement {
+  return (
+    <div className="mb-4 space-y-3 text-base leading-relaxed text-text-primary">
+      {items.map((item) => (
+        <div key={item} className="flex items-start gap-2">
+          <span className="mt-0.5 font-bold text-primary">•</span>
+          <p>{item}</p>
+        </div>
+      ))}
     </div>
   );
 }

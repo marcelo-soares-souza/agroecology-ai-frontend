@@ -698,8 +698,8 @@
     "whatIs": "Agroecology Map AI est une plateforme d'intelligence artificielle spécialisée en agroécologie. Elle transforme des articles scientifiques, manuels de terrain, livrets techniques, thèses et rapports en une base consultable, permettant de poser des questions en langage naturel et de recevoir des réponses avec des sources à vérifier. Contrairement aux chatbots génériques, la plateforme répond à partir de documents retrouvés, réduisant le risque de réponses sans base et montrant d'où vient l'information. Les notices scientifiques peuvent aussi être enrichies avec des métadonnées d'OpenAlex et Crossref, comme DOI, citations, année de publication, venue et liens d'accès ouvert. Notre objectif est de démocratiser l'accès au savoir agroécologique pour les agriculteurs, chercheurs, agents de vulgarisation, éducateurs et communautés, avec un outil libre, vérifiable et conçu pour l'infrastructure locale.",
     "intro": "Agroecology Map AI est la prochaine étape de 8 ans de travail bénévole sur Agroecology Map : une IA libre qui transforme des documents agroécologiques en réponses accessibles, avec des sources à vérifier.",
     "goal": {
-      "label": "Objectif de la campagne",
-      "amount": "USD 0 / USD 3 000"
+      "label": "Campagne 2026",
+      "amount": "Collecté : USD {{raised}} sur USD {{goal}} pour 2026"
     },
     "history": {
       "title": "8 Ans d'Histoire",
@@ -716,24 +716,31 @@
       "content": "Agroecology Map est maintenu par une petite équipe de bénévoles - développeurs, chercheurs et militants - qui consacrent leur temps libre à construire et améliorer la plateforme. Nous n'avons pas d'investisseurs, de sponsors corporatifs ni de financement externe significatif. Nous faisons cela parce que nous croyons profondément en l'agroécologie, au logiciel libre et au pouvoir transformateur des connaissances partagées.",
       "body": "Mais il y a des limites à ce que le travail bénévole peut soutenir seul. À mesure qu'Agroecology Map AI grandit, les coûts de traitement, stockage et développement augmentent. La campagne a un objectif concret : acquérir un équipement local dédié pour accélérer l'indexation des documents, tester des modèles ouverts et réduire la dépendance aux services cloud."
     },
-    "aiNeeds": {
-      "title": "Le Besoin de Puissance de Traitement pour l'IA",
-      "content": "Pour transformer des documents en une base de connaissances consultable, Agroecology Map AI doit traiter de grands volumes de texte, générer des embeddings, indexer des fichiers et interroger des modèles de langage. Cela exige beaucoup plus de puissance de traitement qu'un serveur web ordinaire.",
-      "body": "Aujourd'hui, ce travail s'exécute sur du matériel personnel limité, ce qui ralentit l'indexation, restreint les expériences avec des modèles ouverts et rend plus difficile le service à davantage de personnes. Une workstation avec GPU dédiée nous permettra de traiter les documents plus rapidement, tester des modèles locaux via Ollama, avancer en fine-tuning et garder le projet plus indépendant des grands fournisseurs cloud."
+    "infrastructure": {
+      "title": "Infrastructure et évolution de la plateforme",
+      "content": "Maintenir et faire évoluer une plateforme comme Agroecology Map exige des ressources continues pour l'hébergement, le stockage, le traitement et le développement de nouvelles fonctionnalités.",
+      "body": "Votre contribution aide à maintenir la carte, les profils, médias, documents, intégrations partenaires, outils d'IA et analyses environnementales en fonctionnement."
     },
     "costs": {
-      "title": "Équipement de Développement Local",
+      "title": "Coûts de maintenance",
       "equipment": {
-        "title": "Objectif : USD 3 000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1 500",
-        "memory": "64GB DDR4 3200 - USD 900",
-        "storage": "SSD NVMe 2TB - USD 600",
-        "description": "Cet équipement sera dédié à Agroecology Map AI pour le traitement de données, l'indexation de documents, les tests avec des modèles locaux, le fine-tuning de modèles ouverts et les améliorations continues de la plateforme. Il nous rapproche aussi d'une infrastructure auto-hébergeable, avec moins de dépendance au cloud et plus de souveraineté technologique pour la communauté."
+        "title": "Ce que nous devons maintenir",
+        "gpu": "Traitement GPU pour les modèles d'IA et l'analyse de données géospatiales",
+        "memory": "Serveurs et bases de données pour stocker et traiter les informations",
+        "storage": "Stockage pour les images, documents et sauvegardes de la plateforme",
+        "description": "Ces ressources maintiennent la plateforme en ligne, sûre, ouverte et utile pour celles et ceux qui documentent, trouvent et partagent des expériences agroécologiques."
+      },
+      "operational": {
+        "title": "Coûts de la campagne 2026",
+        "domains": "Domaines et services associés pour garder les adresses publiques d'Agroecology Map accessibles.",
+        "appStore": "Frais de l'App Store et du compte développeur nécessaires pour maintenir l'application disponible sur iPhone et iPad.",
+        "energy": "Électricité nécessaire pour maintenir l'infrastructure auto-hébergée d'Agroecology Map AI en fonctionnement.",
+        "description": "Objectif de la campagne 2026 : USD 500 pour aider à maintenir les domaines, l'application mobile, les services essentiels et l'infrastructure auto-hébergée en fonctionnement tout au long de l'année."
       }
     },
     "howToHelp": {
       "title": "Comment Vous Pouvez Aider",
-      "description": "Votre contribution, quel qu'en soit le montant, nous rapproche de l'objectif de USD 3 000 pour acquérir un équipement local dédié. Avec votre aide, nous pourrons traiter plus de documents, tester des modèles ouverts, réduire les dépendances externes et garder la plateforme libre et gratuite. Chaque contribution devient davantage de connaissances agroécologiques vérifiables pour les personnes qui en ont besoin.",
+      "description": "Choisissez la plateforme que vous préférez pour faire votre contribution. Toute aide est la bienvenue.",
       "koFi": "Nous soutenir via Ko-fi ❤️",
       "patreon": "Nous soutenir via Patreon",
       "qrAlt": "Code QR pour soutenir Agroecology Map AI sur Ko-fi",

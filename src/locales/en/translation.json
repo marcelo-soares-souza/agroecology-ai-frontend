@@ -698,8 +698,8 @@
     "whatIs": "Agroecology Map AI is an artificial intelligence platform specialized in agroecology. It transforms scientific papers, field manuals, technical booklets, theses, and reports into a searchable base, allowing people to ask natural-language questions and receive answers with sources to verify. Unlike generic chatbots, the platform answers from retrieved documents, reducing the risk of unsupported answers and showing where the information came from. Scientific records can also be enriched with OpenAlex and Crossref metadata, such as DOI, citations, publication year, venue, and open access links. Our goal is to democratize access to agroecological knowledge for farmers, researchers, extension workers, educators, and communities through a free, verifiable tool designed for local infrastructure.",
     "intro": "Agroecology Map AI is the next step in 8 years of volunteer work on Agroecology Map: free software AI that turns agroecological documents into accessible answers with sources to verify.",
     "goal": {
-      "label": "Campaign goal",
-      "amount": "USD 0 / USD 3,000"
+      "label": "2026 campaign",
+      "amount": "Raised: USD {{raised}} of USD {{goal}} for 2026"
     },
     "history": {
       "title": "8 Years of History",
@@ -716,24 +716,31 @@
       "content": "Agroecology Map is maintained by a small team of volunteers - developers, researchers, and activists - who dedicate their free time to building and improving the platform. We have no investors, corporate sponsors, or significant external funding. We do this because we deeply believe in agroecology, free software, and the transformative power of shared knowledge.",
       "body": "But there are limits to what volunteer work can sustain on its own. As Agroecology Map AI grows, processing, storage, and development costs increase. The campaign has a concrete goal: acquire dedicated local equipment to speed up document indexing, test open models, and reduce dependence on cloud services."
     },
-    "aiNeeds": {
-      "title": "The Need for AI Processing Power",
-      "content": "To turn documents into a searchable knowledge base, Agroecology Map AI needs to process large volumes of text, generate embeddings, index files, and query language models. This requires much more processing power than a regular web server.",
-      "body": "Today this work runs on limited personal hardware, which slows down indexing, restricts experiments with open models, and makes it harder to serve more people. A workstation with a dedicated GPU will allow us to process documents faster, test local models through Ollama, advance fine-tuning work, and keep the project more independent from major cloud providers."
+    "infrastructure": {
+      "title": "Infrastructure and platform evolution",
+      "content": "Maintaining and evolving a platform like Agroecology Map requires ongoing resources for hosting, storage, processing, and developing new features.",
+      "body": "Your contribution helps keep the map, profiles, media, documents, partner integrations, AI tools, and environmental analyses running."
     },
     "costs": {
-      "title": "Local Development Equipment",
+      "title": "Maintenance costs",
       "equipment": {
-        "title": "Goal: USD 3,000",
-        "gpu": "NVIDIA GeForce RTX 5070 Ti 16GB - USD 1,500",
-        "memory": "64GB DDR4 3200 - USD 900",
-        "storage": "SSD NVMe 2TB - USD 600",
-        "description": "This equipment will be dedicated to Agroecology Map AI for data processing, document indexing, tests with local models, fine-tuning open models, and ongoing platform improvements. It also brings us closer to a self-hostable infrastructure, with less cloud dependency and more technological sovereignty for the community."
+        "title": "What we need to maintain",
+        "gpu": "GPU processing for AI models and geospatial data analysis",
+        "memory": "Servers and databases to store and process information",
+        "storage": "Storage for images, documents, and platform backups",
+        "description": "These resources keep the platform online, secure, open, and useful for everyone documenting, finding, and sharing agroecological experiences."
+      },
+      "operational": {
+        "title": "2026 campaign costs",
+        "domains": "Domains and related services to keep Agroecology Map's public addresses accessible.",
+        "appStore": "App Store and developer account fees required to keep the app available on iPhone and iPad.",
+        "energy": "Electricity to keep Agroecology Map AI's self-hosted infrastructure running.",
+        "description": "2026 campaign goal: USD 500 to help keep domains, the mobile app, essential services, and self-hosted infrastructure running throughout the year."
       }
     },
     "howToHelp": {
       "title": "How You Can Help",
-      "description": "Your contribution, of any amount, brings us closer to the USD 3,000 goal to acquire dedicated local equipment. With your help, we can process more documents, test open models, reduce external dependencies, and keep the platform free and open. Every contribution turns into more verifiable agroecological knowledge for the people who need it.",
+      "description": "Choose the platform you prefer to make your contribution. Every bit of help is welcome.",
       "koFi": "Support us on Ko-fi ❤️",
       "patreon": "Support us on Patreon",
       "qrAlt": "QR code to support Agroecology Map AI on Ko-fi",

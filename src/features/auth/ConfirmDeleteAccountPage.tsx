@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Shield, Loader2 } from "lucide-react";
 import { api } from "@/services/api";

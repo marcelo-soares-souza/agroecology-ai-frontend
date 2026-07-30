@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Menu, LogOut, User } from "lucide-react";
 import { LanguageSelector } from "@/components/LanguageSelector";

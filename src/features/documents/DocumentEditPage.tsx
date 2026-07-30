@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";

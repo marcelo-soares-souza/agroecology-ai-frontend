@@ -248,10 +248,7 @@ type SectionTitleProps = {
   title: string;
 };
 
-function SectionTitle({
-  icon: Icon,
-  title,
-}: SectionTitleProps): ReactElement {
+function SectionTitle({ icon: Icon, title }: SectionTitleProps): ReactElement {
   return (
     <h2 className="flex items-center gap-2 pt-4 text-xl font-bold text-text-primary">
       <Icon className="h-5 w-5 text-primary" />

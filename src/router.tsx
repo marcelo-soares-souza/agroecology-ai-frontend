@@ -1,5 +1,5 @@
 import { type ComponentType, lazy } from "react";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router";
 import { AppShell } from "./components/layout/AppShell";
 import { AuthGuard } from "./components/AuthGuard";
 import { ChatPage } from "./features/home/ChatPage";

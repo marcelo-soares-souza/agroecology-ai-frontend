@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";

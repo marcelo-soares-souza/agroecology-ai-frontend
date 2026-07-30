@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { Users, FileText, Search, RefreshCw, Loader2 } from "lucide-react";
 import { api } from "@/services/api";

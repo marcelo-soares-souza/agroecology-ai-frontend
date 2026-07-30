@@ -1,6 +1,6 @@
 import { useState, useRef, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { ArrowLeft, Upload, X, Loader2, FileText } from "lucide-react";
 import { api } from "@/services/api";
 import { Card } from "@/components/ui/Card";

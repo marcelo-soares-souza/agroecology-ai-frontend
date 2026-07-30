@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router";
 import { LogIn } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Card } from "@/components/ui/Card";

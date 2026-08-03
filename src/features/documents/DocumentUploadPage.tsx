@@ -17,12 +17,40 @@ import type { UploadedFile, SkippedFile } from "@/services/types";
 
 const ALLOWED_EXTENSIONS = [".pdf", ".md"];
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
-const BATCH_SIZE = 15;
+const MAX_BATCH_FILE_COUNT = 15;
+const MAX_BATCH_SIZE = 80 * 1024 * 1024;
 
 function getFileExtension(name: string): string {
   const idx = name.lastIndexOf(".");
   if (idx === -1) return "";
   return name.slice(idx).toLowerCase();
+}
+
+function buildUploadBatches(files: File[]): File[][] {
+  const batches: File[][] = [];
+  let currentBatch: File[] = [];
+  let currentBatchSize = 0;
+
+  for (const file of files) {
+    const wouldExceedCount = currentBatch.length >= MAX_BATCH_FILE_COUNT;
+    const wouldExceedSize =
+      currentBatch.length > 0 && currentBatchSize + file.size > MAX_BATCH_SIZE;
+
+    if (wouldExceedCount || wouldExceedSize) {
+      batches.push(currentBatch);
+      currentBatch = [];
+      currentBatchSize = 0;
+    }
+
+    currentBatch.push(file);
+    currentBatchSize += file.size;
+  }
+
+  if (currentBatch.length > 0) {
+    batches.push(currentBatch);
+  }
+
+  return batches;
 }
 
 export function DocumentUploadPage() {
@@ -117,10 +145,7 @@ export function DocumentUploadPage() {
   const handleSubmit = async () => {
     if (files.length === 0 || isUploading) return;
 
-    const batches: File[][] = [];
-    for (let i = 0; i < files.length; i += BATCH_SIZE) {
-      batches.push(files.slice(i, i + BATCH_SIZE));
-    }
+    const batches = buildUploadBatches(files);
 
     const accumulated: { uploaded: UploadedFile[]; skipped: SkippedFile[] } = {
       uploaded: [],
@@ -131,9 +156,10 @@ export function DocumentUploadPage() {
     setError("");
     setResults(null);
 
+    let sentFiles = 0;
     for (let i = 0; i < batches.length; i++) {
       setUploadProgress({
-        sent: i * BATCH_SIZE,
+        sent: sentFiles,
         total: files.length,
         batch: i + 1,
         totalBatches: batches.length,
@@ -143,6 +169,7 @@ export function DocumentUploadPage() {
         const batchResult = await api.uploadDocuments(batches[i]);
         accumulated.uploaded.push(...batchResult.uploaded);
         accumulated.skipped.push(...batchResult.skipped);
+        sentFiles += batches[i].length;
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         setError(`Batch ${i + 1}/${batches.length} failed: ${message}`);

@@ -3,6 +3,7 @@ import { User, Bot, Loader2, AlertCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/cn";
+import { normalizeMarkdown } from "@/lib/normalize-markdown";
 import type { ChatMessage as ChatMessageType } from "@/services/types";
 import { SourceCard } from "./SourceCard";
 
@@ -53,7 +54,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             ) : (
               <div className="markdown-body text-text-primary">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {message.content}
+                  {normalizeMarkdown(message.content)}
                 </ReactMarkdown>
               </div>
             )}

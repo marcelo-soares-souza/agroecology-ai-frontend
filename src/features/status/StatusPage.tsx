@@ -78,6 +78,18 @@ export function StatusPage() {
         value: String(data!.cache_hits),
         variant: "info" as const,
       },
+      {
+        icon: <Activity className="h-5 w-5" />,
+        label: t("status.bm25Status"),
+        tooltip: t("status.help.bm25Status"),
+        value: t(`status.bm25States.${data!.bm25_status}`),
+        variant:
+          data!.bm25_status === "ready"
+            ? ("success" as const)
+            : data!.bm25_status === "error"
+              ? ("error" as const)
+              : ("warning" as const),
+      },
     ] as const;
 
   const ragRows = (data: NonNullable<typeof query.data>) =>
@@ -123,6 +135,24 @@ export function StatusPage() {
         label: t("status.bm25TopK"),
         tooltip: t("status.help.bm25TopK"),
         value: String(data.bm25_top_k),
+      },
+      {
+        label: t("status.bm25Chunks"),
+        tooltip: t("status.help.bm25Chunks"),
+        value: String(data.bm25_chunks),
+      },
+      {
+        label: t("status.bm25Generation"),
+        tooltip: t("status.help.bm25Generation"),
+        value: String(data.bm25_generation),
+      },
+      {
+        label: t("status.bm25LastPrewarm"),
+        tooltip: t("status.help.bm25LastPrewarm"),
+        value:
+          data.bm25_last_prewarm_ms == null
+            ? t("status.notAvailable")
+            : `${(data.bm25_last_prewarm_ms / 1000).toFixed(2)}s`,
       },
       {
         label: t("status.hybridTopK"),

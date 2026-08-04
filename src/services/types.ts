@@ -94,6 +94,11 @@ export interface ServerStatus {
   embedding_device: string;
   similarity_top_k: number;
   bm25_top_k: number;
+  bm25_status: "cold" | "warming" | "ready" | "error";
+  bm25_chunks: number;
+  bm25_generation: number;
+  bm25_last_prewarm_ms: number | null;
+  bm25_error: string | null;
   hybrid_top_k: number;
   reranker_enabled: boolean;
   reranker_model: string | null;

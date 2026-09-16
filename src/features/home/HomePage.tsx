@@ -54,22 +54,30 @@ export function HomePage() {
           {t("landing.accessNotice")}
         </p>
         <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
-          <Link to="/register" className="w-full sm:w-auto">
-            <button className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark">
-              {t("landing.getStarted")}
-            </button>
+          <Link
+            to="/register"
+            className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto"
+          >
+            {t("landing.getStarted")}
           </Link>
-          <Link to="/chat" className="w-full sm:w-auto">
-            <button className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50">
-              {t("landing.startConversation")}
-            </button>
+          <Link
+            to="/about"
+            className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
+          >
+            {t("nav.about")}
+          </Link>
+          <Link
+            to="/chat"
+            className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
+          >
+            {t("landing.startConversation")}
           </Link>
         </div>
       </div>
 
       {/* Features */}
       <div className="grid gap-6 md:grid-cols-3 px-4 max-w-6xl mx-auto">
-        <Card>
+        <Card className="relative transition-colors hover:border-primary focus-within:ring-2 focus-within:ring-primary">
           <div className="flex flex-col items-center text-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50">
               <Lightbulb className="h-6 w-6 text-amber-600" />
@@ -77,10 +85,16 @@ export function HomePage() {
             <div className="flex min-w-0 flex-col items-center justify-center gap-2">
               <div className="flex min-w-0 items-center justify-center gap-2">
                 <h3 className="min-w-0 font-semibold text-text-primary">
-                  {t("landing.features.suggest.title")}
+                  <Link
+                    to="/documents"
+                    className="after:absolute after:inset-0 after:rounded-[var(--radius-card)] focus:outline-none"
+                  >
+                    {t("landing.features.suggest.title")}
+                  </Link>
                 </h3>
                 <InfoTooltip
                   label={t("landing.features.suggest.description")}
+                  className="z-10"
                 />
               </div>
               <Badge variant="success" className="shrink-0 text-[10px]">
@@ -93,7 +107,7 @@ export function HomePage() {
           </div>
         </Card>
 
-        <Card>
+        <Card className="relative transition-colors hover:border-primary focus-within:ring-2 focus-within:ring-primary">
           <div className="flex flex-col items-center text-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50">
               <MessageCircle className="h-6 w-6 text-green-600" />
@@ -101,9 +115,17 @@ export function HomePage() {
             <div className="flex min-w-0 flex-col items-center justify-center gap-2">
               <div className="flex min-w-0 items-center justify-center gap-2">
                 <h3 className="min-w-0 font-semibold text-text-primary">
-                  {t("landing.features.ask.title")}
+                  <Link
+                    to="/documents"
+                    className="after:absolute after:inset-0 after:rounded-[var(--radius-card)] focus:outline-none"
+                  >
+                    {t("landing.features.ask.title")}
+                  </Link>
                 </h3>
-                <InfoTooltip label={t("landing.features.ask.description")} />
+                <InfoTooltip
+                  label={t("landing.features.ask.description")}
+                  className="z-10"
+                />
               </div>
               <Badge variant="success" className="shrink-0 text-[10px]">
                 {t("landing.allUsers")}
@@ -115,7 +137,7 @@ export function HomePage() {
           </div>
         </Card>
 
-        <Card>
+        <Card className="relative transition-colors hover:border-primary focus-within:ring-2 focus-within:ring-primary">
           <div className="flex flex-col items-center text-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-50">
               <Database className="h-6 w-6 text-primary" />
@@ -123,9 +145,17 @@ export function HomePage() {
             <div className="flex min-w-0 flex-col items-center justify-center gap-2">
               <div className="flex min-w-0 items-center justify-center gap-2">
                 <h3 className="min-w-0 font-semibold text-text-primary">
-                  {t("landing.features.ingest.title")}
+                  <Link
+                    to="/documents"
+                    className="after:absolute after:inset-0 after:rounded-[var(--radius-card)] focus:outline-none"
+                  >
+                    {t("landing.features.ingest.title")}
+                  </Link>
                 </h3>
-                <InfoTooltip label={t("landing.features.ingest.description")} />
+                <InfoTooltip
+                  label={t("landing.features.ingest.description")}
+                  className="z-10"
+                />
               </div>
               <Badge variant="warning" className="shrink-0 text-[10px]">
                 {t("admin.section")}

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
+import { useChatAvailability } from "@/hooks/use-chat-availability";
 import { ChatPage } from "@/features/home/ChatPage";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -13,12 +14,15 @@ const appStoreUrl =
   "https://apps.apple.com/br/app/agroecology-map-ai/id6779950543";
 const playStoreBadgeUrl = "/google-play-badge.png";
 const appStoreBadgeUrl = "/app-store-badge.svg";
+const koFiUrl = "https://ko-fi.com/agroecologymap";
 
 export function HomePage() {
   const { t } = useTranslation();
   const { isAuthenticated, hasRestoredSession } = useAuth();
+  const { chatEnabled, isLoading: isChatAvailabilityLoading } =
+    useChatAvailability();
 
-  if (!hasRestoredSession) {
+  if (!hasRestoredSession || isChatAvailabilityLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
@@ -26,7 +30,7 @@ export function HomePage() {
     );
   }
 
-  if (isAuthenticated) {
+  if (isAuthenticated && chatEnabled) {
     return <ChatPage />;
   }
 
@@ -45,33 +49,59 @@ export function HomePage() {
           </span>
         </div>
         <p className="text-lg text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 mb-6 max-w-xl">
-          {t("app.betaDescription")}
+          {chatEnabled
+            ? t("app.betaDescription")
+            : t("chatUnavailable.bannerDescription")}
         </p>
         <p className="text-xl text-text-secondary max-w-2xl mb-4">
-          {t("landing.heroDescription")}
+          {chatEnabled
+            ? t("landing.heroDescription")
+            : t("chatUnavailable.description")}
         </p>
         <p className="text-sm text-text-secondary/70 mb-8">
-          {t("landing.accessNotice")}
+          {chatEnabled
+            ? t("landing.accessNotice")
+            : t("chatUnavailable.documentsDescription")}
         </p>
         <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
-          <Link
-            to="/register"
-            className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto"
-          >
-            {t("landing.getStarted")}
-          </Link>
+          {chatEnabled ? (
+            <Link
+              to="/register"
+              className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto"
+            >
+              {t("landing.getStarted")}
+            </Link>
+          ) : (
+            <Link
+              to="/documents"
+              className="w-full rounded-xl bg-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-white transition-colors hover:bg-primary-dark sm:w-auto"
+            >
+              {t("chatUnavailable.documentsCta")}
+            </Link>
+          )}
           <Link
             to="/about"
             className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
           >
             {t("nav.about")}
           </Link>
-          <Link
-            to="/chat"
-            className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
-          >
-            {t("landing.startConversation")}
-          </Link>
+          {chatEnabled ? (
+            <Link
+              to="/chat"
+              className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
+            >
+              {t("landing.startConversation")}
+            </Link>
+          ) : (
+            <a
+              href={koFiUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="w-full rounded-xl border-2 border-primary px-8 py-3 text-center text-lg font-semibold leading-tight text-primary transition-colors hover:bg-primary-50 sm:w-auto"
+            >
+              {t("chatUnavailable.supportCta")}
+            </a>
+          )}
         </div>
       </div>
 
@@ -86,7 +116,7 @@ export function HomePage() {
               <div className="flex min-w-0 items-center justify-center gap-2">
                 <h3 className="min-w-0 font-semibold text-text-primary">
                   <Link
-                    to="/documents"
+                    to={chatEnabled ? "/documents" : "/chat"}
                     className="after:absolute after:inset-0 after:rounded-[var(--radius-card)] focus:outline-none"
                   >
                     {t("landing.features.suggest.title")}
@@ -119,11 +149,17 @@ export function HomePage() {
                     to="/documents"
                     className="after:absolute after:inset-0 after:rounded-[var(--radius-card)] focus:outline-none"
                   >
-                    {t("landing.features.ask.title")}
+                    {chatEnabled
+                      ? t("landing.features.ask.title")
+                      : t("chatUnavailable.cardTitle")}
                   </Link>
                 </h3>
                 <InfoTooltip
-                  label={t("landing.features.ask.description")}
+                  label={
+                    chatEnabled
+                      ? t("landing.features.ask.description")
+                      : t("chatUnavailable.cardDescription")
+                  }
                   className="z-10"
                 />
               </div>
@@ -132,7 +168,9 @@ export function HomePage() {
               </Badge>
             </div>
             <p className="text-sm text-text-secondary">
-              {t("landing.features.ask.description")}
+              {chatEnabled
+                ? t("landing.features.ask.description")
+                : t("chatUnavailable.cardDescription")}
             </p>
           </div>
         </Card>

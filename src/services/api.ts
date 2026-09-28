@@ -30,6 +30,7 @@ import type {
   OrcidCompleteEmailRequest,
   OrcidCompletionResponse,
   OrcidExchangeRequest,
+  PublicConfig,
   RegisterRequest,
   ConfirmEmailRequest,
   ResetPasswordRequest,
@@ -180,6 +181,8 @@ function buildQueryString(params?: PaginationParams): string {
 }
 
 export const api = {
+  getPublicConfig: () => request<PublicConfig>("/api/v1/public-config"),
+
   ask: (data: AskRequest) =>
     request<AskResponse>("/api/v1/ask", {
       method: "POST",

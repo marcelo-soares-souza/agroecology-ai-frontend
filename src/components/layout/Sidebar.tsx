@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/hooks/use-auth";
+import { useChatAvailability } from "@/hooks/use-chat-availability";
 
 interface SidebarProps {
   open: boolean;
@@ -40,6 +41,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated, isAdmin, hasRestoredSession, logout } = useAuth();
+  const { chatEnabled, isLoading: isChatAvailabilityLoading } =
+    useChatAvailability();
+  const chatIsUnavailable = !isChatAvailabilityLoading && !chatEnabled;
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
@@ -102,7 +106,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <>
               <button
                 onClick={() => {
-                  navigate("/login", { state: { from: "/" } });
+                  if (!chatIsUnavailable) {
+                    navigate("/login", { state: { from: "/" } });
+                  } else {
+                    navigate("/chat");
+                  }
                   onClose();
                 }}
                 className={cn(
@@ -111,7 +119,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 )}
               >
                 <MessageCircle className="h-4 w-4" />
-                {t("nav.home")}
+                <span>{t("nav.home")}</span>
+                {chatIsUnavailable && (
+                  <span className="ml-auto text-xs text-amber-700">
+                    {t("chatUnavailable.navLabel")}
+                  </span>
+                )}
               </button>
 
               <NavLink to="/documents" className={linkClass} onClick={onClose}>
@@ -135,9 +148,19 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             </>
           ) : isAuthenticated ? (
             <>
-              <NavLink to="/" end className={linkClass} onClick={onClose}>
+              <NavLink
+                to={chatIsUnavailable ? "/chat" : "/"}
+                end={!chatIsUnavailable}
+                className={linkClass}
+                onClick={onClose}
+              >
                 <MessageCircle className="h-4 w-4" />
-                {t("nav.home")}
+                <span>{t("nav.home")}</span>
+                {chatIsUnavailable && (
+                  <span className="ml-auto text-xs text-amber-700">
+                    {t("chatUnavailable.navLabel")}
+                  </span>
+                )}
               </NavLink>
 
               <NavLink to="/documents" className={linkClass} onClick={onClose}>

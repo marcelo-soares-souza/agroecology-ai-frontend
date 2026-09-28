@@ -2,7 +2,7 @@ import { type ComponentType, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import { AppShell } from "./components/layout/AppShell";
 import { AuthGuard } from "./components/AuthGuard";
-import { ChatPage } from "./features/home/ChatPage";
+import { ChatRoute } from "./features/home/ChatRoute";
 import { HomePage } from "./features/home/HomePage";
 
 function lazyPage<T extends Record<string, ComponentType<object>>>(
@@ -190,11 +190,7 @@ export const router = createBrowserRouter(
         },
         {
           path: "/chat",
-          element: (
-            <AuthGuard>
-              <ChatPage />
-            </AuthGuard>
-          ),
+          element: <ChatRoute />,
           handle: {
             titleKey: "home.title",
             descriptionKey: "home.subtitle",

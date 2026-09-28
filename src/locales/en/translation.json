@@ -224,6 +224,17 @@
     "reindexingProgressPreparing": "We are preparing the progress count.",
     "reindexingPercent": "{{progressPercent}}% complete"
   },
+  "chatUnavailable": {
+    "title": "AI chat temporarily unavailable",
+    "bannerDescription": "The AI chat is temporarily unavailable because we do not currently have the resources required to maintain its infrastructure.",
+    "description": "We are seeking support to resume the service sustainably. As soon as we can support the infrastructure, the chat will be available again.",
+    "documentsDescription": "Meanwhile, the Knowledge Base remains available for browsing, reading, and downloading.",
+    "documentsCta": "Explore the Knowledge Base",
+    "supportCta": "Support on Ko-fi",
+    "navLabel": "Unavailable",
+    "cardTitle": "AI chat unavailable",
+    "cardDescription": "The chat will return as soon as we can sustain the required infrastructure."
+  },
   "landing": {
     "title": "Agroecology Map AI",
     "metaDescription": "Free software AI for exploring agroecological knowledge. Ask natural-language questions and get answers grounded in verifiable documents.",

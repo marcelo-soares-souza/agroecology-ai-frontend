@@ -224,6 +224,17 @@
     "reindexingProgressPreparing": "Nous préparons le calcul de la progression.",
     "reindexingPercent": "{{progressPercent}} % terminé"
   },
+  "chatUnavailable": {
+    "title": "Chat IA temporairement indisponible",
+    "bannerDescription": "Le chat IA est temporairement indisponible, car nous ne disposons pas actuellement des ressources nécessaires pour maintenir son infrastructure.",
+    "description": "Nous recherchons du soutien pour reprendre le service de manière durable. Dès que nous pourrons soutenir l'infrastructure, le chat sera de nouveau disponible.",
+    "documentsDescription": "En attendant, la Base de connaissances reste disponible pour la consultation, la lecture et le téléchargement.",
+    "documentsCta": "Explorer la Base de connaissances",
+    "supportCta": "Soutenir sur Ko-fi",
+    "navLabel": "Indisponible",
+    "cardTitle": "Chat IA indisponible",
+    "cardDescription": "Le chat reviendra dès que nous pourrons maintenir l'infrastructure nécessaire."
+  },
   "landing": {
     "title": "Agroecology Map AI",
     "metaDescription": "IA libre pour consulter les connaissances agroécologiques. Posez des questions en langage naturel et obtenez des réponses fondées sur des documents vérifiables.",

@@ -6,6 +6,10 @@ export interface AskRequest {
   locale?: string;
 }
 
+export interface PublicConfig {
+  chat_enabled: boolean;
+}
+
 export interface AskResponse {
   task_id: string;
   status: string;

@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import {
   Info,
   Heart,
+  HeartHandshake,
   Users,
   User,
   Cpu,
@@ -201,6 +202,32 @@ export function AboutPage() {
               </div>
             </div>
           </div>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <HeartHandshake className="h-6 w-6 shrink-0 text-primary" />
+          <div className="min-w-0 flex-1">
+            <h2 className="font-semibold text-text-primary">
+              {t("about.supportersTitle")}
+            </h2>
+            <p className="mt-1 text-sm leading-relaxed text-text-secondary">
+              {t("about.supportersDescription")}
+            </p>
+          </div>
+          <a
+            href="https://manaiba.tech"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex shrink-0 self-start rounded-md px-1 py-1 transition-opacity hover:opacity-75 sm:self-center"
+          >
+            <img
+              src="/manaiba-tech-logo.png"
+              alt={t("about.manaibaLogoAlt")}
+              className="h-14 w-auto max-w-32 object-contain"
+            />
+          </a>
         </div>
       </Card>
 
